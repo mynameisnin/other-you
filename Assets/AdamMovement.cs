@@ -43,14 +43,7 @@ public class AdamMovement : MonoBehaviour
             AdamAnime.SetBool ("run", false);
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            AdamAnime.SetBool("attack", true);
-        }
-        else
-        {
-            AdamAnime.SetBool("attack", false);
-        }
+
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             AdamAnime.SetBool("hurt", true);
