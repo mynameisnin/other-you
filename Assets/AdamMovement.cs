@@ -23,6 +23,7 @@ public class AdamMovement : MonoBehaviour
     {
         AdamMove();
         AdamAnimation();
+        AdamSpriteRender();
     }
 
     void AdamMove()
@@ -40,6 +41,30 @@ public class AdamMovement : MonoBehaviour
         else
         {
             AdamAnime.SetBool ("run", false);
+        }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            AdamAnime.SetBool("attack", true);
+        }
+        else
+        {
+            AdamAnime.SetBool("attack", false);
+        }
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            AdamAnime.SetBool("hurt", true);
+        }
+        else
+        {
+            AdamAnime.SetBool("hurt", false);
+        }
+    }
+    void AdamSpriteRender()
+    {
+        if(Input.GetButton("Horizontal"))
+        {
+            AdamSpeite.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
     }
 }
