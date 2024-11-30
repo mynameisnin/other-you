@@ -73,7 +73,7 @@ public class AdamMovement : MonoBehaviour
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
 
         // Attack1, Attack2, Attack3 상태일 때 이동을 멈춤
-        if (currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("Attack3"))
+        if (currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("Attack3") || currentState.IsName("Stance1") || currentState.IsName("Stance2") || currentState.IsName("Stance3"))
         {
             AdamRigidebody.velocity = Vector2.zero;
             return; // 이동 로직 종료
