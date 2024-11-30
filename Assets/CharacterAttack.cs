@@ -68,6 +68,7 @@ public class CharacterAttack : MonoBehaviour
         if (isAttacking)
         {
             comboTimer -= Time.deltaTime;
+            Debug.Log($"Combo Timer: {comboTimer}, Current Combo Step: {currentComboStep}");
 
             // 콤보 타이머가 종료되면 초기화
             if (comboTimer <= 0)
@@ -88,12 +89,5 @@ public class CharacterAttack : MonoBehaviour
     }
 
     // 애니메이션 이벤트: 공격 종료 시 호출
-    public void EndAttack()
-    {
-        // 콤보의 마지막 단계에서만 공격 종료
-        if (currentComboStep == 3)
-        {
-            ResetCombo();
-        }
-    }
+
 }
