@@ -1,0 +1,612 @@
+fileFormatVersion: 2
+guid: 4e2b8fe535f3efe4f981a1a91475d5d6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: attack re2_Frame_0
+    originalName: 
+    pivot: {x: 0.35555562, y: -1.1724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 357
+      width: 45
+      height: 58
+    spriteID: 1c4d57ef4cda19b4cb2b6d4daf3d4bc5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 357}
+  - name: attack re2_Frame_1
+    originalName: 
+    pivot: {x: 0.2962963, y: -0.97142863}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 95
+      y: 4
+      width: 108
+      height: 70
+    spriteID: 0752a628086c65949936ee72295d37f1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 95, y: 4}
+  - name: attack re2_Frame_2
+    originalName: 
+    pivot: {x: 0.29000002, y: -0.9577465}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 95
+      y: 82
+      width: 100
+      height: 71
+    spriteID: 580ec09f660ed1d4789f42353980db0a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 95, y: 82}
+  - name: attack re2_Frame_3
+    originalName: 
+    pivot: {x: 0.2755102, y: -0.9577465}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 95
+      y: 161
+      width: 98
+      height: 71
+    spriteID: 4d137a9a8176f7a4999fa7f38c0061d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 95, y: 161}
+  - name: attack re2_Frame_4
+    originalName: 
+    pivot: {x: 0.25641024, y: -0.6195652}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 211
+      width: 78
+      height: 92
+    spriteID: 0a89cb688c0b42147b1ab425b0a75a68
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 211}
+  - name: attack re2_Frame_5
+    originalName: 
+    pivot: {x: 0.24096385, y: -0.5263158}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 83
+      height: 95
+    spriteID: 57d584265610f6444949c4a998d4265c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: attack re2_Frame_6
+    originalName: 
+    pivot: {x: 0.24096385, y: -0.6315789}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 398
+      width: 83
+      height: 76
+    spriteID: e5b04f4f27fb3774392cd79642932df2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 398}
+  - name: attack re2_Frame_7
+    originalName: 
+    pivot: {x: 0.6153846, y: -0.9857143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 279
+      width: 52
+      height: 70
+    spriteID: 5766c95329396ee408942b695743a360
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 279}
+  - name: attack re2_Frame_8
+    originalName: 
+    pivot: {x: 0.60377353, y: -0.98550725}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 202
+      width: 53
+      height: 69
+    spriteID: 1c3b5ae5e702f7c4d8c980874cff715c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 202}
+  - name: attack re2_Frame_9
+    originalName: 
+    pivot: {x: 0.24999999, y: -0.625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 107
+      width: 80
+      height: 96
+    spriteID: 37e4d9cad6ed78f4f8fef12f99e4504b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 107}
+  - name: attack re2_Frame_10
+    originalName: 
+    pivot: {x: 0.24999999, y: -0.68354434}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 311
+      width: 80
+      height: 79
+    spriteID: 9668e4b55aaf7374aaf15b5d83fb1936
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 311}
+  - name: attack re2_Frame_11
+    originalName: 
+    pivot: {x: 0.26315787, y: -0.66249996}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 95
+      y: 307
+      width: 76
+      height: 80
+    spriteID: 4c84a24bff07ad241a1d9afe48cf92ab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 95, y: 307}
+  - name: attack re2_Frame_12
+    originalName: 
+    pivot: {x: 0.24999999, y: -1.2142857}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 138
+      width: 80
+      height: 56
+    spriteID: 71153ac1e84a08f4a94c7364dcc3ec1e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 138}
+  - name: attack re2_Frame_13
+    originalName: 
+    pivot: {x: 0.14563105, y: -1.1525425}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 95
+      y: 395
+      width: 103
+      height: 59
+    spriteID: f86bec22f2510ae44a78fdd719dd2b3e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 95, y: 395}
+  - name: attack re2_Frame_14
+    originalName: 
+    pivot: {x: 0.14150941, y: -1.1525425}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 95
+      y: 240
+      width: 106
+      height: 59
+    spriteID: d18ac8a63620b0c4e8c8d091c669f45c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 95, y: 240}
+  - name: attack re2_Frame_15
+    originalName: 
+    pivot: {x: 0.14999998, y: -1.1525425}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 4
+      width: 100
+      height: 59
+    spriteID: 61b6b4031f02daf41a05b621abbf018e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 4}
+  - name: attack re2_Frame_16
+    originalName: 
+    pivot: {x: 0.14999998, y: -1.1525425}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 71
+      width: 100
+      height: 59
+    spriteID: b5d2c068554bdb84cb6130e60d497f58
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 71}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1026837255
+    name: attack re2
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: attack re2_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 84
+        y: 68
+        width: 45
+        height: 58
+      spriteId: 1c4d57ef4cda19b4cb2b6d4daf3d4bc5
+    - name: attack re2_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 68
+        y: 68
+        width: 108
+        height: 70
+      spriteId: 0752a628086c65949936ee72295d37f1
+    - name: attack re2_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 71
+        y: 68
+        width: 100
+        height: 71
+      spriteId: 580ec09f660ed1d4789f42353980db0a
+    - name: attack re2_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 73
+        y: 68
+        width: 98
+        height: 71
+      spriteId: 4d137a9a8176f7a4999fa7f38c0061d9
+    - name: attack re2_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 80
+        y: 57
+        width: 78
+        height: 92
+      spriteId: 0a89cb688c0b42147b1ab425b0a75a68
+    - name: attack re2_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 80
+        y: 50
+        width: 83
+        height: 95
+      spriteId: 57d584265610f6444949c4a998d4265c
+    - name: attack re2_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 80
+        y: 48
+        width: 83
+        height: 76
+      spriteId: e5b04f4f27fb3774392cd79642932df2
+    - name: attack re2_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 68
+        y: 69
+        width: 52
+        height: 70
+      spriteId: 5766c95329396ee408942b695743a360
+    - name: attack re2_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 68
+        y: 68
+        width: 53
+        height: 69
+      spriteId: 1c3b5ae5e702f7c4d8c980874cff715c
+    - name: attack re2_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 80
+        y: 60
+        width: 80
+        height: 96
+      spriteId: 37e4d9cad6ed78f4f8fef12f99e4504b
+    - name: attack re2_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 80
+        y: 54
+        width: 80
+        height: 79
+      spriteId: 9668e4b55aaf7374aaf15b5d83fb1936
+    - name: attack re2_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 80
+        y: 53
+        width: 76
+        height: 80
+      spriteId: 4c84a24bff07ad241a1d9afe48cf92ab
+    - name: attack re2_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 80
+        y: 68
+        width: 80
+        height: 56
+      spriteId: 71153ac1e84a08f4a94c7364dcc3ec1e
+    - name: attack re2_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 85
+        y: 68
+        width: 103
+        height: 59
+      spriteId: f86bec22f2510ae44a78fdd719dd2b3e
+    - name: attack re2_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 85
+        y: 68
+        width: 106
+        height: 59
+      spriteId: d18ac8a63620b0c4e8c8d091c669f45c
+    - name: attack re2_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 85
+        y: 68
+        width: 100
+        height: 59
+      spriteId: 61b6b4031f02daf41a05b621abbf018e
+    - name: attack re2_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 85
+        y: 68
+        width: 100
+        height: 59
+      spriteId: b5d2c068554bdb84cb6130e60d497f58
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 200, y: 200}

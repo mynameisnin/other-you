@@ -7,8 +7,11 @@ public class CharacterAttack : MonoBehaviour
     private Animator animator;
     private int currentComboStep = 0; // 현재 콤보 단계
     private float comboTimer = 0f; // 콤보 타이머
-    private float comboMaxTime = 0.02f; // 콤보 입력 가능 시간
+    private float comboMaxTime = 0.2f; // 콤보 입력 가능 시간
     private bool isAttacking = false; // 현재 공격 중인지 여부
+
+    // 공격 상태를 다른 스크립트에서 읽기 위한 프로퍼티
+    public bool IsAttacking => isAttacking;
 
     void Start()
     {
@@ -24,7 +27,7 @@ public class CharacterAttack : MonoBehaviour
     private void HandleComboInput()
     {
         // 공격 버튼 입력 감지
-        if (Input.GetKey(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             if (isAttacking)
             {
@@ -68,7 +71,6 @@ public class CharacterAttack : MonoBehaviour
         if (isAttacking)
         {
             comboTimer -= Time.deltaTime;
-            Debug.Log($"Combo Timer: {comboTimer}, Current Combo Step: {currentComboStep}");
 
             // 콤보 타이머가 종료되면 초기화
             if (comboTimer <= 0)
@@ -89,5 +91,8 @@ public class CharacterAttack : MonoBehaviour
     }
 
     // 애니메이션 이벤트: 공격 종료 시 호출
-
+    public void EndAttack()
+    {
+        isAttacking = false; // 공격 종료
+    }
 }
