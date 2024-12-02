@@ -8,6 +8,7 @@ public class AdamMovement : MonoBehaviour
     Animator AdamAnime;
     SpriteRenderer AdamSprite;
 
+    public float JumpPoewr = 3f;
     public float AdamMoveSpeed = 3f;
     private CharacterAttack characterAttack; // 공격 스크립트 참조
 
@@ -51,6 +52,12 @@ public class AdamMovement : MonoBehaviour
         // 이동 처리
         float hor = Input.GetAxis("Horizontal");
         AdamRigidebody.velocity = new Vector2(hor * AdamMoveSpeed, AdamRigidebody.velocity.y);
+
+        //점프처리
+        if(Input.GetKey(KeyCode.Space))
+        {
+            AdamRigidebody.velocity = Vector2.up * JumpPoewr;
+        }
     }
 
     void AdamAnimation()
@@ -63,6 +70,15 @@ public class AdamMovement : MonoBehaviour
         else
         {
             AdamAnime.SetBool("run", false);
+        }
+
+        if (AdamRigidebody.velocity.y > 0.1f)
+        {
+            AdamAnime.SetBool("jump", true);
+        }
+        else
+        {
+            AdamAnime.SetBool("jump", false);
         }
     }
 
