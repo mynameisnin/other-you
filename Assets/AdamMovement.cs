@@ -89,4 +89,12 @@ public class AdamMovement : MonoBehaviour
             AdamSprite.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D TestEnemy)
+    {
+        if(TestEnemy.CompareTag("TestEnemy"))
+        {
+            Debug.Log("공격감지");
+        }
+    }
 }
