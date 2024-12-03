@@ -21,7 +21,7 @@ public class SlashColliderManual : MonoBehaviour
     {
         if (attackCollider == null || characterSprite == null)
         {
-            Debug.LogError("SlashColliderManual: 필요한 컴포넌트가 연결되지 않았습니다!");
+            Debug.LogError("컴포넌트 연결필요");
         }
     }
 
@@ -51,18 +51,5 @@ public class SlashColliderManual : MonoBehaviour
         }
     }
 
-    // 씬 뷰에서 콜라이더를 시각적으로 표시
-    void OnDrawGizmos()
-    {
-        if (attackCollider == null) return;
 
-        // Gizmos 색상 설정
-        Gizmos.color = Color.red;
-
-        // 현재 콜라이더의 크기와 위치를 시각적으로 표시
-        Vector3 position = attackCollider.transform.position + (Vector3)attackCollider.offset;
-        Vector3 size = new Vector3(attackCollider.size.x, attackCollider.size.y, 0);
-        Gizmos.matrix = Matrix4x4.TRS(position, attackCollider.transform.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, size); // 콜라이더의 크기와 위치 표시
-    }
 }

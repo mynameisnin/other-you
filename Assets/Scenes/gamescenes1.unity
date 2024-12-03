@@ -410,7 +410,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598349480}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -462,13 +462,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackCollider: {fileID: 598349483}
   characterSprite: {fileID: 653047122}
-  rightOffset: {x: 0.5, y: 0}
-  rightSize: {x: 1.2, y: 0.4}
+  rightOffset: {x: 0.015, y: 0.22}
+  rightSize: {x: 0.7, y: 0.496247}
   rightRotation: -30
   rightPosition: {x: 0.101, y: 1.018, z: 0}
-  leftOffset: {x: -0.5, y: 0}
-  leftSize: {x: 1.2, y: 0.4}
-  leftRotation: -15
+  leftOffset: {x: 0.24, y: 1.16}
+  leftSize: {x: 0.7, y: 0.496247}
+  leftRotation: 30
   leftPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &653047117
 GameObject:
@@ -557,7 +557,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.49999997, y: -1.0967742}
     oldSize: {x: 0.4, y: 0.62}
-    newSize: {x: 0.4, y: 0.62}
+    newSize: {x: 1.08, y: 0.59}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -643,10 +643,10 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -8889151409022345786, guid: ba9fd6e3916add94784ddb7e6296413d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.4, y: 0.62}
+  m_Size: {x: 1.08, y: 0.59}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
