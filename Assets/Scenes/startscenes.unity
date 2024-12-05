@@ -2935,7 +2935,7 @@ GameObject:
   - component: {fileID: 1022171248}
   - component: {fileID: 1022171249}
   m_Layer: 0
-  m_Name: KakaoTalk_20241205_160555953
+  m_Name: img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2950,11 +2950,11 @@ Transform:
   m_GameObject: {fileID: 1022171247}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 369, y: 312, z: -9720}
+  m_LocalPosition: {x: 369, y: 312.00003, z: -115.000305}
   m_LocalScale: {x: 45.6084, y: 48.6, z: 108}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1142168208}
+  m_Father: {fileID: 1504981000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1022171249
 SpriteRenderer:
@@ -3310,7 +3310,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1022171248}
   - {fileID: 1744086896}
   - {fileID: 1504981000}
   - {fileID: 1854197501}
@@ -4112,6 +4111,7 @@ RectTransform:
   - {fileID: 1456406404}
   - {fileID: 1516510730}
   - {fileID: 2143819929}
+  - {fileID: 1022171248}
   m_Father: {fileID: 1142168208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
