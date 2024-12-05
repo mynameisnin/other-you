@@ -1,77 +1,55 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveOption : MonoBehaviour
 {
-    public RectTransform[] panels; // 모든 패널을 배열로 관리
-    public float slideDuration = 0.5f; // 슬라이드 지속 시간
-    private int currentPanelIndex = 0; // 현재 활성화된 패널 인덱스
+    public RectTransform mainPanel;   // 메인 패널
+    public RectTransform optionPanel; // 옵션 패널
+    public float slideDuration = 0.5f; // 슬라이드 애니메이션 지속 시간
 
-    public void SlideToNextPanel()
+    private void Start()
     {
-        int nextPanelIndex = (currentPanelIndex + 1) % panels.Length; // 다음 패널 인덱스
-        SlidePanels(currentPanelIndex, nextPanelIndex, true); // 오른쪽에서 등장
+        // 초기 위치 설정
+        mainPanel.localPosition = Vector3.zero; // 화면 중앙
+        optionPanel.localPosition = new Vector3(-Screen.width, 0, 0); // 화면 왼쪽
     }
 
-    public void SlideToPreviousPanel()
+    public void ShowOptionPanel()
     {
-        int prevPanelIndex = (currentPanelIndex - 1 + panels.Length) % panels.Length; // 이전 패널 인덱스
-        SlidePanels(currentPanelIndex, prevPanelIndex, false); // 왼쪽에서 등장
+        StartCoroutine(SlidePanels(mainPanel, optionPanel, false)); // 왼쪽에서 오른쪽으로 슬라이드
     }
 
-    private void SlidePanels(int current, int target, bool toRight)
+    public void ShowMainPanel()
+    {
+        StartCoroutine(SlidePanels(optionPanel, mainPanel, true)); // 오른쪽에서 왼쪽으로 슬라이드
+    }
+
+    private IEnumerator SlidePanels(RectTransform currentPanel, RectTransform targetPanel, bool toRight)
     {
         // 슬라이드 방향 설정
-        Vector3 offScreenExit = toRight ? new Vector3(-Screen.width, 0, 0) : new Vector3(Screen.width, 0, 0);
-        Vector3 offScreenEnter = toRight ? new Vector3(Screen.width, 0, 0) : new Vector3(-Screen.width, 0, 0);
+        Vector3 currentEndPos = toRight ? new Vector3(Screen.width, 0, 0) : new Vector3(-Screen.width, 0, 0); // 현재 패널이 나갈 방향
+        Vector3 targetStartPos = toRight ? new Vector3(-Screen.width, 0, 0) : new Vector3(Screen.width, 0, 0); // 타겟 패널 시작 위치
+        Vector3 targetEndPos = Vector3.zero; // 타겟 패널은 중앙으로 이동
 
-        RectTransform currentPanel = panels[current]; // 현재 패널
-        RectTransform targetPanel = panels[target];   // 목표 패널
+        // 타겟 패널 초기 위치 설정
+        targetPanel.localPosition = targetStartPos;
+        targetPanel.gameObject.SetActive(true);
 
-        // 새로운 패널의 시작 위치 설정
-        targetPanel.localPosition = offScreenEnter;
-        targetPanel.gameObject.SetActive(true); // 타겟 패널 활성화
-
-        // 애니메이션 실행
-        StartCoroutine(SlidePanel(currentPanel, currentPanel.localPosition, offScreenExit, false));
-        StartCoroutine(SlidePanel(targetPanel, offScreenEnter, Vector3.zero, true));
-
-        // 현재 패널 인덱스 업데이트
-        currentPanelIndex = target;
-    }
-
-    private IEnumerator SlidePanel(RectTransform panel, Vector3 start, Vector3 end, bool activateAtEnd)
-    {
-        float elapsedTime = 0;
+        float elapsedTime = 0f;
 
         while (elapsedTime < slideDuration)
         {
-            // 부드러운 전환을 위해 SmoothStep 사용
-            float t = Mathf.SmoothStep(0, 1, elapsedTime / slideDuration);
-            panel.localPosition = Vector3.Lerp(start, end, t);
+            float t = elapsedTime / slideDuration;
+            currentPanel.localPosition = Vector3.Lerp(Vector3.zero, currentEndPos, t); // 현재 패널 슬라이드 아웃
+            targetPanel.localPosition = Vector3.Lerp(targetStartPos, targetEndPos, t); // 타겟 패널 슬라이드 인
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        panel.localPosition = end; // 애니메이션 종료 후 위치 고정
+        // 애니메이션 종료 후 위치 고정
+        currentPanel.localPosition = currentEndPos;
+        targetPanel.localPosition = targetEndPos;
 
-        if (!activateAtEnd)
-        {
-            panel.gameObject.SetActive(false); // 종료된 패널 비활성화
-        }
-    }
-
-    // 디버깅을 위한 테스트용 메서드
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            SlideToNextPanel();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SlideToPreviousPanel();
-        }
+        currentPanel.gameObject.SetActive(false); // 현재 패널 비활성화
     }
 }

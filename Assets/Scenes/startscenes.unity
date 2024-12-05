@@ -769,7 +769,7 @@ GameObject:
   - component: {fileID: 355575100}
   - component: {fileID: 355575099}
   - component: {fileID: 355575098}
-  - component: {fileID: 355575097}
+  - component: {fileID: 355575102}
   m_Layer: 5
   m_Name: Audio btn
   m_TagString: Untagged
@@ -798,22 +798,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000022888184, y: -59}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &355575097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 355575095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1854197501}
-  - {fileID: 1885642282}
-  slideDuration: 0.5
 --- !u!114 &355575098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,9 +887,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355575097}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToNextPanel
+      - m_Target: {fileID: 355575102}
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowOptionPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -953,6 +937,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355575095}
   m_CullTransparentMesh: 1
+--- !u!114 &355575102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355575095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPanel: {fileID: 1854197501}
+  optionPanel: {fileID: 1885642282}
+  slideDuration: 0.5
 --- !u!1 &526742947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &533559345
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1182,7 +1181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7613, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &533559346
@@ -1445,7 +1444,7 @@ GameObject:
   - component: {fileID: 579394804}
   - component: {fileID: 579394803}
   - component: {fileID: 579394802}
-  - component: {fileID: 579394801}
+  - component: {fileID: 579394806}
   m_Layer: 5
   m_Name: back btn
   m_TagString: Untagged
@@ -1474,22 +1473,6 @@ RectTransform:
   m_AnchoredPosition: {x: -12.999512, y: -398}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &579394801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579394799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 2061584432}
-  - {fileID: 1854197501}
-  slideDuration: 0.5
 --- !u!114 &579394802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,9 +1562,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 579394801}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToPreviousPanel
+      - m_Target: {fileID: 579394806}
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowMainPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1629,6 +1612,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579394799}
   m_CullTransparentMesh: 1
+--- !u!114 &579394806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579394799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPanel: {fileID: 1854197501}
+  optionPanel: {fileID: 2061584432}
+  slideDuration: 0.5
 --- !u!1 &616884381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,7 +1778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &644050210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1798,7 +1796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 12254, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &644050211
@@ -2413,7 +2411,7 @@ GameObject:
   - component: {fileID: 925610660}
   - component: {fileID: 925610659}
   - component: {fileID: 925610658}
-  - component: {fileID: 925610657}
+  - component: {fileID: 925610662}
   m_Layer: 5
   m_Name: back btn
   m_TagString: Untagged
@@ -2442,22 +2440,6 @@ RectTransform:
   m_AnchoredPosition: {x: -12.999512, y: -402}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &925610657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 925610655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 644050210}
-  - {fileID: 1504981000}
-  slideDuration: 0.5
 --- !u!114 &925610658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2547,9 +2529,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 925610657}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToPreviousPanel
+      - m_Target: {fileID: 925610662}
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowMainPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2597,6 +2579,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925610655}
   m_CullTransparentMesh: 1
+--- !u!114 &925610662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925610655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPanel: {fileID: 1504981000}
+  optionPanel: {fileID: 644050210}
+  slideDuration: 0.5
 --- !u!1 &940896957
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,7 +2741,7 @@ GameObject:
   - component: {fileID: 997494318}
   - component: {fileID: 997494317}
   - component: {fileID: 997494316}
-  - component: {fileID: 997494315}
+  - component: {fileID: 997494320}
   m_Layer: 5
   m_Name: back btn
   m_TagString: Untagged
@@ -2773,22 +2770,6 @@ RectTransform:
   m_AnchoredPosition: {x: 16.000946, y: -424}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &997494315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 997494313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 533559345}
-  - {fileID: 1854197501}
-  slideDuration: 0.5
 --- !u!114 &997494316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2878,9 +2859,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 997494315}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToPreviousPanel
+      - m_Target: {fileID: 997494320}
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowMainPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2928,6 +2909,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997494313}
   m_CullTransparentMesh: 1
+--- !u!114 &997494320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997494313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPanel: {fileID: 1854197501}
+  optionPanel: {fileID: 533559345}
+  slideDuration: 0.5
 --- !u!1 &1022171247
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,7 +3096,7 @@ GameObject:
   - component: {fileID: 1059166268}
   - component: {fileID: 1059166267}
   - component: {fileID: 1059166266}
-  - component: {fileID: 1059166265}
+  - component: {fileID: 1059166270}
   m_Layer: 5
   m_Name: back btn
   m_TagString: Untagged
@@ -3129,22 +3125,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -424}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1059166265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059166263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1854197501}
-  - {fileID: 1504981000}
-  slideDuration: 0.5
 --- !u!114 &1059166266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3234,9 +3214,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1059166265}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToPreviousPanel
+      - m_Target: {fileID: 1059166270}
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowMainPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3284,6 +3264,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059166263}
   m_CullTransparentMesh: 1
+--- !u!114 &1059166270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059166263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPanel: {fileID: 1504981000}
+  optionPanel: {fileID: 1854197501}
+  slideDuration: 0.5
 --- !u!1 &1142168207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3884,8 +3879,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1456406409}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToNextPanel
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowOptionPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3945,9 +3940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1504981000}
-  - {fileID: 1854197501}
+  mainPanel: {fileID: 1504981000}
+  optionPanel: {fileID: 1854197501}
   slideDuration: 0.5
 --- !u!1 &1487722908
 GameObject:
@@ -4295,8 +4289,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1516510735}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToNextPanel
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowOptionPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4356,9 +4350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1504981000}
-  - {fileID: 644050210}
+  mainPanel: {fileID: 1504981000}
+  optionPanel: {fileID: 644050210}
   slideDuration: 0.5
 --- !u!1 &1526930612
 GameObject:
@@ -4567,8 +4560,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1538212378}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToNextPanel
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowOptionPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4628,9 +4621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1854197501}
-  - {fileID: 2061584432}
+  mainPanel: {fileID: 1854197501}
+  optionPanel: {fileID: 2061584432}
   slideDuration: 0.5
 --- !u!1 &1695697122
 GameObject:
@@ -4645,7 +4637,7 @@ GameObject:
   - component: {fileID: 1695697127}
   - component: {fileID: 1695697126}
   - component: {fileID: 1695697125}
-  - component: {fileID: 1695697124}
+  - component: {fileID: 1695697129}
   m_Layer: 5
   m_Name: back btn
   m_TagString: Untagged
@@ -4674,22 +4666,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.99920654, y: -424}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1695697124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695697122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1885642282}
-  - {fileID: 1854197501}
-  slideDuration: 0.5
 --- !u!114 &1695697125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4779,9 +4755,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1695697124}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToPreviousPanel
+      - m_Target: {fileID: 1695697129}
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowMainPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4829,6 +4805,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695697122}
   m_CullTransparentMesh: 1
+--- !u!114 &1695697129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695697122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainPanel: {fileID: 1854197501}
+  optionPanel: {fileID: 1885642282}
+  slideDuration: 0.5
 --- !u!1 &1744086895
 GameObject:
   m_ObjectHideFlags: 0
@@ -5320,8 +5311,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1818285256}
-        m_TargetAssemblyTypeName: moveOption, Assembly-CSharp
-        m_MethodName: SlideToNextPanel
+        m_TargetAssemblyTypeName: MoveOption, Assembly-CSharp
+        m_MethodName: ShowOptionPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5381,9 +5372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 827549621fcd80a498dc3586b0483ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panels:
-  - {fileID: 1854197501}
-  - {fileID: 533559345}
+  mainPanel: {fileID: 1854197501}
+  optionPanel: {fileID: 533559345}
   slideDuration: 0.5
 --- !u!1 &1826773977
 GameObject:
@@ -5536,7 +5526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1854197501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5558,7 +5548,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2671, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1854197502
@@ -5616,7 +5606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1885642282
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5635,7 +5625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 5109, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1885642283
@@ -6229,7 +6219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2061584432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6248,7 +6238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 9914, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2061584433
