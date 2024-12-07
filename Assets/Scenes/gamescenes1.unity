@@ -584,7 +584,7 @@ MonoBehaviour:
   afterImageInterval: 0.05
   afterImageLifetime: 0.15
   attackInputCooldown: 0.2
-  dashAttackDuration: 0.3
+  dashAttackDuration: 0.2
 --- !u!95 &653047121
 Animator:
   serializedVersion: 5
@@ -1268,7 +1268,7 @@ Transform:
   m_GameObject: {fileID: 1392524414}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.868, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
