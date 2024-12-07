@@ -579,10 +579,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpPower: 3
   AdamMoveSpeed: 6
-  dashingPower: 20
+  dashingPower: 30
   dashTrail: {fileID: 1392524415}
   afterImageInterval: 0.05
   afterImageLifetime: 0.15
+  attackInputCooldown: 0.2
+  dashAttackDuration: 0.3
 --- !u!95 &653047121
 Animator:
   serializedVersion: 5
@@ -1242,7 +1244,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
