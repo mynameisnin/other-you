@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AdamMovement : MonoBehaviour
@@ -8,9 +7,23 @@ public class AdamMovement : MonoBehaviour
     Animator AdamAnime;
     SpriteRenderer AdamSprite;
 
-    public float JumpPoewr = 3f;
+    public float JumpPower = 3f;
     public float AdamMoveSpeed = 3f;
     private CharacterAttack characterAttack; // 공격 스크립트 참조
+
+    private bool canDash = true;
+    private bool isDashing;
+    private bool isDashAttacking; // 대쉬 공격 상태 추가
+    [SerializeField]
+    private float dashingPower = 24f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+    [SerializeField] private TrailRenderer dashTrail;
+
+    [SerializeField] private float afterImageInterval = 0.05f;
+    [SerializeField] private float afterImageLifetime = 1f;
+
+    private bool lastKeyWasRight = true;
 
     void Start()
     {
@@ -18,83 +31,148 @@ public class AdamMovement : MonoBehaviour
         AdamAnime = GetComponent<Animator>();
         AdamSprite = GetComponent<SpriteRenderer>();
 
-        // CharacterAttack 스크립트 가져오기
         characterAttack = GetComponent<CharacterAttack>();
     }
 
     void Update()
     {
-        // 공격 중에는 이동하지 않음
-        if (characterAttack != null && characterAttack.IsAttacking)
+        // 대쉬 공격 상태가 아니면 일반 공격과 이동 처리
+        if (!isDashAttacking)
         {
-            AdamRigidebody.velocity = Vector2.zero;
-            return;
+            HandleAttack();
+            if (!characterAttack.IsAttacking && !isDashing)
+            {
+                HandleMovement();
+            }
+            HandleDash();
         }
 
-        HandleMovement();
         AdamAnimation();
-        AdamSpriteRender();
+        HandleFlip();
     }
 
     void HandleMovement()
     {
-        // 현재 애니메이션 상태 확인
-        AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
-
-        // 공격 애니메이션 상태일 때 이동을 멈춤
-        if (currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("Attack3") ||
-            currentState.IsName("Stance1") || currentState.IsName("Stance2") || currentState.IsName("Stance3"))
-        {
-            AdamRigidebody.velocity = Vector2.zero;
-            return; // 이동 로직 종료
-        }
-
-        // 이동 처리
-        float hor = Input.GetAxis("Horizontal");
+        float hor = Input.GetAxisRaw("Horizontal");
         AdamRigidebody.velocity = new Vector2(hor * AdamMoveSpeed, AdamRigidebody.velocity.y);
 
-        //점프처리
-        if(Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            AdamRigidebody.velocity = Vector2.up * JumpPoewr;
+            AdamRigidebody.velocity = Vector2.up * JumpPower;
         }
+
+        if (hor > 0)
+            lastKeyWasRight = true;
+        else if (hor < 0)
+            lastKeyWasRight = false;
+    }
+
+    void HandleAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.M)) // 공격 키 입력
+        {
+            if (isDashing)
+            {
+                StartCoroutine(DashAttack()); // 대쉬 중 공격
+            }
+            else if (characterAttack != null)
+            {
+                characterAttack.TriggerAttack(); // 일반 공격
+            }
+        }
+    }
+
+    void HandleDash()
+    {
+        if (isDashing || !canDash) return;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        AdamAnime.SetBool("isDashing", true); // 대쉬 애니메이션 활성화
+
+        if (dashTrail != null) dashTrail.emitting = true;
+
+        StartCoroutine(LeaveAfterImage());
+
+        float originalGravity = AdamRigidebody.gravityScale;
+        AdamRigidebody.gravityScale = 0f;
+
+        float dashDirection = lastKeyWasRight ? 1 : -1;
+        AdamRigidebody.velocity = new Vector2(dashDirection * dashingPower, 0f);
+
+        yield return new WaitForSeconds(dashingTime);
+
+        if (dashTrail != null) dashTrail.emitting = false;
+
+        AdamRigidebody.gravityScale = originalGravity;
+        isDashing = false;
+
+        AdamAnime.SetBool("isDashing", false);
+
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+
+    private IEnumerator DashAttack()
+    {
+        isDashAttacking = true;
+        AdamAnime.SetTrigger("DashAttack"); // 대쉬 공격 애니메이션 실행
+
+        float originalVelocity = AdamRigidebody.velocity.x; // 대쉬 공격 중 속도 유지
+        float dashDirection = lastKeyWasRight ? 1 : -1;
+        AdamRigidebody.velocity = new Vector2(dashDirection * dashingPower * 1.5f, 0f); // 대쉬 공격 속도 증가
+
+        yield return new WaitForSeconds(0.3f); // 대쉬 공격 지속 시간
+
+        AdamRigidebody.velocity = new Vector2(originalVelocity, AdamRigidebody.velocity.y); // 원래 속도로 복귀
+        isDashAttacking = false;
+    }
+
+    private IEnumerator LeaveAfterImage()
+    {
+        while (isDashing)
+        {
+            CreateAfterImage();
+            yield return new WaitForSeconds(afterImageInterval);
+        }
+    }
+
+    void CreateAfterImage()
+    {
+        GameObject afterImage = new GameObject("AfterImage");
+        SpriteRenderer sr = afterImage.AddComponent<SpriteRenderer>();
+
+        sr.sprite = AdamSprite.sprite;
+        sr.color = new Color(1f, 1f, 1f, 0.5f);
+        sr.flipX = AdamSprite.flipX;
+        afterImage.transform.position = transform.position;
+        afterImage.transform.localScale = transform.localScale;
+
+        Destroy(afterImage, afterImageLifetime);
     }
 
     void AdamAnimation()
     {
-        float hor = Input.GetAxis("Horizontal");
-        if (Mathf.Abs(hor) > 0.01f)
-        {
-            AdamAnime.SetBool("run", true);
-        }
-        else
-        {
-            AdamAnime.SetBool("run", false);
-        }
-
-        if (AdamRigidebody.velocity.y > 0.1f)
-        {
-            AdamAnime.SetBool("jump", true);
-        }
-        else
-        {
-            AdamAnime.SetBool("jump", false);
-        }
+        float hor = Input.GetAxisRaw("Horizontal");
+        AdamAnime.SetBool("run", Mathf.Abs(hor) > 0.01f);
+        AdamAnime.SetBool("jump", AdamRigidebody.velocity.y > 0.1f);
     }
 
-    void AdamSpriteRender()
+    void HandleFlip()
     {
-        if (Input.GetButton("Horizontal"))
+        float hor = Input.GetAxisRaw("Horizontal");
+        if (hor != 0)
         {
-            AdamSprite.flipX = Input.GetAxisRaw("Horizontal") == -1;
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D TestEnemy)
-    {
-        if(TestEnemy.CompareTag("TestEnemy"))
-        {
-            Debug.Log("공격감지");
+            AdamSprite.flipX = hor < 0;
         }
     }
 }

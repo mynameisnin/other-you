@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
@@ -29,16 +28,20 @@ public class CharacterAttack : MonoBehaviour
         // 공격 버튼 입력 감지
         if (Input.GetKey(KeyCode.M))
         {
-            if (isAttacking)
-            {
-                // 콤보 진행 중이면 다음 단계로
-                ContinueCombo();
-            }
-            else
-            {
-                // 새로운 콤보 시작
-                StartCombo();
-            }
+            TriggerAttack(); // 공격 트리거 호출
+        }
+    }
+
+    public void TriggerAttack()
+    {
+        // 콤보 입력을 직접 트리거
+        if (isAttacking)
+        {
+            ContinueCombo(); // 콤보 진행
+        }
+        else
+        {
+            StartCombo(); // 첫 공격
         }
     }
 
