@@ -6,7 +6,7 @@ public class CharacterAttack : MonoBehaviour
     private Animator animator;
     private int currentComboStep = 0; // 현재 콤보 단계
     private float comboTimer = 0f; // 콤보 타이머
-    private float comboMaxTime = 0.008f; // 콤보 입력 가능 시간
+    private float comboMaxTime = 0.02f; // 콤보 입력 가능 시간
     private bool isAttacking = false; // 현재 공격 중인지 여부
 
     // 공격 상태를 다른 스크립트에서 읽기 위한 프로퍼티

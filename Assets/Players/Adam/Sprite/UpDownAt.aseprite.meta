@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ce64be152efca024a88c61a8120a8e07
+guid: 39b3c53bea030fa47b4f52e6f78c4b86
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: panccing_Frame_0
+  - name: UpDownAt_Frame_0
     originalName: 
-    pivot: {x: 0.24999999, y: -1.2142857}
+    pivot: {x: 0.4342105, y: -1.0967742}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 137
-      y: 71
-      width: 80
-      height: 56
-    spriteID: 717ce0a1b9f9faf44bf790f39af6007c
+      x: 4
+      y: 81
+      width: 76
+      height: 62
+    spriteID: 74c974fd83d92df4cbb8cff90234c31c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -138,19 +138,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 137, y: 71}
-  - name: panccing_Frame_1
+    uvTransform: {x: 4, y: 81}
+  - name: UpDownAt_Frame_1
     originalName: 
-    pivot: {x: 0.2, y: -1.1525425}
+    pivot: {x: 0.20408162, y: -0.86956525}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 125
-      height: 59
-    spriteID: aff6bc9fb37284a498a02febec252e2b
+      width: 98
+      height: 69
+    spriteID: 6fdc568e3e6e6844ca3cf03d86089482
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,58 +159,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: panccing_Frame_2
+  - name: UpDownAt_Frame_2
     originalName: 
-    pivot: {x: 0.13043475, y: -1.1525425}
+    pivot: {x: 0.24999999, y: -1.0333333}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 71
-      width: 115
-      height: 59
-    spriteID: a51647259fba52245bf13c2a4ea5de5b
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 71}
-  - name: panccing_Frame_3
-    originalName: 
-    pivot: {x: 0.13043475, y: -1.1525425}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 138
-      width: 115
-      height: 59
-    spriteID: 3bc442bfe52f3a84db60f40b873ebf06
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 138}
-  - name: panccing_Frame_4
-    originalName: 
-    pivot: {x: 0.13043475, y: -1.1525425}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 137
+      x: 110
       y: 4
-      width: 115
-      height: 59
-    spriteID: fa8996fb6bf341d429ee0787389fa7be
+      width: 80
+      height: 60
+    spriteID: fafef318ff91b834ea89d831f2e47bef
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,56 +178,124 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 137, y: 4}
+    uvTransform: {x: 110, y: 4}
+  - name: UpDownAt_Frame_3
+    originalName: 
+    pivot: {x: 0.3877551, y: -0.968254}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 198
+      y: 4
+      width: 49
+      height: 63
+    spriteID: bfe6fcbfe4f9a704fa3930a70033053c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 198, y: 4}
+  - name: UpDownAt_Frame_4
+    originalName: 
+    pivot: {x: 0.3877551, y: -1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 88
+      y: 81
+      width: 49
+      height: 62
+    spriteID: c310f9113edb31f47b5b4bd54ae6738d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 88, y: 81}
+  - name: UpDownAt_Frame_5
+    originalName: 
+    pivot: {x: 0.3877551, y: -1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 145
+      y: 81
+      width: 49
+      height: 62
+    spriteID: efd91514b3e3b1442bf8b57fcbc8ccbc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 145, y: 81}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1721190119
-    name: panccing
+    guid: -1203692998
+    name: UpDownAt
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: panccing_Frame_0
+    - name: UpDownAt_Frame_0
       frameIndex: 0
       cellRect:
-        x: 80
+        x: 67
         y: 68
-        width: 80
-        height: 56
-      spriteId: 717ce0a1b9f9faf44bf790f39af6007c
-    - name: panccing_Frame_1
+        width: 76
+        height: 62
+      spriteId: 74c974fd83d92df4cbb8cff90234c31c
+    - name: UpDownAt_Frame_1
       frameIndex: 1
       cellRect:
-        x: 75
-        y: 68
-        width: 125
-        height: 59
-      spriteId: aff6bc9fb37284a498a02febec252e2b
-    - name: panccing_Frame_2
+        x: 80
+        y: 60
+        width: 98
+        height: 69
+      spriteId: 6fdc568e3e6e6844ca3cf03d86089482
+    - name: UpDownAt_Frame_2
       frameIndex: 2
       cellRect:
-        x: 85
-        y: 68
-        width: 115
-        height: 59
-      spriteId: a51647259fba52245bf13c2a4ea5de5b
-    - name: panccing_Frame_3
+        x: 80
+        y: 62
+        width: 80
+        height: 60
+      spriteId: fafef318ff91b834ea89d831f2e47bef
+    - name: UpDownAt_Frame_3
       frameIndex: 3
       cellRect:
-        x: 85
-        y: 68
-        width: 115
-        height: 59
-      spriteId: 3bc442bfe52f3a84db60f40b873ebf06
-    - name: panccing_Frame_4
+        x: 81
+        y: 61
+        width: 49
+        height: 63
+      spriteId: bfe6fcbfe4f9a704fa3930a70033053c
+    - name: UpDownAt_Frame_4
       frameIndex: 4
       cellRect:
-        x: 85
-        y: 68
-        width: 115
-        height: 59
-      spriteId: fa8996fb6bf341d429ee0787389fa7be
+        x: 81
+        y: 62
+        width: 49
+        height: 62
+      spriteId: c310f9113edb31f47b5b4bd54ae6738d
+    - name: UpDownAt_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 81
+        y: 62
+        width: 49
+        height: 62
+      spriteId: efd91514b3e3b1442bf8b57fcbc8ccbc
     linkedCells: []
     parentIndex: -1
   platformSettings: []

@@ -79,10 +79,7 @@ public class AdamMovement : MonoBehaviour
             AdamRigidebody.velocity = Vector2.up * JumpPower;
         }
 
-        if (hor > 0)
-            lastKeyWasRight = true;
-        else if (hor < 0)
-            lastKeyWasRight = false;
+
     }
 
     void HandleAttack()
@@ -221,7 +218,7 @@ public class AdamMovement : MonoBehaviour
     void AdamAnimation()
     {
         float hor = Input.GetAxisRaw("Horizontal");
-        AdamAnime.SetBool("run", Mathf.Abs(hor) > 0.01f);
+        AdamAnime.SetBool("run", Mathf.Abs(hor) > 0.00f);
         AdamAnime.SetBool("jump", AdamRigidebody.velocity.y > 0.1f);
     }
 
