@@ -79,7 +79,10 @@ public class AdamMovement : MonoBehaviour
             AdamRigidebody.velocity = Vector2.up * JumpPower;
         }
 
-
+        if (hor > 0)
+            lastKeyWasRight = true;
+        else if (hor < 0)
+            lastKeyWasRight = false;
     }
 
     void HandleAttack()

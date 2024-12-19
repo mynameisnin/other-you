@@ -10,6 +10,7 @@ public class DevaMovement : MonoBehaviour
 
     public float DevaMoveSpeed = 3f;
     private bool lastKeyWasRight = true;
+
     // Start is called before the first frame update
     void Start()
     {
