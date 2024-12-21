@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class AdamMovement : MonoBehaviour
 {
@@ -29,6 +30,13 @@ public class AdamMovement : MonoBehaviour
 
     private bool lastKeyWasRight = true;
 
+    //점프 변수
+    bool isGround;
+    public Transform JumpPos;
+    public float checkRadiusJump;
+    public LayerMask islayer;
+
+
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -40,6 +48,7 @@ public class AdamMovement : MonoBehaviour
 
     void Update()
     {
+
         // 현재 애니메이션 상태 확인
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
 
@@ -65,19 +74,17 @@ public class AdamMovement : MonoBehaviour
             HandleDash(); // 공격 애니메이션이 실행 중이 아니고 공격 입력 후 쿨다운이 아니면 대쉬 가능
         }
 
+        HandleJump();
+
         AdamAnimation();
         HandleFlip();
+        HandleFall();
     }
 
     void HandleMovement()
     {
         float hor = Input.GetAxisRaw("Horizontal");
         AdamRigidebody.velocity = new Vector2(hor * AdamMoveSpeed, AdamRigidebody.velocity.y);
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            AdamRigidebody.velocity = Vector2.up * JumpPower;
-        }
 
         if (hor > 0)
             lastKeyWasRight = true;
@@ -222,7 +229,6 @@ public class AdamMovement : MonoBehaviour
     {
         float hor = Input.GetAxisRaw("Horizontal");
         AdamAnime.SetBool("run", Mathf.Abs(hor) > 0.00f);
-        AdamAnime.SetBool("jump", AdamRigidebody.velocity.y > 0.1f);
     }
 
     void HandleFlip()
@@ -231,6 +237,53 @@ public class AdamMovement : MonoBehaviour
         if (hor != 0)
         {
             AdamSprite.flipX = hor < 0;
+        }
+    }
+
+    void HandleJump()
+    {
+        isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, islayer);
+
+        Debug.Log("Is Grounded: " + isGround);
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        {
+            Debug.Log("Jumping...");
+            StartCoroutine(DelayedJump());
+        }
+    }
+
+    private IEnumerator DelayedJump()
+    {
+        // 점프 애니메이션 실행
+        AdamAnime.SetTrigger("Jump");
+
+        // 0.2초 대기 후 점프 힘 적용
+        yield return new WaitForSeconds(0.2f);
+
+        AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x, JumpPower);
+
+        Debug.Log("Jump executed after delay!");
+    }
+
+    void HandleFall()
+    {
+        if (!isGround && AdamRigidebody.velocity.y < 0)
+        {
+            AdamAnime.SetBool("Fall",true); // Fall 애니메이션 실행
+        }
+        else
+        {
+            AdamAnime.SetBool("Fall", false);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (JumpPos != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(JumpPos.position, checkRadiusJump);
         }
     }
 }

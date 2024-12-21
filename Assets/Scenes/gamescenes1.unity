@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34643596}
   - component: {fileID: 34643595}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.08
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7eddf9232999f499d81230f241b6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 3
+  JumpPower: 12
   AdamMoveSpeed: 6
   dashingPower: 20
   dashTrail: {fileID: 1392524415}
@@ -585,6 +585,11 @@ MonoBehaviour:
   afterImageLifetime: 0.15
   attackInputCooldown: 0.2
   dashAttackDuration: 0.2
+  JumpPos: {fileID: 856087410}
+  checkRadiusJump: 0.3
+  islayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!95 &653047121
 Animator:
   serializedVersion: 5
@@ -667,7 +672,7 @@ Transform:
   m_GameObject: {fileID: 653047117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.18, y: -5.59, z: 0}
+  m_LocalPosition: {x: -3.18, y: -7.32, z: 0}
   m_LocalScale: {x: 3.0594, y: 3.0594, z: 3.0594}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -675,6 +680,7 @@ Transform:
   - {fileID: 534544609}
   - {fileID: 758811843}
   - {fileID: 1392524416}
+  - {fileID: 856087410}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &653047124
@@ -793,6 +799,37 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!1 &856087409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856087410}
+  m_Layer: 0
+  m_Name: JumpRaius
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &856087410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856087409}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: 0.71, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 653047123}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &952280245
 GameObject:
   m_ObjectHideFlags: 0
