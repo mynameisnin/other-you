@@ -19,8 +19,8 @@ public class AdamMovement : MonoBehaviour
 
     [SerializeField]
     private float dashingPower = 24f;
-    private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
+    private float dashingTime = 0.3f;
+    private float dashingCooldown = 0.5f;
     [SerializeField] private TrailRenderer dashTrail;
 
     [SerializeField] private float afterImageInterval = 0.05f;
