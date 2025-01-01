@@ -42,7 +42,6 @@ public class AdamMovement : MonoBehaviour
         AdamRigidebody = GetComponent<Rigidbody2D>();
         AdamAnime = GetComponent<Animator>();
         AdamSprite = GetComponent<SpriteRenderer>();
-
         characterAttack = GetComponent<CharacterAttack>();
     }
 
@@ -113,7 +112,7 @@ public class AdamMovement : MonoBehaviour
     void HandleDash()
     {
         // 대쉬 불가 조건: 대쉬 중, 쿨다운 중, 또는 공격 입력 후 일정 시간 내
-        if (isDashing || !canDash || attackInputRecently)
+        if (isDashing || !canDash || attackInputRecently || !isGround)
         {
             return;
         }
@@ -243,10 +242,10 @@ public class AdamMovement : MonoBehaviour
     void HandleJump()
     {
         isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, islayer);
-
+        bool isJumping = AdamAnime.GetCurrentAnimatorStateInfo(0).IsName("Jump 1");
         Debug.Log("Is Grounded: " + isGround);
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
         {
             Debug.Log("Jumping...");
             StartCoroutine(DelayedJump());

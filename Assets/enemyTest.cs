@@ -26,15 +26,10 @@ public class enemyTest : MonoBehaviour
         bloodEffect.transform.position += new Vector3(0f, 1f, -1);
 
         // 일정 시간 뒤 자동 삭제
-        Destroy(bloodEffect, 0.3f);
+        Destroy(bloodEffect, 0.5f);
     }
-    public void ShowParringEffect(Vector3 ParringPosition) 
-    {
-        GameObject parringEffect = Instantiate(parringEffects, ParringPosition, Quaternion.identity);
-        parringEffect.transform.position += new Vector3(0f, 1f, -1); // 위치이동
-        // 0.3초 뒤 자동 삭제
-        Destroy(parringEffect, 0.3f);
-    }
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -50,12 +45,5 @@ public class enemyTest : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider Knife)
-    {
-        if (Knife.CompareTag("PlayerAttack") )
-        {
-            Vector3 ParringPosition = transform.position;
-            ShowParringEffect(ParringPosition);
-        }
-    }
+
 }
