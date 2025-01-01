@@ -26,7 +26,7 @@ public class enemyTest : MonoBehaviour
         bloodEffect.transform.position += new Vector3(0f, 1f, -1);
 
         // 일정 시간 뒤 자동 삭제
-        Destroy(bloodEffect, 0.5f);
+        Destroy(bloodEffect, 0.3f);
     }
 
 
