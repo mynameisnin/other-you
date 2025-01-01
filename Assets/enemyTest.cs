@@ -7,6 +7,7 @@ public class enemyTest : MonoBehaviour
     private Animator TestAnime;
     public GameObject[] bloodEffectPrefabs; // 여러 이펙트를 담을 배열
     public GameObject parringEffects;
+    public ParticleSystem bloodEffectParticle; // 피 이펙트 파티클
 
     void Start()
     {
@@ -27,6 +28,16 @@ public class enemyTest : MonoBehaviour
 
         // 일정 시간 뒤 자동 삭제
         Destroy(bloodEffect, 0.3f);
+        if (bloodEffectParticle != null)
+        {
+            // 피 이펙트를 공격 위치에 생성
+            ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, hitPosition, Quaternion.identity);
+            bloodParticle.transform.position += new Vector3(0f, 1f, 0f); // 위치 조정
+            bloodParticle.Play();
+
+            // 파티클 지속 시간 후 자동 삭제
+            Destroy(bloodParticle.gameObject, bloodParticle.main.duration + 0.5f);
+        }
     }
 
 
