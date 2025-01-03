@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
@@ -7,8 +6,11 @@ public class CharacterAttack : MonoBehaviour
     private Animator animator;
     private int currentComboStep = 0; // 현재 콤보 단계
     private float comboTimer = 0f; // 콤보 타이머
-    private float comboMaxTime = 0.02f; // 콤보 입력 가능 시간
+    private float comboMaxTime = 0.01f; // 콤보 입력 가능 시간
     private bool isAttacking = false; // 현재 공격 중인지 여부
+
+    // 공격 상태를 다른 스크립트에서 읽기 위한 프로퍼티
+    public bool IsAttacking => isAttacking;
 
     void Start()
     {
@@ -26,16 +28,20 @@ public class CharacterAttack : MonoBehaviour
         // 공격 버튼 입력 감지
         if (Input.GetKey(KeyCode.M))
         {
-            if (isAttacking)
-            {
-                // 콤보 진행 중이면 다음 단계로
-                ContinueCombo();
-            }
-            else
-            {
-                // 새로운 콤보 시작
-                StartCombo();
-            }
+            TriggerAttack(); // 공격 트리거 호출
+        }
+    }
+
+    public void TriggerAttack()
+    {
+        // 콤보 입력을 직접 트리거
+        if (isAttacking)
+        {
+            ContinueCombo(); // 콤보 진행
+        }
+        else
+        {
+            StartCombo(); // 첫 공격
         }
     }
 
@@ -90,10 +96,6 @@ public class CharacterAttack : MonoBehaviour
     // 애니메이션 이벤트: 공격 종료 시 호출
     public void EndAttack()
     {
-        // 콤보의 마지막 단계에서만 공격 종료
-        if (currentComboStep == 3)
-        {
-            ResetCombo();
-        }
+        isAttacking = false; // 공격 종료
     }
 }
