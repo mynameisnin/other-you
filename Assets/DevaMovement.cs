@@ -9,7 +9,6 @@ public class DevaMovement : MonoBehaviour
     SpriteRenderer DevaSprite;
 
     public float DevaMoveSpeed = 3f;
-    private bool lastKeyWasRight = true;
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +29,7 @@ public class DevaMovement : MonoBehaviour
     {
         float hor = Input.GetAxis("Horizontal");
         DevaRigidbody.velocity = new Vector2 (hor * DevaMoveSpeed, DevaRigidbody.velocity.y);
-        if (hor > 0)
-            lastKeyWasRight = true;
-        else if (hor < 0)
-            lastKeyWasRight = false;
+        
     }
     void DevaAnimation()
     {
