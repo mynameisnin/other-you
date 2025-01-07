@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26adf942fbc7eee499736bb2c139cfcc
+guid: 019cf486e66e13a41acf8b29bc6a99f0
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,109 +119,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: NPCS_Frame_0
+  - name: Guard2idle_Frame_0
     originalName: 
-    pivot: {x: 0.625, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 86
-      y: 4
-      width: 32
-      height: 55
-    spriteID: 1275eb7ab162e794cae4dca139fa11b0
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 86, y: 4}
-  - name: NPCS_Frame_1
-    originalName: 
-    pivot: {x: 0.5277778, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 76
-      width: 36
-      height: 62
-    spriteID: 2dfa3db8da7ff854ea1533111c47bf7a
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 76}
-  - name: NPCS_Frame_2
-    originalName: 
-    pivot: {x: 0.5714286, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 48
-      y: 145
-      width: 28
-      height: 61
-    spriteID: c014ee6581306e54199c9c3ab4939dea
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 48, y: 145}
-  - name: NPCS_Frame_3
-    originalName: 
-    pivot: {x: 0.58064514, y: -0.015873017}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 146
-      width: 31
-      height: 63
-    spriteID: 3643d9a0dd579474fab1b7e8db1695de
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 146}
-  - name: NPCS_Frame_4
-    originalName: 
-    pivot: {x: 0.62068963, y: -0.015873017}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 48
-      y: 74
-      width: 29
-      height: 63
-    spriteID: dfadc7135f29a0a4196172a6916611a5
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 48, y: 74}
-  - name: NPCS_Frame_5
-    originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.44444445, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -230,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 36
       height: 64
-    spriteID: 6e8c547c41cde4a4a8366e5f375e86b1
+    spriteID: a74244760610ca348bc3d52ed3623007
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,18 +139,18 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: NPCS_Frame_6
+  - name: Guard2idle_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.032258064}
+    pivot: {x: 0.44444445, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 48
-      y: 4
-      width: 30
-      height: 62
-    spriteID: 14658024c7eb66144846e0656ec7574e
+      x: 4
+      y: 76
+      width: 36
+      height: 64
+    spriteID: d16627dc1139e7e4aada80e2491cc659
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -258,72 +158,88 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 31, y: 2}
+    uvTransform: {x: 4, y: 76}
+  - name: Guard2idle_Frame_2
+    originalName: 
+    pivot: {x: 0.45714286, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 4
+      width: 35
+      height: 64
+    spriteID: 468efd129158d5d42b46014e02102b1a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 4}
+  - name: Guard2idle_Frame_3
+    originalName: 
+    pivot: {x: 0.44444445, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 148
+      width: 36
+      height: 63
+    spriteID: 8fe4d107d61f29f4c80679d0a0a2ee79
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 148}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1400313326
-    name: NPCS
+    guid: 221178219
+    name: Guard2idle
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: NPCS_Frame_0
+    - name: Guard2idle_Frame_0
       frameIndex: 0
       cellRect:
-        x: 12
-        y: 0
-        width: 32
-        height: 55
-      spriteId: 1275eb7ab162e794cae4dca139fa11b0
-    - name: NPCS_Frame_1
-      frameIndex: 1
-      cellRect:
-        x: 13
+        x: 16
         y: 0
         width: 36
-        height: 62
-      spriteId: 2dfa3db8da7ff854ea1533111c47bf7a
-    - name: NPCS_Frame_2
+        height: 64
+      spriteId: a74244760610ca348bc3d52ed3623007
+    - name: Guard2idle_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 16
+        y: 0
+        width: 36
+        height: 64
+      spriteId: d16627dc1139e7e4aada80e2491cc659
+    - name: Guard2idle_Frame_2
       frameIndex: 2
       cellRect:
         x: 16
         y: 0
-        width: 28
-        height: 61
-      spriteId: c014ee6581306e54199c9c3ab4939dea
-    - name: NPCS_Frame_3
+        width: 35
+        height: 64
+      spriteId: 468efd129158d5d42b46014e02102b1a
+    - name: Guard2idle_Frame_3
       frameIndex: 3
       cellRect:
-        x: 14
-        y: 1
-        width: 31
-        height: 63
-      spriteId: 3643d9a0dd579474fab1b7e8db1695de
-    - name: NPCS_Frame_4
-      frameIndex: 4
-      cellRect:
-        x: 14
-        y: 1
-        width: 29
-        height: 63
-      spriteId: dfadc7135f29a0a4196172a6916611a5
-    - name: NPCS_Frame_5
-      frameIndex: 5
-      cellRect:
-        x: 14
+        x: 16
         y: 0
         width: 36
-        height: 64
-      spriteId: 6e8c547c41cde4a4a8366e5f375e86b1
-    - name: NPCS_Frame_6
-      frameIndex: 6
-      cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-      spriteId: 14658024c7eb66144846e0656ec7574e
+        height: 63
+      spriteId: 8fe4d107d61f29f4c80679d0a0a2ee79
     linkedCells: []
     parentIndex: -1
   platformSettings: []
