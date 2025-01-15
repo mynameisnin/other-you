@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraSystem : MonoBehaviour
+public class CamZoomSystem : MonoBehaviour
 {
     public Transform target;           // 확대할 캐릭터의 Transform
     public float zoomSize = 5f;        // 확대 시 카메라 크기

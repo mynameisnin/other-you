@@ -5,56 +5,96 @@ using UnityEngine;
 public class enemyTest : MonoBehaviour
 {
     private Animator TestAnime;
-    public GameObject[] bloodEffectPrefabs; // 여러 이펙트를 담을 배열
+    public GameObject[] bloodEffectPrefabs;
     public GameObject parringEffects;
-    public ParticleSystem bloodEffectParticle; // 피 이펙트 파티클
+    public ParticleSystem bloodEffectParticle;
+
+    private CameraShakeSystem cameraShake;
+
+    public int MaxHealth = 100;
+    public int currentHealth;
+
 
     void Start()
     {
         TestAnime = GetComponent<Animator>();
+        cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
+
+        if (cameraShake == null)
+        {
+            Debug.LogWarning("카메라에서 cameShake 스크립트를 찾을 수 없습니다.");
+        }
+
+        currentHealth = MaxHealth;
+
     }
 
     public void ShowBloodEffect(Vector3 hitPosition)
     {
-        // 랜덤으로 이펙트를 선택
-        int randomIndex = Random.Range(0, bloodEffectPrefabs.Length);
-        GameObject selectedEffect = bloodEffectPrefabs[randomIndex];
-
-        // 이펙트 생성
-        GameObject bloodEffect = Instantiate(selectedEffect, hitPosition, Quaternion.identity);
-
-        // 위치 이동 (필요에 따라 조정)
-        bloodEffect.transform.position += new Vector3(0f, 1f, -1);
-
-        // 일정 시간 뒤 자동 삭제
-        Destroy(bloodEffect, 0.3f);
-        if (bloodEffectParticle != null)
+        if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
         {
-            // 피 이펙트를 공격 위치에 생성
-            ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, hitPosition, Quaternion.identity);
-            bloodParticle.transform.position += new Vector3(0f, 1f, 0f); // 위치 조정
-            bloodParticle.Play();
+            int randomIndex = Random.Range(0, bloodEffectPrefabs.Length);
+            GameObject selectedEffect = bloodEffectPrefabs[randomIndex];
 
-            // 파티클 지속 시간 후 자동 삭제
-            Destroy(bloodParticle.gameObject, bloodParticle.main.duration + 0.5f);
+            GameObject bloodEffect = Instantiate(selectedEffect, hitPosition, Quaternion.identity);
+            bloodEffect.transform.position += new Vector3(0f, 1f, -1);
+            Destroy(bloodEffect, 0.3f);
+
+            if (bloodEffectParticle != null)
+            {
+                ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, hitPosition, Quaternion.identity);
+                bloodParticle.transform.position += new Vector3(0f, 1f, 0f);
+                bloodParticle.Play();
+                Destroy(bloodParticle.gameObject, bloodParticle.main.duration + 0.5f);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("bloodEffectPrefabs 배열이 비어 있습니다!");
         }
     }
-
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack"))
+        if (other != null && other.CompareTag("PlayerAttack"))
         {
             Vector3 hitPosition = transform.position;
 
-            // "hurt" 애니메이션 트리거 실행
             TestAnime.SetTrigger("hurt");
 
-            // 피 이펙트 실행
+            TakeDamage(20);
             ShowBloodEffect(hitPosition);
+
+            if (cameraShake != null)
+            {
+                StartCoroutine(cameraShake.Shake(0.2f, 0.1f));
+            }
         }
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
+
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log($"{gameObject.name} 사망!");
+
+        /*  if (statusGUI != null)
+          {
+              statusGUI.gameObject.SetActive(false);
+          }
+
+          Destroy(gameObject, 1f);
+        */
+    }
 
 }

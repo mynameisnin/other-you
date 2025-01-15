@@ -28,7 +28,7 @@ public class DialogueSystem : MonoBehaviour
     public bool playerIsClose;               // 플레이어와의 거리 확인 변수
 
     private bool isTyping = false;           // 현재 타이핑 중인지 확인
-    public CameraSystem CameraZoom;          // CameraZoom 스크립트를 참조
+    public CamZoomSystem CameraZoom;          // CameraZoom 스크립트를 참조
 
     void Update()
     {
