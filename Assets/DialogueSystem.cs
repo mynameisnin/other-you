@@ -10,6 +10,7 @@ public class Dialogue
 {
     [TextArea] public string dialogueText; // 대화 내용
     public Sprite characterImage;         // 캐릭터 초상화 이미지
+    public string characterName;          // 캐릭터 이름
 }
 
 public class DialogueSystem : MonoBehaviour
@@ -17,6 +18,7 @@ public class DialogueSystem : MonoBehaviour
     public GameObject DialogPanel;           // 대화창 오브젝트
     public TMP_Text dialogText;              // 대화 텍스트 컴포넌트
     public Image characterImage;             // 캐릭터 초상화 이미지 컴포넌트
+    public TMP_Text characterNameText;       // 캐릭터 이름 텍스트 컴포넌트
     public Dialogue[] dialog;                // 대화 배열 (텍스트와 이미지 포함)
 
     private int index;                       // 현재 대화 인덱스
@@ -26,8 +28,8 @@ public class DialogueSystem : MonoBehaviour
     public bool playerIsClose;               // 플레이어와의 거리 확인 변수
 
     private bool isTyping = false;           // 현재 타이핑 중인지 확인
-    public CameraSystem CameraZoom; // CameraZoom 스크립트를 참조
-                                    // 매 프레임 호출되는 메서드
+    public CameraSystem CameraZoom;          // CameraZoom 스크립트를 참조
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && playerIsClose)
@@ -55,11 +57,11 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-
     // 대화 초기화 메서드
     public void zeroText()
     {
         dialogText.text = "";
+        characterNameText.text = ""; // 이름 텍스트 초기화
         index = 0;
         isTyping = false;
         DialogPanel.SetActive(false);
@@ -87,12 +89,16 @@ public class DialogueSystem : MonoBehaviour
         isTyping = true;
         dialogText.text = "";
 
-        // 현재 대사 텍스트와 이미지 설정
+        // 현재 대사 텍스트와 이미지, 이름 설정
         if (dialog[index].characterImage != null)
         {
             characterImage.sprite = dialog[index].characterImage;
         }
 
+        if (!string.IsNullOrEmpty(dialog[index].characterName))
+        {
+            characterNameText.text = dialog[index].characterName;
+        }
 
         foreach (char letter in dialog[index].dialogueText.ToCharArray())
         {
