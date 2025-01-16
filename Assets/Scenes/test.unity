@@ -1248,6 +1248,7 @@ GameObject:
   - component: {fileID: 653047119}
   - component: {fileID: 653047118}
   - component: {fileID: 653047125}
+  - component: {fileID: 653047126}
   m_Layer: 0
   m_Name: Adam
   m_TagString: PlayerAttack
@@ -1339,7 +1340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7eddf9232999f499d81230f241b6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 12
+  JumpPower: 17.2
   AdamMoveSpeed: 6
   dashingPower: 20
   dashTrail: {fileID: 1392524415}
@@ -1479,6 +1480,19 @@ MonoBehaviour:
   MaxHealth: 100
   currentHealth: 0
   knockbackForce: 5
+--- !u!114 &653047126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653047117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3cb36db76dc8447a7fd5e0599ab69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpAttackCooldown: 0.3
 --- !u!1 &755844531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,7 +1739,7 @@ Transform:
   m_GameObject: {fileID: 856087409}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.056, y: 0.738, z: 0}
+  m_LocalPosition: {x: 0.0924, y: 0.7425, z: 0}
   m_LocalScale: {x: 0.91161, y: 0.91161, z: 0.91161}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -36,6 +36,7 @@ public class AdamMovement : MonoBehaviour
     public float checkRadiusJump;
     public LayerMask islayer;
 
+    private bool isAttacking = false;
 
     void Start()
     {
@@ -52,7 +53,7 @@ public class AdamMovement : MonoBehaviour
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
 
         // 공격 애니메이션 실행 중인지 확인
-        bool isInAttackAnimation = currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("Attack3") || currentState.IsName("DashAttack");
+        bool isInAttackAnimation =  currentState.IsName("Stance") || currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("Attack3") || currentState.IsName("DashAttack");
 
         // 공격 중 또는 대쉬 공격 중이면 행동 차단
         if (isInAttackAnimation || isDashAttacking)
@@ -60,7 +61,7 @@ public class AdamMovement : MonoBehaviour
             StopMovement(); // 이동 차단
             return; // 다른 동작 차단
         }
-
+        
         HandleAttack();
 
         if (!isDashing && !attackInputRecently)
@@ -93,7 +94,7 @@ public class AdamMovement : MonoBehaviour
 
     void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.M)) // 공격 키 입력
+        if (Input.GetKeyDown(KeyCode.M)&&isGround) // 공격 키 입력
         {
             attackInputRecently = true; // 공격 입력 감지
             StartCoroutine(ResetAttackInputCooldown());
@@ -104,8 +105,13 @@ public class AdamMovement : MonoBehaviour
             }
             else if (characterAttack != null)
             {
+                isAttacking = true;
                 characterAttack.TriggerAttack(); // 일반 공격
             }
+        }
+        else
+        {
+            isAttacking = false;
         }
     }
 
@@ -243,7 +249,7 @@ public class AdamMovement : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, islayer);
         bool isJumping = AdamAnime.GetCurrentAnimatorStateInfo(0).IsName("Jump 1");
-        Debug.Log("Is Grounded: " + isGround);
+       
 
         if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
         {
