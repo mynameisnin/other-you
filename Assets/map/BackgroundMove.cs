@@ -5,23 +5,33 @@ using UnityEngine;
 public class BackgroundMove : MonoBehaviour
 {
     [SerializeField]
-    private Transform Camera;
+    private Transform camera;
     [SerializeField]
-    private Transform CameraDefault;
+    private Transform cameraDefault;
     [SerializeField]
-    private Transform BackDay;
+    private Transform backDay1;
     [SerializeField]
-    private Transform BackNight1;
+    private Transform backDay2;
     [SerializeField]
-    private Transform BackNight2;
+    private Transform backDay3;
     [SerializeField]
-    private Transform BackNight3;
+    private Transform backDay4;
     [SerializeField]
-    private Transform BackNight4;
+    private Transform backDay5;
     [SerializeField]
-    private Transform BackNight5;
+    private Transform backNight1;
     [SerializeField]
-    private Transform Eclipse;
+    private Transform backNight2;
+    [SerializeField]
+    private Transform backNight3;
+    [SerializeField]
+    private Transform backNight4;
+    [SerializeField]
+    private Transform backNight5;
+    [SerializeField]
+    private Transform eclipse;
+    [SerializeField]
+    private Transform sun;
 
     int backChange = 0;
 
@@ -35,35 +45,47 @@ public class BackgroundMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveDay(BackDay);
-        MoveNight(BackNight1);
-        MoveNight(BackNight2);
-        MoveNight(BackNight3);
-        MoveNight(BackNight4);
-        MoveNight(BackNight5);
-        MoveEclipse(Eclipse);
+        //¹è°æ ¿òÁ÷ÀÓ
+        float d = cameraDefault.transform.position.x - camera.transform.position.x;
 
+        MoveDay(backDay1, 0);
+        MoveDay(backDay2, d / 40);
+        MoveDay(backDay3, d / 30);
+        MoveDay(backDay4, d / 25);
+        MoveDay(backDay5, d / 20);
+        MoveSun(sun);
+        MoveNight(backNight1, 0);
+        MoveNight(backNight2, d / 40);
+        MoveNight(backNight3, d / 30);
+        MoveNight(backNight4, d / 25);
+        MoveNight(backNight5, d / 20);
+        MoveEclipse(eclipse);
+
+        //¹ã ³· ¹Ù²Ù±â
         if (Input.GetKeyDown(KeyCode.Space))
         {
             DayChange();
         }
     }
 
-    void MoveDay(Transform back)
+    void MoveDay(Transform back, float move)
     {
-        float d = CameraDefault.transform.position.x - Camera.transform.position.x;
-        back.position = new Vector2(Camera.position.x + d / 10, Camera.position.y + backChange);
+        back.position = new Vector2(camera.position.x + move, camera.position.y + backChange);
     }
 
-    void MoveNight(Transform back)
+    void MoveNight(Transform back, float move)
     {
-        float d = CameraDefault.transform.position.x - Camera.transform.position.x;
-        back.position = new Vector2(Camera.position.x + d / 10, Camera.position.y + 20 + backChange);
+        back.position = new Vector2(camera.position.x + move, camera.position.y + 20 + backChange);
+    }
+
+    void MoveSun(Transform back)
+    {
+        back.position = new Vector2(camera.position.x + 3, camera.position.y + 3 + backChange);
     }
 
     void MoveEclipse(Transform back)
     {
-        back.position = new Vector2(Camera.position.x + 3, Camera.position.y + 3 + 20 + backChange);
+        back.position = new Vector2(camera.position.x + 3, camera.position.y + 3 + 20 + backChange);
     }
 
     void DayChange()
