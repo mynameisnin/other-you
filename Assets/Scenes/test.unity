@@ -1478,6 +1478,7 @@ MonoBehaviour:
   bloodEffectParticle: {fileID: 0}
   MaxHealth: 100
   currentHealth: 0
+  knockbackForce: 5
 --- !u!1 &755844531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2993,6 +2994,7 @@ MonoBehaviour:
   bloodEffectParticle: {fileID: 1173291851}
   MaxHealth: 100
   currentHealth: 0
+  knockbackForce: 3
 --- !u!50 &2008838937
 Rigidbody2D:
   serializedVersion: 4
