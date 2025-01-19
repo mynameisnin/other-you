@@ -71,7 +71,7 @@ public class enemyTest : MonoBehaviour
 
             if (cameraShake != null)
             {
-                StartCoroutine(cameraShake.Shake(0.2f, 0.1f));
+                StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
             }
         }
     }
