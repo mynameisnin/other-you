@@ -53,13 +53,24 @@ public class DevaMovement : MonoBehaviour
 
     void DevaMove()
     {
-        float hor = Input.GetAxis("Horizontal");
-        DevaRigidbody.velocity = new Vector2(hor * DevaMoveSpeed, DevaRigidbody.velocity.y);
+        float hor = Input.GetAxisRaw("Horizontal");
 
-        if (hor > 0)
-            lastKeyWasRight = true;
-        else if (hor < 0)
-            lastKeyWasRight = false;
+        // 좌우 방향키를 동시에 눌렀을 때 멈추도록 설정
+        if (Mathf.Abs(hor) == 1)
+        {
+            DevaRigidbody.velocity = new Vector2(hor * DevaMoveSpeed, DevaRigidbody.velocity.y);
+
+            if (hor > 0)
+                lastKeyWasRight = true;
+            else if (hor < 0)
+                lastKeyWasRight = false;
+        }
+        else
+        {
+            // 좌우 키가 동시에 눌리면 속도를 0으로 설정하여 멈추게 함
+            DevaRigidbody.velocity = new Vector2(0, DevaRigidbody.velocity.y);
+
+        }
     }
 
     void HandleDash()
@@ -192,12 +203,13 @@ public class DevaMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
+
     private IEnumerator DelayedJump()
     {
         // 점프 준비 동작 실행 (앉기 애니메이션)
         DevaAnime.SetTrigger("Crouch");
 
-        // 0.3초 동안 준비 동작 (이 값은 필요에 따라 조정 가능)
+        // 0.15초 동안 준비 동작 (이 값은 필요에 따라 조정 가능)
         yield return new WaitForSeconds(0.15f);
 
         // 점프 애니메이션 실행
