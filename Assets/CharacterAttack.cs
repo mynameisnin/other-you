@@ -60,11 +60,6 @@ public class CharacterAttack : MonoBehaviour
             currentComboStep = 2; // 두 번째 공격 단계
             animator.SetTrigger("Attack2"); // 두 번째 공격 애니메이션 실행
         }
-        else if (currentComboStep == 2)
-        {
-            currentComboStep = 3; // 세 번째 공격 단계
-            animator.SetTrigger("Attack3"); // 세 번째 공격 애니메이션 실행
-        }
 
         comboTimer = comboMaxTime; // 콤보 타이머 리셋
     }
@@ -90,7 +85,6 @@ public class CharacterAttack : MonoBehaviour
         comboTimer = 0f;
         animator.ResetTrigger("Attack1");
         animator.ResetTrigger("Attack2");
-        animator.ResetTrigger("Attack3");
     }
 
     // 애니메이션 이벤트: 공격 종료 시 호출

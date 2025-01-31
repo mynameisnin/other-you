@@ -53,7 +53,7 @@ public class AdamMovement : MonoBehaviour
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
 
         // 공격 애니메이션 실행 중인지 확인
-        bool isInAttackAnimation =  currentState.IsName("Stance") || currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("Attack3") || currentState.IsName("DashAttack");
+        bool isInAttackAnimation =  currentState.IsName("Stance") || currentState.IsName("Attack1") || currentState.IsName("Attack2")  || currentState.IsName("DashAttack") || currentState.IsName("Attack2Attack1");
 
         // 공격 중 또는 대쉬 공격 중이면 행동 차단
         if (isInAttackAnimation || isDashAttacking)
