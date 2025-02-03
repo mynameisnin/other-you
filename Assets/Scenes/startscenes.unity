@@ -5563,7 +5563,7 @@ GameObject:
   - component: {fileID: 258789615}
   - component: {fileID: 258789614}
   m_Layer: 5
-  m_Name: down
+  m_Name: Talk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5609,7 +5609,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DOWN
+  m_text: Talk
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6051,7 +6051,7 @@ GameObject:
   - component: {fileID: 449922755}
   - component: {fileID: 449922754}
   m_Layer: 5
-  m_Name: DownButton
+  m_Name: TalkButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6952,7 +6952,7 @@ GameObject:
   - component: {fileID: 593841110}
   - component: {fileID: 593841109}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: JumpText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7371,7 +7371,7 @@ GameObject:
   - component: {fileID: 723808977}
   - component: {fileID: 723808976}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TalkText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7707,7 +7707,7 @@ GameObject:
   - component: {fileID: 786649720}
   - component: {fileID: 786649719}
   m_Layer: 5
-  m_Name: left
+  m_Name: Left Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8038,7 +8038,7 @@ GameObject:
   - component: {fileID: 862601757}
   - component: {fileID: 862601756}
   m_Layer: 5
-  m_Name: up
+  m_Name: Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8084,7 +8084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: UP
+  m_text: Jump
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8908,7 +8908,7 @@ GameObject:
   - component: {fileID: 1000889233}
   - component: {fileID: 1000889232}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AttackText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9506,7 +9506,7 @@ GameObject:
   - component: {fileID: 1256658150}
   - component: {fileID: 1256658149}
   m_Layer: 5
-  m_Name: UpButton
+  m_Name: JumpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9835,7 +9835,7 @@ GameObject:
   - component: {fileID: 1392178963}
   - component: {fileID: 1392178962}
   m_Layer: 5
-  m_Name: right
+  m_Name: Right Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10458,7 +10458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1504981000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10826,7 +10826,7 @@ GameObject:
   - component: {fileID: 1536231663}
   - component: {fileID: 1536231662}
   m_Layer: 5
-  m_Name: attack
+  m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10872,7 +10872,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: attack
+  m_text: Attack
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11479,7 +11479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1744086896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11549,7 +11549,7 @@ GameObject:
   - component: {fileID: 1745087453}
   - component: {fileID: 1745087452}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RightText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12454,7 +12454,7 @@ GameObject:
   - component: {fileID: 1906838946}
   - component: {fileID: 1906838945}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LeftText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12978,6 +12978,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996039323}
   m_CullTransparentMesh: 1
+--- !u!1 &2028465297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028465299}
+  - component: {fileID: 2028465298}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2028465298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028465297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3172554305b11684a8252f0b5872e416, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rebindableKeys:
+  - actionName: Jump
+    actionReference: {fileID: -7503589841186996463, guid: 782a905d1d5baa94e8df30fc747b7b0e, type: 3}
+    rebindButton: {fileID: 1256658149}
+    buttonText: {fileID: 593841109}
+  - actionName: Talk
+    actionReference: {fileID: -6265629212268839208, guid: 782a905d1d5baa94e8df30fc747b7b0e, type: 3}
+    rebindButton: {fileID: 449922754}
+    buttonText: {fileID: 723808976}
+  - actionName: LeftMove
+    actionReference: {fileID: 8929305557220183450, guid: 782a905d1d5baa94e8df30fc747b7b0e, type: 3}
+    rebindButton: {fileID: 109208909}
+    buttonText: {fileID: 1906838945}
+  - actionName: RightMove
+    actionReference: {fileID: 827518724345357002, guid: 782a905d1d5baa94e8df30fc747b7b0e, type: 3}
+    rebindButton: {fileID: 1664712210}
+    buttonText: {fileID: 1745087452}
+  - actionName: Attack
+    actionReference: {fileID: -2375544214403465156, guid: 782a905d1d5baa94e8df30fc747b7b0e, type: 3}
+    rebindButton: {fileID: 856882233}
+    buttonText: {fileID: 1000889232}
+--- !u!4 &2028465299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028465297}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 92.102875, y: -0.08800918, z: 48.382915}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2039736415
 GameObject:
   m_ObjectHideFlags: 0
@@ -13129,7 +13194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2061584432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13145,10 +13210,10 @@ RectTransform:
   - {fileID: 38449526}
   - {fileID: 862601755}
   - {fileID: 1536231661}
-  - {fileID: 579394800}
   - {fileID: 258789613}
   - {fileID: 786649718}
   - {fileID: 1392178961}
+  - {fileID: 579394800}
   m_Father: {fileID: 1142168208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13529,3 +13594,4 @@ SceneRoots:
   - {fileID: 781102603}
   - {fileID: 514098093}
   - {fileID: 243616673}
+  - {fileID: 2028465299}
