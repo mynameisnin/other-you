@@ -31,6 +31,9 @@ public class DialogueSystem : MonoBehaviour
     private bool hasTalked = false;          // NPC와 한 번이라도 대화했는지 여부
     public CamZoomSystem CameraZoom;         // CameraZoom 스크립트를 참조
 
+    public GameObject player;                // 플레이어 오브젝트 참조
+    public AdamMovement adamMovement;   // 플레이어 이동 스크립트 참조
+
     //추가: 대화 상태 아이콘 (느낌표, 말하는 중)
     public GameObject exclamationIcon;       // "!" 아이콘 (처음 대화 전)
     public GameObject talkingIcon;           // "..." 아이콘 (대화 중)
@@ -66,10 +69,53 @@ public class DialogueSystem : MonoBehaviour
                 hasTalked = true; // 첫 대화 후 "!" 아이콘 제거
                 UpdateIcon(); // 아이콘 업데이트
                 StartCoroutine(Typing());
+
+                DisablePlayerMovement(); // 대화 시작 시 이동 비활성화
             }
         }
 
         UpdateIconPosition(); //아이콘 위치 업데이트
+    }
+
+    void DisablePlayerMovement()
+    {
+        if (adamMovement != null)
+        {
+            adamMovement.enabled = false; // 이동 막기
+            Debug.Log("플레이어 이동 비활성화!");
+        }
+
+        //  Rigidbody2D를 이용하여 즉시 멈추기
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero; //  즉시 정지
+            
+        }
+
+        Animator animator = player.GetComponent<Animator>();
+        if (animator != null)
+        {
+            // 이동 애니메이션 비활성화
+            animator.SetBool("run", false); 
+            animator.ResetTrigger("Jump");
+            animator.SetBool("Fall", false);
+
+           
+        }
+
+
+        Debug.Log("플레이어 이동 비활성화 및 정지!");
+    }
+
+    // 플레이어 이동 다시 활성화
+    void EnablePlayerMovement()
+    {
+        if (adamMovement != null)
+        {
+            adamMovement.enabled = true; // 다시 이동 가능
+            Debug.Log("플레이어 이동 활성화!");
+        }
     }
 
     //추가: 아이콘 상태 업데이트
@@ -125,10 +171,12 @@ public class DialogueSystem : MonoBehaviour
         }
 
         UpdateIcon(); //추가: 아이콘 업데이트
+
+        EnablePlayerMovement();
     }
 
     // 타이핑 코루틴 (한 글자씩 출력)
-    IEnumerator Typing()
+ public IEnumerator Typing()
     {
         if (index < 0 || index >= dialog.Length)
         {
