@@ -39,6 +39,9 @@ public class DialogueSystem : MonoBehaviour
     public GameObject talkingIcon;           // "..." 아이콘 (대화 중)
     public Transform iconPosition;           // 아이콘 위치를 지정할 Transform (NPC 머리 위)
 
+
+    public Collider2D dialogueCollider;      // 다이얼로그 트리거 콜라이더 참조 (비활성화 용도)
+
     void Start()
     {
         UpdateIcon(); // 처음 상태 설정
@@ -173,6 +176,13 @@ public class DialogueSystem : MonoBehaviour
         UpdateIcon(); //추가: 아이콘 업데이트
 
         EnablePlayerMovement();
+
+        // 다이얼로그가 끝나면 콜라이더 비활성화
+        if (dialogueCollider != null)
+        {
+            dialogueCollider.enabled = false;
+            Debug.Log("다이얼로그 종료 -> 트리거 콜라이더 비활성화!");
+        }
     }
 
     // 타이핑 코루틴 (한 글자씩 출력)
