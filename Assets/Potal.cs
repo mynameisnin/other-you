@@ -1,43 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Potal : MonoBehaviour
 {
-    public string targetScene; // 이동할 씬 이름
-
+    public string targetScene; //이동할 씬 이름
     private bool isPlayerNear = false; // 플레이어가 포탈 범위 내에 있는지 확인
+    private FakeLoadingScreen fakeLoadingScreen; // FakeLoadingScreen 참조
+
+    void Start()
+    {
+        fakeLoadingScreen = FindObjectOfType<FakeLoadingScreen>(); //FakeLoadingScreen 찾기
+    }
 
     void Update()
     {
-        // 플레이어가 포탈 범위 안에 있을 때 ↑(위쪽 방향키) 입력 감지
         if (isPlayerNear && Input.GetKeyDown(KeyCode.UpArrow))
         {
-            LoadTargetScene();
-        }
-    }
-
-    void LoadTargetScene()
-    {
-        if (!string.IsNullOrEmpty(targetScene)) // 씬 이름이 설정되어 있다면
-        {
-            SceneManager.LoadScene(targetScene); // 해당 씬으로 이동
+            if (fakeLoadingScreen != null)
+            {
+                fakeLoadingScreen.LoadScene(targetScene); // 가짜 로딩 실행
+            }
+            else
+            {
+                SceneManager.LoadScene(targetScene); // 만약 FakeLoadingScreen이 없으면 바로 씬 전환
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack")) // 플레이어가 포탈에 들어오면
+        if (other.CompareTag("PlayerAttack"))
         {
-            isPlayerNear = true; // 플레이어가 포탈 범위 내에 있음
+            isPlayerNear = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack")) // 플레이어가 포탈에서 벗어나면
+        if (other.CompareTag("PlayerAttack"))
         {
-            isPlayerNear = false; // 플레이어가 포탈 범위를 벗어남
+            isPlayerNear = false;
         }
     }
 }
-

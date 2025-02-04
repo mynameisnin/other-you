@@ -280,7 +280,12 @@ public class DialogueSystem : MonoBehaviour
         if (other.CompareTag("PlayerAttack"))
         {
             playerIsClose = false;
-            zeroText();
+
+            // 플레이어가 대화를 시작했다면 종료만 수행 (콜라이더는 비활성화 X)
+            if (hasTalked)
+            {
+                zeroText();
+            }
         }
     }
 }
