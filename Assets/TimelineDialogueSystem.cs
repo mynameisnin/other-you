@@ -2,32 +2,32 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Playables; // 타임라인을 위한 네임스페이스
+using UnityEngine.Playables;
 
 [System.Serializable]
 public class TimelineDialogue
 {
-    [TextArea] public string dialogueText; // 대사 내용
-    public Sprite characterImage; // 캐릭터 초상화
-    public string characterName; // 캐릭터 이름
+    [TextArea] public string dialogueText;
+    public Sprite characterImage;
+    public string characterName;
 }
 
 public class TimelineDialogueSystem : MonoBehaviour
 {
-    public GameObject dialoguePanel; // 다이얼로그 패널
-    public TMP_Text dialogueText; // 대사 텍스트
-    public Image characterImage; // 캐릭터 초상화
-    public TMP_Text characterNameText; // 캐릭터 이름 텍스트
-    public TimelineDialogue[] dialogues; // 대사 배열
+    public GameObject dialoguePanel;
+    public TMP_Text dialogueText;
+    public Image characterImage;
+    public TMP_Text characterNameText;
+    public TimelineDialogue[] dialogues;
 
+    public PlayableDirector timeline; // 타임라인 컨트롤
     private int index = 0;
-    private bool isTyping = false;//dsad
-
-    public float typingSpeed = 0.05f; // 타이핑 속도
-
+    private bool isTyping = false;
+    public float typingSpeed = 0.05f;
+    private bool isDialogueActive = false;  // 변수 추가
     private void Start()
     {
-        dialoguePanel.SetActive(false); // 초기 상태에서 비활성화
+        dialoguePanel.SetActive(false);
     }
 
     public void StartDialogue()
@@ -36,12 +36,13 @@ public class TimelineDialogueSystem : MonoBehaviour
 
         index = 0;
         dialoguePanel.SetActive(true);
+        timeline.Pause(); // 타임라인 일시 정지
         StartCoroutine(Typing());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) // 위쪽 화살표 키 입력
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (isTyping)
             {
@@ -59,14 +60,12 @@ public class TimelineDialogueSystem : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
-        // 캐릭터 초상화 & 이름 업데이트
         if (dialogues[index].characterImage != null)
         {
             characterImage.sprite = dialogues[index].characterImage;
         }
         characterNameText.text = dialogues[index].characterName;
 
-        // 한 글자씩 출력
         foreach (char letter in dialogues[index].dialogueText.ToCharArray())
         {
             dialogueText.text += letter;
@@ -92,13 +91,19 @@ public class TimelineDialogueSystem : MonoBehaviour
         }
         else
         {
-            CloseDialogue();
+            EndDialogue();
         }
     }
 
-    private void CloseDialogue()
+    public void EndDialogue()
     {
         dialoguePanel.SetActive(false);
         index = 0;
+        isDialogueActive = false;
+
+        // 현재 타임라인 위치를 유지하면서 다시 실행
+        timeline.time = timeline.time;
+        timeline.Play();
     }
+
 }
