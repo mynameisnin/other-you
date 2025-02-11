@@ -194,7 +194,7 @@ public class AdamMovement : MonoBehaviour
         SpriteRenderer sr = afterImage.AddComponent<SpriteRenderer>();
 
         sr.sprite = AdamSprite.sprite;
-        sr.color = new Color(0.2f, 0.2f, 0.2f, 0.8f);
+        sr.color = new Color(0.1f, 0.1f, 0.1f, 0.9f);
         sr.flipX = AdamSprite.flipX;
         afterImage.transform.position = transform.position;
         afterImage.transform.localScale = transform.localScale;
