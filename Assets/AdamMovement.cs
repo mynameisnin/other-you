@@ -204,19 +204,23 @@ public class AdamMovement : MonoBehaviour
 
     private IEnumerator FadeOutAndDestroy(SpriteRenderer sr)
     {
+        if (sr == null) yield break; //  SpriteRenderer가 없으면 바로 종료
+
         float fadeDuration = afterImageLifetime;
         Color originalColor = sr.color;
         float elapsed = 0f;
 
         while (elapsed < fadeDuration)
         {
+            if (sr == null) yield break; //  실행 도중 삭제되었으면 중단
+
             elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(originalColor.a, 0, elapsed / fadeDuration); // 알파값 점진적 감소
-            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha); // 투명도 적용
+            float alpha = Mathf.Lerp(originalColor.a, 0, elapsed / fadeDuration);
+            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
             yield return null;
         }
 
-        Destroy(sr.gameObject); // 최종적으로 잔상 오브젝트 삭제
+        if (sr != null && sr.gameObject != null) Destroy(sr.gameObject); //  null 체크 후 삭제
     }
 
     private IEnumerator ResetAttackInputCooldown()
@@ -291,4 +295,5 @@ public class AdamMovement : MonoBehaviour
             Gizmos.DrawWireSphere(JumpPos.position, checkRadiusJump);
         }
     }
+
 }

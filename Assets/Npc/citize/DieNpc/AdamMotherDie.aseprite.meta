@@ -1,0 +1,500 @@
+fileFormatVersion: 2
+guid: 60fb3652c133e014086ddc28a469f1e3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: AdamMotherDie_Frame_0
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 39
+      height: 82
+    spriteID: 28ef2c3478b56384db72059a7986d10d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: AdamMotherDie_Frame_1
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 94
+      width: 39
+      height: 82
+    spriteID: 075ff52283a0a1a4ca5529301d53a867
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 94}
+  - name: AdamMotherDie_Frame_2
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 184
+      width: 39
+      height: 82
+    spriteID: 889b4ddd934f0a94598d4f34b0f302a5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 184}
+  - name: AdamMotherDie_Frame_3
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 274
+      width: 39
+      height: 82
+    spriteID: 66f2e61b87a00964f9a21826384a34e0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 274}
+  - name: AdamMotherDie_Frame_4
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 364
+      width: 39
+      height: 82
+    spriteID: e381c03397799ec4fa82c68b4ef4c7a7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 364}
+  - name: AdamMotherDie_Frame_5
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 51
+      y: 4
+      width: 39
+      height: 82
+    spriteID: 9d9b63aff4352e34ab1e9a5a6d3d6043
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 51, y: 4}
+  - name: AdamMotherDie_Frame_6
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 51
+      y: 94
+      width: 39
+      height: 82
+    spriteID: dbdcba0c0eeb3ab48a8caf6da6958659
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 51, y: 94}
+  - name: AdamMotherDie_Frame_7
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 51
+      y: 184
+      width: 39
+      height: 82
+    spriteID: 235f0f2fa943bcb43a56239c21b2bda8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 51, y: 184}
+  - name: AdamMotherDie_Frame_8
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 51
+      y: 274
+      width: 39
+      height: 82
+    spriteID: e0632b08f4667f84bbed7bebfe8cc700
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 51, y: 274}
+  - name: AdamMotherDie_Frame_9
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 51
+      y: 364
+      width: 39
+      height: 82
+    spriteID: bc89054dd9504714aa089f07efd8ae3a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 51, y: 364}
+  - name: AdamMotherDie_Frame_10
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 98
+      y: 4
+      width: 39
+      height: 82
+    spriteID: 7ba46c31a7aa1d34e9c69d67aaa7505b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 98, y: 4}
+  - name: AdamMotherDie_Frame_11
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 98
+      y: 94
+      width: 39
+      height: 82
+    spriteID: aa4c6447285c1164899b9cce59be70a4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 98, y: 94}
+  - name: AdamMotherDie_Frame_12
+    originalName: 
+    pivot: {x: 0.64102566, y: -0.29268295}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 98
+      y: 184
+      width: 39
+      height: 82
+    spriteID: 0bf971ddee444004996bbb3675fc29ca
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 98, y: 184}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 3748392
+    name: AdamMotherDie
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: AdamMotherDie_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 28ef2c3478b56384db72059a7986d10d
+    - name: AdamMotherDie_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 075ff52283a0a1a4ca5529301d53a867
+    - name: AdamMotherDie_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 889b4ddd934f0a94598d4f34b0f302a5
+    - name: AdamMotherDie_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 66f2e61b87a00964f9a21826384a34e0
+    - name: AdamMotherDie_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: e381c03397799ec4fa82c68b4ef4c7a7
+    - name: AdamMotherDie_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 9d9b63aff4352e34ab1e9a5a6d3d6043
+    - name: AdamMotherDie_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: dbdcba0c0eeb3ab48a8caf6da6958659
+    - name: AdamMotherDie_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 235f0f2fa943bcb43a56239c21b2bda8
+    - name: AdamMotherDie_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: e0632b08f4667f84bbed7bebfe8cc700
+    - name: AdamMotherDie_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: bc89054dd9504714aa089f07efd8ae3a
+    - name: AdamMotherDie_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 7ba46c31a7aa1d34e9c69d67aaa7505b
+    - name: AdamMotherDie_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: aa4c6447285c1164899b9cce59be70a4
+    - name: AdamMotherDie_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 65
+        y: 24
+        width: 39
+        height: 82
+      spriteId: 0bf971ddee444004996bbb3675fc29ca
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 180, y: 180}
