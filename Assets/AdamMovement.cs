@@ -165,9 +165,8 @@ public class AdamMovement : MonoBehaviour
         AdamAnime.SetTrigger("DashAttack"); // 대쉬 공격 애니메이션 실행
 
         float dashDirection = lastKeyWasRight ? 1 : -1;
-
-        // 대쉬 공격 중 일정 거리만큼 유지
         float elapsed = 0f;
+
         while (elapsed < dashAttackDuration)
         {
             AdamRigidebody.velocity = new Vector2(dashDirection * dashingPower, 0f);
@@ -175,7 +174,16 @@ public class AdamMovement : MonoBehaviour
             yield return null;
         }
 
-        AdamRigidebody.velocity = Vector2.zero; // 대쉬 종료 시 멈춤
+        // 이동 속도를 서서히 줄이는 방식
+        float decelerationTime = 0.2f;
+        while (decelerationTime > 0)
+        {
+            AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x * 0.8f, AdamRigidebody.velocity.y);
+            decelerationTime -= Time.deltaTime;
+            yield return null;
+        }
+
+        AdamRigidebody.velocity = Vector2.zero;
         isDashAttacking = false;
     }
 
@@ -194,7 +202,7 @@ public class AdamMovement : MonoBehaviour
         SpriteRenderer sr = afterImage.AddComponent<SpriteRenderer>();
 
         sr.sprite = AdamSprite.sprite;
-        sr.color = new Color(0.1f, 0.1f, 0.1f, 0.9f);
+        sr.color = new Color(0.5f, 0.5f, 0.5f, 1f);
         sr.flipX = AdamSprite.flipX;
         afterImage.transform.position = transform.position;
         afterImage.transform.localScale = transform.localScale;
@@ -260,6 +268,7 @@ public class AdamMovement : MonoBehaviour
             Debug.Log("Jumping...");
             StartCoroutine(DelayedJump());
         }
+
     }
 
     private IEnumerator DelayedJump()
