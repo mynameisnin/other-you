@@ -146,6 +146,7 @@ public class EnemyMovement : MonoBehaviour
             patrolDirection *= -1f;
             StartCoroutine(FlipAndTurn());
             patrolTimer = patrolTime;
+            patrolTimer = GetRandomPatrolTime(); // 무작위 타이머 설정
         }
 
         Vector2 patrolTarget = new Vector2(transform.position.x + patrolDirection * speed * Time.deltaTime, transform.position.y);
@@ -154,10 +155,15 @@ public class EnemyMovement : MonoBehaviour
         {
             patrolDirection *= -1f;
             StartCoroutine(FlipAndTurn());
+            patrolTimer = GetRandomPatrolTime(); // 무작위 타이머 재설정
         }
 
         transform.position = patrolTarget;
         enemyAnimator.SetBool("isWalking", true);
+    }
+    float GetRandomPatrolTime()
+    {
+        return Random.Range(1.5f, 6f); // 1.5초 ~ 3.5초 사이의 랜덤한 값 반환
     }
 
     IEnumerator FlipAndTurn()
@@ -174,13 +180,33 @@ public class EnemyMovement : MonoBehaviour
     bool ObstacleInFront()
     {
         Vector2 direction = isFacingRight ? Vector2.right : Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 1f, obstacleLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 4f, obstacleLayer);
+
+        if (hit.collider != null)
+        {
+            Debug.Log("장애물 감지됨: " + hit.collider.gameObject.name);
+            Gizmos.color = Color.red;
+        }
+        else
+        {
+            Debug.Log("장애물 없음");
+            Gizmos.color = Color.green;
+        }
+
         return hit.collider != null;
     }
-
     bool GroundAhead()
     {
-        return Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);
+        if (hit.collider != null)
+        {
+            Debug.Log("지면 감지됨: " + hit.collider.gameObject.name);
+        }
+        else
+        {
+            Debug.Log("지면 없음");
+        }
+        return hit.collider != null;
     }
 
     void Flip()
@@ -195,5 +221,9 @@ public class EnemyMovement : MonoBehaviour
         Gizmos.DrawWireSphere(attackBox.position, attackBoxSize); // 공격 범위 표시
         Gizmos.DrawRay(transform.position, Vector2.right * detectionRange);
         Gizmos.DrawRay(transform.position, Vector2.left * detectionRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(groundCheck.position, Vector2.down * 1f); // 지면 감지 Ray 확인
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, isFacingRight ? Vector2.right * 1f : Vector2.left * 1f); // 장애물 감지 기즈모
     }
 }

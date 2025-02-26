@@ -281,7 +281,7 @@ public class AdamMovement : MonoBehaviour
 
     void HandleFall()
     {
-        Debug.Log("현재 Y 속도: " + AdamRigidebody.velocity.y + " / isGround 상태: " + isGround);
+        
         if (!isGround && AdamRigidebody.velocity.y < 0)
         {
             AdamAnime.SetBool("Fall",true); // Fall 애니메이션 실행
