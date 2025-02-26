@@ -23,6 +23,7 @@ public class EnemyMovement : MonoBehaviour
     private bool isChasing = false;
     private bool isAttacking = false;
     private bool isTurning = false;
+    private bool isStunned = false; //  스턴 상태 변수 추가
 
     private bool isPatrolling = true;
     private float patrolTime = 2f;
@@ -38,6 +39,12 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        //  적이 스턴 상태라면 어떤 행동도 하지 않음
+        if (isStunned)
+        {
+            return;
+        }
+
         if (!isAttacking && !isTurning)
         {
             DetectPlayer();
@@ -207,6 +214,38 @@ public class EnemyMovement : MonoBehaviour
             Debug.Log("지면 없음");
         }
         return hit.collider != null;
+    }
+    public void CancelAttack()
+    {
+        isAttacking = false;
+        enemyAnimator.ResetTrigger("Attack");
+        enemyAnimator.SetTrigger("Parry"); // 패링 애니메이션 실행
+        Debug.Log(" 적 공격이 패링됨! 패링 애니메이션 실행 및 스턴");
+
+        rb.velocity = Vector2.zero;
+
+        StartCoroutine(StunCoroutine(3f)); // 3초간 스턴
+    }
+
+    IEnumerator StunCoroutine(float stunDuration)
+    {
+        isStunned = true; //  스턴 상태 활성화
+        isChasing = false;
+        isAttacking = false;
+        isPatrolling = false;
+
+        enemyAnimator.SetBool("isWalking", false);
+        rb.velocity = Vector2.zero;
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX; //  X축 이동 완전 금지
+
+        yield return new WaitForSeconds(stunDuration);
+
+        isStunned = false; //  스턴 해제
+        isChasing = true;
+        isPatrolling = true;
+        rb.constraints = RigidbodyConstraints2D.None; //  이동 가능하도록 설정 복구
+
+        Debug.Log(" 적 스턴 해제!");
     }
 
     void Flip()

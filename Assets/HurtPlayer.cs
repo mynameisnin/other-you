@@ -87,7 +87,11 @@ public class HurtPlayer : MonoBehaviour
             Die();
         }
     }
-
+    public void CancelDamage()
+    {
+        Debug.Log(" 패링 성공! 대미지 무효화");
+        TestAnime.ResetTrigger("Hurt"); // 피격 애니메이션 실행 방지
+    }
     private void Knockback(Transform playerTransform)
     {
         if (rb == null) return;

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class enemyTest : MonoBehaviour
@@ -11,27 +10,24 @@ public class enemyTest : MonoBehaviour
 
     private CameraShakeSystem cameraShake;
     private Rigidbody2D rb;
+    private Collider2D col;
 
     public int MaxHealth = 100;
     public int currentHealth;
 
     public float knockbackForce = 5f;
+    private bool isDying = false;
 
     [Header("Hit Effect Position")]
-    public Transform pos; //  수동으로 위치 조정 가능한 피격 이펙트 위치
+    public Transform pos;
 
     void Start()
     {
         TestAnime = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
 
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
-
-        if (cameraShake == null)
-        {
-            Debug.LogWarning("카메라에서 CameraShakeSystem 스크립트를 찾을 수 없습니다.");
-        }
-
         currentHealth = MaxHealth;
     }
 
@@ -42,7 +38,6 @@ public class enemyTest : MonoBehaviour
             int randomIndex = Random.Range(0, bloodEffectPrefabs.Length);
             GameObject selectedEffect = bloodEffectPrefabs[randomIndex];
 
-            //  pos 위치에서 이펙트 생성
             GameObject bloodEffect = Instantiate(selectedEffect, pos.position, Quaternion.identity);
             Destroy(bloodEffect, 0.3f);
 
@@ -53,38 +48,37 @@ public class enemyTest : MonoBehaviour
                 Destroy(bloodParticle.gameObject, bloodParticle.main.duration + 0.5f);
             }
         }
-        else
-        {
-            Debug.LogWarning("bloodEffectPrefabs 배열이 비어 있습니다!");
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other != null && other.CompareTag("PlayerAttack"))
         {
-            //  애니메이션 즉시 다시 실행
-            TestAnime.Play("Hurt", 0, 0f);
-
-            TakeDamage(20);
-            ShowBloodEffect(); //  pos 위치에서 이펙트 생성
-            Knockback(other.transform);
-
-            if (cameraShake != null)
+            if (currentHealth > 0 && !isDying)
             {
-                StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                TestAnime.Play("Hurt", 0, 0f);
+                TakeDamage(20);
+                ShowBloodEffect();
+                Knockback(other.transform);
+
+                if (cameraShake != null)
+                {
+                    StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                }
             }
         }
     }
 
     public void TakeDamage(int damage)
     {
+        if (isDying) return;
+
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
         if (currentHealth <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -96,8 +90,33 @@ public class enemyTest : MonoBehaviour
         rb.velocity = new Vector2(knockbackForce * direction, rb.velocity.y + 1f);
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        if (isDying) yield break;
+        isDying = true;
+
         Debug.Log($"{gameObject.name} 사망!");
+
+        //  콜라이더와 리지드바디 제거
+        if (col != null) col.enabled = false;
+        if (rb != null) rb.simulated = false;
+
+        //  Die 애니메이션 실행
+        TestAnime.SetTrigger("Die");
+
+        // 2초 후 삭제 코루틴 실행
+        StartCoroutine(DestroyAfterDelay(0.6f));
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        DestroyEnemy();
+    }
+
+    private void DestroyEnemy()
+    {
+        Debug.Log($"{gameObject.name} 완전히 제거됨!");
+        Destroy(gameObject);
     }
 }
