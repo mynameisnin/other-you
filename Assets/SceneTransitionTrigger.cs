@@ -12,7 +12,7 @@ public class SceneTransitionTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack")) // 충돌 감지
+        if (other.CompareTag("Player")) // 충돌 감지
         {
             SpawnManager.Instance.spawnPosition = spawnPosition;
             StartCoroutine(TransitionScene()); //  씬 전환을 코루틴에서 실행 (즉시 변경 방지)
