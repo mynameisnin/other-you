@@ -10,17 +10,20 @@ public class enemyTest : MonoBehaviour
     public ParticleSystem bloodEffectParticle;
 
     private CameraShakeSystem cameraShake;
-    private Rigidbody2D rb; // Rigidbody2D 추가
+    private Rigidbody2D rb;
 
     public int MaxHealth = 100;
     public int currentHealth;
 
-    public float knockbackForce = 5f; // 피격 시 밀리는 힘
+    public float knockbackForce = 5f;
+
+    [Header("Hit Effect Position")]
+    public Transform pos; //  수동으로 위치 조정 가능한 피격 이펙트 위치
 
     void Start()
     {
         TestAnime = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>(); // Rigidbody2D 할당
+        rb = GetComponent<Rigidbody2D>();
 
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
 
@@ -32,21 +35,20 @@ public class enemyTest : MonoBehaviour
         currentHealth = MaxHealth;
     }
 
-    public void ShowBloodEffect(Vector3 hitPosition)
+    public void ShowBloodEffect()
     {
         if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
         {
             int randomIndex = Random.Range(0, bloodEffectPrefabs.Length);
             GameObject selectedEffect = bloodEffectPrefabs[randomIndex];
 
-            GameObject bloodEffect = Instantiate(selectedEffect, hitPosition, Quaternion.identity);
-            bloodEffect.transform.position += new Vector3(0f, 1f, -1);
+            //  pos 위치에서 이펙트 생성
+            GameObject bloodEffect = Instantiate(selectedEffect, pos.position, Quaternion.identity);
             Destroy(bloodEffect, 0.3f);
 
             if (bloodEffectParticle != null)
             {
-                ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, hitPosition, Quaternion.identity);
-                bloodParticle.transform.position += new Vector3(0f, 1f, 0f);
+                ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, pos.position, Quaternion.identity);
                 bloodParticle.Play();
                 Destroy(bloodParticle.gameObject, bloodParticle.main.duration + 0.5f);
             }
@@ -61,13 +63,12 @@ public class enemyTest : MonoBehaviour
     {
         if (other != null && other.CompareTag("PlayerAttack"))
         {
-            Vector3 hitPosition = transform.position;
-
-            TestAnime.SetTrigger("hurt");
+            //  애니메이션 즉시 다시 실행
+            TestAnime.Play("Hurt", 0, 0f);
 
             TakeDamage(20);
-            ShowBloodEffect(hitPosition);
-            Knockback(other.transform); // 피격 시 넉백 실행
+            ShowBloodEffect(); //  pos 위치에서 이펙트 생성
+            Knockback(other.transform);
 
             if (cameraShake != null)
             {
@@ -91,20 +92,12 @@ public class enemyTest : MonoBehaviour
     {
         if (rb == null) return;
 
-        // 플레이어 위치를 기준으로 적이 반대 방향으로 밀리게 설정
         float direction = transform.position.x - playerTransform.position.x > 0 ? 1f : -1f;
-
-        // 밀리는 힘을 적용 (X축 방향으로 밀리고, 약간 위쪽으로 튀게 설정)
         rb.velocity = new Vector2(knockbackForce * direction, rb.velocity.y + 1f);
     }
 
     private void Die()
     {
         Debug.Log($"{gameObject.name} 사망!");
-
-        // 적 사망 처리 (여기선 삭제하는 부분 주석 처리)
-        /*
-        Destroy(gameObject, 1f);
-        */
     }
 }

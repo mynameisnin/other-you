@@ -31,7 +31,7 @@ public class DownJump : MonoBehaviour
         player.isGround = false; // 바닥 체크 해제 (중요!)
         platformCollider.enabled = false; // 충돌 해제 (바닥 통과)
 
-        yield return new WaitForSeconds(0.8f); // 0.3초 후 다시 충돌 활성화
+        yield return new WaitForSeconds(0.5f); // 0.3초 후 다시 충돌 활성화
 
         platformCollider.enabled = true;
     }

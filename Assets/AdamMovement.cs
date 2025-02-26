@@ -117,8 +117,9 @@ public class AdamMovement : MonoBehaviour
 
     void HandleDash()
     {
-        // 대쉬 불가 조건: 대쉬 중, 쿨다운 중, 또는 공격 입력 후 일정 시간 내
-        if (isDashing || !canDash || attackInputRecently || !isGround)
+        AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
+        // 대쉬 불가 조건: 대쉬 중, 쿨다운 중, 공격 입력 후 일정 시간 내, 점프 중
+        if (isDashing || !canDash || attackInputRecently || !isGround || currentState.IsName("Jump 1"))
         {
             return;
         }
@@ -261,28 +262,22 @@ public class AdamMovement : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, islayer);
         bool isJumping = AdamAnime.GetCurrentAnimatorStateInfo(0).IsName("Jump 1");
-       
+
+        // 대쉬 중이거나 떨어지는 중이면 점프 불가
+        if (isDashing || (!isGround && AdamRigidebody.velocity.y < 0))
+        {
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
         {
             Debug.Log("Jumping...");
-            StartCoroutine(DelayedJump());
+            AdamAnime.SetTrigger("Jump"); // 점프 애니메이션 실행 (한 번만)
+            AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x, JumpPower);
         }
-
     }
 
-    private IEnumerator DelayedJump()
-    {
-        // 점프 애니메이션 실행
-        AdamAnime.SetTrigger("Jump");
 
-        // 0.2초 대기 후 점프 힘 적용
-        yield return new WaitForSeconds(0.2f);
-
-        AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x, JumpPower);
-
-        Debug.Log("Jump executed after delay!");
-    }
 
     void HandleFall()
     {
