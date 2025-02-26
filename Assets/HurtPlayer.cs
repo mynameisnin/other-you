@@ -72,7 +72,7 @@ public class HurtPlayer : MonoBehaviour
 
             if (cameraShake != null)
             {
-                StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                StartCoroutine(cameraShake.Shake(0.15f, 0.15f));
             }
         }
     }
