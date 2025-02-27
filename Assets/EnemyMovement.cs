@@ -236,14 +236,17 @@ public class EnemyMovement : MonoBehaviour
 
         enemyAnimator.SetBool("isWalking", false);
         rb.velocity = Vector2.zero;
-        rb.constraints = RigidbodyConstraints2D.FreezePositionX; //  X축 이동 완전 금지
+        // X축 이동만 금지, Z축 회전은 유지
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
         yield return new WaitForSeconds(stunDuration);
 
         isStunned = false; //  스턴 해제
         isChasing = true;
         isPatrolling = true;
-        rb.constraints = RigidbodyConstraints2D.None; //  이동 가능하도록 설정 복구
+
+        // Z축 회전은 계속 고정하고 X축 이동만 풀어줌
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         Debug.Log(" 적 스턴 해제!");
     }
