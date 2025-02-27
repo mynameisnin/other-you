@@ -37,7 +37,7 @@ public class AdamMovement : MonoBehaviour
     public LayerMask islayer;
 
     private bool isAttacking = false;
-
+    public bool isInvincible { get; private set; }
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -134,6 +134,7 @@ public class AdamMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        isInvincible = true;
 
         AdamAnime.SetBool("isDashing", true); // 대쉬 애니메이션 활성화
 
@@ -153,6 +154,7 @@ public class AdamMovement : MonoBehaviour
 
         AdamRigidebody.gravityScale = originalGravity;
         isDashing = false;
+        isInvincible = false;
 
         AdamAnime.SetBool("isDashing", false);
 

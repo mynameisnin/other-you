@@ -63,11 +63,18 @@ public class HurtPlayer : MonoBehaviour
     {
         if (other != null && other.CompareTag("EnemyAttack"))
         {
+            //  플레이어가 대쉬 중이면 대미지 무효화
+            AdamMovement playerMovement = GetComponent<AdamMovement>();
+            if (playerMovement != null && playerMovement.isInvincible)
+            {
+                Debug.Log("무적 상태! 대미지 없음");
+                return; // 대미지 처리 안 함
+            }
+
             //  애니메이션 즉시 다시 실행
             TestAnime.Play("Hurt", 0, 0f);
-
             TakeDamage(20);
-            ShowBloodEffect(); //  pos 위치에서 이펙트 생성
+            ShowBloodEffect();
             Knockback(other.transform);
 
             if (cameraShake != null)
