@@ -20,6 +20,7 @@ public class enemyTest : MonoBehaviour
 
     [Header("Hit Effect Position")]
     public Transform pos;
+    private bool isParrying = false;
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class enemyTest : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isParrying) return;
         if (other != null && other.CompareTag("PlayerAttack"))
         {
             if (currentHealth > 0 && !isDying)
@@ -68,7 +70,17 @@ public class enemyTest : MonoBehaviour
             }
         }
     }
+    public void StartParry()
+    {
+        isParrying = true;
+        StartCoroutine(ResetParry());
+    }
 
+    private IEnumerator ResetParry()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isParrying = false;
+    }
     public void TakeDamage(int damage)
     {
         if (isDying) return;

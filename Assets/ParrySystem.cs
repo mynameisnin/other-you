@@ -22,7 +22,7 @@ public class ParrySystem : MonoBehaviour
             {
                 StartCoroutine(MoveParryEffect(parryEffect, other.transform.position));
             }
-
+            ApplyParryProtection();
             // 적의 공격 취소
             if (transform.parent != null && transform.parent.TryGetComponent(out EnemyMovement enemy))
             {
@@ -30,7 +30,21 @@ public class ParrySystem : MonoBehaviour
             }
         }
     }
+    private void ApplyParryProtection()
+    {
+        // 플레이어의 패링 무적 적용
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null && player.TryGetComponent(out HurtPlayer hurtPlayer))
+        {
+            hurtPlayer.StartParry();
+        }
 
+        // 적의 패링 무적 적용
+        if (transform.parent != null && transform.parent.TryGetComponent(out enemyTest enemy))
+        {
+            enemy.StartParry();
+        }
+    }
     private GameObject InstantiateParryEffect(Vector3 position)
     {
         if (parryEffectPrefab != null)

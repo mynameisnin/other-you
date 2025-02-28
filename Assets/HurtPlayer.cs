@@ -16,6 +16,7 @@ public class HurtPlayer : MonoBehaviour
     public int currentHealth;
 
     public float knockbackForce = 5f;
+    private bool isParrying = false;
 
     [Header("Hit Effect Position")]
     public Transform pos; //  수동으로 위치 조정 가능한 피격 이펙트 위치
@@ -61,6 +62,8 @@ public class HurtPlayer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (isParrying) return; // 패링 상태라면 무시
+
         if (other != null && other.CompareTag("EnemyAttack"))
         {
             //  플레이어가 대쉬 중이면 대미지 무효화
@@ -99,6 +102,18 @@ public class HurtPlayer : MonoBehaviour
         Debug.Log(" 패링 성공! 대미지 무효화");
         TestAnime.ResetTrigger("Hurt"); // 피격 애니메이션 실행 방지
     }
+    public void StartParry()
+    {
+        isParrying = true;
+        StartCoroutine(ResetParry());
+    }
+
+    private IEnumerator ResetParry()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isParrying = false;
+    }
+
     private void Knockback(Transform playerTransform)
     {
         if (rb == null) return;
