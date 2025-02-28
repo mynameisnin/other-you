@@ -62,6 +62,9 @@ public class EnemyMovement : MonoBehaviour
 
     void DetectPlayer()
     {
+        // 스턴 상태에서는 플레이어 감지 중단
+        if (isStunned) return;
+
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, detectionRange, playerLayer);
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, detectionRange, playerLayer);
 
@@ -84,7 +87,6 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-
     void ChasePlayer()
     {
         if (player == null) return;
@@ -140,9 +142,13 @@ public class EnemyMovement : MonoBehaviour
     // 플레이어가 현재 공격 범위 내에 있는지 확인하는 함수
     bool CheckPlayerInAttackRange()
     {
+        // 스턴 상태에서는 공격 감지 중단
+        if (isStunned) return false;
+
         Collider2D hit = Physics2D.OverlapCircle(attackBox.position, attackBoxSize, playerLayer);
         return hit != null;
     }
+
 
     void Patrol()
     {
