@@ -8,6 +8,8 @@ TagManager:
   - TestEnemy
   - CameraBlock
   - PlayerCamPosition
+  - EnemyAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - Player
   - CampfireLight
-  - 
+  - ob
   - 
   - 
   - 
@@ -47,4 +49,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 341752765
+    locked: 0
+  - name: CameraSortingLayer
+    uniqueID: 4072810769
     locked: 0

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class enemyTest : MonoBehaviour
@@ -10,50 +9,44 @@ public class enemyTest : MonoBehaviour
     public ParticleSystem bloodEffectParticle;
 
     private CameraShakeSystem cameraShake;
-    private Rigidbody2D rb; // Rigidbody2D 추가
+    private Rigidbody2D rb;
+    private Collider2D col;
 
     public int MaxHealth = 100;
     public int currentHealth;
 
-    public float knockbackForce = 5f; // 피격 시 밀리는 힘
+    public float knockbackForce = 5f;
+    private bool isDying = false;
+
+    [Header("Hit Effect Position")]
+    public Transform pos;
 
     void Start()
     {
         TestAnime = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>(); // Rigidbody2D 할당
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
 
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
-
-        if (cameraShake == null)
-        {
-            Debug.LogWarning("카메라에서 CameraShakeSystem 스크립트를 찾을 수 없습니다.");
-        }
-
         currentHealth = MaxHealth;
     }
 
-    public void ShowBloodEffect(Vector3 hitPosition)
+    public void ShowBloodEffect()
     {
         if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
         {
             int randomIndex = Random.Range(0, bloodEffectPrefabs.Length);
             GameObject selectedEffect = bloodEffectPrefabs[randomIndex];
 
-            GameObject bloodEffect = Instantiate(selectedEffect, hitPosition, Quaternion.identity);
-            bloodEffect.transform.position += new Vector3(0f, 1f, -1);
+            GameObject bloodEffect = Instantiate(selectedEffect, pos.position, Quaternion.identity);
             Destroy(bloodEffect, 0.3f);
 
             if (bloodEffectParticle != null)
             {
-                ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, hitPosition, Quaternion.identity);
-                bloodParticle.transform.position += new Vector3(0f, 1f, 0f);
+                ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, pos.position, Quaternion.identity);
                 bloodParticle.Play();
                 Destroy(bloodParticle.gameObject, bloodParticle.main.duration + 0.5f);
             }
-        }
-        else
-        {
-            Debug.LogWarning("bloodEffectPrefabs 배열이 비어 있습니다!");
         }
     }
 
@@ -61,29 +54,31 @@ public class enemyTest : MonoBehaviour
     {
         if (other != null && other.CompareTag("PlayerAttack"))
         {
-            Vector3 hitPosition = transform.position;
-
-            TestAnime.SetTrigger("hurt");
-
-            TakeDamage(20);
-            ShowBloodEffect(hitPosition);
-            Knockback(other.transform); // 피격 시 넉백 실행
-
-            if (cameraShake != null)
+            if (currentHealth > 0 && !isDying)
             {
-                StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                TestAnime.Play("Hurt", 0, 0f);
+                TakeDamage(20);
+                ShowBloodEffect();
+                Knockback(other.transform);
+
+                if (cameraShake != null)
+                {
+                    StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                }
             }
         }
     }
 
     public void TakeDamage(int damage)
     {
+        if (isDying) return;
+
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
         if (currentHealth <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -91,20 +86,37 @@ public class enemyTest : MonoBehaviour
     {
         if (rb == null) return;
 
-        // 플레이어 위치를 기준으로 적이 반대 방향으로 밀리게 설정
         float direction = transform.position.x - playerTransform.position.x > 0 ? 1f : -1f;
-
-        // 밀리는 힘을 적용 (X축 방향으로 밀리고, 약간 위쪽으로 튀게 설정)
         rb.velocity = new Vector2(knockbackForce * direction, rb.velocity.y + 1f);
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        if (isDying) yield break;
+        isDying = true;
+
         Debug.Log($"{gameObject.name} 사망!");
 
-        // 적 사망 처리 (여기선 삭제하는 부분 주석 처리)
-        /*
-        Destroy(gameObject, 1f);
-        */
+        //  콜라이더와 리지드바디 제거
+        if (col != null) col.enabled = false;
+        if (rb != null) rb.simulated = false;
+
+        //  Die 애니메이션 실행
+        TestAnime.SetTrigger("Die");
+
+        // 2초 후 삭제 코루틴 실행
+        StartCoroutine(DestroyAfterDelay(0.6f));
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        DestroyEnemy();
+    }
+
+    private void DestroyEnemy()
+    {
+        Debug.Log($"{gameObject.name} 완전히 제거됨!");
+        Destroy(gameObject);
     }
 }

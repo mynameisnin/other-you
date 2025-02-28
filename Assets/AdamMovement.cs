@@ -31,13 +31,13 @@ public class AdamMovement : MonoBehaviour
     private bool lastKeyWasRight = true;
 
     //점프 변수
-    bool isGround;
+    public bool isGround;
     public Transform JumpPos;
     public float checkRadiusJump;
     public LayerMask islayer;
 
     private bool isAttacking = false;
-
+    public bool isInvincible { get; private set; }
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -117,8 +117,9 @@ public class AdamMovement : MonoBehaviour
 
     void HandleDash()
     {
-        // 대쉬 불가 조건: 대쉬 중, 쿨다운 중, 또는 공격 입력 후 일정 시간 내
-        if (isDashing || !canDash || attackInputRecently || !isGround)
+        AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
+        // 대쉬 불가 조건: 대쉬 중, 쿨다운 중, 공격 입력 후 일정 시간 내, 점프 중
+        if (isDashing || !canDash || attackInputRecently || !isGround || currentState.IsName("Jump 1"))
         {
             return;
         }
@@ -133,6 +134,7 @@ public class AdamMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        isInvincible = true;
 
         AdamAnime.SetBool("isDashing", true); // 대쉬 애니메이션 활성화
 
@@ -152,6 +154,7 @@ public class AdamMovement : MonoBehaviour
 
         AdamRigidebody.gravityScale = originalGravity;
         isDashing = false;
+        isInvincible = false;
 
         AdamAnime.SetBool("isDashing", false);
 
@@ -165,9 +168,8 @@ public class AdamMovement : MonoBehaviour
         AdamAnime.SetTrigger("DashAttack"); // 대쉬 공격 애니메이션 실행
 
         float dashDirection = lastKeyWasRight ? 1 : -1;
-
-        // 대쉬 공격 중 일정 거리만큼 유지
         float elapsed = 0f;
+
         while (elapsed < dashAttackDuration)
         {
             AdamRigidebody.velocity = new Vector2(dashDirection * dashingPower, 0f);
@@ -175,7 +177,16 @@ public class AdamMovement : MonoBehaviour
             yield return null;
         }
 
-        AdamRigidebody.velocity = Vector2.zero; // 대쉬 종료 시 멈춤
+        // 이동 속도를 서서히 줄이는 방식
+        float decelerationTime = 0.2f;
+        while (decelerationTime > 0)
+        {
+            AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x * 0.8f, AdamRigidebody.velocity.y);
+            decelerationTime -= Time.deltaTime;
+            yield return null;
+        }
+
+        AdamRigidebody.velocity = Vector2.zero;
         isDashAttacking = false;
     }
 
@@ -194,7 +205,7 @@ public class AdamMovement : MonoBehaviour
         SpriteRenderer sr = afterImage.AddComponent<SpriteRenderer>();
 
         sr.sprite = AdamSprite.sprite;
-        sr.color = new Color(0.1f, 0.1f, 0.1f, 0.9f);
+        sr.color = new Color(0.5f, 0.5f, 0.5f, 1f);
         sr.flipX = AdamSprite.flipX;
         afterImage.transform.position = transform.position;
         afterImage.transform.localScale = transform.localScale;
@@ -253,30 +264,26 @@ public class AdamMovement : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, islayer);
         bool isJumping = AdamAnime.GetCurrentAnimatorStateInfo(0).IsName("Jump 1");
-       
+
+        // 대쉬 중이거나 떨어지는 중이면 점프 불가
+        if (isDashing || (!isGround && AdamRigidebody.velocity.y < 0))
+        {
+            return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
         {
             Debug.Log("Jumping...");
-            StartCoroutine(DelayedJump());
+            AdamAnime.SetTrigger("Jump"); // 점프 애니메이션 실행 (한 번만)
+            AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x, JumpPower);
         }
     }
 
-    private IEnumerator DelayedJump()
-    {
-        // 점프 애니메이션 실행
-        AdamAnime.SetTrigger("Jump");
 
-        // 0.2초 대기 후 점프 힘 적용
-        yield return new WaitForSeconds(0.2f);
-
-        AdamRigidebody.velocity = new Vector2(AdamRigidebody.velocity.x, JumpPower);
-
-        Debug.Log("Jump executed after delay!");
-    }
 
     void HandleFall()
     {
+        
         if (!isGround && AdamRigidebody.velocity.y < 0)
         {
             AdamAnime.SetBool("Fall",true); // Fall 애니메이션 실행
