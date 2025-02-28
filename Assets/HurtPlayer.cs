@@ -63,8 +63,8 @@ public class HurtPlayer : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isParrying) return; // 패링 상태라면 무시
-
-        if (other != null && other.CompareTag("EnemyAttack"))
+        EnemyMovement enemy = other.GetComponentInParent<EnemyMovement>();
+        if (other != null && other.CompareTag("EnemyAttack")|| other.CompareTag("damageAmount"))
         {
             //  플레이어가 대쉬 중이면 대미지 무효화
             AdamMovement playerMovement = GetComponent<AdamMovement>();
@@ -76,7 +76,9 @@ public class HurtPlayer : MonoBehaviour
 
             //  애니메이션 즉시 다시 실행
             TestAnime.Play("Hurt", 0, 0f);
-            TakeDamage(20);
+            int damage = enemy.GetDamage();
+            TakeDamage(damage); 
+
             ShowBloodEffect();
             Knockback(other.transform);
 

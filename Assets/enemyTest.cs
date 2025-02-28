@@ -54,12 +54,14 @@ public class enemyTest : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isParrying) return;
+        PlayerAttackDamage NomalDamage = other.GetComponentInParent<PlayerAttackDamage>();
         if (other != null && other.CompareTag("PlayerAttack"))
         {
             if (currentHealth > 0 && !isDying)
             {
                 TestAnime.Play("Hurt", 0, 0f);
-                TakeDamage(20);
+                int Nomaldamage = NomalDamage.GetNomalAttackDamage();
+                TakeDamage(Nomaldamage);
                 ShowBloodEffect();
                 Knockback(other.transform);
 
@@ -81,11 +83,11 @@ public class enemyTest : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         isParrying = false;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int Nomaldamage)
     {
         if (isDying) return;
 
-        currentHealth -= damage;
+        currentHealth -= Nomaldamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
         if (currentHealth <= 0)

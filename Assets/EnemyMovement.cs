@@ -29,8 +29,12 @@ public class EnemyMovement : MonoBehaviour
     private float patrolTime = 2f;
     private float patrolTimer = 0f;
     private float patrolDirection = 1f; // -1이면 왼쪽, 1이면 오른쪽
+    public int attackDamage = 100; // 기본 공격 데미지
 
-    void Start()
+
+
+
+void Start()
     {
         enemyAnimator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -178,7 +182,10 @@ public class EnemyMovement : MonoBehaviour
     {
         return Random.Range(1.5f, 6f); // 1.5초 ~ 3.5초 사이의 랜덤한 값 반환
     }
-
+    public int GetDamage()
+    {
+        return attackDamage;
+    }
     IEnumerator FlipAndTurn()
     {
         isTurning = true;
