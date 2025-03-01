@@ -73,7 +73,11 @@ public class HurtPlayer : MonoBehaviour
                 Debug.Log("무적 상태! 대미지 없음");
                 return; // 대미지 처리 안 함
             }
-
+            EnemyDamageBumpAgainst damageTrigger = other.GetComponent<EnemyDamageBumpAgainst>();
+            if (damageTrigger != null)
+            {
+                damageTrigger.TriggerDamageCooldown(0.5f);
+            }
             //  애니메이션 즉시 다시 실행
             TestAnime.Play("Hurt", 0, 0f);
             int damage = enemy.GetDamage();
