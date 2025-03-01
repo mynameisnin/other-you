@@ -12,23 +12,58 @@ public class ParrySystem : MonoBehaviour
         // 플레이어의 공격과 충돌했는지 확인
         if (other.CompareTag("PlayerAttack") && gameObject.CompareTag("EnemyAttack"))
         {
-            Debug.Log("  패링 성공! 플레이어와 적의 공격이 동시에 감지됨");
+            Debug.Log("  패링 시도: 플레이어와 적의 공격이 감지됨");
 
-            // 패링 이펙트 생성 후 이동
-            GameObject parryEffect = InstantiateParryEffect(other.transform.position);
-            CallParryParticle(other.transform.position);
-            // 특정 오브젝트로 패링 이펙트 이동 (예: 플레이어 위치)
-            if (parryEffect != null)
+            //  플레이어와 가장 가까운 적 찾기
+            enemyTest closestEnemy = FindClosestEnemy(other.transform);
+
+            //  내가 가장 가까운 적이라면 패링 실행
+            if (closestEnemy != null && closestEnemy.gameObject == transform.parent.gameObject)
             {
-                StartCoroutine(MoveParryEffect(parryEffect, other.transform.position));
+                Debug.Log("  패링 성공! 가장 가까운 적이 패링 처리됨");
+
+                // 패링 이펙트 생성 후 이동
+                GameObject parryEffect = InstantiateParryEffect(other.transform.position);
+                CallParryParticle(other.transform.position);
+
+                if (parryEffect != null)
+                {
+                    StartCoroutine(MoveParryEffect(parryEffect, other.transform.position));
+                }
+
+                ApplyParryProtection();
+
+                // 적의 공격 취소
+                if (transform.parent != null && transform.parent.TryGetComponent(out EnemyMovement enemy))
+                {
+                    enemy.CancelAttack();
+                }
             }
-            ApplyParryProtection();
-            // 적의 공격 취소
-            if (transform.parent != null && transform.parent.TryGetComponent(out EnemyMovement enemy))
+            else
             {
-                enemy.CancelAttack();
+                Debug.Log("  패링 실패: 가장 가까운 적이 아님");
             }
         }
+    }
+    //  플레이어와 가장 가까운 적을 찾는 함수
+    enemyTest FindClosestEnemy(Transform playerAttack)
+    {
+        enemyTest[] enemies = FindObjectsOfType<enemyTest>(); // 모든 적 가져오기
+        enemyTest closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (enemyTest enemy in enemies)
+        {
+            float distance = Vector2.Distance(playerAttack.position, enemy.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
     }
     private void ApplyParryProtection()
     {

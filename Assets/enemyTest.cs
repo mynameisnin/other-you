@@ -54,24 +54,56 @@ public class enemyTest : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isParrying) return;
-        PlayerAttackDamage NomalDamage = other.GetComponentInParent<PlayerAttackDamage>();
-        if (other != null && other.CompareTag("PlayerAttack"))
-        {
-            if (currentHealth > 0 && !isDying)
-            {
-                TestAnime.Play("Hurt", 0, 0f);
-                int Nomaldamage = NomalDamage.GetNomalAttackDamage();
-                TakeDamage(Nomaldamage);
-                ShowBloodEffect();
-                Knockback(other.transform);
 
-                if (cameraShake != null)
+        if (other.CompareTag("PlayerAttack"))
+        {
+            PlayerAttackDamage NomalDamage = other.GetComponentInParent<PlayerAttackDamage>();
+
+            if (NomalDamage == null) return;
+
+            //  플레이어와 가장 가까운 적 찾기
+            enemyTest closestEnemy = FindClosestEnemy(other.transform);
+
+            if (closestEnemy == this) // 내가 가장 가까운 적이라면 피격 처리
+            {
+                if (currentHealth > 0 && !isDying)
                 {
-                    StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                    TestAnime.Play("Hurt", 0, 0f);
+                    int Nomaldamage = NomalDamage.GetNomalAttackDamage();
+                    TakeDamage(Nomaldamage);
+                    ShowBloodEffect();
+                    Knockback(other.transform);
+
+                    if (cameraShake != null)
+                    {
+                        StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+                    }
                 }
             }
         }
     }
+
+    //  플레이어와 가장 가까운 적을 찾는 함수
+    enemyTest FindClosestEnemy(Transform playerAttack)
+    {
+        enemyTest[] enemies = FindObjectsOfType<enemyTest>(); // 모든 적 가져오기
+        enemyTest closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (enemyTest enemy in enemies)
+        {
+            float distance = Vector2.Distance(playerAttack.position, enemy.transform.position);
+
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
+    }
+
     public void StartParry()
     {
         isParrying = true;
