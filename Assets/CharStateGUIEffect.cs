@@ -10,6 +10,7 @@ public class CharStateGUIEffect : MonoBehaviour
     private Image panelImage;              // 패널의 배경 색상을 변경하기 위한 Image
 
     private Color defaultColor;            // 원래 색상 저장
+    private Vector3 originalPosition;      //  패널의 원래 위치 저장
 
     void Start()
     {
@@ -20,6 +21,11 @@ public class CharStateGUIEffect : MonoBehaviour
         {
             defaultColor = panelImage.color;
         }
+
+        if (panelTransform != null)
+        {
+            originalPosition = panelTransform.localPosition; //  원래 위치 저장
+        }
     }
 
     //  피격 시 GUI 흔들림 효과
@@ -27,7 +33,11 @@ public class CharStateGUIEffect : MonoBehaviour
     {
         if (panelTransform != null)
         {
-            panelTransform.DOShakePosition(0.3f, new Vector3(10f, 10f, 0)); // 0.3초 동안 흔들림
+            panelTransform.DOShakePosition(0.3f, new Vector3(10f, 10f, 0)) // 0.3초 동안 흔들림
+                .OnComplete(() =>
+                {
+                    panelTransform.localPosition = originalPosition; //  원래 위치로 복귀
+                });
         }
     }
 
