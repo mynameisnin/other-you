@@ -1,0 +1,640 @@
+fileFormatVersion: 2
+guid: c83f106c4feb29b4c807e974af90e4e6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: AdamDeath_Frame_1
+    originalName: 
+    pivot: {x: 0.74418604, y: 0.016129032}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 60
+      y: 58
+      width: 43
+      height: 62
+    spriteID: b73f9b76a3c55174aa66e1a7cc5d0d8e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 60, y: 58}
+  - name: AdamDeath_Frame_2
+    originalName: 
+    pivot: {x: 0.76744187, y: 0.03508772}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 201
+      y: 58
+      width: 43
+      height: 57
+    spriteID: 577f13777c55e18429af8f356bf48112
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 201, y: 58}
+  - name: AdamDeath_Frame_3
+    originalName: 
+    pivot: {x: 0.3943662, y: 0.04347826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 71
+      height: 46
+    spriteID: 0e2d828c8d84e754cb4b832085aff5a1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: AdamDeath_Frame_4
+    originalName: 
+    pivot: {x: 0.08219178, y: 0.12903225}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 163
+      y: 128
+      width: 73
+      height: 31
+    spriteID: 8d610023a36f49f4e931469b1f059f99
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 163, y: 128}
+  - name: AdamDeath_Frame_5
+    originalName: 
+    pivot: {x: 0.075, y: 0.12903225}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 172
+      y: 4
+      width: 80
+      height: 31
+    spriteID: be3680631e9223a4bb625064e1958407
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 172, y: 4}
+  - name: AdamDeath_Frame_6
+    originalName: 
+    pivot: {x: 0.07317073, y: 0.12903225}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 111
+      y: 58
+      width: 82
+      height: 31
+    spriteID: 3f5fd4ffe9ef77f49977bd3c4b7b08a5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 111, y: 58}
+  - name: AdamDeath_Frame_7
+    originalName: 
+    pivot: {x: 0.074074075, y: 0.12903225}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 83
+      y: 4
+      width: 81
+      height: 31
+    spriteID: ae90dc066273d2641aa5f7a8663b1287
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 83, y: 4}
+  - name: AdamDeath_Frame_8
+    originalName: 
+    pivot: {x: 0.04, y: 0.13333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 168
+      width: 75
+      height: 30
+    spriteID: b9d5824186dcb394ca39dd07621bba3b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 168}
+  - name: AdamDeath_Frame_9
+    originalName: 
+    pivot: {x: 0.04, y: 0.13333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 87
+      y: 168
+      width: 75
+      height: 30
+    spriteID: 325150d90028fa643ab30ca8faf76f26
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 87, y: 168}
+  - name: AdamDeath_Frame_10
+    originalName: 
+    pivot: {x: 0.040540542, y: 0.13333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 206
+      width: 74
+      height: 30
+    spriteID: 525309a66156d0d47a652b38c93941ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 206}
+  - name: AdamDeath_Frame_11
+    originalName: 
+    pivot: {x: 0.04, y: 0.13333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 170
+      y: 168
+      width: 75
+      height: 30
+    spriteID: 3c8aa02f6d7cf5a42894128eeeea64db
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 170, y: 168}
+  - name: AdamDeath_Frame_12
+    originalName: 
+    pivot: {x: 0.042857144, y: 0.13333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 86
+      y: 206
+      width: 70
+      height: 30
+    spriteID: befbca3eeca795f4fabbb7a55e31ac4c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 86, y: 206}
+  - name: AdamDeath_Frame_13
+    originalName: 
+    pivot: {x: 0.04225352, y: 0.125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 128
+      width: 71
+      height: 32
+    spriteID: 1eab365749a5ae141962f03a9b55ff55
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 128}
+  - name: AdamDeath_Frame_14
+    originalName: 
+    pivot: {x: 0.041666668, y: 0.125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 128
+      width: 72
+      height: 32
+    spriteID: 6006ec0ccb8ba374684532c011f5ec28
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 128}
+  - name: AdamDeath_Frame_0
+    originalName: 
+    pivot: {x: 0.060606062, y: 0.3125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 111
+      y: 97
+      width: 66
+      height: 16
+    spriteID: 9d3c754177faefd4bb11f65155cab1c5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 111, y: 97}
+  - name: AdamDeath_Frame_16
+    originalName: 
+    pivot: {x: 0.045454547, y: 0.25}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 206
+      width: 66
+      height: 16
+    spriteID: 48e02986a0dca5f4e9f6ac4f74d89900
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 206}
+  - name: AdamDeath_Frame_17
+    originalName: 
+    pivot: {x: 0.045454547, y: 0.25}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 164
+      y: 230
+      width: 66
+      height: 16
+    spriteID: 0654fbb739178a64dbccc641a870a68b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 164, y: 230}
+  - name: AdamDeath_Frame_0
+    originalName: 
+    pivot: {x: 0.75, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 58
+      width: 48
+      height: 62
+    spriteID: 5031dc8baa08436408e61725831bebae
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 58}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 46790021
+    name: AdamDeath
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: AdamDeath_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 79
+        y: 68
+        width: 43
+        height: 62
+      spriteId: b73f9b76a3c55174aa66e1a7cc5d0d8e
+    - name: AdamDeath_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 81
+        y: 68
+        width: 43
+        height: 57
+      spriteId: 577f13777c55e18429af8f356bf48112
+    - name: AdamDeath_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 68
+        y: 68
+        width: 71
+        height: 46
+      spriteId: 0e2d828c8d84e754cb4b832085aff5a1
+    - name: AdamDeath_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 79
+        y: 68
+        width: 73
+        height: 31
+      spriteId: 8d610023a36f49f4e931469b1f059f99
+    - name: AdamDeath_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 79
+        y: 68
+        width: 80
+        height: 31
+      spriteId: be3680631e9223a4bb625064e1958407
+    - name: AdamDeath_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 79
+        y: 68
+        width: 82
+        height: 31
+      spriteId: 3f5fd4ffe9ef77f49977bd3c4b7b08a5
+    - name: AdamDeath_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 79
+        y: 68
+        width: 81
+        height: 31
+      spriteId: ae90dc066273d2641aa5f7a8663b1287
+    - name: AdamDeath_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 80
+        y: 68
+        width: 75
+        height: 30
+      spriteId: b9d5824186dcb394ca39dd07621bba3b
+    - name: AdamDeath_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 80
+        y: 68
+        width: 75
+        height: 30
+      spriteId: 325150d90028fa643ab30ca8faf76f26
+    - name: AdamDeath_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 80
+        y: 68
+        width: 74
+        height: 30
+      spriteId: 525309a66156d0d47a652b38c93941ba
+    - name: AdamDeath_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 80
+        y: 68
+        width: 75
+        height: 30
+      spriteId: 3c8aa02f6d7cf5a42894128eeeea64db
+    - name: AdamDeath_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 80
+        y: 68
+        width: 70
+        height: 30
+      spriteId: befbca3eeca795f4fabbb7a55e31ac4c
+    - name: AdamDeath_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 80
+        y: 68
+        width: 71
+        height: 32
+      spriteId: 1eab365749a5ae141962f03a9b55ff55
+    - name: AdamDeath_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 80
+        y: 68
+        width: 72
+        height: 32
+      spriteId: 6006ec0ccb8ba374684532c011f5ec28
+    - name: AdamDeath_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 80
+        y: 68
+        width: 66
+        height: 16
+      spriteId: 9d3c754177faefd4bb11f65155cab1c5
+    - name: AdamDeath_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 80
+        y: 68
+        width: 66
+        height: 16
+      spriteId: 48e02986a0dca5f4e9f6ac4f74d89900
+    - name: AdamDeath_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 80
+        y: 68
+        width: 66
+        height: 16
+      spriteId: 0654fbb739178a64dbccc641a870a68b
+    - name: AdamDeath_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 75
+        y: 68
+        width: 48
+        height: 62
+      spriteId: 5031dc8baa08436408e61725831bebae
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 200, y: 200}

@@ -11,6 +11,7 @@ public class AdamMovement : MonoBehaviour
     public float JumpPower = 3f;
     public float AdamMoveSpeed = 3f;
     private CharacterAttack characterAttack; // 공격 스크립트 참조
+    private EnergyBarUI energyBarUI; //  에너지 UI 추가
 
     private bool canDash = true;
     private bool isDashing;
@@ -23,6 +24,7 @@ public class AdamMovement : MonoBehaviour
     private float dashingCooldown = 0.5f;
     [SerializeField] private TrailRenderer dashTrail;
 
+    [SerializeField] private float dashEnergyCost = 15f; //  대쉬 시 에너지 소모량
     [SerializeField] private float afterImageInterval = 0.02f;
     [SerializeField] private float afterImageLifetime = 1f; // 잔상 유지 시간
     [SerializeField] private float attackInputCooldown = 0.2f; // 공격 후 대쉬 차단 시간
@@ -44,6 +46,7 @@ public class AdamMovement : MonoBehaviour
         AdamAnime = GetComponent<Animator>();
         AdamSprite = GetComponent<SpriteRenderer>();
         characterAttack = GetComponent<CharacterAttack>();
+        energyBarUI = FindObjectOfType<EnergyBarUI>(); //  EnergyBarUI 찾기
     }
 
     void Update()
@@ -118,7 +121,7 @@ public class AdamMovement : MonoBehaviour
     void HandleDash()
     {
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
-        // 대쉬 불가 조건: 대쉬 중, 쿨다운 중, 공격 입력 후 일정 시간 내, 점프 중
+
         if (isDashing || !canDash || attackInputRecently || !isGround || currentState.IsName("Jump 1"))
         {
             return;
@@ -126,17 +129,33 @@ public class AdamMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            float currentEnergy = energyBarUI != null ? energyBarUI.GetCurrentEnergy() : 0f;
+
+            // ?? 에너지가 부족한 상태에서 대쉬 시도하면 테두리 깜빡이기
+            if (currentEnergy < dashEnergyCost && energyBarUI != null)
+            {
+                Debug.Log("대쉬 불가: ENERGY 부족!");
+                energyBarUI.FlashBorder(); // ?? 테두리 깜빡이기
+                return;
+            }
+
+            // ?? 에너지가 충분하면 대쉬 실행
             StartCoroutine(Dash());
         }
     }
 
     private IEnumerator Dash()
     {
+        if (energyBarUI != null)
+        {
+            energyBarUI.ReduceEnergy(dashEnergyCost);
+        }
+
         canDash = false;
         isDashing = true;
         isInvincible = true;
 
-        AdamAnime.SetBool("isDashing", true); // 대쉬 애니메이션 활성화
+        AdamAnime.SetBool("isDashing", true);
 
         if (dashTrail != null) dashTrail.emitting = true;
 
@@ -161,7 +180,6 @@ public class AdamMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
-
     private IEnumerator DashAttack()
     {
         isDashAttacking = true;
