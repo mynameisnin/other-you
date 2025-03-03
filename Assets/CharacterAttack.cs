@@ -9,12 +9,20 @@ public class CharacterAttack : MonoBehaviour
     private float comboMaxTime = 0.03f; // 콤보 입력 가능 시간
     private bool isAttacking = false; // 현재 공격 중인지 여부
 
+    public EnergyBarUI energyBarUI; //  에너지 UI 추가
+    public float attackEnergyCost = 10f; // 공격 시 소비되는 에너지 양
+
     // 공격 상태를 다른 스크립트에서 읽기 위한 프로퍼티
     public bool IsAttacking => isAttacking;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        //  EnergyBarUI가 연결되지 않았을 경우 경고
+        if (energyBarUI == null)
+        {
+            Debug.LogError("[CharacterAttack] EnergyBarUI가 연결되지 않음!");
+        }
     }
 
     void Update()
@@ -26,7 +34,7 @@ public class CharacterAttack : MonoBehaviour
     private void HandleComboInput()
     {
         // 공격 버튼 입력 감지
-        if (Input.GetKey(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M)) //  KeyDown으로 변경하여 연속 입력 방지
         {
             TriggerAttack(); // 공격 트리거 호출
         }
@@ -34,14 +42,32 @@ public class CharacterAttack : MonoBehaviour
 
     public void TriggerAttack()
     {
-        // 콤보 입력을 직접 트리거
+        if (energyBarUI == null)
+        {
+            Debug.LogError("EnergyBarUI가 연결되지 않음!");
+            return;
+        }
+
+        float currentEnergy = energyBarUI.GetCurrentEnergy(); // 현재 에너지 가져오기
+
+        if (currentEnergy <= 0)
+        {
+            Debug.Log("공격 불가: ENERGY 부족!");
+            energyBarUI.FlashBorder(); //  에너지가 완전히 없으면 테두리 깜빡임
+            return;
+        }
+
+        //  남은 에너지만큼만 차감
+        float energyToConsume = Mathf.Min(attackEnergyCost, currentEnergy);
+        energyBarUI.ReduceEnergy(energyToConsume);
+
         if (isAttacking)
         {
-            ContinueCombo(); // 콤보 진행
+            ContinueCombo();
         }
         else
         {
-            StartCombo(); // 첫 공격
+            StartCombo();
         }
     }
 
