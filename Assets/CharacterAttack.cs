@@ -42,26 +42,34 @@ public class CharacterAttack : MonoBehaviour
 
     public void TriggerAttack()
     {
-        //  에너지가 충분한 경우에만 공격 실행
-        if (energyBarUI != null && energyBarUI.HasEnoughEnergy(attackEnergyCost))
+        if (energyBarUI == null)
         {
-            energyBarUI.ReduceEnergy(attackEnergyCost); //  공격할 때마다 에너지 차감
+            Debug.LogError("EnergyBarUI가 연결되지 않음!");
+            return;
+        }
 
-            if (isAttacking)
-            {
-                ContinueCombo(); // 콤보 진행
-            }
-            else
-            {
-                StartCombo(); // 첫 공격
-            }
+        float currentEnergy = energyBarUI.GetCurrentEnergy(); // 현재 에너지 가져오기
+
+        if (currentEnergy <= 0)
+        {
+            Debug.Log("공격 불가: ENERGY 부족!");
+            energyBarUI.FlashBorder(); //  에너지가 완전히 없으면 테두리 깜빡임
+            return;
+        }
+
+        //  남은 에너지만큼만 차감
+        float energyToConsume = Mathf.Min(attackEnergyCost, currentEnergy);
+        energyBarUI.ReduceEnergy(energyToConsume);
+
+        if (isAttacking)
+        {
+            ContinueCombo();
         }
         else
         {
-            Debug.Log(" 공격 불가: ENERGY 부족!");
+            StartCombo();
         }
     }
-
 
     private void StartCombo()
     {
