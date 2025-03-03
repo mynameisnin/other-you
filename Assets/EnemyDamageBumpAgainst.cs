@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class EnemyDamageBumpAgainst : MonoBehaviour
 {
-    public int damageAmount = 10; // 플레이어에게 입힐 대미지
+    private Collider2D damageCollider;
+
     void Start()
     {
-        Collider2D playerCollider = GameObject.FindWithTag("Player").GetComponent<Collider2D>();
-        Collider2D enemyCollider = GetComponent<Collider2D>();
-
-        Physics2D.IgnoreCollision(enemyCollider, playerCollider, true);
+        damageCollider = GetComponent<Collider2D>();
     }
-   
+
+    private IEnumerator DisableColliderForSeconds(float duration)
+    {
+        if (damageCollider != null)
+        {
+            damageCollider.enabled = false; //  콜라이더 비활성화
+            yield return new WaitForSeconds(duration);
+            damageCollider.enabled = true;  //  다시 활성화
+        }
+    }
+
+    public void TriggerDamageCooldown(float duration)
+    {
+        StartCoroutine(DisableColliderForSeconds(duration));
+    }
 }

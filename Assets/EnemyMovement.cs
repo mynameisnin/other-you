@@ -29,6 +29,13 @@ public class EnemyMovement : MonoBehaviour
     private float patrolTime = 2f;
     private float patrolTimer = 0f;
     private float patrolDirection = 1f; // -1이면 왼쪽, 1이면 오른쪽
+    public int attackDamage = 100; // 기본 공격 데미지
+
+    private bool isBlocked = false; //  적이 앞에 막혀있는지 체크
+
+    public Collider2D frontCollider; //  태그 감지용 트리거 콜라이더
+
+
 
     void Start()
     {
@@ -39,12 +46,8 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        //  적이 스턴 상태라면 어떤 행동도 하지 않음
-        if (isStunned)
-        {
-            return;
-        }
-
+      
+        if (isStunned || isBlocked) return; //  적이 막혀있으면 이동 X
         if (!isAttacking && !isTurning)
         {
             DetectPlayer();
@@ -62,6 +65,9 @@ public class EnemyMovement : MonoBehaviour
 
     void DetectPlayer()
     {
+        // 스턴 상태에서는 플레이어 감지 중단
+        if (isStunned) return;
+
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, detectionRange, playerLayer);
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, detectionRange, playerLayer);
 
@@ -84,10 +90,9 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-
     void ChasePlayer()
     {
-        if (player == null) return;
+        if (player == null || isBlocked) return; //  앞에 적이 있으면 이동 X
 
         float distance = Vector2.Distance(transform.position, player.position);
 
@@ -97,8 +102,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            enemyAnimator.SetBool("isWalking", true); // 걷기 애니메이션 실행
-
+            enemyAnimator.SetBool("isWalking", true);
             Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
@@ -109,6 +113,7 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
+
 
     IEnumerator Attack()
     {
@@ -140,9 +145,13 @@ public class EnemyMovement : MonoBehaviour
     // 플레이어가 현재 공격 범위 내에 있는지 확인하는 함수
     bool CheckPlayerInAttackRange()
     {
+        // 스턴 상태에서는 공격 감지 중단
+        if (isStunned) return false;
+
         Collider2D hit = Physics2D.OverlapCircle(attackBox.position, attackBoxSize, playerLayer);
         return hit != null;
     }
+
 
     void Patrol()
     {
@@ -172,7 +181,10 @@ public class EnemyMovement : MonoBehaviour
     {
         return Random.Range(1.5f, 6f); // 1.5초 ~ 3.5초 사이의 랜덤한 값 반환
     }
-
+    public int GetDamage()
+    {
+        return attackDamage;
+    }
     IEnumerator FlipAndTurn()
     {
         isTurning = true;
@@ -256,6 +268,43 @@ public class EnemyMovement : MonoBehaviour
         isFacingRight = !isFacingRight;
         transform.Rotate(0f, 180f, 0f);
     }
+    //  적이 감지되면 플레이어와 가까운 적만 이동할 수 있도록 설정
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("앞에 적 감지됨!");
+
+            float myDistance = Vector2.Distance(transform.position, player.position);
+            float otherDistance = Vector2.Distance(other.transform.position, player.position);
+
+            if (myDistance < otherDistance)
+            {
+                //  내가 플레이어와 더 가까우면 이동 가능
+                Debug.Log("내가 플레이어와 더 가까움 -> 이동 가능");
+                isBlocked = false;
+            }
+            else
+            {
+                //  내가 플레이어와 더 멀면 멈춤
+                Debug.Log("내가 플레이어보다 멀음 -> 이동 멈춤");
+                isBlocked = true;
+                rb.velocity = Vector2.zero;
+                enemyAnimator.SetBool("isWalking", false);
+            }
+        }
+    }
+
+    //  적이 사라지면 다시 이동 가능
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("앞에 있던 적이 사라짐! 이동 가능");
+            isBlocked = false;
+        }
+    }
+
 
     private void OnDrawGizmos()
     {

@@ -16,6 +16,7 @@ public class HurtPlayer : MonoBehaviour
     public int currentHealth;
 
     public float knockbackForce = 5f;
+    private bool isParrying = false;
 
     [Header("Hit Effect Position")]
     public Transform pos; //  수동으로 위치 조정 가능한 피격 이펙트 위치
@@ -61,7 +62,9 @@ public class HurtPlayer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other != null && other.CompareTag("EnemyAttack"))
+        if (isParrying) return; // 패링 상태라면 무시
+        EnemyMovement enemy = other.GetComponentInParent<EnemyMovement>();
+        if (other != null && other.CompareTag("EnemyAttack")|| other.CompareTag("damageAmount"))
         {
             //  플레이어가 대쉬 중이면 대미지 무효화
             AdamMovement playerMovement = GetComponent<AdamMovement>();
@@ -70,10 +73,16 @@ public class HurtPlayer : MonoBehaviour
                 Debug.Log("무적 상태! 대미지 없음");
                 return; // 대미지 처리 안 함
             }
-
+            EnemyDamageBumpAgainst damageTrigger = other.GetComponent<EnemyDamageBumpAgainst>();
+            if (damageTrigger != null)
+            {
+                damageTrigger.TriggerDamageCooldown(0.5f);
+            }
             //  애니메이션 즉시 다시 실행
             TestAnime.Play("Hurt", 0, 0f);
-            TakeDamage(20);
+            int damage = enemy.GetDamage();
+            TakeDamage(damage); 
+
             ShowBloodEffect();
             Knockback(other.transform);
 
@@ -99,6 +108,18 @@ public class HurtPlayer : MonoBehaviour
         Debug.Log(" 패링 성공! 대미지 무효화");
         TestAnime.ResetTrigger("Hurt"); // 피격 애니메이션 실행 방지
     }
+    public void StartParry()
+    {
+        isParrying = true;
+        StartCoroutine(ResetParry());
+    }
+
+    private IEnumerator ResetParry()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isParrying = false;
+    }
+
     private void Knockback(Transform playerTransform)
     {
         if (rb == null) return;
