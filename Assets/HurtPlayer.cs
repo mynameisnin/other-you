@@ -21,6 +21,9 @@ public class HurtPlayer : MonoBehaviour
     [Header("Hit Effect Position")]
     public Transform pos; //  수동으로 위치 조정 가능한 피격 이펙트 위치
 
+    public HealthBarUI healthBarUI; //  UI 체력바 참조 추가
+    public CharStateGUIEffect charStateGUIEffect;
+
     void Start()
     {
         TestAnime = GetComponent<Animator>();
@@ -34,9 +37,16 @@ public class HurtPlayer : MonoBehaviour
         }
 
         currentHealth = MaxHealth;
+
+        if (healthBarUI != null)
+        {
+            healthBarUI.Initialize(MaxHealth);
+        }
     }
 
-    public void ShowBloodEffect()
+
+
+public void ShowBloodEffect()
     {
         if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
         {
@@ -95,8 +105,24 @@ public class HurtPlayer : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
+
+            currentHealth -= damage;
+            currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
+
+            Debug.Log($"[HurtPlayer] 체력 감소: {currentHealth} / {MaxHealth}");
+
+        if (healthBarUI != null)
+        {
+            healthBarUI.UpdateHealthBar(currentHealth, true);  // 애니메이션 활성화
+        }
+
+
+        healthBarUI.UpdateHealthBar(currentHealth);
+
+        if (charStateGUIEffect != null)
+        {
+            charStateGUIEffect.TriggerHitEffect();
+        }
 
         if (currentHealth <= 0)
         {
