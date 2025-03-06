@@ -13,7 +13,7 @@ public class Arrow : MonoBehaviour
     private bool isHighAngle;
     private Vector2 targetDirection;
     private bool isFacingRight;
-
+    public int damage = 10;
 
     void Awake()
     {
@@ -100,7 +100,15 @@ public class Arrow : MonoBehaviour
     {
         if (collision.CompareTag("Player")) // 플레이어 충돌
         {
-            // 여기서 데미지 처리 추가 가능
+            // 플레이어에게 대미지 주기
+            HurtPlayer player = collision.GetComponent<HurtPlayer>();
+            if (player != null)
+            {
+                int damage = 10; // 화살 기본 대미지 (원하는 값으로 변경 가능)
+                player.TakeDamage(damage);
+            }
+
+            // 화살 제거
             Destroy(gameObject);
         }
         else if (collision.CompareTag("isGround")) // 땅과 충돌하면 제거
@@ -108,4 +116,5 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

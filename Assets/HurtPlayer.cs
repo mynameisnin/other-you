@@ -86,35 +86,62 @@ public void ShowBloodEffect()
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isParrying || isDead) return; // 패링 상태거나 사망했으면 무시
+
+        // 근거리 적 공격인지 검사
         EnemyMovement enemy = other.GetComponentInParent<EnemyMovement>();
-        if (other != null && other.CompareTag("EnemyAttack")|| other.CompareTag("damageAmount"))
+        // 원거리 공격(화살)인지 검사
+        Arrow enemyArrow = other.GetComponent<Arrow>();
+
+        // 공격이 "EnemyAttack" 또는 "damageAmount" 태그를 가진 경우 실행
+        if (other.CompareTag("EnemyAttack") || other.CompareTag("damageAmount"))
         {
-            //  플레이어가 대쉬 중이면 대미지 무효화
+            // 플레이어가 무적 상태인지 확인
             AdamMovement playerMovement = GetComponent<AdamMovement>();
             if (playerMovement != null && playerMovement.isInvincible)
             {
                 Debug.Log("무적 상태! 대미지 없음");
                 return; // 대미지 처리 안 함
             }
+
+            // 0.5초 동안 추가 대미지를 받지 않도록 설정 (연속 공격 방지)
             EnemyDamageBumpAgainst damageTrigger = other.GetComponent<EnemyDamageBumpAgainst>();
             if (damageTrigger != null)
             {
                 damageTrigger.TriggerDamageCooldown(0.5f);
             }
-            //  애니메이션 즉시 다시 실행
-            TestAnime.Play("Hurt", 0, 0f);
-            int damage = enemy.GetDamage();
-            TakeDamage(damage); 
 
+            //  근거리 적 공격인지 확인 후 대미지 적용
+            int damage = 0;
+            if (enemy != null)
+            {
+                damage = enemy.GetDamage(); // 적이 주는 대미지를 가져옴
+            }
+            //  원거리 공격(화살)인지 확인 후 대미지 적용
+            else if (enemyArrow != null)
+            {
+                damage = enemyArrow.damage; // 화살이 가진 대미지 적용
+            }
+
+            // 대미지 적용 (피격 처리)
+            TakeDamage(damage);
+
+            //  피격 애니메이션 즉시 실행
+            TestAnime.Play("Hurt", 0, 0f);
+
+            // 피격 이펙트 실행
             ShowBloodEffect();
+
+            //  넉백(충격) 효과 실행
             Knockback(other.transform);
 
+            //  카메라 흔들림 (카메라 셰이크)
             if (cameraShake != null)
             {
-                StartCoroutine(cameraShake.Shake(0.15f, 0.15f));
+                StartCoroutine(cameraShake.Shake(0.15f, 0.15f)); // 0.15초 동안 화면 흔들림
             }
         }
     }
+
 
     public void TakeDamage(int damage)
     {
