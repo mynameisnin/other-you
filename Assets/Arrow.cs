@@ -1,62 +1,111 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    public float lifetime = 3f;
+    public float straightSpeed = 10f; // 직선 속도
+    public float arcSpeed = 5f; // 포물선 속도
+    public float arcHeight = 2f; // 포물선 높이
+    public float lifetime = 5f; // 화살 수명
+
     private Rigidbody2D rb;
-    private bool hasHit = false;
+    private bool isHighAngle;
+    private Vector2 targetDirection;
+    private bool isFacingRight;
 
-    public float arrowSpeed = 10f; // 화살 속도 (직선 발사용)
-    public float arcForceX = 6f;   // 포물선 발사 - X축 힘
-    public float arcForceY = 8f;   // 포물선 발사 - Y축 힘
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
 
         if (rb == null)
         {
-            Debug.LogError("화살에 Rigidbody2D가 없음!");
+            Debug.LogError(" Rigidbody2D가 없음! Rigidbody2D를 추가하세요.", this);
+        }
+    }
+    
+
+
+    void StraightShot()
+    {
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D가 설정되지 않음! Arrow 프리팹을 확인하세요.");
             return;
         }
 
-        Destroy(gameObject, lifetime); // 일정 시간 후 제거
+        rb.velocity = targetDirection * straightSpeed;
+
+        //  화살 방향에 맞게 회전
+        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
-
-    // 화살 발사 방향을 설정하는 함수
-    public void SetDirection(bool isRight, bool isHighAngle)
+    public void SetDirection(bool facingRight, bool highAngle, Vector2 targetPosition)
     {
-        if (rb == null) return;
+        isFacingRight = facingRight;
+        isHighAngle = highAngle;
 
-        float direction = isRight ? 1f : -1f;
+        targetDirection = facingRight ? Vector2.right : Vector2.left;
 
         if (isHighAngle)
         {
-            // 포물선으로 발사 (즉시 속도 적용)
-            rb.velocity = new Vector2(direction * arcForceX, arcForceY);
+            StartCoroutine(ArcShot(targetPosition)); // ?? 목표 위치 전달
         }
         else
         {
-            // 직선으로 발사
-            rb.velocity = new Vector2(direction * arrowSpeed, 0f);
+            StraightShot();
         }
     }
 
+    IEnumerator ArcShot(Vector2 targetPosition)
+    {
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D가 설정되지 않음! Arrow 프리팹을 확인하세요.");
+            yield break;
+        }
+
+        Vector2 startPos = transform.position;
+        Vector2 direction = targetPosition - startPos; // 목표 위치까지의 벡터
+        float distanceX = Mathf.Abs(direction.x); // 수평 거리
+        float distanceY = direction.y; // 수직 거리
+
+        float gravity = Mathf.Abs(Physics2D.gravity.y); // 중력 값
+
+        // ?? 목표까지 도달하는 시간을 `arcSpeed`로 조정 (arcSpeed가 클수록 빠름)
+        float timeToTarget = distanceX / arcSpeed; // 속도를 기반으로 비행 시간 조절
+
+        // ?? 초기 수직 속도 계산 (arcSpeed 반영)
+        float initialVelocityY = (distanceY + (0.5f * gravity * timeToTarget * timeToTarget)) / timeToTarget;
+
+        // ?? 화살 속도 조절 가능
+        rb.velocity = new Vector2(targetDirection.x * arcSpeed, initialVelocityY);
+
+        while (true)
+        {
+            // ?? 현재 속도 방향으로 회전 적용
+            float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            yield return null;
+        }
+    }
+
+
+
+
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (hasHit) return; // 이미 충돌했으면 더 이상 처리 안 함
-
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player")) // 플레이어 충돌
         {
-            Debug.Log("플레이어 맞음!");
-            hasHit = true;
-            Destroy(gameObject); // 플레이어 맞으면 삭제
+            // 여기서 데미지 처리 추가 가능
+            Destroy(gameObject);
         }
-        else if (collision.CompareTag("Wall") || collision.CompareTag("Ground"))
+        else if (collision.CompareTag("isGround")) // 땅과 충돌하면 제거
         {
-            Debug.Log("벽이나 바닥에 충돌!");
-            Destroy(gameObject); // 벽과 바닥에 맞으면 삭제
+            Destroy(gameObject);
         }
     }
 }
