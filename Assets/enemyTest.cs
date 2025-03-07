@@ -60,7 +60,7 @@ public class enemyTest : MonoBehaviour
             PlayerAttackDamage NomalDamage = other.GetComponentInParent<PlayerAttackDamage>();
 
             if (NomalDamage == null) return;
-
+            Debug.Log("plyerAttack맞음 Hurt실행");
             //  플레이어와 가장 가까운 적 찾기
             enemyTest closestEnemy = FindClosestEnemy(other.transform);
 
@@ -149,7 +149,7 @@ public class enemyTest : MonoBehaviour
 
         //  Die 애니메이션 실행
         TestAnime.SetTrigger("Die");
-
+        
         // 2초 후 삭제 코루틴 실행
         StartCoroutine(DestroyAfterDelay(0.6f));
     }

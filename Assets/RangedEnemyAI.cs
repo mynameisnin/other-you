@@ -15,6 +15,7 @@ public class RangedEnemyAI : MonoBehaviour
     private Animator animator;
     private bool canAttack = true;
     private bool isFacingRight = true;
+    private bool lastAttackWasHighAngle; // 마지막 공격 유형 저장
 
     void Start()
     {
@@ -69,9 +70,12 @@ public class RangedEnemyAI : MonoBehaviour
         animator.SetTrigger("Flip");
     }
 
+
     IEnumerator AttackRoutine(bool isHighAngle)
     {
         canAttack = false;
+        lastAttackWasHighAngle = isHighAngle; // ?? 공격 방식 저장
+
         if (isHighAngle)
         {
             animator.SetTrigger("AttackHigh"); // 고각 공격 애니메이션
@@ -81,34 +85,57 @@ public class RangedEnemyAI : MonoBehaviour
             animator.SetTrigger("AttackStraight"); // 직선 공격 애니메이션
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f); // 애니메이션 대기 시간
 
-        ShootArrow(isHighAngle);
+        //  애니메이션 이벤트에서 ShootArrowEvent()가 실행됨
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 
+    public void ShootArrowEvent()
+    {
+        ShootArrow(lastAttackWasHighAngle); //  마지막 공격 방식 전달
+    }
+
+
     void ShootArrow(bool isHighAngle)
     {
-        if (arrowPrefab == null || firePoint == null)
+        if (arrowPrefab == null || firePoint == null || player == null)
         {
-            Debug.LogError(" 화살 프리팹 또는 FirePoint가 설정되지 않음!");
+            Debug.LogError(" 화살 프리팹, FirePoint 또는 Player가 설정되지 않음!");
             return;
         }
 
-        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity); //  여러 개의 화살 생성 가능
+        GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
+
+        if (arrow == null)
+        {
+            Debug.LogError(" 화살이 생성되지 않았음! 프리팹을 확인하세요.");
+            return;
+        }
 
         Arrow arrowScript = arrow.GetComponent<Arrow>();
 
-        if (arrowScript != null)
+        if (arrowScript == null)
         {
-            arrowScript.SetDirection(isFacingRight, isHighAngle);
+            Debug.LogError(" Arrow 스크립트가 감지되지 않음! 프리팹이 올바른지 확인하세요.", arrow);
+            return;
         }
-        else
+
+        Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
+
+        if (arrowRb == null)
         {
-            Debug.LogError(" Arrow 스크립트가 할당되지 않음!");
+            Debug.LogError(" Rigidbody2D가 화살 오브젝트에서 감지되지 않음! 화살 프리팹을 확인하세요.", arrow);
+            return;
         }
+
+        // ?? 플레이어 위치를 목표로 전달
+        arrowScript.SetDirection(isFacingRight, isHighAngle, player.position);
     }
+
+
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

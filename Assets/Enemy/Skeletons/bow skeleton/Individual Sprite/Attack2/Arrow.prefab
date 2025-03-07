@@ -121,10 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d5577112f5aa84799a04615357462a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  straightSpeed: 10
+  arcSpeed: 5
+  arcHeight: 2
   lifetime: 12.84
-  arrowSpeed: 10
-  arcForceX: 16.2
-  arcForceY: 16.51
 --- !u!50 &6443390150048725365
 Rigidbody2D:
   serializedVersion: 4
