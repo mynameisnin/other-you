@@ -21,7 +21,9 @@ public class enemyTest : MonoBehaviour
     [Header("Hit Effect Position")]
     public Transform pos;
     private bool isParrying = false;
+    public int xpReward = 50; // 이 몬스터를 처치하면 주는 경험치
 
+    private PlayerExperience playerXP;
     void Start()
     {
         TestAnime = GetComponent<Animator>();
@@ -30,6 +32,7 @@ public class enemyTest : MonoBehaviour
 
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
         currentHealth = MaxHealth;
+        PlayerExperience playerXP = FindObjectOfType<PlayerExperience>();
     }
 
     public void ShowBloodEffect()
@@ -60,7 +63,7 @@ public class enemyTest : MonoBehaviour
             PlayerAttackDamage NomalDamage = other.GetComponentInParent<PlayerAttackDamage>();
 
             if (NomalDamage == null) return;
-            Debug.Log("plyerAttack맞음 Hurt실행");
+
             //  플레이어와 가장 가까운 적 찾기
             enemyTest closestEnemy = FindClosestEnemy(other.transform);
 
@@ -141,16 +144,24 @@ public class enemyTest : MonoBehaviour
         if (isDying) yield break;
         isDying = true;
 
-        Debug.Log($"{gameObject.name} 사망!");
+        Debug.LogError($"{gameObject.name}이(가) 사망 이벤트 실행됨!"); //  로그 추가
 
-        //  콜라이더와 리지드바디 제거
+        PlayerExperience playerXP = FindObjectOfType<PlayerExperience>();
+
+        if (playerXP != null)
+        {
+            Debug.LogError($"플레이어 경험치 시스템 찾음! {playerXP.name}");
+            playerXP.GainXP(xpReward);
+        }
+        else
+        {
+            Debug.LogError(" PlayerExperience를 찾을 수 없음!");
+        }
+
         if (col != null) col.enabled = false;
         if (rb != null) rb.simulated = false;
 
-        //  Die 애니메이션 실행
         TestAnime.SetTrigger("Die");
-        
-        // 2초 후 삭제 코루틴 실행
         StartCoroutine(DestroyAfterDelay(0.6f));
     }
 
