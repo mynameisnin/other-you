@@ -28,6 +28,8 @@ public class StatPanelUI : MonoBehaviour
         attackButton.onClick.AddListener(() => UpgradeStat("attack"));
         defenseButton.onClick.AddListener(() => UpgradeStat("defense"));
         healthButton.onClick.AddListener(() => UpgradeStat("health"));
+        energyButton.onClick.AddListener(() => UpgradeStat("energy")); //  에너지 버튼 이벤트 추가
+    
     }
 
     private void Update()

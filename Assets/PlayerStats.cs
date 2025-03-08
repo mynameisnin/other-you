@@ -37,7 +37,14 @@ public class PlayerStats : MonoBehaviour
             HurtPlayer.Instance.currentHealth = currentHealth;
         }
         currentEnergy = maxEnergy; // ? 시작 시 최대 에너지 설정
+
+        //  게임 시작 시 에너지바 초기화
+        if (EnergyBarUI.Instance != null)
+        {
+            EnergyBarUI.Instance.UpdateEnergyBar(currentEnergy, false);
+        }
     }
+
 
     //  체력 회복 함수 추가
     public void Heal(int amount)
@@ -155,6 +162,14 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("스탯 포인트가 부족합니다!");
         }
     }
-
+    public void SetCurrentEnergy(int amount)
+    {
+        currentEnergy = Mathf.Clamp(amount, 0, maxEnergy);
+        if (EnergyBarUI.Instance != null)
+        {
+            EnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
+        }
+        Debug.Log($"SetCurrentEnergy() - Current Energy: {currentEnergy}");
+    }
 
 }
