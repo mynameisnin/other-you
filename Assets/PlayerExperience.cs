@@ -52,7 +52,7 @@ public class PlayerExperience : MonoBehaviour
     {
         if (PlayerStats.Instance != null)
         {
-            PlayerStats.Instance.LevelUp(); // ? PlayerStats의 레벨업 실행
+            PlayerStats.Instance.LevelUp(); // ? PlayerStats의 레벨업 실행 (에너지 증가 포함)
         }
 
         xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f); // 다음 레벨 필요 경험치 증가
@@ -60,6 +60,7 @@ public class PlayerExperience : MonoBehaviour
 
         UpdateXPUI();
     }
+
 
     private void UpdateXPUI()
     {

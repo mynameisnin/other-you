@@ -147,7 +147,29 @@ public class EnergyBarUI : MonoBehaviour
             .SetLoops(2, LoopType.Yoyo) // 2번 깜빡 (빨강 -> 원래색)
             .OnComplete(() => energyBarBorder.color = defaultBorderColor);
     }
+    public void UpdateMaxEnergy(float newMaxEnergy)
+    {
+        maxEnergy = newMaxEnergy;
+        currentEnergy = maxEnergy; // ? 최대 에너지가 증가하면 현재 에너지도 회복
+        UpdateEnergyBar(currentEnergy, false);
+        UpdateEnergyBarSize(); // ? 테두리 크기 업데이트
+    }
 
+    // ? 에너지 바와 테두리를 늘려서 최대 에너지 증가 반영
+    private void UpdateEnergyBarSize()
+    {
+        if (energyBarBorder == null || energyBarFill == null) return;
+
+        float initialWidth = energyBarFill.rectTransform.sizeDelta.x; // ? 기존 크기 저장
+        float newWidth = initialWidth * (maxEnergy / 100f); // ? 100 기준 확장 비율 적용
+
+        // ? DOTween을 사용하여 부드럽게 확장
+        energyBarFill.rectTransform.DOSizeDelta(new Vector2(newWidth, energyBarFill.rectTransform.sizeDelta.y), 0.5f)
+            .SetEase(Ease.OutQuad);
+
+        energyBarBorder.rectTransform.DOSizeDelta(new Vector2(newWidth, energyBarBorder.rectTransform.sizeDelta.y), 0.5f)
+            .SetEase(Ease.OutQuad);
+    }
 
 
 }

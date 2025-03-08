@@ -17,6 +17,10 @@ public class PlayerStats : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
+    public int maxEnergy = 100; // ? 최대 에너지 추가
+    public int currentEnergy;   // ? 현재 에너지 추가
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -32,6 +36,7 @@ public class PlayerStats : MonoBehaviour
         {
             HurtPlayer.Instance.currentHealth = currentHealth;
         }
+        currentEnergy = maxEnergy; // ? 시작 시 최대 에너지 설정
     }
 
     //  체력 회복 함수 추가
@@ -49,7 +54,8 @@ public class PlayerStats : MonoBehaviour
         Debug.Log($"체력 회복! 현재 체력: {currentHealth} / {maxHealth}");
     }
 
-    // ? PlayerExperience에서 호출하는 레벨업 함수
+    //  PlayerExperience에서 호출하는 레벨업 함수
+    //  레벨업 처리
     public void LevelUp()
     {
         level++;
@@ -57,15 +63,33 @@ public class PlayerStats : MonoBehaviour
 
         Debug.Log($"레벨 업! 현재 레벨: {level}, 남은 스탯 포인트: {statPoints}");
 
-        // ? PlayerExperience에도 반영 (경험치 필요량 업데이트)
+        //  경험치 필요량 업데이트
         if (PlayerExperience.Instance != null)
         {
             experienceToNextLevel = PlayerExperience.Instance.xpToNextLevel;
         }
     }
 
-    // ? 스탯 증가 함수
-    public void IncreaseAttack()
+
+
+    public void IncreaseMaxEnergy()
+    {
+        if (statPoints > 0)
+        {
+            maxEnergy += 10;
+            currentEnergy = maxEnergy;
+            statPoints--;
+
+            Debug.Log($"최대 에너지 증가! 현재 에너지: {maxEnergy}, 남은 스탯 포인트: {statPoints}");
+
+            if (EnergyBarUI.Instance != null)
+            {
+                EnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy); // ? UI 업데이트
+            }
+        }
+    }
+        // ? 스탯 증가 함수
+        public void IncreaseAttack()
     {
         if (statPoints > 0)
         {
@@ -110,5 +134,27 @@ public class PlayerStats : MonoBehaviour
         Debug.Log($"최대 체력 증가! 현재 체력: {maxHealth}, 남은 스탯 포인트: {statPoints}");
     }
 }
+    public void IncreaseEnergy()
+    {
+        if (statPoints > 0)
+        {
+            maxEnergy += 10; //  스탯을 찍을 때만 최대 에너지 증가
+            currentEnergy = maxEnergy; //  최대 에너지가 증가하면 현재 에너지도 회복
+            statPoints--;
+
+            Debug.Log($"최대 에너지 증가! 현재 에너지: {maxEnergy}, 남은 스탯 포인트: {statPoints}");
+
+            //  EnergyBarUI에 업데이트 요청
+            if (EnergyBarUI.Instance != null)
+            {
+                EnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy);
+            }
+        }
+        else
+        {
+            Debug.Log("스탯 포인트가 부족합니다!");
+        }
+    }
+
 
 }

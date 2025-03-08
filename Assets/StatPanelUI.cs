@@ -21,7 +21,7 @@ public class StatPanelUI : MonoBehaviour
     public Button attackButton;
     public Button defenseButton;
     public Button healthButton;
-
+    public Button energyButton; //  에너지 스탯 버튼 추가
     private void Start()
     {
         //  버튼 클릭 이벤트 연결
@@ -60,8 +60,8 @@ public class StatPanelUI : MonoBehaviour
         float healthRatio = (float)HurtPlayer.Instance.currentHealth / HurtPlayer.Instance.MaxHealth;
         healthBarFill.fillAmount = healthRatio;
 
-        energyText.text = $"{(int)EnergyBarUI.Instance.GetCurrentEnergy()} / 100";
-        float energyRatio = EnergyBarUI.Instance.GetCurrentEnergy() / 100f;
+        energyText.text = $"{PlayerStats.Instance.currentEnergy} / {PlayerStats.Instance.maxEnergy}";
+        float energyRatio = (float)PlayerStats.Instance.currentEnergy / PlayerStats.Instance.maxEnergy;
         energyBarFill.fillAmount = energyRatio;
     }
 
@@ -72,16 +72,19 @@ public class StatPanelUI : MonoBehaviour
         switch (statType)
         {
             case "attack":
-                PlayerStats.Instance.IncreaseAttack(); //  공격력 증가 함수 호출
+                PlayerStats.Instance.IncreaseAttack();
                 break;
             case "defense":
-                PlayerStats.Instance.IncreaseDefense(); //  방어력 증가 함수 호출
+                PlayerStats.Instance.IncreaseDefense();
                 break;
             case "health":
-                PlayerStats.Instance.IncreaseMaxHealth(); //  최대 체력 증가 함수 호출
+                PlayerStats.Instance.IncreaseMaxHealth();
+                break;
+            case "energy":
+                PlayerStats.Instance.IncreaseMaxEnergy(); // ? 에너지 증가 추가
                 break;
         }
 
-        UpdateStatPanel(); //  UI 업데이트
+        UpdateStatPanel(); // ? UI 업데이트
     }
 }
