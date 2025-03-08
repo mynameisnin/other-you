@@ -151,20 +151,23 @@ public class HurtPlayer : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isDead) return; //  이미 사망한 상태면 대미지 무효
+        if (isDead) return; // 이미 사망한 상태면 대미지 무효
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
-            Debug.Log($"[HurtPlayer] 체력 감소: {currentHealth} / {MaxHealth}");
+        //  PlayerStats의 체력도 동기화
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.currentHealth = currentHealth;
+        }
+
+        Debug.Log($"[HurtPlayer] 체력 감소: {currentHealth} / {MaxHealth}");
 
         if (healthBarUI != null)
         {
-            healthBarUI.UpdateHealthBar(currentHealth, true);  // 애니메이션 활성화
+            healthBarUI.UpdateHealthBar(currentHealth, true); // 애니메이션 활성화
         }
-
-
-        healthBarUI.UpdateHealthBar(currentHealth);
 
         if (charStateGUIEffect != null)
         {
@@ -176,6 +179,14 @@ public class HurtPlayer : MonoBehaviour
             Die();
         }
     }
+    public void UpdateHealthUI()
+    {
+        if (healthBarUI != null)
+        {
+            healthBarUI.UpdateHealthBar(currentHealth, true); //  UI 업데이트
+        }
+    }
+
     public void CancelDamage()
     {
         Debug.Log(" 패링 성공! 대미지 무효화");
