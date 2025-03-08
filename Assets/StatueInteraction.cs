@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal; // Light2D 사용을 위해 필요
+using UnityEngine.Rendering.Universal; // Light2D 사용
 using DG.Tweening; // DOTween 사용
 
 public class StatueInteraction : MonoBehaviour
@@ -7,10 +7,15 @@ public class StatueInteraction : MonoBehaviour
     private Light2D statueLight;
     private bool isActivated = false; // 한 번 붉은색으로 바뀌었는지 확인하는 변수
     private bool isPlayerNearby = false; // 플레이어가 근처에 있는지 확인
+    private bool isPanelOpen = false; // 패널이 열려있는지 확인
 
     public Color blueColor = Color.blue;
     public Color redColor = Color.red;
     public ParticleSystem featherEffect; // 깃털 파티클 시스템
+
+    [Header("UI Settings")]
+    public CanvasGroup statPanel;  // 스탯 패널의 CanvasGroup
+    public float fadeDuration = 0.5f;  // 패널 페이드 시간
 
     [Header("Shockwave Settings")]
     public SpriteRenderer shockwaveRenderer; // 충격파 머터리얼을 가지고 있는 오브젝트
@@ -36,43 +41,65 @@ public class StatueInteraction : MonoBehaviour
         {
             propertyBlock = new MaterialPropertyBlock();
             shockwaveMaterial = shockwaveRenderer.material;
-
-            // 충격파 오브젝트 처음에는 안 보이게 설정
             shockwaveRenderer.gameObject.SetActive(false);
+        }
+
+        if (statPanel != null)
+        {
+            statPanel.alpha = 0; // 스탯 패널 기본적으로 안 보이게 설정
+            statPanel.gameObject.SetActive(false);
         }
     }
 
     void Update()
     {
-        // 플레이어가 근처에 있고 ↑ 키를 누르면 활성화
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.UpArrow) && !isActivated)
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.UpArrow))
         {
-            statueLight.color = redColor; // 붉은빛으로 변경
-            isActivated = true; // 한 번 활성화되면 유지
-
-            if (featherEffect != null)
+            if (!isActivated)
             {
-                featherEffect.Play(); // 깃털 효과 실행
+                ActivateStatue();
             }
-
-            StartShockwaveEffect(); // 충격파 효과 실행
-            StartLightEffect(); // Light2D Inner 값 증가
+            else
+            {
+                if (isPanelOpen)
+                {
+                    HideStatPanel(); // 패널이 열려있다면 닫기
+                }
+                else
+                {
+                    ShowStatPanel(); // 패널이 닫혀있다면 열기
+                }
+            }
         }
+    }
+
+    private void ActivateStatue()
+    {
+        statueLight.color = redColor; // 붉은빛으로 변경
+        isActivated = true; // 한 번 활성화되면 유지
+
+        if (featherEffect != null)
+            featherEffect.Play(); // 깃털 효과 실행
+
+        StartShockwaveEffect(); // 충격파 효과 실행
+        StartLightEffect(); // Light2D Inner 값 증가
+        ShowStatPanel(); // 스탯 패널 표시
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack")) // 플레이어가 동상 근처에 왔을 때만 체크
+        if (other.CompareTag("Player")) // 플레이어가 근처에 왔을 때만 체크
         {
-            isPlayerNearby = true; // 플레이어가 근처에 있음을 표시
+            isPlayerNearby = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack")) // 플레이어가 멀어지면
+        if (other.CompareTag("Player")) // 플레이어가 멀어지면
         {
-            isPlayerNearby = false; // 범위에서 벗어남
+            isPlayerNearby = false;
+            HideStatPanel(); // 플레이어가 멀어지면 패널 숨기기
         }
     }
 
@@ -81,36 +108,77 @@ public class StatueInteraction : MonoBehaviour
         if (shockwaveRenderer == null || shockwaveMaterial == null)
             return;
 
-        // 충격파 오브젝트 활성화
         shockwaveRenderer.gameObject.SetActive(true);
-
-        // 머터리얼의 WaveDistanceFromCenter 값을 DOTween을 이용해 서서히 증가
         shockwaveRenderer.GetPropertyBlock(propertyBlock);
-        propertyBlock.SetFloat("_WaveDistanceFromCenter", -0.1f); // 초기 값 설정
+        propertyBlock.SetFloat("_WaveDistanceFromCenter", -0.1f);
         shockwaveRenderer.SetPropertyBlock(propertyBlock);
 
-        float newShockwaveDuration = 15.0f; // 충격파 지속 시간 (기존 1.5f → 3.0f로 증가)
-        float newMaxWaveDistance = 4.5f; // 최대 확산 거리 (기존 2.0f → 3.5f로 증가)
+        float newShockwaveDuration = 15.0f;
+        float newMaxWaveDistance = 4.5f;
 
         DOTween.To(() => -0.1f, x =>
         {
             shockwaveRenderer.GetPropertyBlock(propertyBlock);
             propertyBlock.SetFloat("_WaveDistanceFromCenter", x);
             shockwaveRenderer.SetPropertyBlock(propertyBlock);
-        }, newMaxWaveDistance, newShockwaveDuration) // 지속 시간을 늘리고, 확산 거리를 증가
-        .SetEase(Ease.OutSine) // 확산이 점점 부드럽게 퍼지도록 설정
+        }, newMaxWaveDistance, newShockwaveDuration)
+        .SetEase(Ease.OutSine)
         .OnComplete(() =>
         {
-            // 효과 종료 후 충격파 오브젝트 비활성화
             shockwaveRenderer.gameObject.SetActive(false);
         });
     }
 
-
     private void StartLightEffect()
     {
-        // DOTween으로 Light2D의 Inner 값을 서서히 증가
         DOTween.To(() => statueLight.pointLightInnerRadius, x => statueLight.pointLightInnerRadius = x, lightInnerMax, lightInnerDuration)
             .SetEase(Ease.OutQuad);
+    }
+
+    private bool isFirstActivation = true; // 첫 활성화 여부 확인
+
+    private void ShowStatPanel()
+    {
+        if (statPanel == null) return;
+
+        statPanel.gameObject.SetActive(true); // 패널 활성화
+        isPanelOpen = true; // 패널이 열려있음을 표시
+
+        if (isFirstActivation)
+        {
+            isFirstActivation = false; // 첫 실행 이후에는 딜레이 없이 실행되도록 설정
+            DOVirtual.DelayedCall(0.9f, () =>
+            {
+                if (statPanel != null) // 패널이 아직 존재하는지 확인
+                {
+                    statPanel.DOFade(1, fadeDuration)
+                        .SetUpdate(true) // UI 애니메이션이 정지되지 않도록
+                        .SetEase(Ease.OutQuad)
+                        .OnComplete(() => Time.timeScale = 0f); // 패널이 완전히 뜬 후 게임 멈춤
+                }
+            });
+        }
+        else
+        {
+            statPanel.DOFade(1, fadeDuration)
+                .SetUpdate(true)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() => Time.timeScale = 0f); // 패널이 완전히 뜬 후 게임 멈춤
+        }
+    }
+
+    private void HideStatPanel()
+    {
+        if (statPanel == null) return;
+
+        statPanel.DOFade(0, fadeDuration)
+            .SetUpdate(true) // UI 애니메이션이 정지되지 않도록
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() =>
+            {
+                statPanel.gameObject.SetActive(false); // 완전히 사라지면 비활성화
+                isPanelOpen = false; // 패널이 닫힘을 표시
+                Time.timeScale = 1f; // 패널이 닫힌 후 게임 정상 진행
+            });
     }
 }

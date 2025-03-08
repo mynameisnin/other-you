@@ -29,7 +29,7 @@ public class HurtPlayer : MonoBehaviour
 
     [Header("Death Effect Elements")]
     public SpriteRenderer deathBackground; //  배경을 어둡게 할 오브젝트 (SpriteRenderer)
-
+    public static HurtPlayer Instance; // 싱글톤 인스턴스 추가
     void Start()
     {
         TestAnime = GetComponent<Animator>();
@@ -57,9 +57,15 @@ public class HurtPlayer : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
-
-public void ShowBloodEffect()
+    public void ShowBloodEffect()
     {
         if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
         {

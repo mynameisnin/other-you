@@ -5,6 +5,7 @@ using System.Collections;
 
 public class EnergyBarUI : MonoBehaviour
 {
+    public static EnergyBarUI Instance;
     public Image energyBarFill;    // ENERGY 바 (초록색)
     public Image energyBarBack;    // 에너지 딜레이 바 (천천히 감소, 노란색)
     public Image energyBarBorder;  //  테두리 이미지 추가
@@ -125,6 +126,13 @@ public class EnergyBarUI : MonoBehaviour
     {
         return currentEnergy <= 0;
     }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     public float GetCurrentEnergy()
     {
         return currentEnergy;
@@ -139,4 +147,7 @@ public class EnergyBarUI : MonoBehaviour
             .SetLoops(2, LoopType.Yoyo) // 2번 깜빡 (빨강 -> 원래색)
             .OnComplete(() => energyBarBorder.color = defaultBorderColor);
     }
+
+
+
 }

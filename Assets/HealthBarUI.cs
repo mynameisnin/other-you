@@ -33,5 +33,8 @@ public class HealthBarUI : MonoBehaviour
             // 애니메이션 없이 바로 변경 (체력 초기화 시 사용)
             healthBarBack.fillAmount = healthRatio;
         }
+
+
     }
+
 }
