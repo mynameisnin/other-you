@@ -29,7 +29,7 @@ public class HurtPlayer : MonoBehaviour
 
     [Header("Death Effect Elements")]
     public SpriteRenderer deathBackground; //  배경을 어둡게 할 오브젝트 (SpriteRenderer)
-
+    public static HurtPlayer Instance; // 싱글톤 인스턴스 추가
     void Start()
     {
         TestAnime = GetComponent<Animator>();
@@ -57,9 +57,15 @@ public class HurtPlayer : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
-
-public void ShowBloodEffect()
+    public void ShowBloodEffect()
     {
         if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
         {
@@ -145,20 +151,23 @@ public void ShowBloodEffect()
 
     public void TakeDamage(int damage)
     {
-        if (isDead) return; //  이미 사망한 상태면 대미지 무효
+        if (isDead) return; // 이미 사망한 상태면 대미지 무효
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
-            Debug.Log($"[HurtPlayer] 체력 감소: {currentHealth} / {MaxHealth}");
+        //  PlayerStats의 체력도 동기화
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.currentHealth = currentHealth;
+        }
+
+        Debug.Log($"[HurtPlayer] 체력 감소: {currentHealth} / {MaxHealth}");
 
         if (healthBarUI != null)
         {
-            healthBarUI.UpdateHealthBar(currentHealth, true);  // 애니메이션 활성화
+            healthBarUI.UpdateHealthBar(currentHealth, true); // 애니메이션 활성화
         }
-
-
-        healthBarUI.UpdateHealthBar(currentHealth);
 
         if (charStateGUIEffect != null)
         {
@@ -170,6 +179,14 @@ public void ShowBloodEffect()
             Die();
         }
     }
+    public void UpdateHealthUI()
+    {
+        if (healthBarUI != null)
+        {
+            healthBarUI.UpdateHealthBar(currentHealth, true); //  UI 업데이트
+        }
+    }
+
     public void CancelDamage()
     {
         Debug.Log(" 패링 성공! 대미지 무효화");

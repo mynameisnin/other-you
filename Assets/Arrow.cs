@@ -7,7 +7,7 @@ public class Arrow : MonoBehaviour
     public float straightSpeed = 10f; // 직선 속도
     public float arcSpeed = 5f; // 포물선 속도
     public float arcHeight = 2f; // 포물선 높이
-    public float lifetime = 5f; // 화살 수명
+
 
     private Rigidbody2D rb;
     private bool isHighAngle;
