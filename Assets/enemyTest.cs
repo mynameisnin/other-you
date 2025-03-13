@@ -144,13 +144,13 @@ public class enemyTest : MonoBehaviour
         if (isDying) yield break;
         isDying = true;
 
-        Debug.LogError($"{gameObject.name}이(가) 사망 이벤트 실행됨!"); //  로그 추가
+        
 
         PlayerExperience playerXP = FindObjectOfType<PlayerExperience>();
 
         if (playerXP != null)
         {
-            Debug.LogError($"플레이어 경험치 시스템 찾음! {playerXP.name}");
+           
             playerXP.GainXP(xpReward);
         }
         else
