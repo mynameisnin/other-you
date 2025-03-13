@@ -16,8 +16,29 @@ public class CamZoomSystem : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         defaultSize = cam.orthographicSize; // 기본 카메라 크기 저장
+        FindTarget();
+    }
+    void Update()
+    {
+        if (target == null)
+        {
+            FindTarget(); //  씬 변경 시 플레이어를 다시 찾음
+        }
     }
 
+    //  씬이 변경되어도 플레이어를 다시 찾는 함수 추가
+    void FindTarget()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("PlayerCamPosition");
+        if (playerObj != null)
+        {
+            target = playerObj.transform;
+        }
+        else
+        {
+            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
+        }
+    }
     public void ZoomIn()
     {
         if (isZooming) return;  // 이미 줌 실행 중이면 중복 실행 방지

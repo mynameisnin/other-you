@@ -11,7 +11,7 @@ public class HurtPlayer : MonoBehaviour
     public ParticleSystem bloodEffectParticle;
 
 
-    private CameraShakeSystem cameraShake;
+    public CameraShakeSystem cameraShake;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public int MaxHealth = 100;
@@ -55,8 +55,27 @@ public class HurtPlayer : MonoBehaviour
             startColor.a = 0f;
             deathBackground.color = startColor;
         }
+        FindCameraShake();
     }
 
+    void Update()
+    {
+        if (cameraShake == null)
+        {
+            FindCameraShake(); //  씬이 바뀌었을 경우 다시 찾음
+        }
+    }
+
+    //  카메라 셰이크 시스템을 다시 찾는 함수 추가
+    void FindCameraShake()
+    {
+        cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
+
+        if (cameraShake == null)
+        {
+            Debug.LogWarning("카메라에서 CameraShakeSystem 스크립트를 찾을 수 없습니다! 씬 전환 시 확인하세요.");
+        }
+    }
     void Awake()
     {
         if (Instance == null)
