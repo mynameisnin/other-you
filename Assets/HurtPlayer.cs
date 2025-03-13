@@ -261,9 +261,12 @@ public class HurtPlayer : MonoBehaviour
         //  리지드바디 제거 (중력 영향 제거)
         if (rb != null)
         {
-            Destroy(rb);
-            rb = null; //  참조 제거
+            rb.velocity = Vector2.zero; // 현재 속도 제거
+            rb.bodyType = RigidbodyType2D.Kinematic; // 물리 연산 비활성화
+            rb.simulated = false; // 리지드바디 연산 중지
+            Debug.Log("[HurtPlayer] 리지드바디 비활성화 완료!");
         }
+
 
         //  검은 배경을 서서히 어둡게 변환
         if (deathBackground != null)
