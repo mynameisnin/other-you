@@ -31,6 +31,7 @@ public class DialogueSystem : MonoBehaviour
 
     public GameObject player;
     public AdamMovement adamMovement;
+    public VillageMovement villageMovement;
 
     // NPC 머리 위에 표시될 아이콘
     public GameObject exclamationIcon;
@@ -98,10 +99,15 @@ public class DialogueSystem : MonoBehaviour
             adamMovement.enabled = false;
         }
 
+        if (villageMovement != null)
+        {
+            villageMovement.enabled = false;
+        }
+
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero; // 모든 이동 정지
         }
 
         Animator animator = player.GetComponent<Animator>();
@@ -113,11 +119,17 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
+
     void EnablePlayerMovement()
     {
-        if (adamMovement != null)
+        if (adamMovement != null) // villageMovement와 상관없이 adamMovement를 활성화해야 함
         {
             adamMovement.enabled = true;
+        }
+
+        if (villageMovement != null) // villageMovement도 존재하면 활성화
+        {
+            villageMovement.enabled = true;
         }
     }
 

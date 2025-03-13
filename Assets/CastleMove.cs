@@ -15,7 +15,7 @@ public class CastleMove : MonoBehaviour
         // DOTween이 초기화되지 않았다면 강제 초기화
         if (!DOTween.IsTweening(castleWorldTransform) && !DOTween.IsTweening(castleUITransform))
         {
-            Debug.LogWarning(" DOTween이 작동하지 않음! DOTween 초기화 필요.");
+            
             DOTween.Init();
         }
     }
