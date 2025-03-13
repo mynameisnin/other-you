@@ -56,6 +56,8 @@ public class HurtPlayer : MonoBehaviour
             deathBackground.color = startColor;
         }
         FindCameraShake();
+        FindDeathBackground(); //  씬 시작 시 deathBackground 찾기
+
     }
 
     void Update()
@@ -64,8 +66,23 @@ public class HurtPlayer : MonoBehaviour
         {
             FindCameraShake(); //  씬이 바뀌었을 경우 다시 찾음
         }
+        if (deathBackground == null)
+        {
+            FindDeathBackground(); //  씬 변경 시 다시 deathBackground 찾기
+        }
     }
-
+    void FindDeathBackground()
+    {
+        GameObject backgroundObj = GameObject.Find("DeathBackground");
+        if (backgroundObj != null)
+        {
+            deathBackground = backgroundObj.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogWarning("DeathBackground를 찾을 수 없습니다! 씬 전환 시 확인하세요.");
+        }
+    }
     //  카메라 셰이크 시스템을 다시 찾는 함수 추가
     void FindCameraShake()
     {
