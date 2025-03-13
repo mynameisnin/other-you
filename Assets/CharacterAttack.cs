@@ -8,7 +8,7 @@ public class CharacterAttack : MonoBehaviour
     private float comboTimer = 0f; // 콤보 타이머
     private float comboMaxTime = 0.03f; // 콤보 입력 가능 시간
     private bool isAttacking = false; // 현재 공격 중인지 여부
-
+    private bool energyConsumed = false;
     public EnergyBarUI energyBarUI; //  에너지 UI 추가
     public float attackEnergyCost = 10f; // 공격 시 소비되는 에너지 양
 
@@ -53,13 +53,9 @@ public class CharacterAttack : MonoBehaviour
         if (currentEnergy <= 0)
         {
             Debug.Log("공격 불가: ENERGY 부족!");
-            energyBarUI.FlashBorder(); //  에너지가 완전히 없으면 테두리 깜빡임
+            energyBarUI.FlashBorder();
             return;
         }
-
-        //  남은 에너지만큼만 차감
-        float energyToConsume = Mathf.Min(attackEnergyCost, currentEnergy);
-        energyBarUI.ReduceEnergy(energyToConsume);
 
         if (isAttacking)
         {
@@ -69,11 +65,15 @@ public class CharacterAttack : MonoBehaviour
         {
             StartCombo();
         }
+       
+        //  애니메이션 실행 후 M 키를 누르면 에너지를 차감하도록 수정
+        StartCoroutine(ConsumeEnergyAfterAnimation());
     }
 
     private void StartCombo()
     {
         isAttacking = true;
+        energyConsumed = false; //  공격 시작 시 에너지 차감 여부 초기화
         currentComboStep = 1; // 첫 번째 공격 단계
         comboTimer = comboMaxTime; // 콤보 타이머 초기화
         animator.SetTrigger("Attack1"); // 첫 번째 공격 애니메이션 실행
@@ -112,7 +112,18 @@ public class CharacterAttack : MonoBehaviour
         animator.ResetTrigger("Attack1");
         animator.ResetTrigger("Attack2");
     }
+    private IEnumerator ConsumeEnergyAfterAnimation()
+    {
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"));
 
+        if (!energyConsumed && energyBarUI != null) // ? 에너지를 중복 차감 방지
+        {
+            float currentEnergy = energyBarUI.GetCurrentEnergy();
+            float energyToConsume = Mathf.Min(attackEnergyCost, currentEnergy);
+            energyBarUI.ReduceEnergy(energyToConsume);
+            energyConsumed = true; // ? 한 번만 차감되도록 설정
+        }
+    }
     // 애니메이션 이벤트: 공격 종료 시 호출
     public void EndAttack()
     {
