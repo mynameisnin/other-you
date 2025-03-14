@@ -206,7 +206,9 @@ public class AdamMovement : MonoBehaviour
         isDashAttacking = true;
         AdamAnime.SetTrigger("DashAttack"); // 대쉬 공격 애니메이션 실행
 
-        float dashDirection = lastKeyWasRight ? 1 : -1;
+        // 대시 방향을 `flipX`를 기반으로 설정 (왼쪽을 보고 있으면 -1, 오른쪽을 보고 있으면 1)
+        float dashDirection = AdamSprite.flipX ? -1f : 1f;
+
         float elapsed = 0f;
 
         while (elapsed < dashAttackDuration)
