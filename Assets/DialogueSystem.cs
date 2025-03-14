@@ -290,7 +290,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack"))
+        if (other.CompareTag("Player"))
         {
             playerIsClose = true;
             UpdateIcon(); // 아이콘 표시
@@ -299,7 +299,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack"))
+        if (other.CompareTag("Player"))
         {
             playerIsClose = false;
             UpdateIcon(); // 아이콘 숨김
