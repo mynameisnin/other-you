@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RangedEnemyAI : MonoBehaviour
 {
-    public Transform player; // 플레이어 위치
+    public Transform player; // 플레이어 위치 (씬 전환 시 다시 찾아야 함)
     public Transform firePoint; // 화살 발사 위치
     public GameObject arrowPrefab; // 화살 프리팹
 
@@ -20,16 +20,38 @@ public class RangedEnemyAI : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        FindPlayer(); // ?? 플레이어를 찾아서 할당
     }
 
     void Update()
     {
+        if (player == null)
+        {
+            FindPlayer(); // ?? 씬이 바뀌어도 플레이어를 다시 찾음
+        }
+
         DetectPlayer();
         FlipDirection();
     }
 
+    // ?? 플레이어 찾기 메서드 추가
+    void FindPlayer()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("PlayerCamPosition");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+        else
+        {
+            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
+        }
+    }
+
     void DetectPlayer()
     {
+        if (player == null) return; //  플레이어가 없으면 실행 안 함
+
         Collider2D playerInRange = Physics2D.OverlapCircle(transform.position, detectRange, LayerMask.GetMask("Player"));
 
         if (playerInRange != null && canAttack)
@@ -70,11 +92,10 @@ public class RangedEnemyAI : MonoBehaviour
         animator.SetTrigger("Flip");
     }
 
-
     IEnumerator AttackRoutine(bool isHighAngle)
     {
         canAttack = false;
-        lastAttackWasHighAngle = isHighAngle; // ?? 공격 방식 저장
+        lastAttackWasHighAngle = isHighAngle; // 공격 방식 저장
 
         if (isHighAngle)
         {
@@ -87,16 +108,15 @@ public class RangedEnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f); // 애니메이션 대기 시간
 
-        //  애니메이션 이벤트에서 ShootArrowEvent()가 실행됨
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
 
     public void ShootArrowEvent()
     {
-        ShootArrow(lastAttackWasHighAngle); //  마지막 공격 방식 전달
+        if (player == null) return; // ?? 플레이어가 없으면 화살 발사 안 함
+        ShootArrow(lastAttackWasHighAngle);
     }
-
 
     void ShootArrow(bool isHighAngle)
     {
@@ -130,11 +150,8 @@ public class RangedEnemyAI : MonoBehaviour
             return;
         }
 
-        // ?? 플레이어 위치를 목표로 전달
         arrowScript.SetDirection(isFacingRight, isHighAngle, player.position);
     }
-
-
 
     void OnDrawGizmosSelected()
     {

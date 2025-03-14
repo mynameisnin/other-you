@@ -12,12 +12,14 @@ public class SceneTransitionTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 충돌 감지
+        if (other.CompareTag("Player"))
         {
             SpawnManager.Instance.spawnPosition = spawnPosition;
-            StartCoroutine(TransitionScene()); //  씬 전환을 코루틴에서 실행 (즉시 변경 방지)
+            Debug.Log("Updated Spawn Position: " + spawnPosition); // 포탈 탈 때 값 저장 확인
+            StartCoroutine(TransitionScene());
         }
     }
+
 
     IEnumerator TransitionScene()
     {

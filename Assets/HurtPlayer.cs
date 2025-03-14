@@ -11,7 +11,7 @@ public class HurtPlayer : MonoBehaviour
     public ParticleSystem bloodEffectParticle;
 
 
-    private CameraShakeSystem cameraShake;
+    public CameraShakeSystem cameraShake;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public int MaxHealth = 100;
@@ -55,8 +55,44 @@ public class HurtPlayer : MonoBehaviour
             startColor.a = 0f;
             deathBackground.color = startColor;
         }
+        FindCameraShake();
+        FindDeathBackground(); //  씬 시작 시 deathBackground 찾기
+
     }
 
+    void Update()
+    {
+        if (cameraShake == null)
+        {
+            FindCameraShake(); //  씬이 바뀌었을 경우 다시 찾음
+        }
+        if (deathBackground == null)
+        {
+            FindDeathBackground(); //  씬 변경 시 다시 deathBackground 찾기
+        }
+    }
+    void FindDeathBackground()
+    {
+        GameObject backgroundObj = GameObject.Find("DeathBackground");
+        if (backgroundObj != null)
+        {
+            deathBackground = backgroundObj.GetComponent<SpriteRenderer>();
+        }
+        else
+        {
+            Debug.LogWarning("DeathBackground를 찾을 수 없습니다! 씬 전환 시 확인하세요.");
+        }
+    }
+    //  카메라 셰이크 시스템을 다시 찾는 함수 추가
+    void FindCameraShake()
+    {
+        cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
+
+        if (cameraShake == null)
+        {
+            Debug.LogWarning("카메라에서 CameraShakeSystem 스크립트를 찾을 수 없습니다! 씬 전환 시 확인하세요.");
+        }
+    }
     void Awake()
     {
         if (Instance == null)
@@ -225,9 +261,12 @@ public class HurtPlayer : MonoBehaviour
         //  리지드바디 제거 (중력 영향 제거)
         if (rb != null)
         {
-            Destroy(rb);
-            rb = null; //  참조 제거
+            rb.velocity = Vector2.zero; // 현재 속도 제거
+            rb.bodyType = RigidbodyType2D.Kinematic; // 물리 연산 비활성화
+            rb.simulated = false; // 리지드바디 연산 중지
+            Debug.Log("[HurtPlayer] 리지드바디 비활성화 완료!");
         }
+
 
         //  검은 배경을 서서히 어둡게 변환
         if (deathBackground != null)

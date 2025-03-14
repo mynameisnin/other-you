@@ -84,15 +84,32 @@ public class AdamMovement : MonoBehaviour
         HandleFall();
     }
 
+    float currentSpeed = 0f;
+    float acceleration = 10f;
+    float deceleration = 15f;
+    float maxSpeed = 5f;
+
     void HandleMovement()
     {
         float hor = Input.GetAxisRaw("Horizontal");
-        AdamRigidebody.velocity = new Vector2(hor * AdamMoveSpeed, AdamRigidebody.velocity.y);
 
-        if (hor > 0)
-            lastKeyWasRight = true;
-        else if (hor < 0)
-            lastKeyWasRight = false;
+        if ( isDashAttacking) //  공격 중일 때 강제 정지
+        {
+            currentSpeed = 0f;
+            return;
+        }
+
+        if (hor != 0)
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, hor * maxSpeed, Time.deltaTime * acceleration);
+        }
+        else
+        {
+            //  감속 속도를 빠르게 해서 공격 후 불필요한 이동을 방지
+            currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * (deceleration * 2f));
+        }
+
+        AdamRigidebody.velocity = new Vector2(currentSpeed, AdamRigidebody.velocity.y);
     }
 
     void HandleAttack()
@@ -131,15 +148,15 @@ public class AdamMovement : MonoBehaviour
         {
             float currentEnergy = energyBarUI != null ? energyBarUI.GetCurrentEnergy() : 0f;
 
-            // ?? 에너지가 부족한 상태에서 대쉬 시도하면 테두리 깜빡이기
+            //  에너지가 부족한 상태에서 대쉬 시도하면 테두리 깜빡이기
             if (currentEnergy < dashEnergyCost && energyBarUI != null)
             {
                 Debug.Log("대쉬 불가: ENERGY 부족!");
-                energyBarUI.FlashBorder(); // ?? 테두리 깜빡이기
+                energyBarUI.FlashBorder(); //  테두리 깜빡이기
                 return;
             }
 
-            // ?? 에너지가 충분하면 대쉬 실행
+            //  에너지가 충분하면 대쉬 실행
             StartCoroutine(Dash());
         }
     }
@@ -164,7 +181,10 @@ public class AdamMovement : MonoBehaviour
         float originalGravity = AdamRigidebody.gravityScale;
         AdamRigidebody.gravityScale = 0f;
 
-        float dashDirection = lastKeyWasRight ? 1 : -1;
+        //  **현재 입력을 기반으로 방향 결정!**
+        float hor = Input.GetAxisRaw("Horizontal");
+        float dashDirection = (hor != 0) ? hor : (AdamSprite.flipX ? -1 : 1);
+
         AdamRigidebody.velocity = new Vector2(dashDirection * dashingPower, 0f);
 
         yield return new WaitForSeconds(dashingTime);
@@ -180,6 +200,7 @@ public class AdamMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
+
     private IEnumerator DashAttack()
     {
         isDashAttacking = true;
@@ -261,8 +282,8 @@ public class AdamMovement : MonoBehaviour
     void StopMovement()
     {
         AdamRigidebody.velocity = Vector2.zero; // 이동 차단
+        currentSpeed = 0f; //  남아있는 이동 속도 제거
     }
-
     void AdamAnimation()
     {
         float hor = Input.GetAxisRaw("Horizontal");

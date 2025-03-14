@@ -42,6 +42,7 @@ public class EnemyMovement : MonoBehaviour
         enemyAnimator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         patrolTimer = patrolTime;
+        FindPlayer();
     }
 
     void Update()
@@ -62,7 +63,18 @@ public class EnemyMovement : MonoBehaviour
             Patrol();
         }
     }
-
+    void FindPlayer()
+    {
+        GameObject playerObj = GameObject.FindGameObjectWithTag("PlayerCamPosition");
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
+        else
+        {
+            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
+        }
+    }
     void DetectPlayer()
     {
         // 스턴 상태에서는 플레이어 감지 중단
