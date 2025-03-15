@@ -30,7 +30,7 @@ public class AdamMovement : MonoBehaviour
     [SerializeField] private float attackInputCooldown = 0.2f; // 공격 후 대쉬 차단 시간
     [SerializeField] private float dashAttackDuration = 0.3f; // 대쉬 공격 지속 시간
 
-    private bool lastKeyWasRight = true;
+    public bool lastKeyWasRight = true;
 
     //점프 변수
     public bool isGround;
@@ -38,7 +38,7 @@ public class AdamMovement : MonoBehaviour
     public float checkRadiusJump;
     public LayerMask islayer;
 
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     public bool isInvincible { get; private set; }
     void Start()
     {

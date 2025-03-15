@@ -24,7 +24,7 @@ public class TimelineNextDialogueSystem : MonoBehaviour
     private int index = 0;
     private bool isTyping = false;
     public float typingSpeed = 0.05f;
-    private bool isDialogueActive = false;  // 변수 추가
+    public bool isDialogueActive = false;  // 변수 추가
     private void Start()
     {
         dialoguePanel.SetActive(false);
