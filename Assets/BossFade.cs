@@ -41,7 +41,7 @@ public class BossFade : MonoBehaviour
     {
         bossCollider.enabled = false; // 충돌 막기
 
-        // ? 이펙트 생성 (있을 경우)
+        //  이펙트 생성 (있을 경우)
         if (effectPrefab != null)
         {
             Vector3 spawnPos = effectSpawnPoint != null ? effectSpawnPoint.position : transform.position;
@@ -49,7 +49,7 @@ public class BossFade : MonoBehaviour
             Destroy(effect, 2f); // 2초 후 이펙트 삭제
         }
 
-        // ?? 보스 페이드 아웃 효과
+        //  보스 페이드 아웃 효과
         if (spriteRenderer != null)
         {
             spriteRenderer.DOFade(0, fadeDuration);
