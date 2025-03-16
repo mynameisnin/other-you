@@ -30,7 +30,7 @@ public class AdamMovement : MonoBehaviour
     [SerializeField] private float attackInputCooldown = 0.2f; // 공격 후 대쉬 차단 시간
     [SerializeField] private float dashAttackDuration = 0.3f; // 대쉬 공격 지속 시간
 
-    private bool lastKeyWasRight = true;
+    public bool lastKeyWasRight = true;
 
     //점프 변수
     public bool isGround;
@@ -38,7 +38,7 @@ public class AdamMovement : MonoBehaviour
     public float checkRadiusJump;
     public LayerMask islayer;
 
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     public bool isInvincible { get; private set; }
     void Start()
     {
@@ -206,7 +206,9 @@ public class AdamMovement : MonoBehaviour
         isDashAttacking = true;
         AdamAnime.SetTrigger("DashAttack"); // 대쉬 공격 애니메이션 실행
 
-        float dashDirection = lastKeyWasRight ? 1 : -1;
+        // 대시 방향을 `flipX`를 기반으로 설정 (왼쪽을 보고 있으면 -1, 오른쪽을 보고 있으면 1)
+        float dashDirection = AdamSprite.flipX ? -1f : 1f;
+
         float elapsed = 0f;
 
         while (elapsed < dashAttackDuration)

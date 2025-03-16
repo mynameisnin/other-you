@@ -104,7 +104,16 @@ public class Arrow : MonoBehaviour
             HurtPlayer player = collision.GetComponent<HurtPlayer>();
             if (player != null)
             {
-                int damage = 10; // 화살 기본 대미지 (원하는 값으로 변경 가능)
+                //  대쉬(무적) 상태인지 확인
+                AdamMovement playerMovement = player.GetComponent<AdamMovement>();
+                if (playerMovement != null && playerMovement.isInvincible)
+                {
+                    Debug.Log("[Arrow] 대쉬 중이므로 화살이 플레이어를 통과함!");
+                    return; // 대미지 적용 안 하고 그냥 통과
+                }
+
+                //  대미지 적용 (대쉬 중이 아닐 경우)
+                Debug.Log($"[Arrow] 화살 명중! 대미지: {damage}");
                 player.TakeDamage(damage);
             }
 
@@ -116,5 +125,6 @@ public class Arrow : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 667436487973872820}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2efa741d1c5f74c428e5b6a6356997b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,10 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d5577112f5aa84799a04615357462a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straightSpeed: 10
-  arcSpeed: 5
-  arcHeight: 2
-  lifetime: 12.84
+  straightSpeed: 50
+  arcSpeed: 50
+  arcHeight: 50
+  damage: 10
 --- !u!50 &6443390150048725365
 Rigidbody2D:
   serializedVersion: 4
