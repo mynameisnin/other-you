@@ -34,7 +34,7 @@ public class CharacterAttack : MonoBehaviour
     private void HandleComboInput()
     {
         // 공격 버튼 입력 감지
-        if (Input.GetKeyDown(KeyCode.M)) //  KeyDown으로 변경하여 연속 입력 방지
+        if (Input.GetKeyDown(KeyCode.LeftControl)) //  KeyDown으로 변경하여 연속 입력 방지
         {
             TriggerAttack(); // 공격 트리거 호출
         }

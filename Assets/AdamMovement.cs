@@ -114,7 +114,7 @@ public class AdamMovement : MonoBehaviour
 
     void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.M)&&isGround) // 공격 키 입력
+        if (Input.GetKeyDown(KeyCode.LeftControl)&&isGround) // 공격 키 입력
         {
             attackInputRecently = true; // 공격 입력 감지
             StartCoroutine(ResetAttackInputCooldown());
