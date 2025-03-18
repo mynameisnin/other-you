@@ -20,6 +20,10 @@ public class PlayerStats : MonoBehaviour
     public int maxEnergy = 100; // ? 최대 에너지 추가
     public int currentEnergy;   // ? 현재 에너지 추가
 
+    [Header("Level Up Effect Settings")]
+    public GameObject levelUpEffectPrefab; //  레벨업 이펙트 프리팹
+    public Transform levelUpEffectPosition; // 이펙트를 생성할 위치 (Inspector에서 설정 가능)
+    public float effectDuration = 2f; // 이펙트 지속 시간
 
     private void Awake()
     {
@@ -75,8 +79,43 @@ public class PlayerStats : MonoBehaviour
         {
             experienceToNextLevel = PlayerExperience.Instance.xpToNextLevel;
         }
+        // 레벨업 이펙트 실행
+        PlayLevelUpEffect();
     }
 
+    private void PlayLevelUpEffect()
+    {
+        if (levelUpEffectPrefab != null && levelUpEffectPosition != null)
+        {
+            GameObject effect = Instantiate(levelUpEffectPrefab, levelUpEffectPosition.position, Quaternion.identity);
+            effect.transform.SetParent(levelUpEffectPosition); // 부모 설정하여 위치를 따라가도록 함
+
+            float fadeDuration = 1.5f; // 페이드 아웃 지속 시간
+            float moveDistance = 1f; // 위로 이동할 거리
+
+            Sequence levelUpEffectSequence = DOTween.Sequence();
+            levelUpEffectSequence.Append(effect.transform.DOMoveY(effect.transform.position.y + moveDistance, fadeDuration));
+
+   
+                //  2. SpriteRenderer가 있는 경우 (2D 게임 오브젝트용)
+                SpriteRenderer spriteRenderer = effect.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    levelUpEffectSequence.Join(spriteRenderer.DOFade(0, fadeDuration));
+                }
+
+            
+
+            // 애니메이션 완료 후 삭제
+            levelUpEffectSequence.OnComplete(() => Destroy(effect));
+
+            Debug.Log("레벨업 이펙트 실행!");
+        }
+        else
+        {
+            Debug.LogWarning("레벨업 이펙트 프리팹 또는 위치가 설정되지 않았습니다.");
+        }
+    }
 
 
     public void IncreaseMaxEnergy()

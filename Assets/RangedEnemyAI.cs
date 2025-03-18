@@ -122,7 +122,7 @@ public class RangedEnemyAI : MonoBehaviour
     {
         if (arrowPrefab == null || firePoint == null || player == null)
         {
-            Debug.LogError(" 화살 프리팹, FirePoint 또는 Player가 설정되지 않음!");
+            
             return;
         }
 
@@ -130,7 +130,7 @@ public class RangedEnemyAI : MonoBehaviour
 
         if (arrow == null)
         {
-            Debug.LogError(" 화살이 생성되지 않았음! 프리팹을 확인하세요.");
+           
             return;
         }
 
