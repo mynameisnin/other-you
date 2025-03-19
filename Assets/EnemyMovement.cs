@@ -36,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
     public Collider2D frontCollider; //  태그 감지용 트리거 콜라이더
 
 
-
+    public List<string> ignoreEnemyNames = new List<string>(); // 무시할 적 이름 리스트
     void Start()
     {
         enemyAnimator = GetComponent<Animator>();
@@ -285,6 +285,14 @@ public class EnemyMovement : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            // 특정 이름의 적이면 무시하고 이동 가능
+            if (ignoreEnemyNames.Contains(other.gameObject.name))
+            {
+                Debug.Log($"무시된 적 발견: {other.gameObject.name} -> 이동 가능");
+                isBlocked = false;
+                return;
+            }
+
             Debug.Log("앞에 적 감지됨!");
 
             float myDistance = Vector2.Distance(transform.position, player.position);
@@ -292,13 +300,11 @@ public class EnemyMovement : MonoBehaviour
 
             if (myDistance < otherDistance)
             {
-                //  내가 플레이어와 더 가까우면 이동 가능
                 Debug.Log("내가 플레이어와 더 가까움 -> 이동 가능");
                 isBlocked = false;
             }
             else
             {
-                //  내가 플레이어와 더 멀면 멈춤
                 Debug.Log("내가 플레이어보다 멀음 -> 이동 멈춤");
                 isBlocked = true;
                 rb.velocity = Vector2.zero;
