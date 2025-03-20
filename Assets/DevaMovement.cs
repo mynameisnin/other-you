@@ -148,7 +148,8 @@ public class DebaraMovement : MonoBehaviour
 
     public GameObject teleportStartEffectPrefab; // 출발 이펙트 프리팹
     public GameObject teleportEndEffectPrefab; // 도착 이펙트 프리팹
-
+    public Transform teleportStartEffectPosition; // 출발 이펙트 위치 지정용 빈 오브젝트
+    public Transform teleportEndEffectPosition; // 도착 이펙트 위치 지정용 빈 오브젝트
     private IEnumerator Teleport()
     {
         if (energyBarUI != null)
@@ -165,23 +166,25 @@ public class DebaraMovement : MonoBehaviour
         if (teleportTrail != null) teleportTrail.emitting = true;
 
         float teleportDirection = DebaraSprite.flipX ? -1f : 1f;
-        Vector2 startPosition = transform.position; // 기존 위치 저장
+        Vector2 startPosition = transform.position; // 기존 위치 유지
         Vector2 targetPosition = new Vector2(transform.position.x + (teleportDistance * teleportDirection), transform.position.y);
 
-        // ?? 출발 위치에 이펙트 생성
-        if (teleportStartEffectPrefab != null)
+        //  출발 위치에 이펙트 생성 (빈 오브젝트 위치 기반)
+        if (teleportStartEffectPrefab != null && teleportStartEffectPosition != null)
         {
-            Instantiate(teleportStartEffectPrefab, startPosition, Quaternion.identity);
+            GameObject startEffect = Instantiate(teleportStartEffectPrefab, teleportStartEffectPosition.position, Quaternion.identity);
+            Destroy(startEffect, 0.3f); // 1.5초 후 자동 삭제
         }
 
-        yield return new WaitForSeconds(0.2f); // 텔레포트 딜레이 (필요하면 조정 가능)
+        yield return new WaitForSeconds(0.2f); // 텔레포트 딜레이
 
-        transform.position = targetPosition;
+        transform.position = targetPosition; // 텔레포트 위치는 유지
 
-        // ?? 도착 위치에 이펙트 생성
-        if (teleportEndEffectPrefab != null)
+        //  도착 위치에 이펙트 생성 (빈 오브젝트 위치 기반)
+        if (teleportEndEffectPrefab != null && teleportEndEffectPosition != null)
         {
-            Instantiate(teleportEndEffectPrefab, targetPosition, Quaternion.identity);
+            GameObject endEffect = Instantiate(teleportEndEffectPrefab, teleportEndEffectPosition.position, Quaternion.identity);
+            Destroy(endEffect, 0.5f); // 1.5초 후 자동 삭제
         }
 
         if (teleportTrail != null) teleportTrail.emitting = false;
@@ -192,7 +195,6 @@ public class DebaraMovement : MonoBehaviour
         yield return new WaitForSeconds(teleportCooldown);
         canTeleport = true;
     }
-
 
     private IEnumerator ResetAttackInputCooldown()
     {
