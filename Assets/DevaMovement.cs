@@ -1,221 +1,235 @@
 using System.Collections;
 using UnityEngine;
 
-public class DevaMovement : MonoBehaviour
+public class DebaraMovement : MonoBehaviour
 {
-    Rigidbody2D DevaRigidbody;
-    Animator DevaAnime;
-    SpriteRenderer DevaSprite;
+    Rigidbody2D DebaraRigidbody;
+    Animator DebaraAnime;
+    SpriteRenderer DebaraSprite;
 
-    public float DevaMoveSpeed = 3f;
-    public float jumpForce = 5f; // 점프 높이 설정
-    public LayerMask groundLayer; // 바닥을 감지할 레이어 설정
-    public Transform groundCheck; // 바닥 감지를 위한 위치
-    private bool isGrounded; // 바닥에 닿아 있는지 여부 확인
+    public float JumpPower = 3f;
+    public float MoveSpeed = 3f;
+    private MagicAttack magicAttack; // 마법 공격 스크립트 참조
+    private EnergyBarUI energyBarUI; // 에너지 UI 추가
 
-    // 대쉬 변수
-    private bool canDash = true;
-    private bool isDashing;
-    private float dashingPower = 24f;
-    private float dashingTime = 0.3f;
-    private float dashingCooldown = 0.5f;
-    private bool lastKeyWasRight = true;
+    private bool canTeleport = true;
+    private bool isTeleporting;
+    private bool attackInputRecently = false;
 
-    [SerializeField] private TrailRenderer dashTrail; // 대쉬 잔상 효과
+    [SerializeField]
+    private float teleportDistance = 5f;
+    private float teleportCooldown = 1.0f;
+    [SerializeField] private TrailRenderer teleportTrail;
 
-    // 잔상 효과 변수
-    [SerializeField] private float afterImageInterval = 0.02f; // 잔상 생성 간격
-    [SerializeField] private float afterImageLifetime = 0.5f; // 잔상 유지 시간
+    [SerializeField] private float teleportEnergyCost = 20f;
+    [SerializeField] private float attackInputCooldown = 0.2f;
 
-    // Start is called before the first frame update
+    public bool lastKeyWasRight = true;
+
+    // 점프 변수
+    public bool isGround;
+    public Transform JumpPos;
+    public float checkRadiusJump;
+    public LayerMask isLayer;
+
+    public bool isAttacking = false;
+    public bool isInvincible { get; private set; }
+
     void Start()
     {
-        DevaRigidbody = GetComponent<Rigidbody2D>();
-        DevaAnime = GetComponent<Animator>();
-        DevaSprite = GetComponent<SpriteRenderer>();
+        DebaraRigidbody = GetComponent<Rigidbody2D>();
+        DebaraAnime = GetComponent<Animator>();
+        DebaraSprite = GetComponent<SpriteRenderer>();
+        magicAttack = GetComponent<MagicAttack>();
+        energyBarUI = FindObjectOfType<EnergyBarUI>(); // EnergyBarUI 찾기
     }
 
-    // Update is called once per frame
     void Update()
     {
-        CheckGrounded(); // 바닥 감지 업데이트
+        AnimatorStateInfo currentState = DebaraAnime.GetCurrentAnimatorStateInfo(0);
 
-        if (!isDashing)
+        bool isInAttackAnimation = currentState.IsName("Cast1") || currentState.IsName("Cast2");
+
+        if (isInAttackAnimation)
         {
-            DevaMove();
-            HandleDash();
+            StopMovement();
+            return;
         }
 
-        DevaAnimation();
-        JumpMoveMent();
-        DevaSpriteRender();
+        HandleAttack();
+
+        if (!isTeleporting && !attackInputRecently)
+        {
+            HandleMovement();
+        }
+
+        if (!isInAttackAnimation && !attackInputRecently)
+        {
+            HandleTeleport();
+        }
+
+        HandleJump();
+        DebaraAnimation();
+        HandleFlip();
+        HandleFall();
     }
 
-    void DevaMove()
+    float currentSpeed = 0f;
+    float acceleration = 8f;
+    float deceleration = 12f;
+    float maxSpeed = 4f;
+
+    void HandleMovement()
     {
         float hor = Input.GetAxisRaw("Horizontal");
 
-        // 좌우 방향키를 동시에 눌렀을 때 멈추도록 설정
-        if (Mathf.Abs(hor) == 1)
+        if (hor != 0)
         {
-            DevaRigidbody.velocity = new Vector2(hor * DevaMoveSpeed, DevaRigidbody.velocity.y);
-
-            if (hor > 0)
-                lastKeyWasRight = true;
-            else if (hor < 0)
-                lastKeyWasRight = false;
+            currentSpeed = Mathf.Lerp(currentSpeed, hor * maxSpeed, Time.deltaTime * acceleration);
         }
         else
         {
-            // 좌우 키가 동시에 눌리면 속도를 0으로 설정하여 멈추게 함
-            DevaRigidbody.velocity = new Vector2(0, DevaRigidbody.velocity.y);
+            currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * (deceleration * 2f));
+        }
 
+        DebaraRigidbody.velocity = new Vector2(currentSpeed, DebaraRigidbody.velocity.y);
+    }
+
+    void HandleAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isGround)
+        {
+            attackInputRecently = true;
+            StartCoroutine(ResetAttackInputCooldown());
+
+            if (magicAttack != null)
+            {
+                isAttacking = true;
+                magicAttack.CastMagic();
+            }
+        }
+        else
+        {
+            isAttacking = false;
         }
     }
 
-    void HandleDash()
+    void HandleTeleport()
     {
-        if (isDashing || !canDash || !isGrounded)
+        if (isTeleporting || !canTeleport || attackInputRecently || !isGround)
+        {
             return;
+        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            StartCoroutine(Dash());
+            float currentEnergy = energyBarUI != null ? energyBarUI.GetCurrentEnergy() : 0f;
+
+            if (currentEnergy < teleportEnergyCost && energyBarUI != null)
+            {
+                Debug.Log("텔레포트 불가: ENERGY 부족!");
+                energyBarUI.FlashBorder();
+                return;
+            }
+
+            StartCoroutine(Teleport());
         }
     }
 
-    private IEnumerator Dash()
+    private IEnumerator Teleport()
     {
-        canDash = false;
-        isDashing = true;
-        DevaAnime.SetBool("isDashing", true); // 대쉬 애니메이션 실행
+        if (energyBarUI != null)
+        {
+            energyBarUI.ReduceEnergy(teleportEnergyCost);
+        }
 
-        if (dashTrail != null) dashTrail.emitting = true;
+        canTeleport = false;
+        isTeleporting = true;
+        isInvincible = true;
 
-        StartCoroutine(LeaveAfterImage()); // 잔상 생성 시작
+        DebaraAnime.SetTrigger("Teleport");
 
-        float originalGravity = DevaRigidbody.gravityScale;
-        DevaRigidbody.gravityScale = 0f;
+        if (teleportTrail != null) teleportTrail.emitting = true;
 
-        float dashDirection = lastKeyWasRight ? 1 : -1;
-        DevaRigidbody.velocity = new Vector2(dashDirection * dashingPower, 0f);
+        float teleportDirection = DebaraSprite.flipX ? -1f : 1f;
+        Vector2 targetPosition = new Vector2(transform.position.x + (teleportDistance * teleportDirection), transform.position.y);
 
-        yield return new WaitForSeconds(dashingTime);
+        transform.position = targetPosition;
 
-        if (dashTrail != null) dashTrail.emitting = false;
+        yield return new WaitForSeconds(0.2f);
 
-        DevaRigidbody.gravityScale = originalGravity;
-        isDashing = false;
-        DevaAnime.SetBool("isDashing", false);
+        if (teleportTrail != null) teleportTrail.emitting = false;
 
-        yield return new WaitForSeconds(dashingCooldown);
-        canDash = true;
+        isTeleporting = false;
+        isInvincible = false;
+
+        yield return new WaitForSeconds(teleportCooldown);
+        canTeleport = true;
     }
 
-    // 잔상 생성 (대쉬 중 지속적으로 호출)
-    private IEnumerator LeaveAfterImage()
+    private IEnumerator ResetAttackInputCooldown()
     {
-        while (isDashing)
+        yield return new WaitForSeconds(attackInputCooldown);
+        attackInputRecently = false;
+    }
+
+    void StopMovement()
+    {
+        DebaraRigidbody.velocity = Vector2.zero;
+        currentSpeed = 0f;
+    }
+
+    void DebaraAnimation()
+    {
+        float hor = Input.GetAxisRaw("Horizontal");
+        DebaraAnime.SetBool("run", Mathf.Abs(hor) > 0.00f);
+    }
+
+    void HandleFlip()
+    {
+        float hor = Input.GetAxisRaw("Horizontal");
+        if (hor != 0)
         {
-            CreateAfterImage();
-            yield return new WaitForSeconds(afterImageInterval);
+            DebaraSprite.flipX = hor < 0;
         }
     }
 
-    void CreateAfterImage()
+    void HandleJump()
     {
-        GameObject afterImage = new GameObject("AfterImage");
-        SpriteRenderer sr = afterImage.AddComponent<SpriteRenderer>();
+        isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, isLayer);
+        bool isJumping = DebaraAnime.GetCurrentAnimatorStateInfo(0).IsName("Jump 1");
 
-        sr.sprite = DevaSprite.sprite;
-        sr.color = new Color(1f, 1f, 1f, 0.8f); // 반투명 흰색
-        sr.flipX = DevaSprite.flipX;
-        afterImage.transform.position = transform.position;
-        afterImage.transform.localScale = transform.localScale;
-
-        StartCoroutine(FadeOutAndDestroy(sr)); // 잔상 점점 사라지게 처리
-    }
-
-    private IEnumerator FadeOutAndDestroy(SpriteRenderer sr)
-    {
-        float fadeDuration = afterImageLifetime;
-        Color originalColor = sr.color;
-        float elapsed = 0f;
-
-        while (elapsed < fadeDuration)
+        if (isTeleporting || (!isGround && DebaraRigidbody.velocity.y < 0))
         {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Lerp(originalColor.a, 0, elapsed / fadeDuration); // 알파값 점진적 감소
-            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha); // 투명도 적용
-            yield return null;
+            return;
         }
 
-        Destroy(sr.gameObject); // 최종적으로 잔상 오브젝트 삭제
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
+        {
+            Debug.Log("Jumping...");
+            DebaraAnime.SetTrigger("Jump");
+            DebaraRigidbody.velocity = new Vector2(DebaraRigidbody.velocity.x, JumpPower);
+        }
     }
 
-    void DevaAnimation()
+    void HandleFall()
     {
-        float hor = Input.GetAxis("Horizontal");
-
-        if (Mathf.Abs(hor) > 0.00f)
+        if (!isGround && DebaraRigidbody.velocity.y < 0)
         {
-            DevaAnime.SetBool("run", true);
+            DebaraAnime.SetBool("Fall", true);
         }
         else
         {
-            DevaAnime.SetBool("run", false);
-        }
-
-        if (DevaRigidbody.velocity.y > 0.1f)
-        {
-            DevaAnime.SetBool("jump", true);
-            DevaAnime.SetBool("fall", false);
-        }
-        else if (DevaRigidbody.velocity.y < -0.1f)
-        {
-            DevaAnime.SetBool("jump", false);
-            DevaAnime.SetBool("fall", true);
-        }
-        else if (isGrounded)
-        {
-            DevaAnime.SetBool("jump", false);
-            DevaAnime.SetBool("fall", false);
+            DebaraAnime.SetBool("Fall", false);
         }
     }
 
-    void JumpMoveMent()
+    private void OnDrawGizmos()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (JumpPos != null)
         {
-            StartCoroutine(DelayedJump()); // 점프 준비 동작 후 점프 실행
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(JumpPos.position, checkRadiusJump);
         }
-    }
-
-    void DevaSpriteRender()
-    {
-        if (Input.GetButton("Horizontal"))
-        {
-            DevaSprite.flipX = Input.GetAxisRaw("Horizontal") == -1;
-        }
-    }
-
-    void CheckGrounded()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-    }
-
-    private IEnumerator DelayedJump()
-    {
-        // 점프 준비 동작 실행 (앉기 애니메이션)
-        DevaAnime.SetTrigger("Crouch");
-
-        // 0.15초 동안 준비 동작 (이 값은 필요에 따라 조정 가능)
-        yield return new WaitForSeconds(0.15f);
-
-        // 점프 애니메이션 실행
-        DevaAnime.SetTrigger("Jump");
-
-        // 점프 적용
-        DevaRigidbody.velocity = new Vector2(DevaRigidbody.velocity.x, jumpForce);
     }
 }
