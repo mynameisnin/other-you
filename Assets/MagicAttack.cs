@@ -29,19 +29,14 @@ public class MagicAttack : MonoBehaviour
 
     public void CastMagic()
     {
-        if (!canCast) return;
+        //  Fireball 생성 (애니메이션 이벤트에서 호출됨)
+        GameObject fireball = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
+        Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
 
-        float currentEnergy = energyBarUI != null ? energyBarUI.GetCurrentEnergy() : 0f;
-
-        if (currentEnergy < magicEnergyCost && energyBarUI != null)
-        {
-            Debug.Log("? 마법 사용 불가: ENERGY 부족!");
-            energyBarUI.FlashBorder();
-            return;
-        }
-
-        StartCoroutine(CastMagicCoroutine());
+        float direction = GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
+        rb.velocity = new Vector2(fireballSpeed * direction, 0);
     }
+
 
     private IEnumerator CastMagicCoroutine()
     {
@@ -52,18 +47,29 @@ public class MagicAttack : MonoBehaviour
             energyBarUI.ReduceEnergy(magicEnergyCost);
         }
 
-        GetComponent<Animator>().SetTrigger("Cast");
+        // ?? 공격 애니메이션 실행 (마법은 애니메이션 이벤트에서 발사)
+        GetComponent<Animator>().SetTrigger("Attack");
 
-        yield return new WaitForSeconds(0.3f); // 마법 시전 딜레이
-
-        // ?? Fireball 생성
-        GameObject fireball = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
-        Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
-
-        float direction = transform.localScale.x > 0 ? 1f : -1f;
-        rb.velocity = new Vector2(fireballSpeed * direction, 0);
+        // 공격 애니메이션이 끝날 때까지 대기
+        yield return new WaitForSeconds(0.5f); // (애니메이션 길이에 맞춰 조절)
 
         yield return new WaitForSeconds(fireballCooldown);
         canCast = true;
+    }
+    public void SpawnMagic()
+    {
+        // ?? Fireball 생성 (애니메이션 이벤트에서 호출됨)
+        GameObject fireball = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
+        Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
+
+        // 플레이어의 방향을 확인하여 마법 발사 방향 결정
+        SpriteRenderer playerSprite = GetComponent<SpriteRenderer>();
+        float direction = playerSprite.flipX ? -1f : 1f;
+
+        // 발사 방향 적용
+        rb.velocity = new Vector2(fireballSpeed * direction, 0);
+
+        // 마법이 캐릭터 방향으로 회전되도록 설정 (필요 시)
+        fireball.transform.localScale = new Vector3(direction, 1f, 1f);
     }
 }

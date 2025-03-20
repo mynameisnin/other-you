@@ -81,6 +81,8 @@ public class DebaraMovement : MonoBehaviour
 
     void HandleMovement()
     {
+        if (isAttacking) return; //  공격 중에는 이동 불가
+
         float hor = Input.GetAxisRaw("Horizontal");
 
         if (hor != 0)
@@ -97,23 +99,31 @@ public class DebaraMovement : MonoBehaviour
 
     void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && isGround)
+        if (isAttacking || !isGround) return; //  공격 중이면 다시 공격 불가
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             attackInputRecently = true;
+            isAttacking = true; // 공격 상태 활성화
+
             StartCoroutine(ResetAttackInputCooldown());
 
             if (magicAttack != null)
             {
-                isAttacking = true;
-                magicAttack.CastMagic();
+                //  공격 애니메이션 실행 (애니메이션 이벤트에서 마법 실행)
+                DebaraAnime.Play("Attack", 0, 0); // 즉시 공격 애니메이션 실행
+
+                // 움직임 정지
+                StopMovement();
             }
-        }
-        else
-        {
-            isAttacking = false;
         }
     }
 
+
+    public void EndAttack()
+    {
+        isAttacking = false; // 공격 상태 해제
+    }
     void HandleTeleport()
     {
         if (isTeleporting || !canTeleport || attackInputRecently || !isGround)
@@ -136,6 +146,9 @@ public class DebaraMovement : MonoBehaviour
         }
     }
 
+    public GameObject teleportStartEffectPrefab; // 출발 이펙트 프리팹
+    public GameObject teleportEndEffectPrefab; // 도착 이펙트 프리팹
+
     private IEnumerator Teleport()
     {
         if (energyBarUI != null)
@@ -152,11 +165,24 @@ public class DebaraMovement : MonoBehaviour
         if (teleportTrail != null) teleportTrail.emitting = true;
 
         float teleportDirection = DebaraSprite.flipX ? -1f : 1f;
+        Vector2 startPosition = transform.position; // 기존 위치 저장
         Vector2 targetPosition = new Vector2(transform.position.x + (teleportDistance * teleportDirection), transform.position.y);
+
+        // ?? 출발 위치에 이펙트 생성
+        if (teleportStartEffectPrefab != null)
+        {
+            Instantiate(teleportStartEffectPrefab, startPosition, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(0.2f); // 텔레포트 딜레이 (필요하면 조정 가능)
 
         transform.position = targetPosition;
 
-        yield return new WaitForSeconds(0.2f);
+        // ?? 도착 위치에 이펙트 생성
+        if (teleportEndEffectPrefab != null)
+        {
+            Instantiate(teleportEndEffectPrefab, targetPosition, Quaternion.identity);
+        }
 
         if (teleportTrail != null) teleportTrail.emitting = false;
 
@@ -166,6 +192,7 @@ public class DebaraMovement : MonoBehaviour
         yield return new WaitForSeconds(teleportCooldown);
         canTeleport = true;
     }
+
 
     private IEnumerator ResetAttackInputCooldown()
     {
@@ -187,6 +214,8 @@ public class DebaraMovement : MonoBehaviour
 
     void HandleFlip()
     {
+        if (isAttacking) return; // 공격 중에는 방향 전환 금지
+
         float hor = Input.GetAxisRaw("Horizontal");
         if (hor != 0)
         {
