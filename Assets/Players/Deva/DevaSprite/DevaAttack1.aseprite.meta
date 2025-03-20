@@ -1,0 +1,480 @@
+fileFormatVersion: 2
+guid: f0d59ce4c4d792341ab232b029e9bf41
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638781019744262566
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: DevaAttack1_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.050847456}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 148
+      y: 70
+      width: 26
+      height: 59
+    spriteID: a1c591ba7675f11499eaa17e5ffbf6eb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 129, y: 67}
+  - name: DevaAttack1_Frame_1
+    originalName: 
+    pivot: {x: 0.48387095, y: -0.033333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 93
+      y: 137
+      width: 31
+      height: 60
+    spriteID: 138ac4ebe98cd2747a3044692cef1917
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 80, y: 135}
+  - name: DevaAttack1_Frame_2
+    originalName: 
+    pivot: {x: 0.5319149, y: -0.033898305}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 93
+      y: 70
+      width: 47
+      height: 59
+    spriteID: ec54199acdc4cfd4fafde359b09f6bc8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 93, y: 70}
+  - name: DevaAttack1_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.03448276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 408
+      width: 50
+      height: 58
+    spriteID: 8774dd2e945314e4ea7fb6b6afa98ddc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 408}
+  - name: DevaAttack1_Frame_4
+    originalName: 
+    pivot: {x: 0.58536583, y: -0.01724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 93
+      y: 4
+      width: 82
+      height: 58
+    spriteID: 6b1974e1f96655449986cd4f28695103
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 93, y: 4}
+  - name: DevaAttack1_Frame_5
+    originalName: 
+    pivot: {x: 0.56790125, y: -0.01724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 71
+      width: 81
+      height: 58
+    spriteID: 1ecc96179d60ee046805ce2ff7f9ef81
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 71}
+  - name: DevaAttack1_Frame_6
+    originalName: 
+    pivot: {x: 0.56790125, y: -0.01724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 137
+      width: 81
+      height: 58
+    spriteID: ce76b8819d03af442a08500865df3ed4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 137}
+  - name: DevaAttack1_Frame_7
+    originalName: 
+    pivot: {x: 0.5185185, y: -0.016949153}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 81
+      height: 59
+    spriteID: 371709827290a7a4c81ba61c81a27bed
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: DevaAttack1_Frame_8
+    originalName: 
+    pivot: {x: 0.7627119, y: -0.016666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 271
+      width: 59
+      height: 60
+    spriteID: 506943d72a2970443a62ec4875c50755
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 271}
+  - name: DevaAttack1_Frame_9
+    originalName: 
+    pivot: {x: 0.7666667, y: -0.016666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 203
+      width: 60
+      height: 60
+    spriteID: 2eba8cba2b71fcc488e193f36038b6a3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 203}
+  - name: DevaAttack1_Frame_10
+    originalName: 
+    pivot: {x: 0.6792453, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 339
+      width: 53
+      height: 61
+    spriteID: cbbc73e0f10734b41a674aafb43ee2d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 338}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -860153457
+    name: DevaAttack1
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: DevaAttack1_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 43
+        y: 43
+        width: 64
+        height: 64
+      spriteId: a1c591ba7675f11499eaa17e5ffbf6eb
+    - name: DevaAttack1_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 43
+        y: 43
+        width: 64
+        height: 64
+      spriteId: 138ac4ebe98cd2747a3044692cef1917
+    - name: DevaAttack1_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 53
+        y: 45
+        width: 47
+        height: 59
+      spriteId: ec54199acdc4cfd4fafde359b09f6bc8
+    - name: DevaAttack1_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 53
+        y: 45
+        width: 50
+        height: 58
+      spriteId: 8774dd2e945314e4ea7fb6b6afa98ddc
+    - name: DevaAttack1_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 30
+        y: 44
+        width: 82
+        height: 58
+      spriteId: 6b1974e1f96655449986cd4f28695103
+    - name: DevaAttack1_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 32
+        y: 44
+        width: 81
+        height: 58
+      spriteId: 1ecc96179d60ee046805ce2ff7f9ef81
+    - name: DevaAttack1_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 32
+        y: 44
+        width: 81
+        height: 58
+      spriteId: ce76b8819d03af442a08500865df3ed4
+    - name: DevaAttack1_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 32
+        y: 44
+        width: 81
+        height: 59
+      spriteId: 371709827290a7a4c81ba61c81a27bed
+    - name: DevaAttack1_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 33
+        y: 44
+        width: 59
+        height: 60
+      spriteId: 506943d72a2970443a62ec4875c50755
+    - name: DevaAttack1_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 32
+        y: 44
+        width: 60
+        height: 60
+      spriteId: 2eba8cba2b71fcc488e193f36038b6a3
+    - name: DevaAttack1_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 34
+        y: 43
+        width: 73
+        height: 64
+      spriteId: cbbc73e0f10734b41a674aafb43ee2d7
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 150, y: 150}
