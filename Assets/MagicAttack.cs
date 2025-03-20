@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering.Universal; // Light2D 사용
 public class MagicAttack : MonoBehaviour
 {
     public GameObject fireballPrefab; // ?? 기본 마법 (파이어볼)
     public Transform firePoint; // 마법이 생성되는 위치
-
+    public Light2D magicLight; //  마법 이펙트용 Light2D 추가
     public float fireballSpeed = 10f;
     public float fireballCooldown = 1.0f;
     public float magicEnergyCost = 10f; // 마법 사용 시 에너지 소모량
@@ -17,6 +17,10 @@ public class MagicAttack : MonoBehaviour
     void Start()
     {
         energyBarUI = FindObjectOfType<EnergyBarUI>(); // 에너지 UI 찾기
+        if (magicLight != null)
+        {
+            magicLight.enabled = false; // 시작할 때 라이트 비활성화
+        }
     }
 
     void Update()
@@ -35,6 +39,10 @@ public class MagicAttack : MonoBehaviour
 
         float direction = GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
         rb.velocity = new Vector2(fireballSpeed * direction, 0);
+        if (magicLight != null)
+        {
+            magicLight.enabled = true;
+        }
     }
 
 
@@ -71,5 +79,23 @@ public class MagicAttack : MonoBehaviour
 
         // 마법이 캐릭터 방향으로 회전되도록 설정 (필요 시)
         fireball.transform.localScale = new Vector3(direction, 1f, 1f);
+
+    }
+
+public void AttackLight()
+{
+        if (magicLight != null)
+        {
+            magicLight.enabled = true;
+        }
+}
+
+public void EndAttacks()
+    {
+        //  공격 종료 시 라이트 끄기
+        if (magicLight != null)
+        {
+            magicLight.enabled = false;
+        }
     }
 }
