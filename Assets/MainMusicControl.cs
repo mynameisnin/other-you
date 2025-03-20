@@ -8,33 +8,33 @@ public class MainMusicControl : MonoBehaviour
 
     private void Start()
     {
-        // Bgmcontrol 인스턴스가 존재하는지 확인
         if (Bgmcontrol.Instance != null)
         {
-            // PlayerPrefs에서 BGM 볼륨 값을 불러오기, 기본값은 0.5f
+            // 저장된 볼륨 불러오기 (없으면 기본값 0.5)
             float savedVolume = PlayerPrefs.GetFloat(BGMVolumeKey, 0.5f);
-            bgmSlider.value = savedVolume; // 슬라이더의 초기 값을 설정
 
-            // BgmSource의 볼륨을 슬라이더의 값으로 설정
-            Bgmcontrol.Instance.bgmAudioSource.volume = bgmSlider.value;
-
-            // 슬라이더의 값이 변경될 때 ChangeVolume 메서드를 호출
+            // 슬라이더 값 설정 전에 리스너 추가 (UI 갱신을 위해)
             bgmSlider.onValueChanged.AddListener(ChangebgmVolume);
+
+            // 슬라이더의 초기 값을 설정
+            bgmSlider.value = savedVolume;
+
+            // 배경음 볼륨을 설정
+            Bgmcontrol.Instance.bgmAudioSource.volume = savedVolume;
         }
     }
 
-    // 슬라이더의 값이 변경될 때 호출되는 메서드
+    // 슬라이더 값 변경 시 호출되는 메서드
     public void ChangebgmVolume(float value)
     {
-        Debug.Log("New Volume: " + value); // 새로운 볼륨 값을 로그에 출력
         if (Bgmcontrol.Instance != null)
         {
-            // bgmcontrol의 AudioSource 볼륨을 슬라이더의 값으로 설정
+            // 배경음 볼륨 설정
             Bgmcontrol.Instance.bgmAudioSource.volume = value;
 
-            // 현재 볼륨 값을 PlayerPrefs에 저장
+            // 볼륨 값 저장
             PlayerPrefs.SetFloat(BGMVolumeKey, value);
-            PlayerPrefs.Save(); // 변경 사항 저장
+            PlayerPrefs.Save();
         }
     }
 }
