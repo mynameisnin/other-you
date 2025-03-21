@@ -34,7 +34,9 @@ public class DebaraMovement : MonoBehaviour
 
     public bool isAttacking = false;
     public bool isInvincible { get; private set; }
-
+    [SerializeField] private Transform jumpAttackCheckPos; // Ray 시작 지점
+    [SerializeField] private float jumpAttackRayLength = 1.5f; // 레이 길이
+    [SerializeField] private LayerMask jumpAttackBlockLayer; // 감지할 레이어
     void Start()
     {
         DebaraRigidbody = GetComponent<Rigidbody2D>();
@@ -96,7 +98,13 @@ public class DebaraMovement : MonoBehaviour
 
         DebaraRigidbody.velocity = new Vector2(currentSpeed, DebaraRigidbody.velocity.y);
     }
+    bool IsJumpAttackBlocked()
+    {
+        if (jumpAttackCheckPos == null) return false;
 
+        RaycastHit2D hit = Physics2D.Raycast(jumpAttackCheckPos.position, Vector2.down, jumpAttackRayLength, jumpAttackBlockLayer);
+        return hit.collider != null;
+    }
     void HandleAttack()
     {
         if (isAttacking) return;
@@ -111,8 +119,16 @@ public class DebaraMovement : MonoBehaviour
             {
                 if (!isGround)
                 {
+                    if (IsJumpAttackBlocked())
+                    {
+                        isAttacking = false;
+                        attackInputRecently = false;
+                        Debug.Log("Jump Attack Blocked by Raycast!");
+                        return;
+                    }
+
                     DebaraAnime.Play("JumpAttack", 0, 0);
-                    //  StopMovement() 호출하지 않음
+                    // 공중 공격 시 StopMovement 호출 X
                 }
                 else
                 {
@@ -282,6 +298,12 @@ public class DebaraMovement : MonoBehaviour
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(JumpPos.position, checkRadiusJump);
+        }
+
+        if (jumpAttackCheckPos != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(jumpAttackCheckPos.position, jumpAttackCheckPos.position + Vector3.down * jumpAttackRayLength);
         }
     }
 }

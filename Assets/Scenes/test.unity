@@ -3443,6 +3443,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isAttacking: 0
+  jumpAttackCheckPos: {fileID: 1934204949}
+  jumpAttackRayLength: 0.46
+  jumpAttackBlockLayer:
+    serializedVersion: 2
+    m_Bits: 8
   teleportStartEffectPrefab: {fileID: 1211738384}
   teleportEndEffectPrefab: {fileID: 162199090}
   teleportStartEffectPosition: {fileID: 1701454390}
@@ -3601,7 +3606,7 @@ Transform:
   m_GameObject: {fileID: 1756431620}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.63, y: -4.08, z: 0}
+  m_LocalPosition: {x: 3.22, y: -3.54, z: 0}
   m_LocalScale: {x: 3.0600686, y: 3.0600686, z: 3.0600686}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3611,6 +3616,7 @@ Transform:
   - {fileID: 1701454390}
   - {fileID: 682295251}
   - {fileID: 1202541622}
+  - {fileID: 1934204949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1756431627
@@ -3966,6 +3972,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.109090865, y: 0.07272726}
   m_EdgeRadius: 0
+--- !u!1 &1934204948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934204949}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1934204949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934204948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.035, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1756431626}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1971325257
 GameObject:
   m_ObjectHideFlags: 0
