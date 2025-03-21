@@ -23,47 +23,7 @@ public class MagicAttack : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X) && canCast)
-        {
-            CastMagic();
-        }
-    }
-
-    public void CastMagic()
-    {
-        //  Fireball 생성 (애니메이션 이벤트에서 호출됨)
-        GameObject fireball = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
-        Rigidbody2D rb = fireball.GetComponent<Rigidbody2D>();
-
-        float direction = GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
-        rb.velocity = new Vector2(fireballSpeed * direction, 0);
-        if (magicLight != null)
-        {
-            magicLight.enabled = true;
-        }
-    }
-
-
-    private IEnumerator CastMagicCoroutine()
-    {
-        canCast = false;
-
-        if (energyBarUI != null)
-        {
-            energyBarUI.ReduceEnergy(magicEnergyCost);
-        }
-
-        // ?? 공격 애니메이션 실행 (마법은 애니메이션 이벤트에서 발사)
-        GetComponent<Animator>().SetTrigger("Attack");
-
-        // 공격 애니메이션이 끝날 때까지 대기
-        yield return new WaitForSeconds(0.5f); // (애니메이션 길이에 맞춰 조절)
-
-        yield return new WaitForSeconds(fireballCooldown);
-        canCast = true;
-    }
+  
     public void SpawnMagic()
     {
         // ?? Fireball 생성 (애니메이션 이벤트에서 호출됨)

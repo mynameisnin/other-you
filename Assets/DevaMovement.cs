@@ -99,25 +99,30 @@ public class DebaraMovement : MonoBehaviour
 
     void HandleAttack()
     {
-        if (isAttacking || !isGround) return; //  공격 중이면 다시 공격 불가
+        if (isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             attackInputRecently = true;
-            isAttacking = true; // 공격 상태 활성화
-
+            isAttacking = true;
             StartCoroutine(ResetAttackInputCooldown());
 
             if (magicAttack != null)
             {
-                //  공격 애니메이션 실행 (애니메이션 이벤트에서 마법 실행)
-                DebaraAnime.Play("Attack", 0, 0); // 즉시 공격 애니메이션 실행
-
-                // 움직임 정지
-                StopMovement();
+                if (!isGround)
+                {
+                    DebaraAnime.Play("JumpAttack", 0, 0);
+                    //  StopMovement() 호출하지 않음
+                }
+                else
+                {
+                    DebaraAnime.Play("Attack", 0, 0);
+                    StopMovement(); // 지상에서는 움직임 멈추도록 유지
+                }
             }
         }
     }
+
 
 
     public void EndAttack()
