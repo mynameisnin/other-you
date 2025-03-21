@@ -217,6 +217,8 @@ public class DebaraMovement : MonoBehaviour
     {
         float hor = Input.GetAxisRaw("Horizontal");
         DebaraAnime.SetBool("run", Mathf.Abs(hor) > 0.00f);
+        bool rising = DebaraRigidbody.velocity.y > 0.1f && !isGround && !(DebaraRigidbody.velocity.y < 0);
+        DebaraAnime.SetBool("isJumping", rising);
     }
 
     void HandleFlip()
@@ -233,7 +235,20 @@ public class DebaraMovement : MonoBehaviour
     void HandleJump()
     {
         isGround = Physics2D.OverlapCircle(JumpPos.position, checkRadiusJump, isLayer);
-        bool isJumping = DebaraAnime.GetCurrentAnimatorStateInfo(0).IsName("Jump 1");
+        AnimatorStateInfo currentState = DebaraAnime.GetCurrentAnimatorStateInfo(0);
+        bool isJumping = currentState.IsName("Jump");
+
+        //  공격 중이면 점프 금지
+        if (isAttacking)
+        {
+            return;
+        }
+
+        //  일반 공격 중에는 점프 금지
+        if (currentState.IsName("Attack"))
+        {
+            return;
+        }
 
         if (isTeleporting || (!isGround && DebaraRigidbody.velocity.y < 0))
         {
@@ -243,10 +258,11 @@ public class DebaraMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
         {
             Debug.Log("Jumping...");
-            DebaraAnime.SetTrigger("Jump");
             DebaraRigidbody.velocity = new Vector2(DebaraRigidbody.velocity.x, JumpPower);
         }
     }
+
+
 
     void HandleFall()
     {
