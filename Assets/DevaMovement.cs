@@ -309,4 +309,45 @@ public class DebaraMovement : MonoBehaviour
             Gizmos.DrawLine(jumpAttackCheckPos.position, jumpAttackCheckPos.position + Vector3.down * jumpAttackRayLength);
         }
     }
+    public void ResetState()
+    {
+        isAttacking = false;
+        attackInputRecently = false;
+        isTeleporting = false;
+        isInvincible = false;
+        canTeleport = true;
+        currentSpeed = 0f;
+
+        if (DebaraAnime != null)
+        {
+            DebaraAnime.ResetTrigger("Attack");
+            DebaraAnime.ResetTrigger("Cast");
+            DebaraAnime.SetBool("run", false);
+            DebaraAnime.SetBool("isJumping", false);
+            DebaraAnime.SetBool("Fall", false);
+        }
+
+        // 움직임 정지
+        if (DebaraRigidbody != null)
+        {
+            DebaraRigidbody.velocity = Vector2.zero;
+        }
+    }
+    public void ForceEndAttack()
+    {
+        isAttacking = false;
+        attackInputRecently = false;
+
+        // 애니메이션 상태 초기화
+        DebaraAnime.ResetTrigger("Attack");
+        DebaraAnime.Play("Idle"); // or 적절한 상태로
+
+        // 라이트 끄기
+        if (magicAttack != null)
+        {
+            magicAttack.EndAttacks();
+        }
+    }
+
+
 }

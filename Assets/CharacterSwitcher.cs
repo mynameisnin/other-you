@@ -48,6 +48,7 @@ public class CharacterSwitcher : MonoBehaviour
         {
             currentPos = debaObject.transform.position;
             debaObject.SetActive(false);
+            DeactivateDeba();
         }
 
         switchEffectObject.transform.position = currentPos;
@@ -88,6 +89,7 @@ public class CharacterSwitcher : MonoBehaviour
         debaObject.transform.position = switchEffectObject.transform.position;
         debaObject.SetActive(true);
         guiController?.SwitchToDeba();
+
     }
 
     void ActivateAdamDelayed()
@@ -96,5 +98,16 @@ public class CharacterSwitcher : MonoBehaviour
         adamObject.transform.position = switchEffectObject.transform.position;
         adamObject.SetActive(true);
         guiController?.SwitchToAdam();
+    }
+    void DeactivateDeba()
+    {
+        // 공격 중이면 강제로 종료
+        var debaMovement = debaObject.GetComponent<DebaraMovement>();
+        if (debaMovement != null)
+        {
+            debaMovement.ForceEndAttack();
+        }
+
+        debaObject.SetActive(false);
     }
 }
