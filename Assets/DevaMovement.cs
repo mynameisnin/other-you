@@ -10,7 +10,7 @@ public class DebaraMovement : MonoBehaviour
     public float JumpPower = 3f;
     public float MoveSpeed = 3f;
     private MagicAttack magicAttack; // 마법 공격 스크립트 참조
-    private EnergyBarUI energyBarUI; // 에너지 UI 추가
+    private DevaEnergyBarUI DevaEnergyBarUI; // 에너지 UI 추가
 
     private bool canTeleport = true;
     private bool isTeleporting;
@@ -43,7 +43,7 @@ public class DebaraMovement : MonoBehaviour
         DebaraAnime = GetComponent<Animator>();
         DebaraSprite = GetComponent<SpriteRenderer>();
         magicAttack = GetComponent<MagicAttack>();
-        energyBarUI = FindObjectOfType<EnergyBarUI>(); // EnergyBarUI 찾기
+        DevaEnergyBarUI = FindObjectOfType<DevaEnergyBarUI>(); // EnergyBarUI 찾기
     }
 
     void Update()
@@ -154,28 +154,29 @@ public class DebaraMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            float currentEnergy = energyBarUI != null ? energyBarUI.GetCurrentEnergy() : 0f;
+            float currentEnergy = DevaEnergyBarUI != null ? DevaEnergyBarUI.GetCurrentEnergy() : 0f;
 
-            if (currentEnergy < teleportEnergyCost && energyBarUI != null)
+            // ?? 에너지 부족 시 텔레포트 불가 처리
+            if (currentEnergy < teleportEnergyCost && DevaEnergyBarUI != null)
             {
                 Debug.Log("텔레포트 불가: ENERGY 부족!");
-                energyBarUI.FlashBorder();
+                DevaEnergyBarUI.FlashBorder(); // UI 깜빡임 효과
                 return;
             }
 
-            StartCoroutine(Teleport());
+            StartCoroutine(Teleport()); // 텔레포트 실행
         }
     }
-
     public GameObject teleportStartEffectPrefab; // 출발 이펙트 프리팹
     public GameObject teleportEndEffectPrefab; // 도착 이펙트 프리팹
     public Transform teleportStartEffectPosition; // 출발 이펙트 위치 지정용 빈 오브젝트
     public Transform teleportEndEffectPosition; // 도착 이펙트 위치 지정용 빈 오브젝트
     private IEnumerator Teleport()
     {
-        if (energyBarUI != null)
+        // ? 에너지 차감
+        if (DevaEnergyBarUI != null)
         {
-            energyBarUI.ReduceEnergy(teleportEnergyCost);
+            DevaEnergyBarUI.ReduceEnergy(teleportEnergyCost);
         }
 
         canTeleport = false;
@@ -184,31 +185,32 @@ public class DebaraMovement : MonoBehaviour
 
         DebaraAnime.SetTrigger("Teleport");
 
-        if (teleportTrail != null) teleportTrail.emitting = true;
+        if (teleportTrail != null)
+            teleportTrail.emitting = true;
 
         float teleportDirection = DebaraSprite.flipX ? -1f : 1f;
-        Vector2 startPosition = transform.position; // 기존 위치 유지
         Vector2 targetPosition = new Vector2(transform.position.x + (teleportDistance * teleportDirection), transform.position.y);
 
-        //  출발 위치에 이펙트 생성 (빈 오브젝트 위치 기반)
+        // 출발 이펙트
         if (teleportStartEffectPrefab != null && teleportStartEffectPosition != null)
         {
             GameObject startEffect = Instantiate(teleportStartEffectPrefab, teleportStartEffectPosition.position, Quaternion.identity);
-            Destroy(startEffect, 0.3f); // 1.5초 후 자동 삭제
+            Destroy(startEffect, 0.3f);
         }
 
         yield return new WaitForSeconds(0.2f); // 텔레포트 딜레이
 
-        transform.position = targetPosition; // 텔레포트 위치는 유지
+        transform.position = targetPosition;
 
-        //  도착 위치에 이펙트 생성 (빈 오브젝트 위치 기반)
+        // 도착 이펙트
         if (teleportEndEffectPrefab != null && teleportEndEffectPosition != null)
         {
             GameObject endEffect = Instantiate(teleportEndEffectPrefab, teleportEndEffectPosition.position, Quaternion.identity);
-            Destroy(endEffect, 0.5f); // 1.5초 후 자동 삭제
+            Destroy(endEffect, 0.5f);
         }
 
-        if (teleportTrail != null) teleportTrail.emitting = false;
+        if (teleportTrail != null)
+            teleportTrail.emitting = false;
 
         isTeleporting = false;
         isInvincible = false;
@@ -216,6 +218,7 @@ public class DebaraMovement : MonoBehaviour
         yield return new WaitForSeconds(teleportCooldown);
         canTeleport = true;
     }
+
 
     private IEnumerator ResetAttackInputCooldown()
     {

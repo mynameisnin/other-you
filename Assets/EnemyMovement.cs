@@ -65,7 +65,7 @@ public class EnemyMovement : MonoBehaviour
     }
     void FindPlayer()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("PlayerCamPosition");
+        GameObject playerObj = GameObject.FindGameObjectWithTag("AdamCamPosition");
         if (playerObj != null)
         {
             player = playerObj.transform;

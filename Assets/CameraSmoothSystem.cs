@@ -27,8 +27,7 @@ public class CameraSmoothSystem : MonoBehaviour
 
     void Update()
     {
-        //  플레이어가 없으면 계속 찾기
-        if (player == null)
+        if (player == null || !player.gameObject.activeInHierarchy)
         {
             FindPlayer();
         }
@@ -36,13 +35,16 @@ public class CameraSmoothSystem : MonoBehaviour
 
     void FindPlayer()
     {
-        if (player == null)
+        GameObject foundPlayer = GameObject.FindWithTag("AdamCamPosition");
+
+        if (foundPlayer == null || !foundPlayer.activeInHierarchy)
         {
-            GameObject foundPlayer = GameObject.FindWithTag("PlayerCamPosition");
-            if (foundPlayer != null)
-            {
-                player = foundPlayer.transform;
-            }
+            foundPlayer = GameObject.FindWithTag("DevaCamPosition");
+        }
+
+        if (foundPlayer != null && foundPlayer.activeInHierarchy)
+        {
+            player = foundPlayer.transform;
         }
     }
 
