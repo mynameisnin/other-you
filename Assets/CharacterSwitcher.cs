@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterSwitcher : MonoBehaviour
@@ -7,62 +6,95 @@ public class CharacterSwitcher : MonoBehaviour
     public GameObject adamObject;
     public GameObject debaObject;
 
+    public Animator switchAnimator;
+    public GameObject switchEffectObject;
+
+    public CharacterGUIController guiController;
+
+    [Header("Switch Settings")]
+    public string triggerAdamToDeba = "Play_AdamToDeba";
+    public string triggerDebaToAdam = "Play_DebaToAdam";
+    public float switchDelay = 0.7f;  // 애니메이션 재생 시간
+    public float switchCooldown = 1.5f; // 쿨타임
+
     private bool isAdamActive = true;
-    public CharacterGUIController guiController; //  GUI 전환용 컨트롤러 연결
+    private bool canSwitch = true;
+
     void Start()
     {
-        ActivateAdam(); // 시작은 아담으로
+        ActivateAdamImmediate();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && canSwitch)
         {
-            SwitchCharacter();
+            StartCoroutine(PlaySwitchSequence());
         }
     }
 
-    void SwitchCharacter()
+    IEnumerator PlaySwitchSequence()
     {
+        canSwitch = false;
+
+        Vector3 currentPos;
+
         if (isAdamActive)
         {
-            ActivateDeba();
+            currentPos = adamObject.transform.position;
+            adamObject.SetActive(false);
         }
         else
         {
-            ActivateAdam();
+            currentPos = debaObject.transform.position;
+            debaObject.SetActive(false);
         }
+
+        switchEffectObject.transform.position = currentPos;
+
+        if (switchAnimator != null)
+        {
+            switchEffectObject.SetActive(true);
+
+            string triggerToUse = isAdamActive ? triggerAdamToDeba : triggerDebaToAdam;
+            switchAnimator.SetTrigger(triggerToUse);
+        }
+
+        yield return new WaitForSeconds(switchDelay);
+
+        if (isAdamActive)
+            ActivateDebaDelayed();
+        else
+            ActivateAdamDelayed();
+
+        switchEffectObject.SetActive(false);
+
+        // 쿨타임 대기
+        yield return new WaitForSeconds(switchCooldown - switchDelay);
+        canSwitch = true;
     }
 
-    void ActivateAdam()
+    void ActivateAdamImmediate()
     {
         isAdamActive = true;
-
-        // Deba의 현재 위치를 Adam에게 전달
-        adamObject.transform.position = debaObject.transform.position;
-
         adamObject.SetActive(true);
         debaObject.SetActive(false);
-        if (guiController != null)
-        {
-            guiController.SwitchToAdam();
-        }
+        guiController?.SwitchToAdam();
     }
 
-    void ActivateDeba()
+    void ActivateDebaDelayed()
     {
         isAdamActive = false;
-
-        // Adam의 현재 위치를 Deba에게 전달
-        debaObject.transform.position = adamObject.transform.position;
-
-        adamObject.SetActive(false);
+        debaObject.transform.position = switchEffectObject.transform.position;
         debaObject.SetActive(true);
-        //  GUI 전환
-        if (guiController != null)
-        {
-            guiController.SwitchToDeba();
-        }
+        guiController?.SwitchToDeba();
+    }
 
+    void ActivateAdamDelayed()
+    {
+        isAdamActive = true;
+        adamObject.transform.position = switchEffectObject.transform.position;
+        adamObject.SetActive(true);
+        guiController?.SwitchToAdam();
     }
 }
