@@ -14,8 +14,9 @@ public class HurtPlayer : MonoBehaviour
     public CameraShakeSystem cameraShake;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    public int MaxHealth = 100;
-    public int currentHealth;
+    public int CurrentHealth => PlayerStats.Instance != null ? PlayerStats.Instance.currentHealth : 0;
+    public int MaxHealth => PlayerStats.Instance != null ? PlayerStats.Instance.maxHealth : 100;
+
 
     public float knockbackForce = 5f;
     private bool isParrying = false;
@@ -42,7 +43,7 @@ public class HurtPlayer : MonoBehaviour
             Debug.LogWarning("카메라에서 CameraShakeSystem 스크립트를 찾을 수 없습니다.");
         }
 
-        currentHealth = MaxHealth;
+  
 
         if (healthBarUI != null)
         {
@@ -187,22 +188,16 @@ public class HurtPlayer : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (isDead) return; // 이미 사망한 상태면 대미지 무효
+        if (isDead || PlayerStats.Instance == null) return;
 
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
+        PlayerStats.Instance.currentHealth -= damage;
+        PlayerStats.Instance.currentHealth = Mathf.Clamp(PlayerStats.Instance.currentHealth, 0, PlayerStats.Instance.maxHealth);
 
-        //  PlayerStats의 체력도 동기화
-        if (PlayerStats.Instance != null)
-        {
-            PlayerStats.Instance.currentHealth = currentHealth;
-        }
-
-        Debug.Log($"[HurtPlayer] 체력 감소: {currentHealth} / {MaxHealth}");
+        Debug.Log($"[HurtPlayer] 체력 감소: {PlayerStats.Instance.currentHealth} / {PlayerStats.Instance.maxHealth}");
 
         if (healthBarUI != null)
         {
-            healthBarUI.UpdateHealthBar(currentHealth, true); // 애니메이션 활성화
+            healthBarUI.UpdateHealthBar(PlayerStats.Instance.currentHealth, true);
         }
 
         if (charStateGUIEffect != null)
@@ -210,18 +205,20 @@ public class HurtPlayer : MonoBehaviour
             charStateGUIEffect.TriggerHitEffect();
         }
 
-        if (currentHealth <= 0)
+        if (PlayerStats.Instance.currentHealth <= 0)
         {
             Die();
         }
     }
+
     public void UpdateHealthUI()
     {
         if (healthBarUI != null)
         {
-            healthBarUI.UpdateHealthBar(currentHealth, true); //  UI 업데이트
+            healthBarUI.UpdateHealthBar(PlayerStats.Instance.currentHealth, true);
         }
     }
+
 
     public void CancelDamage()
     {

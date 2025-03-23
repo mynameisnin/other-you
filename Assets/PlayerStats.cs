@@ -35,17 +35,17 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        //  HurtPlayer의 체력을 동기화
+        currentHealth = maxHealth; // 여기만 초기화
+        currentEnergy = maxEnergy;
+
         if (HurtPlayer.Instance != null)
         {
-            HurtPlayer.Instance.currentHealth = currentHealth;
+            HurtPlayer.Instance.UpdateHealthUI();
         }
-        currentEnergy = maxEnergy; // ? 시작 시 최대 에너지 설정
-
-        //  게임 시작 시 에너지바 초기화
+        currentEnergy = maxEnergy;
         if (EnergyBarUI.Instance != null)
         {
-            EnergyBarUI.Instance.UpdateEnergyBar(currentEnergy, false);
+            EnergyBarUI.Instance.RefreshFromPlayerStats();
         }
     }
 
@@ -56,11 +56,7 @@ public class PlayerStats : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        //  HurtPlayer의 체력도 업데이트
-        if (HurtPlayer.Instance != null)
-        {
-            HurtPlayer.Instance.currentHealth = currentHealth;
-        }
+
 
         Debug.Log($"체력 회복! 현재 체력: {currentHealth} / {maxHealth}");
     }
@@ -156,30 +152,28 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void IncreaseMaxHealth()
-{
-    if (statPoints > 0)
     {
-        maxHealth += 10;
-        currentHealth = maxHealth; // ? 최대 체력이 증가하면 현재 체력도 회복
-
-        // ? HurtPlayer의 최대 체력도 같이 증가
-        if (HurtPlayer.Instance != null)
+        if (statPoints > 0)
         {
-            HurtPlayer.Instance.MaxHealth = maxHealth;
-            HurtPlayer.Instance.currentHealth = currentHealth;
-            HurtPlayer.Instance.UpdateHealthUI();
-        }
+            maxHealth += 10;
+            currentHealth = maxHealth;
 
-        // ? HealthBarUI에도 반영
-        if (HealthBarUI.Instance != null)
-        {
-            HealthBarUI.Instance.UpdateMaxHealth(maxHealth);
-        }
+            //  체력 UI만 업데이트
+            if (HurtPlayer.Instance != null)
+            {
+                HurtPlayer.Instance.UpdateHealthUI();
+            }
 
-        statPoints--;
-        Debug.Log($"최대 체력 증가! 현재 체력: {maxHealth}, 남은 스탯 포인트: {statPoints}");
+            if (HealthBarUI.Instance != null)
+            {
+                HealthBarUI.Instance.UpdateMaxHealth(maxHealth);
+            }
+
+            statPoints--;
+            Debug.Log($"최대 체력 증가! 현재 체력: {maxHealth}, 남은 스탯 포인트: {statPoints}");
+        }
     }
-}
+
     public void IncreaseEnergy()
     {
         if (statPoints > 0)
@@ -204,11 +198,7 @@ public class PlayerStats : MonoBehaviour
     public void SetCurrentEnergy(int amount)
     {
         currentEnergy = Mathf.Clamp(amount, 0, maxEnergy);
-        if (EnergyBarUI.Instance != null)
-        {
-            EnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
-        }
-        Debug.Log($"SetCurrentEnergy() - Current Energy: {currentEnergy}");
+        EnergyBarUI.Instance?.RefreshFromPlayerStats(); //  UI에 직접 값 전달하지 않고 동기화 요청만
     }
 
 }

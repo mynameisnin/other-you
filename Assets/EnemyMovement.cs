@@ -227,12 +227,12 @@ public class EnemyMovement : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log("장애물 감지됨: " + hit.collider.gameObject.name);
+          
             Gizmos.color = Color.red;
         }
         else
         {
-            Debug.Log("장애물 없음");
+      
             Gizmos.color = Color.green;
         }
 
