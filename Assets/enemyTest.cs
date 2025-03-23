@@ -3,38 +3,45 @@ using UnityEngine;
 
 public class enemyTest : MonoBehaviour
 {
+    //  컴포넌트 참조
     private Animator TestAnime;
+    private Rigidbody2D rb;
+    private Collider2D col;
+
+    //  이펙트 프리팹
     public GameObject[] bloodEffectPrefabs;
     public GameObject parringEffects;
     public ParticleSystem bloodEffectParticle;
 
+    //  기타 설정
     private CameraShakeSystem cameraShake;
-    private Rigidbody2D rb;
-    private Collider2D col;
 
+    [Header("Stats")]
     public int MaxHealth = 100;
     public int currentHealth;
-
     public float knockbackForce = 5f;
+    public int xpReward = 50; //  적 처치 시 지급할 경험치
+
+    [Header("Flags")]
     private bool isDying = false;
+    private bool isParrying = false;
 
     [Header("Hit Effect Position")]
-    public Transform pos;
-    private bool isParrying = false;
-    public int xpReward = 50; // 이 몬스터를 처치하면 주는 경험치
+    public Transform pos; //  피격 이펙트 위치
 
-    private PlayerExperience playerXP;
-    void Start()
+    private void Start()
     {
+        // 컴포넌트 초기화
         TestAnime = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
+
+        // 체력 초기화
         currentHealth = MaxHealth;
-        PlayerExperience playerXP = FindObjectOfType<PlayerExperience>();
     }
 
+    //  피격 이펙트 재생
     public void ShowBloodEffect()
     {
         if (bloodEffectPrefabs != null && bloodEffectPrefabs.Length > 0)
@@ -45,6 +52,7 @@ public class enemyTest : MonoBehaviour
             GameObject bloodEffect = Instantiate(selectedEffect, pos.position, Quaternion.identity);
             Destroy(bloodEffect, 0.3f);
 
+            // 파티클 연출도 함께
             if (bloodEffectParticle != null)
             {
                 ParticleSystem bloodParticle = Instantiate(bloodEffectParticle, pos.position, Quaternion.identity);
@@ -54,34 +62,45 @@ public class enemyTest : MonoBehaviour
         }
     }
 
+    //  공격 충돌 처리
     void OnTriggerEnter2D(Collider2D other)
     {
         if (isParrying || isDying) return;
 
-        // ? 데바 공격도 감지
         if (other.CompareTag("PlayerAttack"))
         {
+            // 공격 주체 확인
             DevaAttackDamage debaDamage = other.GetComponentInParent<DevaAttackDamage>();
             PlayerAttackDamage adamDamage = other.GetComponentInParent<PlayerAttackDamage>();
 
             int damage = 0;
+            bool isFromAdam = false;
+            bool isFromDeba = false;
 
+            // 누가 공격했는지 판단
             if (adamDamage != null)
+            {
                 damage = adamDamage.GetNomalAttackDamage();
+                isFromAdam = true;
+            }
             else if (debaDamage != null)
+            {
                 damage = debaDamage.GetMagicDamage();
+                isFromDeba = true;
+            }
 
-            // 가까운 적인지 검사
+            // 가장 가까운 적인지 확인 (동시에 여러 적 피격 방지)
             enemyTest closestEnemy = FindClosestEnemy(other.transform);
             if (closestEnemy == this && damage > 0)
             {
                 if (currentHealth > 0 && !isDying)
                 {
                     TestAnime.Play("Hurt", 0, 0f);
-                    TakeDamage(damage);
+                    TakeDamage(damage, isFromAdam, isFromDeba);
                     ShowBloodEffect();
                     Knockback(other.transform);
 
+                    // 카메라 흔들기 연출
                     if (cameraShake != null)
                     {
                         StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
@@ -91,28 +110,27 @@ public class enemyTest : MonoBehaviour
         }
     }
 
-
-    //  플레이어와 가장 가까운 적을 찾는 함수
-    enemyTest FindClosestEnemy(Transform playerAttack)
+    //  플레이어 기준 가장 가까운 enemy 찾기
+    enemyTest FindClosestEnemy(Transform attacker)
     {
-        enemyTest[] enemies = FindObjectsOfType<enemyTest>(); // 모든 적 가져오기
-        enemyTest closestEnemy = null;
+        enemyTest[] enemies = FindObjectsOfType<enemyTest>();
+        enemyTest closest = null;
         float closestDistance = Mathf.Infinity;
 
         foreach (enemyTest enemy in enemies)
         {
-            float distance = Vector2.Distance(playerAttack.position, enemy.transform.position);
-
-            if (distance < closestDistance)
+            float dist = Vector2.Distance(attacker.position, enemy.transform.position);
+            if (dist < closestDistance)
             {
-                closestDistance = distance;
-                closestEnemy = enemy;
+                closestDistance = dist;
+                closest = enemy;
             }
         }
 
-        return closestEnemy;
+        return closest;
     }
 
+    //  패링 시작
     public void StartParry()
     {
         isParrying = true;
@@ -121,65 +139,56 @@ public class enemyTest : MonoBehaviour
 
     private IEnumerator ResetParry()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f); // 잠깐만 패링 상태 유지
         isParrying = false;
     }
-    public void TakeDamage(int Nomaldamage)
+
+    //  데미지 처리
+    public void TakeDamage(int damage, bool fromAdam, bool fromDeba)
     {
         if (isDying) return;
 
-        currentHealth -= Nomaldamage;
+        currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
         if (currentHealth <= 0)
         {
-            StartCoroutine(Die());
+            StartCoroutine(Die(fromAdam, fromDeba));
         }
     }
 
-    private void Knockback(Transform playerTransform)
+    //  넉백 처리
+    private void Knockback(Transform attacker)
     {
         if (rb == null) return;
 
-        float direction = transform.position.x - playerTransform.position.x > 0 ? 1f : -1f;
-        rb.velocity = new Vector2(knockbackForce * direction, rb.velocity.y + 1f);
+        float dir = transform.position.x - attacker.position.x > 0 ? 1f : -1f;
+        rb.velocity = new Vector2(knockbackForce * dir, rb.velocity.y + 1f);
     }
 
-    private IEnumerator Die()
+    //  사망 처리 + 경험치 지급
+    private IEnumerator Die(bool fromAdam, bool fromDeba)
     {
         if (isDying) yield break;
         isDying = true;
 
-        
-
-        PlayerExperience playerXP = FindObjectOfType<PlayerExperience>();
-
-        if (playerXP != null)
+        // 경험치 지급: 누가 처치했는지에 따라 분기
+        if (fromAdam && PlayerExperience.Instance != null)
         {
-           
-            playerXP.GainXP(xpReward);
+            PlayerExperience.Instance.GainXP(xpReward);
         }
-        else
+        else if (fromDeba && DevaExperience.Instance != null)
         {
-            Debug.LogError(" PlayerExperience를 찾을 수 없음!");
+            DevaExperience.Instance.GainXP(xpReward);
         }
 
+        // 피격 불가 처리
         if (col != null) col.enabled = false;
         if (rb != null) rb.simulated = false;
 
         TestAnime.SetTrigger("Die");
-        StartCoroutine(DestroyAfterDelay(0.6f));
-    }
 
-    private IEnumerator DestroyAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        DestroyEnemy();
-    }
-
-    private void DestroyEnemy()
-    {
-        Debug.Log($"{gameObject.name} 완전히 제거됨!");
+        yield return new WaitForSeconds(0.6f); // 사망 애니메이션 대기
         Destroy(gameObject);
     }
 }

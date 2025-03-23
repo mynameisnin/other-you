@@ -53,9 +53,19 @@ public class DevaStats : MonoBehaviour
         level++;
         statPoints += 3;
 
-        experienceToNextLevel = Mathf.RoundToInt(experienceToNextLevel * 1.5f);
-
         PlayLevelUpEffect();
+        Debug.Log($"[데바] 레벨 업! 현재 레벨: {level}, 남은 스탯 포인트: {statPoints}");
+    }
+
+    public void AddExperience(int amount)
+    {
+        experience += amount;
+
+        while (experience >= experienceToNextLevel)
+        {
+            experience -= experienceToNextLevel;
+            LevelUp();
+        }
     }
 
     private void PlayLevelUpEffect()

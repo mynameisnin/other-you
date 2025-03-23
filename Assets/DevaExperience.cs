@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class DevaExperience : MonoBehaviour
 {
     public static DevaExperience Instance;
@@ -9,8 +8,8 @@ public class DevaExperience : MonoBehaviour
     public int currentXP = 0;
     public int xpToNextLevel = 100;
 
-    public Image expFillImage; // 데바 전용 EXP 바 이미지
-    public Text expText;       // 데바 전용 텍스트
+    public Image expFillImage;
+    public Text expText;
 
     private void Awake()
     {
@@ -27,7 +26,7 @@ public class DevaExperience : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L)) // 테스트용 키: 데바에게 경험치 추가
+        if (Input.GetKeyDown(KeyCode.L))
         {
             GainXP(50);
             Debug.Log("L 키를 눌러 데바 경험치 추가");
@@ -42,17 +41,15 @@ public class DevaExperience : MonoBehaviour
         while (currentXP >= xpToNextLevel)
         {
             currentXP -= xpToNextLevel;
-            LevelUp();
+
+            if (DevaStats.Instance != null)
+                DevaStats.Instance.LevelUp(); //  레벨업은 DevaStats에게 맡긴다
+
+            xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
         }
 
         UpdateXPUI();
-    }
-
-    private void LevelUp()
-    {
-        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.5f);
-        Debug.Log("[데바] 레벨 업! 다음 레벨 필요 경험치: " + xpToNextLevel);
-        UpdateXPUI();
+        SyncWithDevaStats();
     }
 
     private void UpdateXPUI()
@@ -66,6 +63,15 @@ public class DevaExperience : MonoBehaviour
         if (expText != null)
         {
             expText.text = $"EXP: {currentXP} / {xpToNextLevel}";
+        }
+    }
+
+    private void SyncWithDevaStats()
+    {
+        if (DevaStats.Instance != null)
+        {
+            DevaStats.Instance.experience = currentXP;
+            DevaStats.Instance.experienceToNextLevel = xpToNextLevel;
         }
     }
 }
