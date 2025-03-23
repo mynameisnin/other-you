@@ -29,7 +29,7 @@ public class CamZoomSystem : MonoBehaviour
     //  씬이 변경되어도 플레이어를 다시 찾는 함수 추가
     void FindTarget()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("PlayerCamPosition");
+        GameObject playerObj = GameObject.FindGameObjectWithTag("AdamCamPosition");
         if (playerObj != null)
         {
             target = playerObj.transform;
