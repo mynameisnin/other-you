@@ -42,6 +42,7 @@ public class CharacterSwitcher : MonoBehaviour
         if (isAdamActive)
         {
             currentPos = adamObject.transform.position;
+            DeactivateAdam(); // ← 대쉬 정리 포함
             adamObject.SetActive(false);
         }
         else
@@ -88,6 +89,13 @@ public class CharacterSwitcher : MonoBehaviour
         isAdamActive = false;
         debaObject.transform.position = switchEffectObject.transform.position;
         debaObject.SetActive(true);
+        // 스위치 직후 상태 초기화
+        var debaMovement = debaObject.GetComponent<DebaraMovement>();
+        if (debaMovement != null)
+        {
+            debaMovement.ResetState(); // isTeleporting, attackInputRecently, velocity 등 초기화
+        }
+
         guiController?.SwitchToDeba();
 
     }
@@ -99,6 +107,17 @@ public class CharacterSwitcher : MonoBehaviour
         adamObject.SetActive(true);
         guiController?.SwitchToAdam();
     }
+
+    void DeactivateAdam()
+    {
+        var adamMovement = adamObject.GetComponent<AdamMovement>();
+        if (adamMovement != null)
+        {
+            adamMovement.ForceStopDash();
+        }
+
+        adamObject.SetActive(false);
+    }
     void DeactivateDeba()
     {
         // 공격 중이면 강제로 종료
@@ -106,6 +125,7 @@ public class CharacterSwitcher : MonoBehaviour
         if (debaMovement != null)
         {
             debaMovement.ForceEndAttack();
+            debaMovement.ForceCancelTeleport(); // 텔레포트 중이면 정리
         }
 
         debaObject.SetActive(false);

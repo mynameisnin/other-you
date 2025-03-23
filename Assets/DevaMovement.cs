@@ -37,6 +37,7 @@ public class DebaraMovement : MonoBehaviour
     [SerializeField] private Transform jumpAttackCheckPos; // Ray 시작 지점
     [SerializeField] private float jumpAttackRayLength = 1.5f; // 레이 길이
     [SerializeField] private LayerMask jumpAttackBlockLayer; // 감지할 레이어
+    private Vector2? pendingTeleportTarget = null;
     void Start()
     {
         DebaraRigidbody = GetComponent<Rigidbody2D>();
@@ -171,6 +172,7 @@ public class DebaraMovement : MonoBehaviour
     public GameObject teleportEndEffectPrefab; // 도착 이펙트 프리팹
     public Transform teleportStartEffectPosition; // 출발 이펙트 위치 지정용 빈 오브젝트
     public Transform teleportEndEffectPosition; // 도착 이펙트 위치 지정용 빈 오브젝트
+
     private IEnumerator Teleport()
     {
         // ? 에너지 차감
@@ -183,14 +185,14 @@ public class DebaraMovement : MonoBehaviour
         isTeleporting = true;
         isInvincible = true;
 
-        DebaraAnime.SetTrigger("Teleport");
+        
 
         if (teleportTrail != null)
             teleportTrail.emitting = true;
 
         float teleportDirection = DebaraSprite.flipX ? -1f : 1f;
         Vector2 targetPosition = new Vector2(transform.position.x + (teleportDistance * teleportDirection), transform.position.y);
-
+        pendingTeleportTarget = targetPosition;
         // 출발 이펙트
         if (teleportStartEffectPrefab != null && teleportStartEffectPosition != null)
         {
@@ -201,7 +203,7 @@ public class DebaraMovement : MonoBehaviour
         yield return new WaitForSeconds(0.2f); // 텔레포트 딜레이
 
         transform.position = targetPosition;
-
+        pendingTeleportTarget = null;
         // 도착 이펙트
         if (teleportEndEffectPrefab != null && teleportEndEffectPosition != null)
         {
@@ -217,6 +219,9 @@ public class DebaraMovement : MonoBehaviour
 
         yield return new WaitForSeconds(teleportCooldown);
         canTeleport = true;
+        
+       
+
     }
 
 
@@ -321,7 +326,6 @@ public class DebaraMovement : MonoBehaviour
         if (DebaraAnime != null)
         {
             DebaraAnime.ResetTrigger("Attack");
-            DebaraAnime.ResetTrigger("Cast");
             DebaraAnime.SetBool("run", false);
             DebaraAnime.SetBool("isJumping", false);
             DebaraAnime.SetBool("Fall", false);
@@ -340,12 +344,35 @@ public class DebaraMovement : MonoBehaviour
 
         // 애니메이션 상태 초기화
         DebaraAnime.ResetTrigger("Attack");
-        DebaraAnime.Play("Idle"); // or 적절한 상태로
+       
 
         // 라이트 끄기
         if (magicAttack != null)
         {
             magicAttack.EndAttacks();
+        }
+    }
+    public void ForceCancelTeleport()
+    {
+        if (isTeleporting)
+        {
+            isTeleporting = false;
+            canTeleport = true;
+            isInvincible = false;
+
+            if (teleportTrail != null)
+            {
+                teleportTrail.emitting = false;
+            }
+
+            // 위치 보정
+            if (pendingTeleportTarget.HasValue)
+            {
+                transform.position = pendingTeleportTarget.Value;
+                pendingTeleportTarget = null;
+            }
+
+            StopAllCoroutines();
         }
     }
 
