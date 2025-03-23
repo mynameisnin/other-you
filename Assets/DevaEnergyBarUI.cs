@@ -130,7 +130,36 @@ public class DevaEnergyBarUI : MonoBehaviour
     {
         DevaStats.Instance.maxEnergy = Mathf.RoundToInt(newMaxEnergy);
         DevaStats.Instance.currentEnergy = DevaStats.Instance.maxEnergy;
+
+        ExpandEnergyBar(newMaxEnergy); //  바 길이 늘리기
+
         UpdateEnergyBar(DevaStats.Instance.currentEnergy, false);
+    }
+    private void ExpandEnergyBar(float newMaxEnergy)
+    {
+        float baseWidth = fullBarWidth; // 초기 width 기준 (디자인상 maxEnergy = 100)
+        float targetWidth = (newMaxEnergy / 100f) * baseWidth;
+
+        //  Fill 바 확장
+        energyBarFill.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y),
+            0.4f
+        ).SetEase(Ease.OutCubic);
+
+        //  Back 바 확장
+        energyBarBack.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y),
+            0.4f
+        ).SetEase(Ease.OutCubic);
+
+        //  Border 확장 (있는 경우)
+        if (energyBarBorder != null)
+        {
+            energyBarBorder.rectTransform.DOSizeDelta(
+                new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y),
+                0.4f
+            ).SetEase(Ease.OutCubic);
+        }
     }
 
     public bool IsEnergyEmpty()

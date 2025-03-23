@@ -53,6 +53,34 @@ public class DevaHealthBarUI : MonoBehaviour
     public void UpdateMaxHealth(float newMaxHealth)
     {
         maxHealth = newMaxHealth;
+
+        ExpandHealthBar(newMaxHealth); // ? 길이 확장
         UpdateHealthBar(DevaStats.Instance.currentHealth, false);
     }
+    private void ExpandHealthBar(float newMaxHealth)
+    {
+        float baseWidth = 200f; // 체력 100 기준 너비
+        float widthPerHealth = baseWidth / 100f;
+
+        float targetWidth = newMaxHealth * widthPerHealth;
+
+        healthBarFill.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, healthBarFill.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
+
+        healthBarBack.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, healthBarBack.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
+
+        if (healthBarBorder != null)
+        {
+            healthBarBorder.rectTransform.DOSizeDelta(
+                new Vector2(targetWidth, healthBarBorder.rectTransform.sizeDelta.y),
+                0.5f
+            ).SetEase(Ease.OutCubic);
+        }
+    }
+
 }
