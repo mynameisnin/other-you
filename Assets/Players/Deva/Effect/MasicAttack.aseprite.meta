@@ -1,0 +1,388 @@
+fileFormatVersion: 2
+guid: f13542dea8ea104439b71dddcefec189
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: MasicAttack_Frame_0
+    originalName: 
+    pivot: {x: -1.8382353, y: -4.5}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 200
+      y: 4
+      width: 34
+      height: 2
+    spriteID: 5b79ca80bc1c0e44f88bbef493c4a737
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 200, y: 4}
+  - name: MasicAttack_Frame_1
+    originalName: 
+    pivot: {x: -0.8207547, y: -1.5999999}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 180
+      y: 93
+      width: 53
+      height: 5
+    spriteID: dfeddc4c14777dc4ca85b9d3ed53d3e4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 180, y: 93}
+  - name: MasicAttack_Frame_2
+    originalName: 
+    pivot: {x: -0.663793, y: -1.3333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 193
+      y: 50
+      width: 58
+      height: 6
+    spriteID: 0c0988735b8b23149a00466eb069cc63
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 193, y: 50}
+  - name: MasicAttack_Frame_3
+    originalName: 
+    pivot: {x: -0.26973686, y: -0.88888884}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 151
+      y: 25
+      width: 76
+      height: 9
+    spriteID: da3c54bae5c09a748989b57c01c0cd13
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 151, y: 25}
+  - name: MasicAttack_Frame_4
+    originalName: 
+    pivot: {x: 0.46685085, y: -0.3846154}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 50
+      width: 181
+      height: 13
+    spriteID: 99203cd7613e856418de37ebff0d9772
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 50}
+  - name: MasicAttack_Frame_5
+    originalName: 
+    pivot: {x: 0.4151515, y: -0.28571427}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 71
+      width: 165
+      height: 14
+    spriteID: 03102b8de5643ed4fb24f62c5a29be3c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 71}
+  - name: MasicAttack_Frame_6
+    originalName: 
+    pivot: {x: 0.4867021, y: -0.3076923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 188
+      height: 13
+    spriteID: 2d3bbb92c19be7c4ebaa90f21dfb189f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: MasicAttack_Frame_7
+    originalName: 
+    pivot: {x: 0.30575538, y: -0.2352941}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 25
+      width: 139
+      height: 17
+    spriteID: a5bdc0c4c80e64444a19ec4a6012559e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 25}
+  - name: MasicAttack_Frame_8
+    originalName: 
+    pivot: {x: 0.42559525, y: -0.3076923}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 93
+      width: 168
+      height: 13
+    spriteID: f9ea0cf1708126d46a9efa1e3a701fef
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 93}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1303802871
+    name: MasicAttack
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: MasicAttack_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 159
+        y: 9
+        width: 34
+        height: 2
+      spriteId: 5b79ca80bc1c0e44f88bbef493c4a737
+    - name: MasicAttack_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 140
+        y: 8
+        width: 53
+        height: 5
+      spriteId: dfeddc4c14777dc4ca85b9d3ed53d3e4
+    - name: MasicAttack_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 135
+        y: 8
+        width: 58
+        height: 6
+      spriteId: 0c0988735b8b23149a00466eb069cc63
+    - name: MasicAttack_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 117
+        y: 8
+        width: 76
+        height: 9
+      spriteId: da3c54bae5c09a748989b57c01c0cd13
+    - name: MasicAttack_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 12
+        y: 5
+        width: 181
+        height: 13
+      spriteId: 99203cd7613e856418de37ebff0d9772
+    - name: MasicAttack_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 28
+        y: 4
+        width: 165
+        height: 14
+      spriteId: 03102b8de5643ed4fb24f62c5a29be3c
+    - name: MasicAttack_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 5
+        y: 4
+        width: 188
+        height: 13
+      spriteId: 2d3bbb92c19be7c4ebaa90f21dfb189f
+    - name: MasicAttack_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 54
+        y: 4
+        width: 139
+        height: 17
+      spriteId: a5bdc0c4c80e64444a19ec4a6012559e
+    - name: MasicAttack_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 25
+        y: 4
+        width: 168
+        height: 13
+      spriteId: f9ea0cf1708126d46a9efa1e3a701fef
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 193, y: 25}

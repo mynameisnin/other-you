@@ -87,7 +87,7 @@ public class AdamMovement : MonoBehaviour
     float currentSpeed = 0f;
     float acceleration = 10f;
     float deceleration = 15f;
-    float maxSpeed = 5f;
+    public float maxSpeed = 6f;
 
     void HandleMovement()
     {
@@ -243,6 +243,7 @@ public class AdamMovement : MonoBehaviour
     void CreateAfterImage()
     {
         GameObject afterImage = new GameObject("AfterImage");
+        afterImage.tag = "AfterImage";
         SpriteRenderer sr = afterImage.AddComponent<SpriteRenderer>();
 
         sr.sprite = AdamSprite.sprite;
@@ -334,6 +335,42 @@ public class AdamMovement : MonoBehaviour
             AdamAnime.SetBool("Fall", false);
         }
     }
+    public void ForceStopDash()
+    {
+        isDashing = false;
+        isDashAttacking = false;
+        isInvincible = false;
+        canDash = true;
+
+        // 이동 정지
+        AdamRigidebody.velocity = Vector2.zero;
+        currentSpeed = 0f;
+
+        // Trail 꺼주기
+        if (dashTrail != null)
+        {
+            dashTrail.emitting = false;
+        }
+
+        // 애니메이션 상태 리셋
+        if (AdamAnime != null)
+        {
+            AdamAnime.SetBool("isDashing", false);
+            AdamAnime.ResetTrigger("DashAttack");
+            AdamAnime.SetBool("run", false);
+        }
+
+        //  코루틴 강제 중지
+        StopAllCoroutines();
+
+        //  남아 있는 AfterImage 오브젝트 제거
+        var afterImages = GameObject.FindGameObjectsWithTag("AfterImage");
+        foreach (var img in afterImages)
+        {
+            Destroy(img);
+        }
+    }
+
 
     private void OnDrawGizmos()
     {

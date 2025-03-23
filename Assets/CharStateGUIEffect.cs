@@ -33,13 +33,17 @@ public class CharStateGUIEffect : MonoBehaviour
     {
         if (panelTransform != null)
         {
-            panelTransform.DOShakePosition(0.3f, new Vector3(10f, 10f, 0)) // 0.3초 동안 흔들림
+            panelTransform.DOKill(); //  기존 Tween 제거 (중복 흔들림 방지)
+
+            panelTransform.DOShakePosition(0.3f, new Vector3(10f, 10f, 0), 10, 90, false, true)
+                .SetRelative(true)
                 .OnComplete(() =>
                 {
-                    panelTransform.localPosition = originalPosition; //  원래 위치로 복귀
+                    panelTransform.localPosition = originalPosition;
                 });
         }
     }
+
 
     //  피격 시 GUI 빨간색 깜빡임 효과
     public void FlashRed()

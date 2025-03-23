@@ -37,14 +37,20 @@ public class RangedEnemyAI : MonoBehaviour
     // ?? 플레이어 찾기 메서드 추가
     void FindPlayer()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("PlayerCamPosition");
-        if (playerObj != null)
+        GameObject adam = GameObject.FindGameObjectWithTag("AdamCamPosition");
+        GameObject deba = GameObject.FindGameObjectWithTag("DevaCamPosition");
+
+        if (adam != null && adam.activeInHierarchy)
         {
-            player = playerObj.transform;
+            player = adam.transform;
+        }
+        else if (deba != null && deba.activeInHierarchy)
+        {
+            player = deba.transform;
         }
         else
         {
-            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
+            Debug.LogWarning("플레이어를 찾을 수 없음! 'AdamCamPosition' 또는 'DevaCamPosition' 태그 확인 필요.");
         }
     }
 

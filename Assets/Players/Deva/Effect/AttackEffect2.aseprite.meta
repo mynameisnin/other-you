@@ -1,0 +1,536 @@
+fileFormatVersion: 2
+guid: e4fd9887d0b9cf341aff3aad6524635a
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 55
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638781605198475504
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: AttackEffect2_Frame_0
+    originalName: 
+    pivot: {x: -8.5, y: -4.25}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 231
+      y: 70
+      width: 6
+      height: 4
+    spriteID: 9b7096cce4ff6844ca44fdbea0175f62
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 231, y: 70}
+  - name: AttackEffect2_Frame_1
+    originalName: 
+    pivot: {x: -0.8387098, y: -0.71428573}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 200
+      y: 40
+      width: 31
+      height: 14
+    spriteID: 71994485127be014e973f6baf3b75653
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 200, y: 40}
+  - name: AttackEffect2_Frame_2
+    originalName: 
+    pivot: {x: -0.017857198, y: -0.125}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 179
+      y: 4
+      width: 56
+      height: 24
+    spriteID: 82910d2c4eb5a70449eb3948c3e66cff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 179, y: 4}
+  - name: AttackEffect2_Frame_3
+    originalName: 
+    pivot: {x: 0.35227272, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 88
+      height: 28
+    spriteID: 04b4a0656dc7f814187e99735c52af77
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: AttackEffect2_Frame_4
+    originalName: 
+    pivot: {x: 0.19718312, y: -0.375}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 4
+      width: 71
+      height: 24
+    spriteID: 861a2dfa7c8c0cd478a30a0a6da8af4a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 4}
+  - name: AttackEffect2_Frame_5
+    originalName: 
+    pivot: {x: 0.24999999, y: -0.36363637}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 40
+      width: 76
+      height: 22
+    spriteID: f5c827362ba11224b9f9e448f2e878d3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 40}
+  - name: AttackEffect2_Frame_6
+    originalName: 
+    pivot: {x: 0.26923078, y: -1.0909091}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 98
+      y: 107
+      width: 78
+      height: 11
+    spriteID: 3bd76f71f4670334fafa26f086bc1add
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 98, y: 107}
+  - name: AttackEffect2_Frame_7
+    originalName: 
+    pivot: {x: 0.33720928, y: -1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 107
+      width: 86
+      height: 11
+    spriteID: a9e1573af14cce24ba8c21aaf2319e00
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 107}
+  - name: AttackEffect2_Frame_8
+    originalName: 
+    pivot: {x: 0.41836736, y: -1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 88
+      width: 98
+      height: 11
+    spriteID: 36a2ae8bea966804db7be5f5a6bd44ad
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 88}
+  - name: AttackEffect2_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -1.2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 70
+      width: 114
+      height: 10
+    spriteID: d677a6996d501094893b176492bdfb08
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 70}
+  - name: AttackEffect2_Frame_10
+    originalName: 
+    pivot: {x: 0.41237113, y: -1.2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 126
+      y: 70
+      width: 97
+      height: 10
+    spriteID: fbadc3ccc85ccd940a591c65c1116306
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 126, y: 70}
+  - name: AttackEffect2_Frame_11
+    originalName: 
+    pivot: {x: 0.4519231, y: -0.8333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 88
+      y: 40
+      width: 104
+      height: 12
+    spriteID: 9f57dcda05cbece409ab4f93dba5c89b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 88, y: 40}
+  - name: AttackEffect2_Frame_12
+    originalName: 
+    pivot: {x: 0.37362638, y: -1}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 88
+      width: 91
+      height: 11
+    spriteID: 792978d835e40344fbc63308243d1038
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 88}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -570119079
+    name: AttackEffect2
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: AttackEffect2_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 108
+        y: 17
+        width: 6
+        height: 4
+      spriteId: 9b7096cce4ff6844ca44fdbea0175f62
+    - name: AttackEffect2_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 83
+        y: 10
+        width: 31
+        height: 14
+      spriteId: 71994485127be014e973f6baf3b75653
+    - name: AttackEffect2_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 58
+        y: 3
+        width: 56
+        height: 24
+      spriteId: 82910d2c4eb5a70449eb3948c3e66cff
+    - name: AttackEffect2_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 26
+        y: 0
+        width: 88
+        height: 28
+      spriteId: 04b4a0656dc7f814187e99735c52af77
+    - name: AttackEffect2_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 43
+        y: 9
+        width: 71
+        height: 24
+      spriteId: 861a2dfa7c8c0cd478a30a0a6da8af4a
+    - name: AttackEffect2_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 38
+        y: 8
+        width: 76
+        height: 22
+      spriteId: f5c827362ba11224b9f9e448f2e878d3
+    - name: AttackEffect2_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 36
+        y: 12
+        width: 78
+        height: 11
+      spriteId: 3bd76f71f4670334fafa26f086bc1add
+    - name: AttackEffect2_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 28
+        y: 11
+        width: 86
+        height: 11
+      spriteId: a9e1573af14cce24ba8c21aaf2319e00
+    - name: AttackEffect2_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 16
+        y: 11
+        width: 98
+        height: 11
+      spriteId: 36a2ae8bea966804db7be5f5a6bd44ad
+    - name: AttackEffect2_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 0
+        y: 12
+        width: 114
+        height: 10
+      spriteId: d677a6996d501094893b176492bdfb08
+    - name: AttackEffect2_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 17
+        y: 12
+        width: 97
+        height: 10
+      spriteId: fbadc3ccc85ccd940a591c65c1116306
+    - name: AttackEffect2_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 10
+        y: 10
+        width: 104
+        height: 12
+      spriteId: 9f57dcda05cbece409ab4f93dba5c89b
+    - name: AttackEffect2_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 23
+        y: 11
+        width: 91
+        height: 11
+      spriteId: 792978d835e40344fbc63308243d1038
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 114, y: 33}
