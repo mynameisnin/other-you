@@ -53,7 +53,7 @@ public class DebaraMovement : MonoBehaviour
 
         bool isInAttackAnimation = currentState.IsName("Cast1") || currentState.IsName("Cast2");
 
-        if (isInAttackAnimation)
+        if (isInAttackAnimation && isAttacking) // ← 진짜 공격 중일 때만 막음
         {
             StopMovement();
             return;
@@ -80,7 +80,7 @@ public class DebaraMovement : MonoBehaviour
     float currentSpeed = 0f;
     float acceleration = 8f;
     float deceleration = 12f;
-    float maxSpeed = 4f;
+    public float maxSpeed = 4f;
 
     void HandleMovement()
     {
@@ -342,11 +342,9 @@ public class DebaraMovement : MonoBehaviour
         isAttacking = false;
         attackInputRecently = false;
 
-        // 애니메이션 상태 초기화
         DebaraAnime.ResetTrigger("Attack");
-       
+        DebaraAnime.Play("Idle"); // <- 상태 강제 초기화
 
-        // 라이트 끄기
         if (magicAttack != null)
         {
             magicAttack.EndAttacks();

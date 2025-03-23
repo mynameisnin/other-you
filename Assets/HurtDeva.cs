@@ -22,7 +22,7 @@ public class HurtDeva : MonoBehaviour
     [Header("Hit Effect Position")]
     public Transform pos;
 
-    public HealthBarUI healthBarUI;
+    public DevaHealthBarUI healthBarUI;
     public CharStateGUIEffect charStateGUIEffect;
     private bool isDead = false;
 
@@ -133,7 +133,9 @@ public class HurtDeva : MonoBehaviour
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
-
+        // 공격 상태 해제
+        DebaraMovement movement = GetComponent<DebaraMovement>();
+        if (movement != null) movement.ForceEndAttack();
         if (healthBarUI != null)
             healthBarUI.UpdateHealthBar(currentHealth, true);
 
@@ -210,7 +212,12 @@ public class HurtDeva : MonoBehaviour
     {
         DebaraMovement movement = GetComponent<DebaraMovement>();
         if (movement != null) movement.enabled = false;
+        {
+            if (movement.isInvincible)
+                return;
 
+            movement.ForceEndAttack(); // <- 공격 상태 강제 종료
+        }
         MagicAttack attack = GetComponent<MagicAttack>();
         if (attack != null) attack.enabled = false;
     }

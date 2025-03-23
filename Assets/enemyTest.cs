@@ -56,24 +56,29 @@ public class enemyTest : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (isParrying) return;
+        if (isParrying || isDying) return;
 
+        // ? 데바 공격도 감지
         if (other.CompareTag("PlayerAttack"))
         {
-            PlayerAttackDamage NomalDamage = other.GetComponentInParent<PlayerAttackDamage>();
+            DevaAttackDamage debaDamage = other.GetComponentInParent<DevaAttackDamage>();
+            PlayerAttackDamage adamDamage = other.GetComponentInParent<PlayerAttackDamage>();
 
-            if (NomalDamage == null) return;
+            int damage = 0;
 
-            //  플레이어와 가장 가까운 적 찾기
+            if (adamDamage != null)
+                damage = adamDamage.GetNomalAttackDamage();
+            else if (debaDamage != null)
+                damage = debaDamage.GetMagicDamage();
+
+            // 가까운 적인지 검사
             enemyTest closestEnemy = FindClosestEnemy(other.transform);
-
-            if (closestEnemy == this) // 내가 가장 가까운 적이라면 피격 처리
+            if (closestEnemy == this && damage > 0)
             {
                 if (currentHealth > 0 && !isDying)
                 {
                     TestAnime.Play("Hurt", 0, 0f);
-                    int Nomaldamage = NomalDamage.GetNomalAttackDamage();
-                    TakeDamage(Nomaldamage);
+                    TakeDamage(damage);
                     ShowBloodEffect();
                     Knockback(other.transform);
 
@@ -85,6 +90,7 @@ public class enemyTest : MonoBehaviour
             }
         }
     }
+
 
     //  플레이어와 가장 가까운 적을 찾는 함수
     enemyTest FindClosestEnemy(Transform playerAttack)

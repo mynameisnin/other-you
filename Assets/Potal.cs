@@ -80,7 +80,7 @@ public class Potal : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack"))
+        if (other.CompareTag("Player"))
         {
             isPlayerNear = true; // 플레이어가 포탈 범위 내에 있음을 체크
         }
@@ -88,7 +88,7 @@ public class Potal : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerAttack"))
+        if (other.CompareTag("Player"))
         {
             isPlayerNear = false; //  포탈 범위를 벗어나면 false
         }

@@ -87,7 +87,7 @@ public class AdamMovement : MonoBehaviour
     float currentSpeed = 0f;
     float acceleration = 10f;
     float deceleration = 15f;
-    float maxSpeed = 6f;
+    public float maxSpeed = 6f;
 
     void HandleMovement()
     {

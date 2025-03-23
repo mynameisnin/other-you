@@ -62,19 +62,31 @@ public class EnemyMovement : MonoBehaviour
         {
             Patrol();
         }
+        if (player == null || !player.gameObject.activeInHierarchy)
+        {
+            FindPlayer(); // 플레이어가 스위치되었거나 사라졌으면 다시 찾기
+        }
     }
     void FindPlayer()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("AdamCamPosition");
-        if (playerObj != null)
+        GameObject adam = GameObject.FindGameObjectWithTag("AdamCamPosition");
+        GameObject deba = GameObject.FindGameObjectWithTag("DevaCamPosition");
+
+        if (adam != null && adam.activeInHierarchy)
         {
-            player = playerObj.transform;
+            player = adam.transform;
+        }
+        else if (deba != null && deba.activeInHierarchy)
+        {
+            player = deba.transform;
         }
         else
         {
-            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
+            Debug.LogWarning("플레이어를 찾을 수 없음! 'AdamCamPosition' 또는 'DevaCamPosition' 태그 확인 필요.");
         }
     }
+
+
     void DetectPlayer()
     {
         // 스턴 상태에서는 플레이어 감지 중단
