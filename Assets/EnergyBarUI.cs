@@ -6,170 +6,169 @@ using System.Collections;
 public class EnergyBarUI : MonoBehaviour
 {
     public static EnergyBarUI Instance;
-    public Image energyBarFill;    // ENERGY 바 (초록색)
-    public Image energyBarBack;    // 에너지 딜레이 바 (천천히 감소, 노란색)
-    public Image energyBarBorder;  //  테두리 이미지 추가
 
-    private Color defaultBorderColor; // 기본 테두리 색상 저장
+    public Image energyBarFill;
+    public Image energyBarBack;
+    public Image energyBarBorder;
 
-    private float maxEnergy = 100f; // 최대 ENERGY 값
-    private float currentEnergy;
-    public float energyRegenRate = 15f; // 초당 회복량 증가
-    public float regenDelay = 2f; // 공격 후 회복 시작까지의 지연 시간
+    public float energyRegenRate = 15f;
+    public float regenDelay = 2f;
 
-    private Coroutine regenCoroutine; // 에너지 회복 코루틴
+    private Coroutine regenCoroutine;
+    private Color defaultBorderColor;
 
-    void Start()
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
+    private void Start()
     {
         DOTween.SetTweensCapacity(500, 50);
-        currentEnergy = maxEnergy;
-        UpdateEnergyBar(currentEnergy, false);
 
         if (energyBarBorder != null)
-            defaultBorderColor = energyBarBorder.color; // 기본 테두리 색상 저장
+            defaultBorderColor = energyBarBorder.color;
+
+        RefreshFromPlayerStats();
+        StartEnergyRegen(); //  자동 회복 루프 시작
     }
 
-    public void Initialize(float maxEN)
+    public void RefreshFromPlayerStats()
     {
-        maxEnergy = maxEN;
-        currentEnergy = maxEN;
-        UpdateEnergyBar(currentEnergy, false);
+        UpdateEnergyBar();
     }
 
-    public void UpdateEnergyBar(float newEnergy, bool animate = true)
+    public void UpdateEnergyBar(bool animate = true)
     {
-        float energyRatio = newEnergy / maxEnergy;
-
-        if (energyBarFill == null || energyBarBack == null || energyBarBorder == null)
-        {
-            Debug.LogError("[EnergyBarUI] UI 요소가 할당되지 않음!");
-            return;
-        }
+        float ratio = (float)PlayerStats.Instance.currentEnergy / PlayerStats.Instance.maxEnergy;
 
         energyBarFill.DOKill();
         energyBarBack.DOKill();
 
-        if (newEnergy > currentEnergy) // 에너지가 증가하는 경우 (회복)
-        {
-            energyBarFill.DOFillAmount(energyRatio, 0.6f).SetEase(Ease.OutCubic);
-        }
-        else // 에너지가 감소하는 경우 (즉시 반영)
-        {
-            energyBarFill.fillAmount = energyRatio;
-        }
-
         if (animate)
         {
-            energyBarBack.DOFillAmount(energyRatio, 1.0f).SetEase(Ease.OutCubic);
+            energyBarFill.DOFillAmount(ratio, 0.4f).SetEase(Ease.OutCubic);
+            energyBarBack.DOFillAmount(ratio, 0.8f).SetEase(Ease.OutCubic);
         }
         else
         {
-            energyBarBack.fillAmount = energyRatio;
+            energyBarFill.fillAmount = ratio;
+            energyBarBack.fillAmount = ratio;
         }
     }
 
     public void ReduceEnergy(float amount)
     {
-        currentEnergy -= amount;
-        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
-        UpdateEnergyBar(currentEnergy);
+        PlayerStats.Instance.currentEnergy -= Mathf.RoundToInt(amount);
+        PlayerStats.Instance.currentEnergy = Mathf.Clamp(PlayerStats.Instance.currentEnergy, 0, PlayerStats.Instance.maxEnergy);
+        UpdateEnergyBar();
 
-        if (regenCoroutine != null)
-        {
-            StopCoroutine(regenCoroutine);
-        }
-        regenCoroutine = StartCoroutine(StartEnergyRegenAfterDelay());
+        RestartEnergyRegen(); //  회복 중단 및 재시작
     }
 
     public void RecoverEnergy(float amount)
     {
-        currentEnergy += amount;
-        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
-        SmoothEnergyRegen(currentEnergy);
+        PlayerStats.Instance.currentEnergy += Mathf.RoundToInt(amount);
+        PlayerStats.Instance.currentEnergy = Mathf.Clamp(PlayerStats.Instance.currentEnergy, 0, PlayerStats.Instance.maxEnergy);
+        UpdateEnergyBar();
+
+        RestartEnergyRegen(); //  회복 중단 및 재시작
     }
 
-    public bool HasEnoughEnergy(float amount)
+    private void StartEnergyRegen()
     {
-        return currentEnergy >= amount;
+        if (regenCoroutine != null)
+            StopCoroutine(regenCoroutine);
+
+        regenCoroutine = StartCoroutine(EnergyRegenCoroutine());
     }
 
-    private IEnumerator StartEnergyRegenAfterDelay()
+    private void RestartEnergyRegen()
+    {
+        if (regenCoroutine != null)
+            StopCoroutine(regenCoroutine);
+
+        regenCoroutine = StartCoroutine(EnergyRegenCoroutine());
+    }
+
+    private IEnumerator EnergyRegenCoroutine()
     {
         yield return new WaitForSeconds(regenDelay);
 
-        while (currentEnergy < maxEnergy)
+        while (PlayerStats.Instance.currentEnergy < PlayerStats.Instance.maxEnergy)
         {
-            currentEnergy += energyRegenRate * Time.deltaTime;
-            currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
-            SmoothEnergyRegen(currentEnergy);
-
+            PlayerStats.Instance.currentEnergy += Mathf.RoundToInt(energyRegenRate * Time.deltaTime);
+            PlayerStats.Instance.currentEnergy = Mathf.Clamp(PlayerStats.Instance.currentEnergy, 0, PlayerStats.Instance.maxEnergy);
+            SmoothEnergyRegen();
             yield return new WaitForSeconds(0.05f);
         }
 
         regenCoroutine = null;
     }
 
-    private void SmoothEnergyRegen(float targetEnergy)
+    private void SmoothEnergyRegen()
     {
-        float energyRatio = targetEnergy / maxEnergy;
-
-        if (energyBarFill == null || energyBarBack == null) return;
+        float ratio = (float)PlayerStats.Instance.currentEnergy / PlayerStats.Instance.maxEnergy;
 
         energyBarFill.DOKill();
         energyBarBack.DOKill();
 
-        energyBarFill.DOFillAmount(energyRatio, 1.0f).SetEase(Ease.OutCubic);
-        energyBarBack.DOFillAmount(energyRatio, 1.5f).SetEase(Ease.OutCubic);
+        energyBarFill.DOFillAmount(ratio, 1.0f).SetEase(Ease.OutCubic);
+        energyBarBack.DOFillAmount(ratio, 1.5f).SetEase(Ease.OutCubic);
     }
 
     public bool IsEnergyEmpty()
     {
-        return currentEnergy <= 0;
+        return PlayerStats.Instance.currentEnergy <= 0;
     }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-    public float GetCurrentEnergy()
-    {
-        return currentEnergy;
-    }
-    //  에너지가 부족하면 테두리 색상을 빨간색으로 깜빡이게 함
+
     public void FlashBorder()
     {
         if (energyBarBorder == null) return;
 
-        energyBarBorder.DOKill(); // 기존 트윈 제거
+        energyBarBorder.DOKill();
         energyBarBorder.DOColor(Color.red, 0.2f)
-            .SetLoops(2, LoopType.Yoyo) // 2번 깜빡 (빨강 -> 원래색)
+            .SetLoops(2, LoopType.Yoyo)
             .OnComplete(() => energyBarBorder.color = defaultBorderColor);
     }
+
     public void UpdateMaxEnergy(float newMaxEnergy)
     {
-        maxEnergy = newMaxEnergy;
-        currentEnergy = maxEnergy; // ? 최대 에너지가 증가하면 현재 에너지도 회복
-        UpdateEnergyBar(currentEnergy, false);
-        UpdateEnergyBarSize(); // ? 테두리 크기 업데이트
-    }
+        PlayerStats.Instance.maxEnergy = Mathf.RoundToInt(newMaxEnergy);
+        PlayerStats.Instance.currentEnergy = PlayerStats.Instance.maxEnergy;
 
-    // ? 에너지 바와 테두리를 늘려서 최대 에너지 증가 반영
-    private void UpdateEnergyBarSize()
+        //  막대 길이 확장
+        ExpandEnergyBar(newMaxEnergy);
+
+        UpdateEnergyBar(false);
+    }
+    private void ExpandEnergyBar(float newMaxEnergy)
     {
-        if (energyBarBorder == null || energyBarFill == null) return;
+        float baseWidth = 200f; // 기준 너비 (에너지 100일 때)
+        float widthPerEnergy = baseWidth / 100f; // 1 에너지당 너비
 
-        float initialWidth = energyBarFill.rectTransform.sizeDelta.x; // ? 기존 크기 저장
-        float newWidth = initialWidth * (maxEnergy / 100f); // ? 100 기준 확장 비율 적용
+        float targetWidth = newMaxEnergy * widthPerEnergy;
 
-        // ? DOTween을 사용하여 부드럽게 확장
-        energyBarFill.rectTransform.DOSizeDelta(new Vector2(newWidth, energyBarFill.rectTransform.sizeDelta.y), 0.5f)
-            .SetEase(Ease.OutQuad);
+        //  막대와 백그라운드의 폭을 늘림
+        energyBarFill.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
 
-        energyBarBorder.rectTransform.DOSizeDelta(new Vector2(newWidth, energyBarBorder.rectTransform.sizeDelta.y), 0.5f)
-            .SetEase(Ease.OutQuad);
+        energyBarBack.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
+
+        //  테두리도 같이 늘리려면 추가
+        if (energyBarBorder != null)
+        {
+            energyBarBorder.rectTransform.DOSizeDelta(
+                new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y),
+                0.5f
+            ).SetEase(Ease.OutCubic);
+        }
     }
-
 
 }

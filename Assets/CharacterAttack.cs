@@ -48,7 +48,7 @@ public class CharacterAttack : MonoBehaviour
             return;
         }
 
-        float currentEnergy = energyBarUI.GetCurrentEnergy(); // 현재 에너지 가져오기
+        float currentEnergy = PlayerStats.Instance.currentEnergy;
 
         if (currentEnergy <= 0)
         {
@@ -114,16 +114,22 @@ public class CharacterAttack : MonoBehaviour
     }
     private IEnumerator ConsumeEnergyAfterAnimation()
     {
-        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"));
+        // Attack 애니메이션 중 하나가 실행될 때까지 대기
+        yield return new WaitUntil(() =>
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"));
 
-        if (!energyConsumed && energyBarUI != null) // ? 에너지를 중복 차감 방지
+        if (!energyConsumed)
         {
-            float currentEnergy = energyBarUI.GetCurrentEnergy();
+            float currentEnergy = PlayerStats.Instance.currentEnergy;
             float energyToConsume = Mathf.Min(attackEnergyCost, currentEnergy);
-            energyBarUI.ReduceEnergy(energyToConsume);
-            energyConsumed = true; // ? 한 번만 차감되도록 설정
+
+            EnergyBarUI.Instance.ReduceEnergy(energyToConsume);
+
+            energyConsumed = true;
         }
     }
+
     // 애니메이션 이벤트: 공격 종료 시 호출
     public void EndAttack()
     {

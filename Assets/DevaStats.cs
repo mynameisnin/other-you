@@ -36,9 +36,9 @@ public class DevaStats : MonoBehaviour
         currentHealth = maxHealth;
         currentEnergy = maxEnergy;
 
-        if (EnergyBarUI.Instance != null)
+        if (DevaEnergyBarUI.Instance != null)
         {
-            EnergyBarUI.Instance.UpdateEnergyBar(currentEnergy, false);
+            DevaEnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
         }
     }
 
@@ -53,9 +53,19 @@ public class DevaStats : MonoBehaviour
         level++;
         statPoints += 3;
 
-        experienceToNextLevel = Mathf.RoundToInt(experienceToNextLevel * 1.5f);
-
         PlayLevelUpEffect();
+        Debug.Log($"[데바] 레벨 업! 현재 레벨: {level}, 남은 스탯 포인트: {statPoints}");
+    }
+
+    public void AddExperience(int amount)
+    {
+        experience += amount;
+
+        while (experience >= experienceToNextLevel)
+        {
+            experience -= experienceToNextLevel;
+            LevelUp();
+        }
     }
 
     private void PlayLevelUpEffect()
@@ -116,20 +126,41 @@ public class DevaStats : MonoBehaviour
             maxEnergy += 10;
             currentEnergy = maxEnergy;
             statPoints--;
-
-            if (EnergyBarUI.Instance != null)
+            if (DevaEnergyBarUI.Instance != null)
             {
-                EnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy);
+                DevaEnergyBarUI.Instance.RefreshFromDevaStats(); // 전체 동기화
             }
         }
     }
+    public void ReduceEnergy(int amount)
+    {
+        currentEnergy -= amount;
+        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
 
+        if (DevaEnergyBarUI.Instance != null)
+            DevaEnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
+    }
+
+    public void RecoverEnergy(int amount)
+    {
+        currentEnergy += amount;
+        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
+
+        if (DevaEnergyBarUI.Instance != null)
+            DevaEnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
+    }
+
+    public bool HasEnoughEnergy(int amount)
+    {
+        return currentEnergy >= amount;
+    }
     public void SetCurrentEnergy(int amount)
     {
         currentEnergy = Mathf.Clamp(amount, 0, maxEnergy);
-        if (EnergyBarUI.Instance != null)
+        if (DevaEnergyBarUI.Instance != null)
         {
-            EnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
+            DevaEnergyBarUI.Instance.UpdateEnergyBar(currentEnergy); // 내부에서 DevaStats.Instance로 처리
+
         }
     }
 }

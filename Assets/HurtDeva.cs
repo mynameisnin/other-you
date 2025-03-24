@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
+using DG.Tweening;
 
 public class HurtDeva : MonoBehaviour
 {
@@ -13,8 +12,6 @@ public class HurtDeva : MonoBehaviour
     public CameraShakeSystem cameraShake;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
-    public int MaxHealth = 100;
-    public int currentHealth;
 
     public float knockbackForce = 5f;
     private bool isParrying = false;
@@ -34,9 +31,7 @@ public class HurtDeva : MonoBehaviour
     void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
     }
 
     void Start()
@@ -48,9 +43,9 @@ public class HurtDeva : MonoBehaviour
         FindCameraShake();
         FindDeathBackground();
 
-        currentHealth = MaxHealth;
+        DevaStats.Instance.currentHealth = DevaStats.Instance.maxHealth;
         if (healthBarUI != null)
-            healthBarUI.Initialize(MaxHealth);
+            healthBarUI.Initialize(DevaStats.Instance.maxHealth);
 
         if (deathBackground != null)
         {
@@ -105,10 +100,7 @@ public class HurtDeva : MonoBehaviour
         if (other.CompareTag("EnemyAttack") || other.CompareTag("damageAmount"))
         {
             DebaraMovement movement = GetComponent<DebaraMovement>();
-            if (movement != null && movement.isInvincible)
-            {
-                return;
-            }
+            if (movement != null && movement.isInvincible) return;
 
             EnemyDamageBumpAgainst bump = other.GetComponent<EnemyDamageBumpAgainst>();
             if (bump != null) bump.TriggerDamageCooldown(0.5f);
@@ -131,25 +123,26 @@ public class HurtDeva : MonoBehaviour
     {
         if (isDead) return;
 
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
-        // 공격 상태 해제
+        DevaStats.Instance.currentHealth -= damage;
+        DevaStats.Instance.currentHealth = Mathf.Clamp(DevaStats.Instance.currentHealth, 0, DevaStats.Instance.maxHealth);
+
         DebaraMovement movement = GetComponent<DebaraMovement>();
         if (movement != null) movement.ForceEndAttack();
+
         if (healthBarUI != null)
-            healthBarUI.UpdateHealthBar(currentHealth, true);
+            healthBarUI.UpdateHealthBar(DevaStats.Instance.currentHealth, true);
 
         if (charStateGUIEffect != null)
             charStateGUIEffect.TriggerHitEffect();
 
-        if (currentHealth <= 0)
+        if (DevaStats.Instance.currentHealth <= 0)
             Die();
     }
 
     public void UpdateHealthUI()
     {
         if (healthBarUI != null)
-            healthBarUI.UpdateHealthBar(currentHealth, true);
+            healthBarUI.UpdateHealthBar(DevaStats.Instance.currentHealth, true);
     }
 
     public void CancelDamage()
@@ -211,13 +204,13 @@ public class HurtDeva : MonoBehaviour
     private void DisableControls()
     {
         DebaraMovement movement = GetComponent<DebaraMovement>();
-        if (movement != null) movement.enabled = false;
+        if (movement != null)
         {
-            if (movement.isInvincible)
-                return;
-
-            movement.ForceEndAttack(); // <- 공격 상태 강제 종료
+            if (movement.isInvincible) return;
+            movement.enabled = false;
+            movement.ForceEndAttack();
         }
+
         MagicAttack attack = GetComponent<MagicAttack>();
         if (attack != null) attack.enabled = false;
     }
@@ -225,9 +218,7 @@ public class HurtDeva : MonoBehaviour
     private void ChangeLayerOnDeath()
     {
         if (spriteRenderer != null)
-        {
             spriteRenderer.sortingOrder = 11;
-        }
     }
 
     private IEnumerator DisableAfterDeath()

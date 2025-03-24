@@ -42,30 +42,32 @@ public class StatPanelUI : MonoBehaviour
     {
         if (PlayerStats.Instance == null) return;
 
-        // ? 경험치 바 업데이트 (이전 값과 다를 때만 Tween 실행)
+        // 경험치 바 Tween
         float expRatio = (float)PlayerStats.Instance.experience / PlayerStats.Instance.experienceToNextLevel;
-        if (Mathf.Abs(expRatio - lastExpRatio) > 0.001f) // ? 값이 변할 때만 Tween 실행
+        if (Mathf.Abs(expRatio - lastExpRatio) > 0.001f)
         {
             expFill.DOFillAmount(expRatio, 0.5f).SetEase(Ease.OutQuad);
-            lastExpRatio = expRatio; // ? 마지막 값 저장
+            lastExpRatio = expRatio;
         }
 
-        // ? 경험치 텍스트 업데이트
+        // 경험치 텍스트
         expText.text = $"EXP: {PlayerStats.Instance.experience} / {PlayerStats.Instance.experienceToNextLevel}";
 
-        // ? 레벨 & 스탯 포인트 업데이트
+        // 레벨 및 스탯 포인트
         levelText.text = "레벨: " + PlayerStats.Instance.level;
         statPointsText.text = "스탯 포인트: " + PlayerStats.Instance.statPoints;
 
-        // ? 체력 & 에너지 업데이트
-        healthText.text = $"{HurtPlayer.Instance.currentHealth} / {HurtPlayer.Instance.MaxHealth}";
-        float healthRatio = (float)HurtPlayer.Instance.currentHealth / HurtPlayer.Instance.MaxHealth;
+        //  체력 (PlayerStats 기준)
+        healthText.text = $"{PlayerStats.Instance.currentHealth} / {PlayerStats.Instance.maxHealth}";
+        float healthRatio = (float)PlayerStats.Instance.currentHealth / PlayerStats.Instance.maxHealth;
         healthBarFill.fillAmount = healthRatio;
 
+        // 에너지
         energyText.text = $"{PlayerStats.Instance.currentEnergy} / {PlayerStats.Instance.maxEnergy}";
         float energyRatio = (float)PlayerStats.Instance.currentEnergy / PlayerStats.Instance.maxEnergy;
         energyBarFill.fillAmount = energyRatio;
     }
+
 
     private void UpgradeStat(string statType)
     {

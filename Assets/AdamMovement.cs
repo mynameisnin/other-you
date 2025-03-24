@@ -46,7 +46,7 @@ public class AdamMovement : MonoBehaviour
         AdamAnime = GetComponent<Animator>();
         AdamSprite = GetComponent<SpriteRenderer>();
         characterAttack = GetComponent<CharacterAttack>();
-        energyBarUI = FindObjectOfType<EnergyBarUI>(); //  EnergyBarUI 찾기
+       
     }
 
     void Update()
@@ -146,13 +146,12 @@ public class AdamMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            float currentEnergy = energyBarUI != null ? energyBarUI.GetCurrentEnergy() : 0f;
+            float currentEnergy = PlayerStats.Instance.currentEnergy;
 
-            //  에너지가 부족한 상태에서 대쉬 시도하면 테두리 깜빡이기
-            if (currentEnergy < dashEnergyCost && energyBarUI != null)
+            if (currentEnergy < dashEnergyCost)
             {
                 Debug.Log("대쉬 불가: ENERGY 부족!");
-                energyBarUI.FlashBorder(); //  테두리 깜빡이기
+                EnergyBarUI.Instance.FlashBorder(); // 테두리 깜빡이기
                 return;
             }
 
@@ -163,10 +162,7 @@ public class AdamMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
-        if (energyBarUI != null)
-        {
-            energyBarUI.ReduceEnergy(dashEnergyCost);
-        }
+        EnergyBarUI.Instance.ReduceEnergy(dashEnergyCost);
 
         canDash = false;
         isDashing = true;
