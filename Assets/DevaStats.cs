@@ -116,9 +116,14 @@ public class DevaStats : MonoBehaviour
             maxHealth += 10;
             currentHealth = maxHealth;
             statPoints--;
+
+            //  체력 UI에도 반영
+            if (DevaHealthBarUI.Instance != null)
+            {
+                DevaHealthBarUI.Instance.UpdateMaxHealth(maxHealth);
+            }
         }
     }
-
     public void IncreaseEnergy()
     {
         if (statPoints > 0)
@@ -128,7 +133,7 @@ public class DevaStats : MonoBehaviour
             statPoints--;
             if (DevaEnergyBarUI.Instance != null)
             {
-                DevaEnergyBarUI.Instance.RefreshFromDevaStats(); // 전체 동기화
+                DevaEnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy); ; // 전체 동기화
             }
         }
     }
