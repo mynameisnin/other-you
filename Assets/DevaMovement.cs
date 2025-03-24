@@ -75,6 +75,10 @@ public class DebaraMovement : MonoBehaviour
         DebaraAnimation();
         HandleFlip();
         HandleFall();
+        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
+        {
+            CastLaserSkill();
+        }
     }
 
     float currentSpeed = 0f;
@@ -373,6 +377,48 @@ public class DebaraMovement : MonoBehaviour
             StopAllCoroutines();
         }
     }
+    [SerializeField] private GameObject laserPrefab;
+    [SerializeField] private Transform laserSpawnOrigin; // 시작 위치 (Deva 앞쪽)
+
+    [SerializeField] private int laserCount = 6; // 몇 번 소환할지 (예: 6번)
+    [SerializeField] private float interval = 0.1f; // 소환 간격
+    [SerializeField] private float spawnDistanceStep = 0.5f; // 각 소환마다 앞쪽으로 얼마나 이동할지
+
+    public void CastLaserSkill()
+    {
+       
+        DebaraAnime.Play("Cast1");
+        StartCoroutine(SpawnLaserSequence());
+    }
+    private IEnumerator SpawnLaserSequence()
+    {
+        isAttacking = true;
+
+        Vector3 startPos = laserSpawnOrigin.position;
+        Vector3 direction = DebaraSprite.flipX ? Vector3.left : Vector3.right;
+
+        for (int i = 0; i < laserCount; i++)
+        {
+            Vector3 spawnPos = startPos + direction * spawnDistanceStep * i;
+            GameObject laser = Instantiate(laserPrefab, spawnPos, Quaternion.identity);
+
+            // flipX 시 방향 반영
+            if (DebaraSprite.flipX)
+            {
+                Vector3 scale = laser.transform.localScale;
+                scale.x *= -1f;
+                laser.transform.localScale = scale;
+
+                laser.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+
+            yield return new WaitForSeconds(interval);
+        }
+        isAttacking = false;
+
+        StartCoroutine(ResetAttackInputCooldown());
+    }
+
 
 
 }
