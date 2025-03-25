@@ -94,9 +94,10 @@ GameObject:
   - component: {fileID: 1544250313928447721}
   - component: {fileID: 5197392197277379696}
   - component: {fileID: 8838381605673477724}
-  m_Layer: 0
+  - component: {fileID: 5325272893624791654}
+  m_Layer: 9
   m_Name: Effect12 4_Frame_0
-  m_TagString: Untagged
+  m_TagString: DevaSkill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,3 +203,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd9ede278e05b45bc3cfcab04b8995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 30
+  fromDeba: 1
+  fromAdam: 0
+  targetTag: Enemy
+--- !u!61 &5325272893624791654
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6200739965820270710}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.025000006, y: 0.51}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.45000002, y: 0}
+    oldSize: {x: 0.5, y: 1.02}
+    newSize: {x: 0.5, y: 1.02}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1.02}
+  m_EdgeRadius: 0

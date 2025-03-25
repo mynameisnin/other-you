@@ -386,30 +386,26 @@ public class DebaraMovement : MonoBehaviour
 
     [SerializeField] private float laserEnergyCost = 30f; // 필요 에너지량
 
+    [SerializeField] private float laserManaCost = 40f; // 레이저 스킬 마나 소모량
+
     public void CastLaserSkill()
     {
-        // 땅에 있을 때만 가능
         if (!isGround)
         {
-            Debug.Log("스킬은 공중에서는 사용할 수 없습니다.");
+            Debug.Log("공중에서는 스킬 사용 불가");
             return;
         }
 
-        // 에너지 UI 존재 및 충분한 에너지 체크
-        if (DevaEnergyBarUI != null && !DevaEnergyBarUI.HasEnoughEnergy(laserEnergyCost))
+        if (!DevaStats.Instance.HasEnoughMana((int)laserManaCost))
         {
-            Debug.Log("에너지가 부족합니다!");
-            DevaEnergyBarUI.FlashBorder(); // 경고 UI
+            Debug.Log("마나 부족!");
+            if (DevaManaBarUI.Instance != null)
+                DevaManaBarUI.Instance.FlashBorder(); // UI 경고 효과
             return;
         }
 
-        // 에너지 차감
-        if (DevaEnergyBarUI != null)
-        {
-            DevaEnergyBarUI.ReduceEnergy(laserEnergyCost);
-        }
-
-        DebaraAnime.Play("Cast1"); // 애니메이션 재생
+        DevaStats.Instance.ReduceMana((int)laserManaCost); // 마나 차감
+        DebaraAnime.Play("Cast1");
         isAttacking = true;
     }
 

@@ -12,6 +12,8 @@ public class DevaStatPanelUI : MonoBehaviour
     public TextMeshProUGUI healthText;
     public Image energyBarFill;
     public TextMeshProUGUI energyText;
+    public Image manaBarFill;           // 마나 게이지
+    public TextMeshProUGUI manaText;    // 마나 수치 텍스트
 
     [Header("EXP UI")]
     public TextMeshProUGUI expText;
@@ -25,12 +27,15 @@ public class DevaStatPanelUI : MonoBehaviour
 
     private float lastExpRatio = -1f;
 
+
+    public Button manaButton;           // 마나 업그레이드 버튼
     private void Start()
     {
         attackButton.onClick.AddListener(() => UpgradeStat("attack"));
         defenseButton.onClick.AddListener(() => UpgradeStat("defense"));
         healthButton.onClick.AddListener(() => UpgradeStat("health"));
         energyButton.onClick.AddListener(() => UpgradeStat("energy"));
+        manaButton.onClick.AddListener(() => UpgradeStat("mana")); // 마나 버튼 이벤트 연결
     }
 
     private void Update()
@@ -66,6 +71,10 @@ public class DevaStatPanelUI : MonoBehaviour
         float energyRatio = (float)DevaStats.Instance.currentEnergy / DevaStats.Instance.maxEnergy;
         energyBarFill.fillAmount = energyRatio;
         energyText.text = $"{DevaStats.Instance.currentEnergy} / {DevaStats.Instance.maxEnergy}";
+        // 마나
+        manaText.text = $"{DevaStats.Instance.currentMana} / {DevaStats.Instance.maxMana}";
+        float manaRatio = (float)DevaStats.Instance.currentMana / DevaStats.Instance.maxMana;
+        manaBarFill.fillAmount = manaRatio;
     }
 
     private void UpgradeStat(string statType)
@@ -85,6 +94,9 @@ public class DevaStatPanelUI : MonoBehaviour
                 break;
             case "energy":
                 DevaStats.Instance.IncreaseEnergy();
+                break;
+            case "mana":
+                DevaStats.Instance.IncreaseMaxMana();
                 break;
         }
 

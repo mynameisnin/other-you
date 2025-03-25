@@ -144,7 +144,7 @@ public class enemyTest : MonoBehaviour
     }
 
     //  데미지 처리
-    public void TakeDamage(int damage, bool fromAdam, bool fromDeba)
+    public void TakeDamage(int damage, bool fromAdam, bool fromDeba, Transform attacker = null)
     {
         if (isDying) return;
 
@@ -155,16 +155,36 @@ public class enemyTest : MonoBehaviour
         {
             StartCoroutine(Die(fromAdam, fromDeba));
         }
+        else
+        {
+            TestAnime.Play("Hurt", 0, 0f);
+            ShowBloodEffect();
+            Knockback(attacker); // ← 위치 기반 넉백
+            cameraShake?.StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+        }
     }
+
 
     //  넉백 처리
     private void Knockback(Transform attacker)
     {
-        if (rb == null) return;
+        if (rb == null || attacker == null) return;
 
-        float dir = transform.position.x - attacker.position.x > 0 ? 1f : -1f;
-        rb.velocity = new Vector2(knockbackForce * dir, rb.velocity.y + 1f);
+        float dir = Mathf.Sign(transform.position.x - attacker.position.x);
+        if (dir == 0) dir = Random.Range(0, 2) == 0 ? -1f : 1f; // 너무 가까우면 랜덤
+
+        float finalKnockback = knockbackForce;
+
+        //  만약 데바의 스킬이면 넉백을 별도로 조정하고 싶다면 여기서 조절
+        if (attacker.CompareTag("DevaSkill"))
+        {
+            finalKnockback *= 0.6f; // ← 예: 살짝 약하게
+        }
+
+        rb.velocity = new Vector2(finalKnockback * dir, rb.velocity.y + 1f);
     }
+
+
 
     //  사망 처리 + 경험치 지급
     private IEnumerator Die(bool fromAdam, bool fromDeba)
@@ -182,13 +202,21 @@ public class enemyTest : MonoBehaviour
             DevaExperience.Instance.GainXP(xpReward);
         }
 
-        // 피격 불가 처리
-        if (col != null) col.enabled = false;
-        if (rb != null) rb.simulated = false;
+        // 물리 비활성화 + 정지
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.simulated = false;
+        }
 
+        // 충돌 비활성화
+        if (col != null) col.enabled = false;
+
+        // 애니메이션 재생
         TestAnime.SetTrigger("Die");
 
-        yield return new WaitForSeconds(0.6f); // 사망 애니메이션 대기
+        yield return new WaitForSeconds(0.6f);
         Destroy(gameObject);
     }
 }
