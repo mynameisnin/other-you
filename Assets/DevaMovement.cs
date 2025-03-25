@@ -346,8 +346,11 @@ public class DebaraMovement : MonoBehaviour
         isAttacking = false;
         attackInputRecently = false;
 
-        DebaraAnime.ResetTrigger("Attack");
-        DebaraAnime.Play("Idle"); // <- 상태 강제 초기화
+        if (DebaraAnime != null && gameObject.activeInHierarchy)
+        {
+            DebaraAnime.ResetTrigger("Attack");
+            DebaraAnime.Play("DevaIdle"); // ← 활성화 상태일 때만 실행
+        }
 
         if (magicAttack != null)
         {
@@ -383,8 +386,6 @@ public class DebaraMovement : MonoBehaviour
     [SerializeField] private int laserCount = 6; // 몇 번 소환할지 (예: 6번)
     [SerializeField] private float interval = 0.1f; // 소환 간격
     [SerializeField] private float spawnDistanceStep = 0.5f; // 각 소환마다 앞쪽으로 얼마나 이동할지
-
-    [SerializeField] private float laserEnergyCost = 30f; // 필요 에너지량
 
     [SerializeField] private float laserManaCost = 40f; // 레이저 스킬 마나 소모량
 

@@ -80,10 +80,7 @@ public class EnemyMovement : MonoBehaviour
         {
             player = deba.transform;
         }
-        else
-        {
-            Debug.LogWarning("플레이어를 찾을 수 없음! 'AdamCamPosition' 또는 'DevaCamPosition' 태그 확인 필요.");
-        }
+
     }
 
 
