@@ -384,41 +384,82 @@ public class DebaraMovement : MonoBehaviour
     [SerializeField] private float interval = 0.1f; // 소환 간격
     [SerializeField] private float spawnDistanceStep = 0.5f; // 각 소환마다 앞쪽으로 얼마나 이동할지
 
+    [SerializeField] private float laserEnergyCost = 30f; // 필요 에너지량
+
     public void CastLaserSkill()
     {
-       
-        DebaraAnime.Play("Cast1");
-        StartCoroutine(SpawnLaserSequence());
+        // 땅에 있을 때만 가능
+        if (!isGround)
+        {
+            Debug.Log("스킬은 공중에서는 사용할 수 없습니다.");
+            return;
+        }
+
+        // 에너지 UI 존재 및 충분한 에너지 체크
+        if (DevaEnergyBarUI != null && !DevaEnergyBarUI.HasEnoughEnergy(laserEnergyCost))
+        {
+            Debug.Log("에너지가 부족합니다!");
+            DevaEnergyBarUI.FlashBorder(); // 경고 UI
+            return;
+        }
+
+        // 에너지 차감
+        if (DevaEnergyBarUI != null)
+        {
+            DevaEnergyBarUI.ReduceEnergy(laserEnergyCost);
+        }
+
+        DebaraAnime.Play("Cast1"); // 애니메이션 재생
+        isAttacking = true;
     }
+
+    [SerializeField] private float offsetX = 0.5f;
+    [SerializeField] private float offsetY = 0f;
+
     private IEnumerator SpawnLaserSequence()
     {
         isAttacking = true;
 
-        Vector3 startPos = laserSpawnOrigin.position;
         Vector3 direction = DebaraSprite.flipX ? Vector3.left : Vector3.right;
+        Vector3 startPos = transform.position + new Vector3((DebaraSprite.flipX ? -1 : 1) * offsetX, offsetY, 0);
 
         for (int i = 0; i < laserCount; i++)
         {
             Vector3 spawnPos = startPos + direction * spawnDistanceStep * i;
             GameObject laser = Instantiate(laserPrefab, spawnPos, Quaternion.identity);
 
-            // flipX 시 방향 반영
             if (DebaraSprite.flipX)
             {
+                // 스프라이트 반전
                 Vector3 scale = laser.transform.localScale;
-                scale.x *= -1f;
+                scale.x = Mathf.Abs(scale.x) * -1f;
                 laser.transform.localScale = scale;
 
-                laser.transform.rotation = Quaternion.Euler(0, 180, 0);
+                // 전체 오브젝트 방향 (회전)
+                laser.transform.rotation = Quaternion.Euler(0, 180f, 0);
+            }
+            else
+            {
+                // 오른쪽일 때는 기본 방향
+                Vector3 scale = laser.transform.localScale;
+                scale.x = Mathf.Abs(scale.x);
+                laser.transform.localScale = scale;
+
+                laser.transform.rotation = Quaternion.identity;
             }
 
             yield return new WaitForSeconds(interval);
         }
-        isAttacking = false;
 
+        
         StartCoroutine(ResetAttackInputCooldown());
     }
-
-
-
+    public void FireLaser()
+    {
+        StartCoroutine(SpawnLaserSequence());
+    }
+    public void EndLaserAttack()
+    {
+        isAttacking = false;
+    }
 }
