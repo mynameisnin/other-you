@@ -995,6 +995,7 @@ MonoBehaviour:
   interval: 0.7
   spawnDistanceStep: 2.5
   laserEnergyCost: 30
+  laserManaCost: 40
   offsetX: 5.2
   offsetY: 0
 --- !u!114 &5435434695885274582
@@ -1081,6 +1082,8 @@ MonoBehaviour:
   levelUpEffectPrefab: {fileID: 947812836641092627, guid: ea72882135454c340a277c8647299a51, type: 3}
   levelUpEffectPosition: {fileID: 6242219098694572649}
   effectDuration: 2
+  maxMana: 100
+  currentMana: 0
 --- !u!1 &1132160048040227603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1598,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adam: {fileID: 3123506464074187378}
   deva: {fileID: 1108226513617345351}
-  healRate: 3
+  healthHealRate: 3
+  manaHealRate: 5
   healInterval: 1
   healDelay: 2
 --- !u!1 &1565305020521027065
@@ -3200,6 +3204,7 @@ GameObject:
   - component: {fileID: 3601272533920421760}
   - component: {fileID: 147021292098677540}
   - component: {fileID: 8268146341116369930}
+  - component: {fileID: 1731184946042609430}
   m_Layer: 5
   m_Name: DevaMANAfill
   m_TagString: Untagged
@@ -3264,6 +3269,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1731184946042609430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2816390876132895783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4f43cca8da0e6489e4d6124f28fc2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaBarFill: {fileID: 8268146341116369930}
+  manaBarBack: {fileID: 6568979732257458502}
+  manaBarBorder: {fileID: 7153542360927352255}
 --- !u!1 &2959539209107515900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3625,7 +3645,7 @@ MonoBehaviour:
   - {x: 0.088362895, y: -0.017408647, z: -0.000000039876966}
   m_ShapePathHash: -696285490
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1508
+  m_InstanceId: -2896
   m_LocalBounds:
     m_Center: {x: 0.006473869, y: -0.018493794, z: 0}
     m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
@@ -8199,7 +8219,7 @@ MonoBehaviour:
   shrinkScale: {x: 0.8575, y: 0.7025, z: 0.7025}
   normalScale: {x: 1.0088, y: 0.8265, z: 0.8265}
   activeColor: {r: 1, g: 1, b: 1, a: 1}
-  inactiveColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  inactiveColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   adamUIImages:
   - {fileID: 2259364064901780270}
   - {fileID: 1989505811728739786}
@@ -8222,6 +8242,8 @@ MonoBehaviour:
   - {fileID: 4453634224382587030}
   - {fileID: 8732232563796601838}
   - {fileID: 3597665213200798782}
+  - {fileID: 3597665213200798782}
+  - {fileID: 6568979732257458502}
 --- !u!1 &7920576073791798027
 GameObject:
   m_ObjectHideFlags: 0
