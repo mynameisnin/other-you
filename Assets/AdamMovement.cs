@@ -39,7 +39,7 @@ public class AdamMovement : MonoBehaviour
     public LayerMask islayer;
 
     public bool isAttacking = false;
-    public bool isInvincible { get; private set; }
+    public bool isInvincible { get; set; }
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -278,7 +278,7 @@ public class AdamMovement : MonoBehaviour
         attackInputRecently = false; // 공격 입력 상태 초기화
     }
 
-    void StopMovement()
+    public void  StopMovement()
     {
         AdamRigidebody.velocity = Vector2.zero; // 이동 차단
         currentSpeed = 0f; //  남아있는 이동 속도 제거
