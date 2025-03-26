@@ -88,7 +88,7 @@ public class StatueInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 플레이어가 근처에 왔을 때만 체크
+        if (other.CompareTag("Player")||other.CompareTag("DevaPlayer")) // 플레이어가 근처에 왔을 때만 체크
         {
             isPlayerNearby = true;
         }
