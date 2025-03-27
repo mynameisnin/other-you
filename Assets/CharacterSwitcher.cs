@@ -42,28 +42,40 @@ public class CharacterSwitcher : MonoBehaviour
         if (isAdamActive)
         {
             currentPos = adamObject.transform.position;
-            DeactivateAdam(); // ← 대쉬 정리 포함
+            DeactivateAdam();
             adamObject.SetActive(false);
         }
         else
         {
             currentPos = debaObject.transform.position;
-            debaObject.SetActive(false);
             DeactivateDeba();
+            debaObject.SetActive(false);
         }
 
+        // 스위치 이펙트 위치 설정
         switchEffectObject.transform.position = currentPos;
 
+        // 이펙트 애니메이션 시작
         if (switchAnimator != null)
         {
             switchEffectObject.SetActive(true);
 
             string triggerToUse = isAdamActive ? triggerAdamToDeba : triggerDebaToAdam;
             switchAnimator.SetTrigger(triggerToUse);
+
+            //   GUI 전환도 이펙트와 동시에 실행
+            if (guiController != null)
+            {
+                if (isAdamActive)
+                    guiController.SwitchToDeba();  // Deba로 바뀌는 이펙트니까 Deba GUI 활성화
+                else
+                    guiController.SwitchToAdam();
+            }
         }
 
         yield return new WaitForSeconds(switchDelay);
 
+        // 캐릭터 활성화는 딜레이 후 실행
         if (isAdamActive)
             ActivateDebaDelayed();
         else
@@ -71,10 +83,10 @@ public class CharacterSwitcher : MonoBehaviour
 
         switchEffectObject.SetActive(false);
 
-        // 쿨타임 대기
         yield return new WaitForSeconds(switchCooldown - switchDelay);
         canSwitch = true;
     }
+
 
     void ActivateAdamImmediate()
     {
@@ -96,7 +108,7 @@ public class CharacterSwitcher : MonoBehaviour
             debaMovement.ResetState(); // isTeleporting, attackInputRecently, velocity 등 초기화
         }
 
-        guiController?.SwitchToDeba();
+   
 
     }
 
@@ -105,7 +117,7 @@ public class CharacterSwitcher : MonoBehaviour
         isAdamActive = true;
         adamObject.transform.position = switchEffectObject.transform.position;
         adamObject.SetActive(true);
-        guiController?.SwitchToAdam();
+      
     }
 
     void DeactivateAdam()
