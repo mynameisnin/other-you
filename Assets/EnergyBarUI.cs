@@ -16,7 +16,7 @@ public class EnergyBarUI : MonoBehaviour
 
     private Coroutine regenCoroutine;
     private Color defaultBorderColor;
-    private float baseWidth; // ?? 현재 GUI 에너지바 너비를 기준으로 사용
+    [SerializeField] private float baseWidth = 200f; // ← 디자인 기준 너비 (예: 100일 때 길이)
 
     private void Awake()
     {
@@ -149,25 +149,16 @@ public class EnergyBarUI : MonoBehaviour
 
     private void ExpandEnergyBar(float maxEnergy)
     {
-        float ratio = maxEnergy / 100f; // ?? 100을 기준으로 비율 계산
+        float ratio = maxEnergy / 100f; // ← 기준 수치: 100
         float targetWidth = baseWidth * ratio;
 
-        energyBarFill.rectTransform.DOSizeDelta(
-            new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y),
-            0.5f
-        ).SetEase(Ease.OutCubic);
-
-        energyBarBack.rectTransform.DOSizeDelta(
-            new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y),
-            0.5f
-        ).SetEase(Ease.OutCubic);
+        // 실제 크기 반영
+        energyBarFill.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y);
+        energyBarBack.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y);
 
         if (energyBarBorder != null)
         {
-            energyBarBorder.rectTransform.DOSizeDelta(
-                new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y),
-                0.5f
-            ).SetEase(Ease.OutCubic);
+            energyBarBorder.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y);
         }
     }
 }

@@ -18,25 +18,41 @@ public class PlayerAutoHealManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(CheckHealing());
+        Debug.Log($"[AutoHeal] Deva active? {deva.activeInHierarchy}, currentMana: {DevaStats.Instance.currentMana}/{DevaStats.Instance.maxMana}");
     }
 
     private IEnumerator CheckHealing()
     {
         while (true)
         {
+            // 아담 비활성화 → 회복 시작
             if (!adam.activeInHierarchy && adamHealCoroutine == null && PlayerStats.Instance != null)
             {
                 adamHealCoroutine = StartCoroutine(HealRoutine(PlayerStats.Instance, () => adamHealCoroutine = null));
             }
+            // 아담 활성화 → 회복 중단
+            else if (adam.activeInHierarchy && adamHealCoroutine != null)
+            {
+                StopCoroutine(adamHealCoroutine);
+                adamHealCoroutine = null;
+            }
 
+            // 데바 비활성화 → 회복 시작
             if (!deva.activeInHierarchy && devaHealCoroutine == null && DevaStats.Instance != null)
             {
                 devaHealCoroutine = StartCoroutine(HealRoutine(DevaStats.Instance, () => devaHealCoroutine = null));
+            }
+            // 데바 활성화 → 회복 중단
+            else if (deva.activeInHierarchy && devaHealCoroutine != null)
+            {
+                StopCoroutine(devaHealCoroutine);
+                devaHealCoroutine = null;
             }
 
             yield return new WaitForSeconds(1f);
         }
     }
+
 
     private IEnumerator HealRoutine(object statsObj, System.Action onFinish)
     {

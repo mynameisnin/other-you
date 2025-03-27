@@ -10,8 +10,9 @@ public class DevaManaBarUI : MonoBehaviour
     public Image manaBarBack;
     public Image manaBarBorder;
 
+    [SerializeField] private float baseWidth = 180f;
+
     private Color defaultBorderColor;
-    private float fullBarWidth;
 
     private void Awake()
     {
@@ -26,19 +27,18 @@ public class DevaManaBarUI : MonoBehaviour
         if (manaBarBorder != null)
             defaultBorderColor = manaBarBorder.color;
 
-        fullBarWidth = manaBarFill.rectTransform.sizeDelta.x;
-
         RefreshFromDevaStats();
     }
 
     public void RefreshFromDevaStats()
     {
-        UpdateManaBar(DevaStats.Instance.currentEnergy, false);
+        UpdateManaBar(DevaStats.Instance.currentMana, false);         // ? currentMana 사용
+        ExpandManaBar(DevaStats.Instance.maxMana);                    // ? maxMana 사용
     }
 
     public void UpdateManaBar(float currentMana, bool animate = true)
     {
-        float ratio = (float)currentMana / DevaStats.Instance.maxEnergy;
+        float ratio = currentMana / DevaStats.Instance.maxMana;       // ? maxMana 기준
 
         manaBarFill.DOKill();
         manaBarBack.DOKill();
@@ -72,16 +72,17 @@ public class DevaManaBarUI : MonoBehaviour
 
     public void UpdateMaxMana(float newMaxMana)
     {
-        DevaStats.Instance.maxEnergy = Mathf.RoundToInt(newMaxMana);
-        DevaStats.Instance.currentEnergy = DevaStats.Instance.maxEnergy;
+        DevaStats.Instance.maxMana = Mathf.RoundToInt(newMaxMana);
+        DevaStats.Instance.currentMana = DevaStats.Instance.maxMana;
 
         ExpandManaBar(newMaxMana);
-        UpdateManaBar(DevaStats.Instance.currentEnergy, false);
+        UpdateManaBar(DevaStats.Instance.currentMana, false);
     }
 
-    private void ExpandManaBar(float newMaxMana)
+    private void ExpandManaBar(float maxMana)
     {
-        float targetWidth = (newMaxMana / 100f) * fullBarWidth;
+        float ratio = maxMana / 100f;
+        float targetWidth = baseWidth * ratio;
 
         manaBarFill.rectTransform.DOSizeDelta(
             new Vector2(targetWidth, manaBarFill.rectTransform.sizeDelta.y),
@@ -104,11 +105,12 @@ public class DevaManaBarUI : MonoBehaviour
 
     public float GetCurrentMana()
     {
-        return DevaStats.Instance.currentEnergy;
+        return DevaStats.Instance.currentMana;
     }
 
     public bool HasEnoughMana(float amount)
     {
-        return DevaStats.Instance.currentEnergy >= amount;
+        return DevaStats.Instance.currentMana >= amount;
     }
 }
+
