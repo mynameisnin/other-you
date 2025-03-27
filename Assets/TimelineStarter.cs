@@ -9,7 +9,6 @@ public class TimelineStarter : MonoBehaviour
     public PlayableDirector timeline; // 타임라인 연결
     public GameObject back;    // 패널 정리
     public GameObject loadingPanel;   // 로딩 UI 패널
-    public Slider progressBar;        // 프로그레스 바
     public float fakeLoadingTime = 2f; // 가짜 로딩 시간
 
     public string nextSceneName = "Startmunescenes"; // 로딩 후 이동할 씬
@@ -42,7 +41,6 @@ public class TimelineStarter : MonoBehaviour
         while (timer < fakeLoadingTime)
         {
             timer += Time.deltaTime;
-            progressBar.value = timer / fakeLoadingTime; // 프로그레스 바 업데이트
             yield return null;
         }
 
