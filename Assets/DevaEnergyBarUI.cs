@@ -16,7 +16,7 @@ public class DevaEnergyBarUI : MonoBehaviour
 
     private Color defaultBorderColor;
     private Coroutine regenCoroutine;
-    private float fullBarWidth; // 현재 설정된 바의 너비 (100%)
+    private float baseWidth = 200f; // ← 기준 너비 (maxEnergy = 100 기준)
 
     private void Awake()
     {
@@ -31,20 +31,21 @@ public class DevaEnergyBarUI : MonoBehaviour
         if (energyBarBorder != null)
             defaultBorderColor = energyBarBorder.color;
 
-        // 현재 UI 바의 width를 기준으로 최대 크기 저장 (디자인상 100%)
-        fullBarWidth = energyBarFill.rectTransform.sizeDelta.x;
+        baseWidth = energyBarFill.rectTransform.sizeDelta.x;
 
         RefreshFromDevaStats();
+        StartEnergyRegen(); // ← 자동 회복 루프 시작
     }
 
     public void RefreshFromDevaStats()
     {
         UpdateEnergyBar(DevaStats.Instance.currentEnergy, false);
+        ExpandEnergyBar(DevaStats.Instance.maxEnergy); // ← 바 너비도 확장
     }
 
     public void UpdateEnergyBar(float newEnergy, bool animate = true)
     {
-        float ratio = (float)newEnergy / DevaStats.Instance.maxEnergy;
+        float ratio = newEnergy / DevaStats.Instance.maxEnergy;
 
         energyBarFill.DOKill();
         energyBarBack.DOKill();
@@ -72,17 +73,16 @@ public class DevaEnergyBarUI : MonoBehaviour
         DevaStats.Instance.currentEnergy = Mathf.Clamp(DevaStats.Instance.currentEnergy, 0, DevaStats.Instance.maxEnergy);
         UpdateEnergyBar(DevaStats.Instance.currentEnergy);
 
-        if (regenCoroutine != null)
-            StopCoroutine(regenCoroutine);
-
-        regenCoroutine = StartCoroutine(StartEnergyRegenAfterDelay());
+        RestartEnergyRegen(); // 회복 루프 재시작
     }
 
     public void RecoverEnergy(float amount)
     {
         DevaStats.Instance.currentEnergy += Mathf.RoundToInt(amount);
         DevaStats.Instance.currentEnergy = Mathf.Clamp(DevaStats.Instance.currentEnergy, 0, DevaStats.Instance.maxEnergy);
-        SmoothEnergyRegen();
+        UpdateEnergyBar(DevaStats.Instance.currentEnergy);
+
+        RestartEnergyRegen();
     }
 
     public bool HasEnoughEnergy(float amount)
@@ -90,7 +90,23 @@ public class DevaEnergyBarUI : MonoBehaviour
         return DevaStats.Instance.currentEnergy >= amount;
     }
 
-    private IEnumerator StartEnergyRegenAfterDelay()
+    private void StartEnergyRegen()
+    {
+        if (regenCoroutine != null)
+            StopCoroutine(regenCoroutine);
+
+        regenCoroutine = StartCoroutine(EnergyRegenCoroutine());
+    }
+
+    private void RestartEnergyRegen()
+    {
+        if (regenCoroutine != null)
+            StopCoroutine(regenCoroutine);
+
+        regenCoroutine = StartCoroutine(EnergyRegenCoroutine());
+    }
+
+    private IEnumerator EnergyRegenCoroutine()
     {
         yield return new WaitForSeconds(regenDelay);
 
@@ -131,34 +147,21 @@ public class DevaEnergyBarUI : MonoBehaviour
         DevaStats.Instance.maxEnergy = Mathf.RoundToInt(newMaxEnergy);
         DevaStats.Instance.currentEnergy = DevaStats.Instance.maxEnergy;
 
-        ExpandEnergyBar(newMaxEnergy); //  바 길이 늘리기
-
+        ExpandEnergyBar(newMaxEnergy);
         UpdateEnergyBar(DevaStats.Instance.currentEnergy, false);
     }
-    private void ExpandEnergyBar(float newMaxEnergy)
+
+    private void ExpandEnergyBar(float maxEnergy)
     {
-        float baseWidth = fullBarWidth; // 초기 width 기준 (디자인상 maxEnergy = 100)
-        float targetWidth = (newMaxEnergy / 100f) * baseWidth;
+        float ratio = maxEnergy / 100f;
+        float targetWidth = baseWidth * ratio;
 
-        //  Fill 바 확장
-        energyBarFill.rectTransform.DOSizeDelta(
-            new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y),
-            0.4f
-        ).SetEase(Ease.OutCubic);
+        energyBarFill.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y);
+        energyBarBack.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y);
 
-        //  Back 바 확장
-        energyBarBack.rectTransform.DOSizeDelta(
-            new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y),
-            0.4f
-        ).SetEase(Ease.OutCubic);
-
-        //  Border 확장 (있는 경우)
         if (energyBarBorder != null)
         {
-            energyBarBorder.rectTransform.DOSizeDelta(
-                new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y),
-                0.4f
-            ).SetEase(Ease.OutCubic);
+            energyBarBorder.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y);
         }
     }
 

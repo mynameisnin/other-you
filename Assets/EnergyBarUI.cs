@@ -16,6 +16,7 @@ public class EnergyBarUI : MonoBehaviour
 
     private Coroutine regenCoroutine;
     private Color defaultBorderColor;
+    [SerializeField] private float baseWidth = 200f; // ← 디자인 기준 너비 (예: 100일 때 길이)
 
     private void Awake()
     {
@@ -30,13 +31,17 @@ public class EnergyBarUI : MonoBehaviour
         if (energyBarBorder != null)
             defaultBorderColor = energyBarBorder.color;
 
+        // ? 현재 바 길이를 기준으로 baseWidth 저장
+        baseWidth = energyBarFill.rectTransform.sizeDelta.x;
+
         RefreshFromPlayerStats();
-        StartEnergyRegen(); //  자동 회복 루프 시작
+        StartEnergyRegen(); // 자동 회복 루프 시작
     }
 
     public void RefreshFromPlayerStats()
     {
         UpdateEnergyBar();
+        ExpandEnergyBar(PlayerStats.Instance.maxEnergy); // 스탯 반영 시 너비 확장
     }
 
     public void UpdateEnergyBar(bool animate = true)
@@ -64,7 +69,7 @@ public class EnergyBarUI : MonoBehaviour
         PlayerStats.Instance.currentEnergy = Mathf.Clamp(PlayerStats.Instance.currentEnergy, 0, PlayerStats.Instance.maxEnergy);
         UpdateEnergyBar();
 
-        RestartEnergyRegen(); //  회복 중단 및 재시작
+        RestartEnergyRegen(); // 회복 중단 및 재시작
     }
 
     public void RecoverEnergy(float amount)
@@ -73,7 +78,7 @@ public class EnergyBarUI : MonoBehaviour
         PlayerStats.Instance.currentEnergy = Mathf.Clamp(PlayerStats.Instance.currentEnergy, 0, PlayerStats.Instance.maxEnergy);
         UpdateEnergyBar();
 
-        RestartEnergyRegen(); //  회복 중단 및 재시작
+        RestartEnergyRegen(); // 회복 중단 및 재시작
     }
 
     private void StartEnergyRegen()
@@ -138,37 +143,22 @@ public class EnergyBarUI : MonoBehaviour
         PlayerStats.Instance.maxEnergy = Mathf.RoundToInt(newMaxEnergy);
         PlayerStats.Instance.currentEnergy = PlayerStats.Instance.maxEnergy;
 
-        //  막대 길이 확장
-        ExpandEnergyBar(newMaxEnergy);
-
-        UpdateEnergyBar(false);
+        ExpandEnergyBar(newMaxEnergy); // 너비 확장
+        UpdateEnergyBar(false);       // 바로 UI 반영
     }
-    private void ExpandEnergyBar(float newMaxEnergy)
+
+    private void ExpandEnergyBar(float maxEnergy)
     {
-        float baseWidth = 200f; // 기준 너비 (에너지 100일 때)
-        float widthPerEnergy = baseWidth / 100f; // 1 에너지당 너비
+        float ratio = maxEnergy / 100f; // ← 기준 수치: 100
+        float targetWidth = baseWidth * ratio;
 
-        float targetWidth = newMaxEnergy * widthPerEnergy;
+        // 실제 크기 반영
+        energyBarFill.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y);
+        energyBarBack.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y);
 
-        //  막대와 백그라운드의 폭을 늘림
-        energyBarFill.rectTransform.DOSizeDelta(
-            new Vector2(targetWidth, energyBarFill.rectTransform.sizeDelta.y),
-            0.5f
-        ).SetEase(Ease.OutCubic);
-
-        energyBarBack.rectTransform.DOSizeDelta(
-            new Vector2(targetWidth, energyBarBack.rectTransform.sizeDelta.y),
-            0.5f
-        ).SetEase(Ease.OutCubic);
-
-        //  테두리도 같이 늘리려면 추가
         if (energyBarBorder != null)
         {
-            energyBarBorder.rectTransform.DOSizeDelta(
-                new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y),
-                0.5f
-            ).SetEase(Ease.OutCubic);
+            energyBarBorder.rectTransform.sizeDelta = new Vector2(targetWidth, energyBarBorder.rectTransform.sizeDelta.y);
         }
     }
-
 }

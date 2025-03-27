@@ -24,7 +24,8 @@ public class DevaStats : MonoBehaviour
     public GameObject levelUpEffectPrefab;
     public Transform levelUpEffectPosition;
     public float effectDuration = 2f;
-
+    public int maxMana = 100;
+    public int currentMana;
     private void Awake()
     {
         if (Instance == null)
@@ -39,6 +40,12 @@ public class DevaStats : MonoBehaviour
         if (DevaEnergyBarUI.Instance != null)
         {
             DevaEnergyBarUI.Instance.UpdateEnergyBar(currentEnergy);
+        }
+        currentMana = maxMana;
+
+        if (DevaManaBarUI.Instance != null)
+        {
+            DevaManaBarUI.Instance.UpdateManaBar(currentMana);
         }
     }
 
@@ -116,9 +123,14 @@ public class DevaStats : MonoBehaviour
             maxHealth += 10;
             currentHealth = maxHealth;
             statPoints--;
+
+            //  체력 UI에도 반영
+            if (DevaHealthBarUI.Instance != null)
+            {
+                DevaHealthBarUI.Instance.UpdateMaxHealth(maxHealth);
+            }
         }
     }
-
     public void IncreaseEnergy()
     {
         if (statPoints > 0)
@@ -128,7 +140,7 @@ public class DevaStats : MonoBehaviour
             statPoints--;
             if (DevaEnergyBarUI.Instance != null)
             {
-                DevaEnergyBarUI.Instance.RefreshFromDevaStats(); // 전체 동기화
+                DevaEnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy); ; // 전체 동기화
             }
         }
     }
@@ -163,4 +175,49 @@ public class DevaStats : MonoBehaviour
 
         }
     }
+    public void ReduceMana(int amount)
+    {
+        currentMana -= amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+
+        if (DevaManaBarUI.Instance != null)
+            DevaManaBarUI.Instance.UpdateManaBar(currentMana);
+    }
+
+    public void RecoverMana(int amount)
+    {
+        currentMana += amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+
+        if (DevaManaBarUI.Instance != null)
+            DevaManaBarUI.Instance.UpdateManaBar(currentMana);
+    }
+
+    public bool HasEnoughMana(int amount)
+    {
+        return currentMana >= amount;
+    }
+
+    public void SetCurrentMana(int amount)
+    {
+        currentMana = Mathf.Clamp(amount, 0, maxMana);
+
+        if (DevaManaBarUI.Instance != null)
+            DevaManaBarUI.Instance.UpdateManaBar(currentMana);
+    }
+    public void IncreaseMaxMana()
+    {
+        if (statPoints > 0)
+        {
+            maxMana += 10;
+            currentMana = maxMana;
+            statPoints--;
+
+            if (DevaManaBarUI.Instance != null)
+            {
+                DevaManaBarUI.Instance.UpdateMaxMana(maxMana);
+            }
+        }
+    }
+
 }

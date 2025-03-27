@@ -39,7 +39,10 @@ public class AdamMovement : MonoBehaviour
     public LayerMask islayer;
 
     public bool isAttacking = false;
-    public bool isInvincible { get; private set; }
+    public bool isInvincible { get; set; }
+
+
+    public BladeExhaustSkill bladeSkill;
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -51,6 +54,11 @@ public class AdamMovement : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (bladeSkill != null)
+                bladeSkill.StartBladeSlash();
+        }
 
         // 현재 애니메이션 상태 확인
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
@@ -278,7 +286,7 @@ public class AdamMovement : MonoBehaviour
         attackInputRecently = false; // 공격 입력 상태 초기화
     }
 
-    void StopMovement()
+    public void  StopMovement()
     {
         AdamRigidebody.velocity = Vector2.zero; // 이동 차단
         currentSpeed = 0f; //  남아있는 이동 속도 제거
@@ -366,8 +374,41 @@ public class AdamMovement : MonoBehaviour
             Destroy(img);
         }
     }
+    [Header("텔레포트 거리")]
+    public float slashTeleportDistance = 2.5f;
 
+    public void PerformSlashTeleport()
+    {
+        float direction = AdamSprite.flipX ? -1f : 1f;
+        Vector2 newPosition = new Vector2(transform.position.x + slashTeleportDistance * direction, transform.position.y);
+        transform.position = newPosition;
+    }
 
+    [Header("스킬 먼지 이펙트")]
+    public GameObject dustEffectPrefab;
+    public Transform dustSpawnPoint;
+    public void SpawnDustBeforeTeleport()
+    {
+        if (dustEffectPrefab != null && dustSpawnPoint != null)
+        {
+            Vector2 spawnPosition = dustSpawnPoint.position;
+
+            if (AdamSprite != null && AdamSprite.flipX)
+            {
+                float offsetX = dustSpawnPoint.position.x - transform.position.x;
+                spawnPosition.x = transform.position.x - offsetX;
+            }
+
+            GameObject dust = Instantiate(dustEffectPrefab, spawnPosition, Quaternion.identity);
+            Destroy(dust, 0.7f);
+
+            SpriteRenderer dustSprite = dust.GetComponent<SpriteRenderer>();
+            if (dustSprite != null)
+            {
+                dustSprite.flipX = AdamSprite != null && AdamSprite.flipX;
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
         if (JumpPos != null)

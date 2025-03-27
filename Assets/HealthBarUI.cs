@@ -4,51 +4,39 @@ using DG.Tweening;
 
 public class HealthBarUI : MonoBehaviour
 {
-    public static HealthBarUI Instance; //  ? 싱글톤 적용
+    public static HealthBarUI Instance;
 
-    public Image healthBarFill;   // ? 실시간 체력 바 (빨간색)
-    public Image healthBarBack;   // ? 딜레이 감소 바 (노란색)
-    public Image healthBarBorder; // ? HP 테두리 이미지
+    public Image healthBarFill;
+    public Image healthBarBack;
+    public Image healthBarBorder;
 
+    [SerializeField] private float baseWidth = 200f; // ← 디자이너 기준 너비 (HP 100일 때)
     private float maxHealth;
-    private float initialWidth; // ? 초기 HP바 크기 저장
 
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
     public void Initialize(float maxHP)
     {
         maxHealth = maxHP;
-        initialWidth = healthBarFill.rectTransform.sizeDelta.x; // ? 초기 크기 저장
+        ExpandHealthBar(maxHealth); // 초기화 시에도 너비 맞추기
         UpdateHealthBar(maxHP, false);
-        UpdateHealthBarSize(); // ? 체력바 크기 업데이트
     }
 
     public void UpdateHealthBar(float currentHealth, bool animate = true)
     {
         float healthRatio = currentHealth / maxHealth;
 
-        // ? HP바 크기를 직접 조정하여 체력이 증가할 때 확장
-        float newWidth = initialWidth * (maxHealth / 100f); // ? 초기 크기 대비 증가율 계산
+        healthBarFill.DOKill();
+        healthBarBack.DOKill();
 
-        healthBarFill.rectTransform.DOSizeDelta(new Vector2(newWidth, healthBarFill.rectTransform.sizeDelta.y), 0.5f)
-            .SetEase(Ease.OutQuad);
-
-        // ? 테두리도 HP 바와 동기화하여 크기 조정
-        healthBarBorder.rectTransform.DOSizeDelta(new Vector2(newWidth, healthBarBorder.rectTransform.sizeDelta.y), 0.5f)
-            .SetEase(Ease.OutQuad);
-
-        // ? 실시간 체력 반영
         healthBarFill.fillAmount = healthRatio;
+
         if (animate)
         {
             healthBarBack.DOFillAmount(healthRatio, 0.6f).SetEase(Ease.OutQuad);
@@ -59,25 +47,31 @@ public class HealthBarUI : MonoBehaviour
         }
     }
 
-    // ? 최대 체력 증가 시 HP 바 크기 확장
     public void UpdateMaxHealth(float newMaxHealth)
     {
         maxHealth = newMaxHealth;
+        ExpandHealthBar(maxHealth);
         UpdateHealthBar(PlayerStats.Instance.currentHealth, false);
-        UpdateHealthBarSize(); // ? 테두리 크기 업데이트
     }
 
-    // ? HP 테두리를 늘려서 최대 체력 증가 반영
-    private void UpdateHealthBarSize()
+    private void ExpandHealthBar(float maxHP)
     {
-        if (healthBarBorder == null || healthBarFill == null) return;
+        float ratio = maxHP / 100f; // 100을 기준으로 확장
+        float targetWidth = baseWidth * ratio;
 
-        float newWidth = initialWidth * (maxHealth / 100f); // ? HP바 크기 기준 확장
+        healthBarFill.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, healthBarFill.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
 
-        healthBarBorder.rectTransform.DOSizeDelta(new Vector2(newWidth, healthBarBorder.rectTransform.sizeDelta.y), 0.5f)
-            .SetEase(Ease.OutQuad);
+        healthBarBack.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, healthBarBack.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
 
-        healthBarFill.rectTransform.DOSizeDelta(new Vector2(newWidth, healthBarFill.rectTransform.sizeDelta.y), 0.5f)
-            .SetEase(Ease.OutQuad);
+        healthBarBorder.rectTransform.DOSizeDelta(
+            new Vector2(targetWidth, healthBarBorder.rectTransform.sizeDelta.y),
+            0.5f
+        ).SetEase(Ease.OutCubic);
     }
 }
