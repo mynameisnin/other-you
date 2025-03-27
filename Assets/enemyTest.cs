@@ -166,23 +166,26 @@ public class enemyTest : MonoBehaviour
 
 
     //  넉백 처리
-    private void Knockback(Transform attacker)
+private void Knockback(Transform attacker)
+{
+    if (rb == null || attacker == null) return;
+
+    float dir = Mathf.Sign(transform.position.x - attacker.position.x);
+    if (dir == 0) dir = Random.Range(0, 2) == 0 ? -1f : 1f;
+
+    float finalKnockback = knockbackForce;
+
+    if (attacker.CompareTag("AdamSkill"))
     {
-        if (rb == null || attacker == null) return;
-
-        float dir = Mathf.Sign(transform.position.x - attacker.position.x);
-        if (dir == 0) dir = Random.Range(0, 2) == 0 ? -1f : 1f; // 너무 가까우면 랜덤
-
-        float finalKnockback = knockbackForce;
-
-        //  만약 데바의 스킬이면 넉백을 별도로 조정하고 싶다면 여기서 조절
-        if (attacker.CompareTag("DevaSkill"))
-        {
-            finalKnockback *= 0.6f; // ← 예: 살짝 약하게
-        }
-
-        rb.velocity = new Vector2(finalKnockback * dir, rb.velocity.y + 1f);
+        finalKnockback *= 0.6f;
     }
+    else if (attacker.CompareTag("DevaSkill"))
+    {
+        finalKnockback *= 0.6f;
+    }
+
+    rb.velocity = new Vector2(finalKnockback * dir, rb.velocity.y + 1f);
+}
 
 
 
@@ -192,7 +195,9 @@ public class enemyTest : MonoBehaviour
         if (isDying) yield break;
         isDying = true;
 
-        // 경험치 지급: 누가 처치했는지에 따라 분기
+        ShowBloodEffect(); // ?? 여기서 딱 한 번만 실행!
+
+        // 경험치 지급
         if (fromAdam && PlayerExperience.Instance != null)
         {
             PlayerExperience.Instance.GainXP(xpReward);
@@ -202,7 +207,7 @@ public class enemyTest : MonoBehaviour
             DevaExperience.Instance.GainXP(xpReward);
         }
 
-        // 물리 비활성화 + 정지
+        // 물리 정지
         if (rb != null)
         {
             rb.velocity = Vector2.zero;
@@ -213,10 +218,11 @@ public class enemyTest : MonoBehaviour
         // 충돌 비활성화
         if (col != null) col.enabled = false;
 
-        // 애니메이션 재생
+        // 죽음 애니메이션
         TestAnime.SetTrigger("Die");
 
         yield return new WaitForSeconds(0.6f);
         Destroy(gameObject);
     }
+
 }

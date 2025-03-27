@@ -19,14 +19,12 @@ public class BladeExhaustSkill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isSlashing) return;
-        if (other.CompareTag(targetTag))
+        Debug.Log("Triggered with: " + other.name); // 이 로그가 찍히는지 테스트
+        enemyTest enemy = other.GetComponent<enemyTest>();
+        if (enemy != null)
         {
-            enemyTest enemy = other.GetComponent<enemyTest>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage, fromAdam, fromDeba, transform);
-            }
+            Debug.Log("Hit enemy with Blade Slash!");
+            enemy.TakeDamage(damage, fromAdam, fromDeba, transform.root);
         }
     }
 
