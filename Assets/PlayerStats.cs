@@ -35,18 +35,19 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth; // 여기만 초기화
+        currentHealth = maxHealth;
         currentEnergy = maxEnergy;
 
+        currentMana = maxMana; //  마나도 최대치로 초기화
+
         if (HurtPlayer.Instance != null)
-        {
             HurtPlayer.Instance.UpdateHealthUI();
-        }
-        currentEnergy = maxEnergy;
+
         if (EnergyBarUI.Instance != null)
-        {
             EnergyBarUI.Instance.RefreshFromPlayerStats();
-        }
+
+        if (ManaBarUI.Instance != null)
+            ManaBarUI.Instance.UpdateManaBar(currentMana); //  마나 UI 초기화
     }
 
 
@@ -199,6 +200,45 @@ public class PlayerStats : MonoBehaviour
     {
         currentEnergy = Mathf.Clamp(amount, 0, maxEnergy);
         EnergyBarUI.Instance?.RefreshFromPlayerStats(); //  UI에 직접 값 전달하지 않고 동기화 요청만
+    }
+    public int maxMana = 100;
+    public int currentMana;
+
+    public void ReduceMana(int amount)
+    {
+        currentMana -= amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+        ManaBarUI.Instance?.UpdateManaBar(currentMana);
+    }
+
+    public void RecoverMana(int amount)
+    {
+        currentMana += amount;
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+        ManaBarUI.Instance?.UpdateManaBar(currentMana);
+    }
+
+    public bool HasEnoughMana(int amount)
+    {
+        return currentMana >= amount;
+    }
+
+    public void SetCurrentMana(int amount)
+    {
+        currentMana = Mathf.Clamp(amount, 0, maxMana);
+        ManaBarUI.Instance?.UpdateManaBar(currentMana);
+    }
+
+    public void IncreaseMaxMana()
+    {
+        if (statPoints > 0)
+        {
+            maxMana += 10;
+            currentMana = maxMana;
+            statPoints--;
+
+            ManaBarUI.Instance?.UpdateMaxMana(maxMana);
+        }
     }
 
 }

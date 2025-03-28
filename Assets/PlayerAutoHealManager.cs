@@ -64,6 +64,7 @@ public class PlayerAutoHealManager : MonoBehaviour
 
             if (statsObj is PlayerStats player)
             {
+                // 체력 회복
                 if (player.currentHealth < player.maxHealth)
                 {
                     player.currentHealth += Mathf.RoundToInt(healthHealRate);
@@ -71,7 +72,18 @@ public class PlayerAutoHealManager : MonoBehaviour
                     HurtPlayer.Instance?.UpdateHealthUI();
                     isFullyHealed = false;
                 }
+
+                // 마나 회복 추가
+                if (player.currentMana < player.maxMana)
+                {
+                    player.currentMana += Mathf.RoundToInt(manaHealRate);
+                    player.currentMana = Mathf.Clamp(player.currentMana, 0, player.maxMana);
+                    ManaBarUI.Instance?.UpdateManaBar(player.currentMana); // ← 마나 UI 업데이트
+                    isFullyHealed = false;
+                }
             }
+
+        
             else if (statsObj is DevaStats deva)
             {
                 // 체력 회복
