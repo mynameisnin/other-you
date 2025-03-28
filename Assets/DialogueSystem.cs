@@ -45,6 +45,7 @@ public class DialogueSystem : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("[DialogueSystem] villageMovement 연결 상태: " + (villageMovement != null));
         UpdateIcon();
         if (playerIcon != null)
         {

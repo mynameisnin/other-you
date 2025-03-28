@@ -4,10 +4,10 @@ using UnityEngine;
 public class BladeExhaustSkill : MonoBehaviour
 {
     [Header("스킬 연결")]
-    public AdamMovement movement; // 메인 캐릭터 연결
-    public Animator animator;     // 캐릭터 애니메이터 연결
-    public Rigidbody2D rb;        // 캐릭터 리지드바디 연결
-    public SpriteRenderer sprite; // 캐릭터 방향 판단용
+    public AdamMovement movement;
+    public Animator animator;
+    public Rigidbody2D rb;
+    public SpriteRenderer sprite;
 
     [Header("데미지 관련")]
     public int damage = 35;
@@ -15,11 +15,17 @@ public class BladeExhaustSkill : MonoBehaviour
     public bool fromAdam = true;
     public bool fromDeba = false;
 
+    [Header("마나 소모 설정")]
+    public int manaCost = 20;
+
+    [Header("쿨타임 설정")]
+    public float cooldown = 4f;   // 쿨타임 지속 시간
+    private bool isOnCooldown = false;
+
     public bool isSlashing = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered with: " + other.name); // 이 로그가 찍히는지 테스트
         enemyTest enemy = other.GetComponent<enemyTest>();
         if (enemy != null)
         {
@@ -31,8 +37,30 @@ public class BladeExhaustSkill : MonoBehaviour
     public void StartBladeSlash()
     {
         if (movement == null || animator == null) return;
+
+        if (isOnCooldown)
+        {
+            Debug.Log("Blade Slash is on cooldown!");
+            return;
+        }
+
+        if (!PlayerStats.Instance.HasEnoughMana(manaCost))
+        {
+            Debug.Log("Not enough mana to use Blade Slash!");
+
+            //  마나 부족 시 테두리 효과
+            if (ManaBarUI.Instance != null)
+                ManaBarUI.Instance.FlashBorder();
+
+            return;
+        }
+
+        PlayerStats.Instance.ReduceMana(manaCost);
+
         StartCoroutine(SlashCoroutine());
+        StartCoroutine(CooldownRoutine()); // 쿨타임 시작
     }
+
 
     private IEnumerator SlashCoroutine()
     {
@@ -52,5 +80,12 @@ public class BladeExhaustSkill : MonoBehaviour
 
         isSlashing = false;
         movement.isInvincible = false;
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        isOnCooldown = true;
+        yield return new WaitForSeconds(cooldown);
+        isOnCooldown = false;
     }
 }
