@@ -47,6 +47,11 @@ public class BladeExhaustSkill : MonoBehaviour
         if (!PlayerStats.Instance.HasEnoughMana(manaCost))
         {
             Debug.Log("Not enough mana to use Blade Slash!");
+
+            //  마나 부족 시 테두리 효과
+            if (ManaBarUI.Instance != null)
+                ManaBarUI.Instance.FlashBorder();
+
             return;
         }
 
@@ -55,6 +60,7 @@ public class BladeExhaustSkill : MonoBehaviour
         StartCoroutine(SlashCoroutine());
         StartCoroutine(CooldownRoutine()); // 쿨타임 시작
     }
+
 
     private IEnumerator SlashCoroutine()
     {
