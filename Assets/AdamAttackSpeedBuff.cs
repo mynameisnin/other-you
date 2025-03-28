@@ -4,7 +4,7 @@ using UnityEngine;
 public class AdamAttackSpeedBuff : MonoBehaviour
 {
     [Header("Buff Settings")]
-    public float attackSpeedMultiplier = 1.5f;
+    public float attackSpeedMultiplier = 1.5f; // 1.5배 빠르게
     public float buffDuration = 5f;
     public int manaCost = 20;
 
@@ -21,13 +21,8 @@ public class AdamAttackSpeedBuff : MonoBehaviour
     {
         adamMovement = GetComponent<AdamMovement>();
         adamAnimator = GetComponent<Animator>();
-
-        // ? Animator 파라미터 초기화 (중요!)
-        if (adamAnimator != null)
-        {
-            adamAnimator.SetFloat("attackSpeedMultiplier", 1f);
-        }
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -65,10 +60,11 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         // 기존 값 저장
         float originalAttackDelay = adamMovement.attackInputCooldown;
+        float originalAnimatorSpeed = adamAnimator.speed;
 
-        // 적용
-        adamMovement.attackInputCooldown *= 1f / attackSpeedMultiplier;
-        adamAnimator.SetFloat("attackSpeedMultiplier", attackSpeedMultiplier); // ? 애니메이터 파라미터로 조절
+        // 버프 적용
+        adamMovement.attackInputCooldown *= 1f / attackSpeedMultiplier; // 입력 간격 줄이기
+        adamAnimator.speed = attackSpeedMultiplier; // 애니메이션 속도 증가
 
         if (buffEffect != null)
             buffEffect.SetActive(true);
@@ -79,7 +75,7 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         // 복원
         adamMovement.attackInputCooldown = originalAttackDelay;
-        adamAnimator.SetFloat("attackSpeedMultiplier", 1f);
+        adamAnimator.speed = originalAnimatorSpeed;
 
         if (buffEffect != null)
             buffEffect.SetActive(false);
