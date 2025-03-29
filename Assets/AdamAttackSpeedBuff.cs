@@ -16,7 +16,7 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
     private AdamMovement adamMovement;
     private Animator adamAnimator;
-
+    public SkillCooldownUI skillCooldownUI; // 인스펙터 연결
     void Start()
     {
         adamMovement = GetComponent<AdamMovement>();
