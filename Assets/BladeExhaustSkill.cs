@@ -19,8 +19,11 @@ public class BladeExhaustSkill : MonoBehaviour
     public int manaCost = 20;
 
     [Header("쿨타임 설정")]
-    public float cooldown = 4f;   // 쿨타임 지속 시간
+    public float cooldown = 4f; // 쿨타임 지속 시간
     private bool isOnCooldown = false;
+
+    [Header("UI 연결")]
+    public SkillCooldownUI skillCooldownUI; // ← SkillCooldownUI 연결
 
     public bool isSlashing = false;
 
@@ -47,20 +50,19 @@ public class BladeExhaustSkill : MonoBehaviour
         if (!PlayerStats.Instance.HasEnoughMana(manaCost))
         {
             Debug.Log("Not enough mana to use Blade Slash!");
-
-            //  마나 부족 시 테두리 효과
-            if (ManaBarUI.Instance != null)
-                ManaBarUI.Instance.FlashBorder();
-
+            ManaBarUI.Instance?.FlashBorder(); // 마나 부족 시 경고
             return;
         }
 
         PlayerStats.Instance.ReduceMana(manaCost);
 
         StartCoroutine(SlashCoroutine());
-        StartCoroutine(CooldownRoutine()); // 쿨타임 시작
-    }
+        StartCoroutine(CooldownRoutine());
 
+        //  UI에 쿨타임 알림
+        if (skillCooldownUI != null)
+            skillCooldownUI.StartCooldown();
+    }
 
     private IEnumerator SlashCoroutine()
     {

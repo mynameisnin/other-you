@@ -48,6 +48,10 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         PlayerStats.Instance.ReduceMana(manaCost);
 
+        // 쿨타임 UI 시작
+        if (skillCooldownUI != null)
+            skillCooldownUI.StartCooldown();
+
         if (buffCoroutine != null)
             StopCoroutine(buffCoroutine);
 
