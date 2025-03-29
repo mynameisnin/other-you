@@ -90,4 +90,22 @@ public class BladeExhaustSkill : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         isOnCooldown = false;
     }
+    public Collider2D bladeCollider; // ← 인스펙터에서 연결
+
+    public void ResetSkillState()
+    {
+        isOnCooldown = false;
+        isSlashing = false;
+
+        StopAllCoroutines();
+
+        if (movement != null)
+            movement.isInvincible = false;
+
+        if (bladeCollider != null)
+            bladeCollider.enabled = false; //  콜라이더 강제 종료
+
+        Debug.Log("BladeExhaustSkill 상태 + 콜라이더 초기화 완료");
+    }
+
 }

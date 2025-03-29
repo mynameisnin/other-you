@@ -389,8 +389,23 @@ public class DebaraMovement : MonoBehaviour
 
     [SerializeField] private float laserManaCost = 40f; // 레이저 스킬 마나 소모량
 
+    [Header("UI 연결")]
+    public SkillCooldownUI laserCooldownUI; // 레이저 스킬 쿨타임 UI 연결
+
+    [Header("쿨타임 설정")]
+    public float laserCooldown = 6f; // 레이저 스킬 쿨타임 시간
+    private bool isLaserOnCooldown = false;
+
+
+
     public void CastLaserSkill()
     {
+        if (isLaserOnCooldown)
+        {
+            Debug.Log("레이저 스킬 쿨타임 중");
+            return;
+        }
+
         if (!isGround)
         {
             Debug.Log("공중에서는 스킬 사용 불가");
@@ -401,13 +416,28 @@ public class DebaraMovement : MonoBehaviour
         {
             Debug.Log("마나 부족!");
             if (DevaManaBarUI.Instance != null)
-                DevaManaBarUI.Instance.FlashBorder(); // UI 경고 효과
+                DevaManaBarUI.Instance.FlashBorder();
             return;
         }
 
-        DevaStats.Instance.ReduceMana((int)laserManaCost); // 마나 차감
+        // 마나 소모
+        DevaStats.Instance.ReduceMana((int)laserManaCost);
+
+        // 쿨타임 시작
+        isLaserOnCooldown = true;
+        StartCoroutine(LaserCooldownRoutine());
+        if (laserCooldownUI != null)
+            laserCooldownUI.cooldownTime = laserCooldown;
+        laserCooldownUI.StartCooldown();
+
         DebaraAnime.Play("Cast1");
         isAttacking = true;
+    }
+
+    private IEnumerator LaserCooldownRoutine()
+    {
+        yield return new WaitForSeconds(laserCooldown);
+        isLaserOnCooldown = false;
     }
 
     [SerializeField] private float offsetX = 0.5f;
@@ -459,4 +489,25 @@ public class DebaraMovement : MonoBehaviour
     {
         isAttacking = false;
     }
+    public void ResetLaserSkill()
+    {
+        isLaserOnCooldown = false;
+        isAttacking = false;
+        StopAllCoroutines(); // 레이저 코루틴 정지
+
+        if (laserCooldownUI != null)
+        {
+            // FillAmount 즉시 초기화
+            laserCooldownUI.cooldownTime = 0f;
+        }
+
+        if (DebaraAnime != null && gameObject.activeInHierarchy)
+        {
+            DebaraAnime.ResetTrigger("Cast1");
+            DebaraAnime.Play("DevaIdle");
+        }
+
+        Debug.Log("Deba 레이저 스킬 상태 초기화 완료");
+    }
+
 }

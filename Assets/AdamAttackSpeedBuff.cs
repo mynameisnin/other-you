@@ -17,14 +17,26 @@ public class AdamAttackSpeedBuff : MonoBehaviour
     private AdamMovement adamMovement;
     private Animator adamAnimator;
     public SkillCooldownUI skillCooldownUI; // 인스펙터 연결
+
+    // 복원용 저장
+    private float originalAttackDelay;
+    private float originalAnimatorSpeed;
+    [Header("Cooldown Settings")]
+    public float cooldownDuration = 5f;
+    private float cooldownTimer = 0f;
     void Start()
     {
         adamMovement = GetComponent<AdamMovement>();
         adamAnimator = GetComponent<Animator>();
+        originalAttackDelay = adamMovement.attackInputCooldown;
+        originalAnimatorSpeed = adamAnimator.speed;
     }
 
     void Update()
     {
+        if (cooldownTimer > 0f)
+            cooldownTimer -= Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             TryActivateBuff();
@@ -39,6 +51,13 @@ public class AdamAttackSpeedBuff : MonoBehaviour
             return;
         }
 
+        // ? 쿨타임 중이면 실행 금지
+        if (cooldownTimer > 0f)
+        {
+            Debug.Log("쿨타임 중입니다!");
+            return;
+        }
+
         if (!PlayerStats.Instance.HasEnoughMana(manaCost))
         {
             Debug.Log("마나 부족");
@@ -48,7 +67,9 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         PlayerStats.Instance.ReduceMana(manaCost);
 
-        // 쿨타임 UI 시작
+        //  쿨타임 시작
+        cooldownTimer = cooldownDuration;
+
         if (skillCooldownUI != null)
             skillCooldownUI.StartCooldown();
 
@@ -58,17 +79,18 @@ public class AdamAttackSpeedBuff : MonoBehaviour
         buffCoroutine = StartCoroutine(ApplyBuff());
     }
 
+
     private IEnumerator ApplyBuff()
     {
         isBuffActive = true;
 
         // 기존 값 저장
-        float originalAttackDelay = adamMovement.attackInputCooldown;
-        float originalAnimatorSpeed = adamAnimator.speed;
+        originalAttackDelay = adamMovement.attackInputCooldown;
+        originalAnimatorSpeed = adamAnimator.speed;
 
         // 버프 적용
-        adamMovement.attackInputCooldown *= 1f / attackSpeedMultiplier; // 입력 간격 줄이기
-        adamAnimator.speed = attackSpeedMultiplier; // 애니메이션 속도 증가
+        adamMovement.attackInputCooldown *= 1f / attackSpeedMultiplier;
+        adamAnimator.speed = attackSpeedMultiplier;
 
         if (buffEffect != null)
             buffEffect.SetActive(true);
@@ -77,14 +99,32 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         yield return new WaitForSeconds(buffDuration);
 
-        // 복원
-        adamMovement.attackInputCooldown = originalAttackDelay;
-        adamAnimator.speed = originalAnimatorSpeed;
+        ResetSkillState();
+    }
+
+    /// <summary>
+    /// 스위칭 시 외부에서 호출하여 스킬 상태를 초기화
+    /// </summary>
+    public void ResetSkillState()
+    {
+        isBuffActive = false;
+
+        // 원래 속도로 복원
+        if (adamMovement != null)
+            adamMovement.attackInputCooldown = originalAttackDelay;
+
+        if (adamAnimator != null)
+            adamAnimator.speed = originalAnimatorSpeed;
 
         if (buffEffect != null)
             buffEffect.SetActive(false);
 
-        isBuffActive = false;
-        Debug.Log("? 공격 속도 버프 종료");
+        if (buffCoroutine != null)
+        {
+            StopCoroutine(buffCoroutine);
+            buffCoroutine = null;
+        }
+
+        Debug.Log(" Adam 공격속도 버프 상태 초기화됨");
     }
 }
