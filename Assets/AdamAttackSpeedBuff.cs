@@ -35,7 +35,8 @@ public class AdamAttackSpeedBuff : MonoBehaviour
     void Update()
     {
         if (cooldownTimer > 0f)
-            cooldownTimer -= Time.deltaTime;
+            Debug.Log($" [쿨타임 진행 중] 남은 시간: {cooldownTimer:F2}초");
+        cooldownTimer -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Q))
         {

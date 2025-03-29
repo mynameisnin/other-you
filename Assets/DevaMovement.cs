@@ -75,7 +75,7 @@ public class DebaraMovement : MonoBehaviour
         DebaraAnimation();
         HandleFlip();
         HandleFall();
-        if (Input.GetKeyDown(KeyCode.F) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.X) && !isAttacking)
         {
             CastLaserSkill();
         }
@@ -235,7 +235,7 @@ public class DebaraMovement : MonoBehaviour
         attackInputRecently = false;
     }
 
-    void StopMovement()
+    public void StopMovement()
     {
         DebaraRigidbody.velocity = Vector2.zero;
         currentSpeed = 0f;
@@ -508,6 +508,13 @@ public class DebaraMovement : MonoBehaviour
         }
 
         Debug.Log("Deba 레이저 스킬 상태 초기화 완료");
+    }
+    [SerializeField] private DevaBigLaserSkill bigLaserSkill; // 인스펙터 연결
+
+    public void EndBigLaserFromAnimation()
+    {
+        if (bigLaserSkill != null)
+            bigLaserSkill.EndBigLaser();
     }
 
 }
