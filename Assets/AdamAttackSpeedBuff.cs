@@ -23,7 +23,8 @@ public class AdamAttackSpeedBuff : MonoBehaviour
     private float originalAnimatorSpeed;
     [Header("Cooldown Settings")]
     public float cooldownDuration = 5f;
-    private float cooldownTimer = 0f;
+
+    private float cooldownEndTime = 0f;
     void Start()
     {
         adamMovement = GetComponent<AdamMovement>();
@@ -34,9 +35,10 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
     void Update()
     {
-        if (cooldownTimer > 0f)
-            Debug.Log($" [쿨타임 진행 중] 남은 시간: {cooldownTimer:F2}초");
-        cooldownTimer -= Time.deltaTime;
+        float remaining = cooldownEndTime - Time.time;
+
+        if (remaining > 0f)
+            Debug.Log($"[쿨타임 진행 중] 남은 시간: {remaining:F2}초");
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -52,8 +54,8 @@ public class AdamAttackSpeedBuff : MonoBehaviour
             return;
         }
 
-        // ? 쿨타임 중이면 실행 금지
-        if (cooldownTimer > 0f)
+        // ? 쿨타임 확인 (Time.time 기준)
+        if (Time.time < cooldownEndTime)
         {
             Debug.Log("쿨타임 중입니다!");
             return;
@@ -68,8 +70,8 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         PlayerStats.Instance.ReduceMana(manaCost);
 
-        //  쿨타임 시작
-        cooldownTimer = cooldownDuration;
+        // ? 쿨타임 종료 시간 설정
+        cooldownEndTime = Time.time + cooldownDuration;
 
         if (skillCooldownUI != null)
             skillCooldownUI.StartCooldown();
@@ -79,6 +81,7 @@ public class AdamAttackSpeedBuff : MonoBehaviour
 
         buffCoroutine = StartCoroutine(ApplyBuff());
     }
+
 
 
     private IEnumerator ApplyBuff()
