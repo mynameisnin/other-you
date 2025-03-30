@@ -1,104 +1,100 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections; 
+using System.Collections.Generic; 
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour // 적의 이동 및 행동을 제어하는 스크립트
 {
-    private Animator enemyAnimator;
-    private Rigidbody2D rb;
+    private Animator enemyAnimator; // 애니메이터 컴포넌트 참조
+    private Rigidbody2D rb; // Rigidbody2D 컴포넌트 참조
 
-    public Transform player;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
-    public LayerMask playerLayer;
-    public LayerMask obstacleLayer;
-    public Transform attackBox; // 공격 박스 (Trigger Collider)
-    public float attackBoxSize = 1.5f;
+    public Transform player; // 플레이어 위치 참조
+    public Transform groundCheck; // 지면 체크 포인트
+    public LayerMask groundLayer; // 지면 레이어 설정
+    public LayerMask playerLayer; // 플레이어 레이어 설정
+    public LayerMask obstacleLayer; // 장애물 레이어 설정
+    public Transform attackBox; // 공격 판정 박스 위치
+    public float attackBoxSize = 1.5f; // 공격 범위 크기
 
-    [Header("Detection Settings")]
-    public float detectionRange = 5f;
-    public float attackRange = 1.5f;
-    public float speed = 3f;
-    public bool isFacingRight = true;
-    private bool isChasing = false;
-    private bool isAttacking = false;
-    private bool isTurning = false;
-    private bool isStunned = false; //  스턴 상태 변수 추가
+    [Header("Detection Settings")] // 인스펙터 구분용 헤더
+    public float detectionRange = 5f; // 플레이어 탐지 거리
+    public float attackRange = 1.5f; // 공격 가능 거리
+    public float speed = 3f; // 이동 속도
+    public bool isFacingRight = true; // 캐릭터가 오른쪽을 보고 있는지 여부
+    private bool isChasing = false; // 플레이어 추적 중인지 여부
+    private bool isAttacking = false; // 공격 중인지 여부
+    private bool isTurning = false; // 방향 전환 중인지 여부
+    private bool isStunned = false; // 스턴 상태 여부
 
-    private bool isPatrolling = true;
-    private float patrolTime = 2f;
-    private float patrolTimer = 0f;
-    private float patrolDirection = 1f; // -1이면 왼쪽, 1이면 오른쪽
-    public int attackDamage = 100; // 기본 공격 데미지
+    private bool isPatrolling = true; // 순찰 중인지 여부
+    private float patrolTime = 2f; // 순찰 시간 간격
+    private float patrolTimer = 0f; // 순찰 타이머
+    private float patrolDirection = 1f; // 순찰 방향 (1: 오른쪽, -1: 왼쪽)
+    public int attackDamage = 100; // 공격 데미지 값
 
-    private bool isBlocked = false; //  적이 앞에 막혀있는지 체크
+    private bool isBlocked = false; // 앞에 적이 있어 막혀 있는지 여부
 
-    public Collider2D frontCollider; //  태그 감지용 트리거 콜라이더
-
+    public Collider2D frontCollider; // 앞에 있는 콜라이더 (태그 감지용)
 
     public List<string> ignoreEnemyNames = new List<string>(); // 무시할 적 이름 리스트
     void Start()
     {
-        enemyAnimator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        patrolTimer = patrolTime;
-        FindPlayer();
+        enemyAnimator = GetComponent<Animator>(); // 애니메이터 초기화
+        rb = GetComponent<Rigidbody2D>(); // 리지드바디 초기화
+        patrolTimer = patrolTime; // 순찰 타이머 초기 설정
+        FindPlayer(); // 플레이어 객체 찾기
     }
 
     void Update()
     {
-      
-        if (isStunned || isBlocked) return; //  적이 막혀있으면 이동 X
+        if (isStunned || isBlocked) return; // 스턴 상태나 막혀 있으면 실행 중단
         if (!isAttacking && !isTurning)
         {
-            DetectPlayer();
+            DetectPlayer(); // 플레이어 감지 시도
         }
 
         if (isChasing && !isAttacking && !isTurning)
         {
-            ChasePlayer();
+            ChasePlayer(); // 추적 행동
         }
         else if (isPatrolling && !isAttacking && !isTurning)
         {
-            Patrol();
+            Patrol(); // 순찰 행동
         }
         if (player == null || !player.gameObject.activeInHierarchy)
         {
-            FindPlayer(); // 플레이어가 스위치되었거나 사라졌으면 다시 찾기
+            FindPlayer(); // 플레이어가 바뀌었거나 비활성화된 경우 다시 찾기
         }
     }
+
     void FindPlayer()
     {
-        GameObject adam = GameObject.FindGameObjectWithTag("AdamCamPosition");
-        GameObject deba = GameObject.FindGameObjectWithTag("DevaCamPosition");
+        GameObject adam = GameObject.FindGameObjectWithTag("AdamCamPosition"); // 아담 태그 찾기
+        GameObject deba = GameObject.FindGameObjectWithTag("DevaCamPosition"); // 데바 태그 찾기
 
         if (adam != null && adam.activeInHierarchy)
         {
-            player = adam.transform;
+            player = adam.transform; // 아담을 타겟으로 설정
         }
         else if (deba != null && deba.activeInHierarchy)
         {
-            player = deba.transform;
+            player = deba.transform; // 데바를 타겟으로 설정
         }
-
     }
-
 
     void DetectPlayer()
     {
-        // 스턴 상태에서는 플레이어 감지 중단
-        if (isStunned) return;
+        if (isStunned) return; // 스턴 상태이면 감지 중단
 
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, detectionRange, playerLayer);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, detectionRange, playerLayer);
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, detectionRange, playerLayer); // 오른쪽 감지
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, detectionRange, playerLayer); // 왼쪽 감지
 
         if (hitRight.collider != null)
         {
-            isChasing = true;
-            isPatrolling = false;
+            isChasing = true; // 추적 시작
+            isPatrolling = false; // 순찰 중지
             if (!isFacingRight)
             {
-                StartCoroutine(FlipAndTurn());
+                StartCoroutine(FlipAndTurn()); // 방향 전환
             }
         }
         else if (hitLeft.collider != null)
@@ -111,133 +107,130 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
+
     void ChasePlayer()
     {
-        if (player == null || isBlocked) return; //  앞에 적이 있으면 이동 X
+        if (player == null || isBlocked) return; // 타겟 없음 또는 이동 차단 시 중단
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, player.position); // 플레이어와 거리 측정
 
         if (distance <= attackRange)
         {
-            StartCoroutine(Attack());
+            StartCoroutine(Attack()); // 공격 시작
         }
         else
         {
-            enemyAnimator.SetBool("isWalking", true);
-            Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            enemyAnimator.SetBool("isWalking", true); // 걷기 애니메이션 실행
+            Vector2 targetPosition = new Vector2(player.position.x, transform.position.y); // 수평 위치만 이동
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime); // 이동
 
             if ((player.position.x > transform.position.x && !isFacingRight) ||
                 (player.position.x < transform.position.x && isFacingRight))
             {
-                StartCoroutine(FlipAndTurn());
+                StartCoroutine(FlipAndTurn()); // 방향 전환 필요 시 실행
             }
         }
     }
 
-
     IEnumerator Attack()
     {
-        isAttacking = true;
-        enemyAnimator.SetBool("isWalking", false);
-        enemyAnimator.SetTrigger("Attack");
+        isAttacking = true; // 공격 상태 설정
+        enemyAnimator.SetBool("isWalking", false); // 걷기 중지
+        enemyAnimator.SetTrigger("Attack"); // 공격 트리거 실행
 
-        yield return new WaitForSeconds(0.1f); // 애니메이션 시작 대기
+        yield return new WaitForSeconds(0.1f); // 애니메이션 대기
 
-        // 공격 애니메이션이 끝날 때까지 대기
         while (enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            yield return null; // 한 프레임 대기
+            yield return null; // 공격 애니메이션 끝날 때까지 대기
         }
 
-        // 공격 애니메이션이 끝난 후, 플레이어가 아직 공격 범위 내에 있는지 확인
         if (!CheckPlayerInAttackRange())
         {
             Debug.Log("플레이어가 범위를 벗어났으므로 이동 재개");
-            isAttacking = false;
+            isAttacking = false; // 공격 종료
         }
         else
         {
             Debug.Log("플레이어가 범위 내에 있음, 다시 공격 가능");
-            StartCoroutine(Attack()); // 다음 공격 시작
+            StartCoroutine(Attack()); // 연속 공격
         }
     }
 
-    // 플레이어가 현재 공격 범위 내에 있는지 확인하는 함수
     bool CheckPlayerInAttackRange()
     {
-        // 스턴 상태에서는 공격 감지 중단
-        if (isStunned) return false;
+        if (isStunned) return false; // 스턴 시 공격 불가
 
-        Collider2D hit = Physics2D.OverlapCircle(attackBox.position, attackBoxSize, playerLayer);
-        return hit != null;
+        Collider2D hit = Physics2D.OverlapCircle(attackBox.position, attackBoxSize, playerLayer); // 공격 범위 확인
+        return hit != null; // 범위 내에 플레이어 있으면 true
     }
-
 
     void Patrol()
     {
-        patrolTimer -= Time.deltaTime;
+        patrolTimer -= Time.deltaTime; // 순찰 타이머 감소
 
         if (patrolTimer <= 0)
         {
-            patrolDirection *= -1f;
-            StartCoroutine(FlipAndTurn());
+            patrolDirection *= -1f; // 방향 반전
+            StartCoroutine(FlipAndTurn()); // 회전 애니메이션 실행
             patrolTimer = patrolTime;
-            patrolTimer = GetRandomPatrolTime(); // 무작위 타이머 설정
+            patrolTimer = GetRandomPatrolTime(); // 랜덤 시간 설정
         }
 
-        Vector2 patrolTarget = new Vector2(transform.position.x + patrolDirection * speed * Time.deltaTime, transform.position.y);
+        Vector2 patrolTarget = new Vector2(transform.position.x + patrolDirection * speed * Time.deltaTime, transform.position.y); // 이동할 위치 계산
 
         if (ObstacleInFront() || !GroundAhead())
         {
-            patrolDirection *= -1f;
-            StartCoroutine(FlipAndTurn());
-            patrolTimer = GetRandomPatrolTime(); // 무작위 타이머 재설정
+            patrolDirection *= -1f; // 반전
+            StartCoroutine(FlipAndTurn()); // 방향 전환
+            patrolTimer = GetRandomPatrolTime(); // 타이머 재설정
         }
 
-        transform.position = patrolTarget;
-        enemyAnimator.SetBool("isWalking", true);
+        transform.position = patrolTarget; // 이동
+        enemyAnimator.SetBool("isWalking", true); // 걷기 애니메이션
     }
+
     float GetRandomPatrolTime()
     {
-        return Random.Range(1.5f, 6f); // 1.5초 ~ 3.5초 사이의 랜덤한 값 반환
+        return Random.Range(1.5f, 6f); // 랜덤 순찰 시간 반환
     }
+
     public int GetDamage()
     {
-        return attackDamage;
+        return attackDamage; // 공격 데미지 반환
     }
+
     IEnumerator FlipAndTurn()
     {
-        isTurning = true;
-        Flip(); // 방향 즉시 전환
-        enemyAnimator.SetTrigger("Turn");
+        isTurning = true; // 방향 전환 중
+        Flip(); // 실제 방향 전환
+        enemyAnimator.SetTrigger("Turn"); // 회전 애니메이션
 
-        yield return new WaitForSeconds(0.5f); // Turn 애니메이션 지속 시간
+        yield return new WaitForSeconds(0.5f); // 애니메이션 대기
 
-        isTurning = false;
+        isTurning = false; // 전환 완료
     }
 
     bool ObstacleInFront()
     {
-        Vector2 direction = isFacingRight ? Vector2.right : Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 4f, obstacleLayer);
+        Vector2 direction = isFacingRight ? Vector2.right : Vector2.left; // 바라보는 방향 설정
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 4f, obstacleLayer); // 장애물 탐지
 
         if (hit.collider != null)
         {
-          
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.red; // 감지됨
         }
         else
         {
-      
-            Gizmos.color = Color.green;
+            Gizmos.color = Color.green; // 없음
         }
 
-        return hit.collider != null;
+        return hit.collider != null; // 장애물 여부 반환
     }
+
     bool GroundAhead()
     {
-        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 1f, groundLayer); // 지면 감지
         if (hit.collider != null)
         {
             Debug.Log("지면 감지됨: " + hit.collider.gameObject.name);
@@ -246,56 +239,54 @@ public class EnemyMovement : MonoBehaviour
         {
             Debug.Log("지면 없음");
         }
-        return hit.collider != null;
+        return hit.collider != null; // 지면 존재 여부 반환
     }
+
     public void CancelAttack()
     {
-        isAttacking = false;
-        enemyAnimator.ResetTrigger("Attack");
+        isAttacking = false; // 공격 취소
+        enemyAnimator.ResetTrigger("Attack"); // 공격 트리거 리셋
         enemyAnimator.SetTrigger("Parry"); // 패링 애니메이션 실행
         Debug.Log(" 적 공격이 패링됨! 패링 애니메이션 실행 및 스턴");
 
-        rb.velocity = Vector2.zero;
+        rb.velocity = Vector2.zero; // 이동 멈춤
 
-        StartCoroutine(StunCoroutine(3f)); // 3초간 스턴
+        StartCoroutine(StunCoroutine(3f)); // 3초 스턴
     }
 
     IEnumerator StunCoroutine(float stunDuration)
     {
-        isStunned = true; //  스턴 상태 활성화
+        isStunned = true; // 스턴 시작
         isChasing = false;
         isAttacking = false;
         isPatrolling = false;
 
-        enemyAnimator.SetBool("isWalking", false);
-        rb.velocity = Vector2.zero;
-        // X축 이동만 금지, Z축 회전은 유지
-        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        enemyAnimator.SetBool("isWalking", false); // 걷기 중지
+        rb.velocity = Vector2.zero; // 이동 정지
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation; // 이동 제한
 
-        yield return new WaitForSeconds(stunDuration);
+        yield return new WaitForSeconds(stunDuration); // 스턴 대기
 
-        isStunned = false; //  스턴 해제
+        isStunned = false; // 스턴 해제
         isChasing = true;
         isPatrolling = true;
 
-        // Z축 회전은 계속 고정하고 X축 이동만 풀어줌
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 이동 허용, 회전 고정
 
         Debug.Log(" 적 스턴 해제!");
     }
 
     void Flip()
     {
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0f, 180f, 0f);
+        isFacingRight = !isFacingRight; // 방향 토글
+        transform.Rotate(0f, 180f, 0f); // 시각적 회전
     }
-    //  적이 감지되면 플레이어와 가까운 적만 이동할 수 있도록 설정
+
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy")) // 다른 적 감지 시
         {
-            // 특정 이름의 적이면 무시하고 이동 가능
-            if (ignoreEnemyNames.Contains(other.gameObject.name))
+            if (ignoreEnemyNames.Contains(other.gameObject.name)) // 무시 대상이면 통과
             {
                 Debug.Log($"무시된 적 발견: {other.gameObject.name} -> 이동 가능");
                 isBlocked = false;
@@ -304,8 +295,8 @@ public class EnemyMovement : MonoBehaviour
 
             Debug.Log("앞에 적 감지됨!");
 
-            float myDistance = Vector2.Distance(transform.position, player.position);
-            float otherDistance = Vector2.Distance(other.transform.position, player.position);
+            float myDistance = Vector2.Distance(transform.position, player.position); // 내 거리
+            float otherDistance = Vector2.Distance(other.transform.position, player.position); // 상대 거리
 
             if (myDistance < otherDistance)
             {
@@ -322,26 +313,24 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    //  적이 사라지면 다시 이동 가능
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy")) // 적이 사라졌을 때
         {
             Debug.Log("앞에 있던 적이 사라짐! 이동 가능");
             isBlocked = false;
         }
     }
 
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackBox.position, attackBoxSize); // 공격 범위 표시
-        Gizmos.DrawRay(transform.position, Vector2.right * detectionRange);
-        Gizmos.DrawRay(transform.position, Vector2.left * detectionRange);
+        Gizmos.DrawWireSphere(attackBox.position, attackBoxSize); // 공격 범위 시각화
+        Gizmos.DrawRay(transform.position, Vector2.right * detectionRange); // 오른쪽 탐지 시각화
+        Gizmos.DrawRay(transform.position, Vector2.left * detectionRange); // 왼쪽 탐지 시각화
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(groundCheck.position, Vector2.down * 1f); // 지면 감지 Ray 확인
+        Gizmos.DrawRay(groundCheck.position, Vector2.down * 1f); // 지면 감지 시각화
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, isFacingRight ? Vector2.right * 1f : Vector2.left * 1f); // 장애물 감지 기즈모
+        Gizmos.DrawRay(transform.position, isFacingRight ? Vector2.right * 1f : Vector2.left * 1f); // 장애물 감지 시각화
     }
 }
