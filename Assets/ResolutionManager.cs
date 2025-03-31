@@ -1,12 +1,13 @@
 using UnityEngine;
-using TMPro; // TextMeshPro 네임스페이스 추가
+using TMPro;
 using UnityEngine.UI;
 
 public class ResolutionManager : MonoBehaviour
 {
-    public TMP_Text resolutionText; // TMP_Text로 변경
+    public TMP_Text resolutionText;  // TMP 텍스트 사용
     public Button prevButton;
     public Button nextButton;
+    public Toggle fullscreenToggle;  // 체크박스 (전체화면 토글)
 
     private Resolution[] resolutions;
     private int currentIndex = 0;
@@ -19,6 +20,10 @@ public class ResolutionManager : MonoBehaviour
 
         prevButton.onClick.AddListener(() => ChangeResolution(-1));
         nextButton.onClick.AddListener(() => ChangeResolution(1));
+        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);  // 체크박스 이벤트 추가
+
+        // 현재 전체화면 상태 반영
+        fullscreenToggle.isOn = Screen.fullScreen;
     }
 
     void ChangeResolution(int direction)
@@ -32,6 +37,11 @@ public class ResolutionManager : MonoBehaviour
         Resolution res = resolutions[currentIndex];
         Screen.SetResolution(res.width, res.height, Screen.fullScreen);
         UpdateResolutionText();
+    }
+
+    void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
     }
 
     void UpdateResolutionText()
