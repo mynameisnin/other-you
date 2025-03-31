@@ -27,7 +27,7 @@ public class AdamMovement : MonoBehaviour
     [SerializeField] private float dashEnergyCost = 15f; //  대쉬 시 에너지 소모량
     [SerializeField] private float afterImageInterval = 0.02f;
     [SerializeField] private float afterImageLifetime = 1f; // 잔상 유지 시간
-    [SerializeField] private float attackInputCooldown = 0.2f; // 공격 후 대쉬 차단 시간
+    public float attackInputCooldown = 0.2f; // 공격 후 대쉬 차단 시간
     [SerializeField] private float dashAttackDuration = 0.3f; // 대쉬 공격 지속 시간
 
     public bool lastKeyWasRight = true;

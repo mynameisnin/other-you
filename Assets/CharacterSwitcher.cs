@@ -126,20 +126,40 @@ public class CharacterSwitcher : MonoBehaviour
         if (adamMovement != null)
         {
             adamMovement.ForceStopDash();
+            var buff = adamObject.GetComponent<AdamAttackSpeedBuff>();
+            buff?.ResetSkillState();
+            var bladeSkill = adamObject.GetComponentInChildren<BladeExhaustSkill>();
+            if (bladeSkill != null)
+                bladeSkill.ResetSkillState();
+            Rigidbody2D rb = adamObject.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
         }
 
         adamObject.SetActive(false);
     }
     void DeactivateDeba()
     {
-        // 공격 중이면 강제로 종료
         var debaMovement = debaObject.GetComponent<DebaraMovement>();
         if (debaMovement != null)
         {
             debaMovement.ForceEndAttack();
-            debaMovement.ForceCancelTeleport(); // 텔레포트 중이면 정리
+            debaMovement.ForceCancelTeleport();
+            debaMovement.ResetLaserSkill();
+
+            //  Deva의 Rigidbody 초기화
+            Rigidbody2D rb = debaObject.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
         }
 
         debaObject.SetActive(false);
     }
+
 }

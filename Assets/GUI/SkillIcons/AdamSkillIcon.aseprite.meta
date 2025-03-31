@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: df17ea20b7ccb2d418017222f5affbe7
+guid: a5cb83e03de9786468df76ee27ff265d
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: DevaStateImage 3_Frame_0
+  - name: AdamSkillIcon
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.53125, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 96
-      height: 74
-    spriteID: a0484b4925653a745876f43b48f9b2f2
+      width: 32
+      height: 62
+    spriteID: d63497c953d56d54d88bb62cf21e0435
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,23 +142,23 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 850096481
-    name: DevaStateImage 3
+    guid: -145168461
+    name: AdamSkillIcon
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: DevaStateImage 3
+    - name: AdamSkillIcon
       frameIndex: 0
       cellRect:
-        x: 0
+        x: 15
         y: 0
-        width: 96
-        height: 74
-      spriteId: a0484b4925653a745876f43b48f9b2f2
+        width: 32
+        height: 62
+      spriteId: d63497c953d56d54d88bb62cf21e0435
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 96, y: 74}
+  canvasSize: {x: 64, y: 64}
