@@ -54,6 +54,13 @@ public class AdamMovement : MonoBehaviour
 
     void Update()
     {
+        if (GetComponent<AdamUltimateSkill>()?.enabled == true &&
+       GetComponent<AdamUltimateSkill>().isActiveAndEnabled &&
+       GetComponent<AdamUltimateSkill>().isCasting)
+        {
+            StopMovement();
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (bladeSkill != null)
