@@ -47,7 +47,7 @@ public class AdamUltimateSkill : MonoBehaviour
         adamMovement.isInvincible = true;
         adamRigidbody.velocity = Vector2.zero;
         adamAnimator.SetTrigger("Ultimate");
-
+        
         // 이동, 대쉬, 공격 강제 중단
         adamMovement.ForceStopDash();
         adamMovement.StopMovement();

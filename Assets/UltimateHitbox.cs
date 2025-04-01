@@ -1,42 +1,39 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UltimateHitbox : MonoBehaviour
 {
     public int damageAmount = 50;
-    private HashSet<GameObject> hitEnemies = new HashSet<GameObject>();
+    public string targetTag = "Enemy";
+    public bool fromAdam = true;
+    public bool fromDeba = false;
+    public Transform attackerTransform; // 직접 설정해주는 공격자 위치
+    [Header("위치 설정 (반전 대응)")]
+    public Transform adamSprite;
 
-    [Header("반전 설정")]
-    public Transform adamSprite; // SpriteRenderer 있는 오브젝트 (flipX 참조용)
-    public Vector2 originalOffset = new Vector2(1.5f, 0f); // 오른쪽 위치 기준
+    public Vector2 offsetRight = new Vector2(1.5f, 0f);
+    public Vector2 offsetLeft = new Vector2(-1.5f, 0f);
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (adamSprite != null)
         {
-            // Sprite가 flipX 상태라면 왼쪽, 아니라면 오른쪽
             bool facingLeft = adamSprite.GetComponent<SpriteRenderer>().flipX;
-            Vector2 newOffset = facingLeft ? new Vector2(-originalOffset.x, originalOffset.y) : originalOffset;
-
-            transform.localPosition = newOffset;
+            Vector2 desiredOffset = facingLeft ? offsetLeft : offsetRight;
+            transform.localPosition = desiredOffset;
         }
     }
-    public void DealUltimateDamage()
-    {
-        hitEnemies.Clear(); // 매 타격마다 초기화해도 되고, 궁극기 전체 중에만 한 번 하게 해도 OK
 
-        Collider2D[] hitList = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f);
-        foreach (var hit in hitList)
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag(targetTag))
         {
-            if (hit.CompareTag("Enemy") && !hitEnemies.Contains(hit.gameObject))
+            enemyTest enemy = other.GetComponent<enemyTest>();
+            if (enemy != null)
             {
-                enemyTest enemy = hit.GetComponent<enemyTest>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(damageAmount, true, false, transform.root);
-                    hitEnemies.Add(hit.gameObject);
-                    Debug.Log("궁극기 타격 성공!");
-                }
+                Debug.Log("Hit enemy with Ultimate Skill!");
+                enemy.TakeDamage(damageAmount, fromAdam, fromDeba, attackerTransform); // ? 바뀐 부분
             }
         }
     }
