@@ -123,20 +123,29 @@ public class CharacterSwitcher : MonoBehaviour
     void DeactivateAdam()
     {
         var adamMovement = adamObject.GetComponent<AdamMovement>();
+        var ultimateSkill = adamObject.GetComponent<AdamUltimateSkill>(); // ?? ø©±‚ √ﬂ∞°!
+
         if (adamMovement != null)
         {
             adamMovement.ForceStopDash();
+
             var buff = adamObject.GetComponent<AdamAttackSpeedBuff>();
             buff?.ResetSkillState();
+
             var bladeSkill = adamObject.GetComponentInChildren<BladeExhaustSkill>();
-            if (bladeSkill != null)
-                bladeSkill.ResetSkillState();
+            bladeSkill?.ResetSkillState();
+
             Rigidbody2D rb = adamObject.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 rb.velocity = Vector2.zero;
                 rb.angularVelocity = 0f;
             }
+        }
+
+        if (ultimateSkill != null)
+        {
+            ultimateSkill.CancelUltimate(); // ?? ±√±ÿ±‚ √ ±‚»≠
         }
 
         adamObject.SetActive(false);

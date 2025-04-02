@@ -140,12 +140,14 @@ public class HurtPlayer : MonoBehaviour
         {
             // 플레이어가 무적 상태인지 확인
             AdamMovement playerMovement = GetComponent<AdamMovement>();
-            if (playerMovement != null && playerMovement.isInvincible)
+            AdamUltimateSkill ultimateSkill = GetComponent<AdamUltimateSkill>();
+
+            if ((playerMovement != null && playerMovement.isInvincible) ||
+                (ultimateSkill != null && ultimateSkill.isCasting))
             {
                 Debug.Log("무적 상태! 대미지 없음");
                 return; // 대미지 처리 안 함
             }
-
             // 0.5초 동안 추가 대미지를 받지 않도록 설정 (연속 공격 방지)
             EnemyDamageBumpAgainst damageTrigger = other.GetComponent<EnemyDamageBumpAgainst>();
             if (damageTrigger != null)

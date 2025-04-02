@@ -24,14 +24,15 @@ public class AdamUltimateSkill : MonoBehaviour
     {
         if (Input.GetKeyDown(ultimateKey) && !isCasting)
         {
-            if (PlayerStats.Instance.currentEnergy >= manaCost)
+            // 마나 확인
+            if (PlayerStats.Instance.HasEnoughMana((int)manaCost))
             {
                 StartCoroutine(CastUltimate());
             }
             else
             {
                 Debug.Log("궁극기 발동 실패: 마나 부족!");
-                EnergyBarUI.Instance.FlashBorder();
+                ManaBarUI.Instance?.FlashBorder(); // 마나 테두리 깜빡임 추가했다면 사용
             }
         }
     }
@@ -41,26 +42,36 @@ public class AdamUltimateSkill : MonoBehaviour
         isCasting = true;
 
         // 마나 차감
-   
+        PlayerStats.Instance.ReduceMana((int)manaCost);
 
         // 상태 설정
         adamMovement.isInvincible = true;
         adamRigidbody.velocity = Vector2.zero;
         adamAnimator.SetTrigger("Ultimate");
-        
-        // 이동, 대쉬, 공격 강제 중단
+
         adamMovement.ForceStopDash();
         adamMovement.StopMovement();
 
         Debug.Log("궁극기 발동!");
 
-        // 연출 타임 (애니메이션, 이펙트, 타격 처리 등은 여기서)
         yield return new WaitForSeconds(ultimateDuration);
 
-        // 상태 복원
         adamMovement.isInvincible = false;
         isCasting = false;
 
         Debug.Log("궁극기 종료");
+    }
+    public void CancelUltimate()
+    {
+        if (!isCasting) return;
+
+        Debug.Log("궁극기 강제 종료됨 (캐릭터 스위치)");
+
+        StopAllCoroutines(); // 궁극기 코루틴 종료
+        isCasting = false;
+        adamMovement.isInvincible = false;
+        adamMovement.ForceStopDash();
+        adamMovement.StopMovement();
+        adamAnimator.ResetTrigger("Ultimate");
     }
 }
