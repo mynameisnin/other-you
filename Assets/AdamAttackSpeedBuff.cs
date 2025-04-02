@@ -40,7 +40,7 @@ public class AdamAttackSpeedBuff : MonoBehaviour
         if (remaining > 0f)
             Debug.Log($"[쿨타임 진행 중] 남은 시간: {remaining:F2}초");
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             TryActivateBuff();
         }

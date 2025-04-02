@@ -144,14 +144,15 @@ public class CharacterSwitcher : MonoBehaviour
     void DeactivateDeba()
     {
         var debaMovement = debaObject.GetComponent<DebaraMovement>();
+        var debaCs = debaObject.GetComponent<DevaContinuousSkill>();
         if (debaMovement != null)
         {
             debaMovement.ForceEndAttack();
             debaMovement.ForceCancelTeleport();
             debaMovement.ResetLaserSkill();
-
-            //  Deva의 Rigidbody 초기화
-            Rigidbody2D rb = debaObject.GetComponent<Rigidbody2D>();
+            debaCs.ResetSkillState();
+             //  Deva의 Rigidbody 초기화
+             Rigidbody2D rb = debaObject.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 rb.velocity = Vector2.zero;
