@@ -34,10 +34,7 @@ public class CamZoomSystem : MonoBehaviour
         {
             target = playerObj.transform;
         }
-        else
-        {
-            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
-        }
+
     }
     public void ZoomIn()
     {

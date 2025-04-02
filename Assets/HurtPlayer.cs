@@ -89,10 +89,7 @@ public class HurtPlayer : MonoBehaviour
     {
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
 
-        if (cameraShake == null)
-        {
-            Debug.LogWarning("카메라에서 CameraShakeSystem 스크립트를 찾을 수 없습니다! 씬 전환 시 확인하세요.");
-        }
+
     }
     void Awake()
     {
