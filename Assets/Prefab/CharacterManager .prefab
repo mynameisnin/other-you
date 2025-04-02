@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 2187756597006422298}
   - component: {fileID: 4403209710085600394}
   - component: {fileID: 8045183784737627648}
+  - component: {fileID: 5403496683408758322}
   m_Layer: 9
   m_Name: Combobox3
   m_TagString: AdamSkill
@@ -462,10 +463,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760b8a1a76973ba4ba30a948be77d65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 50
+  damageAmount: 1
+  targetTag: Enemy
+  fromAdam: 1
+  fromDeba: 0
+  attackerTransform: {fileID: 7691187480303034659}
   adamSprite: {fileID: 7691187480303034659}
-  offsetRight: {x: 0.52, y: 0}
-  offsetLeft: {x: -1.99, y: 0}
+  offsetRight: {x: 0.52, y: 1.48}
+  offsetLeft: {x: -1.99, y: 1.48}
 --- !u!61 &8045183784737627648
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -511,6 +516,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.94202375, y: 0.82607174}
   m_EdgeRadius: 0
+--- !u!50 &5403496683408758322
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704666579774318187}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &732296592617966376
 GameObject:
   m_ObjectHideFlags: 0
@@ -4058,7 +4090,7 @@ GameObject:
   - component: {fileID: 1825600252877001562}
   - component: {fileID: 6954137268506853961}
   - component: {fileID: 3609437519103408271}
-  - component: {fileID: 2098788991181920314}
+  - component: {fileID: 379275810846310415}
   m_Layer: 6
   m_Name: Adam
   m_TagString: Player
@@ -4327,7 +4359,7 @@ MonoBehaviour:
   - {x: 0.088362895, y: -0.017408647, z: -0.000000039876966}
   m_ShapePathHash: -696285490
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1736
+  m_InstanceId: -39714
   m_LocalBounds:
     m_Center: {x: 0.006473869, y: -0.018493794, z: 0}
     m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
@@ -4466,7 +4498,7 @@ MonoBehaviour:
   buffEffect: {fileID: 956734276441616967}
   skillCooldownUI: {fileID: 220909764661686760}
   cooldownDuration: 5
---- !u!114 &2098788991181920314
+--- !u!114 &379275810846310415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6975,7 +7007,7 @@ MonoBehaviour:
   skillIcon: {fileID: 8790692829375689906}
   cooldownOverlay: {fileID: 7910795494427795049}
   glowEffect: {fileID: 7813337643925449935}
-  cooldownTime: 6
+  cooldownTime: 10
 --- !u!1 &5029882989086888020
 GameObject:
   m_ObjectHideFlags: 0
@@ -8472,7 +8504,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6089410348197248003}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -9195,6 +9227,7 @@ GameObject:
   - component: {fileID: 3930181894799898958}
   - component: {fileID: 7039570792436510873}
   - component: {fileID: 5112286954787954239}
+  - component: {fileID: 6090419130732264849}
   m_Layer: 9
   m_Name: ComboBox
   m_TagString: PlayerAttack
@@ -9284,6 +9317,33 @@ MonoBehaviour:
   leftSize: {x: 0.46, y: 0.496247}
   leftRotation: 19.7
   leftPosition: {x: -0.32, y: 0.16, z: 0}
+--- !u!50 &6090419130732264849
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951275390019056211}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7128972578182837375
 GameObject:
   m_ObjectHideFlags: 0
@@ -11456,6 +11516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a000dd5d2c68b34a90e2fef9ac4973f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackerTransform: {fileID: 1111092037276907636}
   damage: 2
 --- !u!114 &969051613566252132
 MonoBehaviour:
