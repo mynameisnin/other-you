@@ -6,11 +6,12 @@ public class AdamUltimateSkill : MonoBehaviour
     public float ultimateDuration = 1f;
     public float manaCost = 50f;
     public KeyCode ultimateKey = KeyCode.C;
-
+    public float cooldownDuration = 8f; // 예: 8초 쿨타임
+    private float cooldownEndTime = 0f;
     private AdamMovement adamMovement;
     private Animator adamAnimator;
     private Rigidbody2D adamRigidbody;
-
+    [SerializeField] private SkillCooldownUI ultimateCooldownUI; // 인스펙터 연결
     public bool isCasting = false;
 
     void Start()
@@ -24,7 +25,13 @@ public class AdamUltimateSkill : MonoBehaviour
     {
         if (Input.GetKeyDown(ultimateKey) && !isCasting)
         {
-            // 마나 확인
+            // 쿨타임 체크
+            if (Time.time < cooldownEndTime)
+            {
+                Debug.Log("궁극기 쿨타임 중");
+                return;
+            }
+
             if (PlayerStats.Instance.HasEnoughMana((int)manaCost))
             {
                 StartCoroutine(CastUltimate());
@@ -32,7 +39,7 @@ public class AdamUltimateSkill : MonoBehaviour
             else
             {
                 Debug.Log("궁극기 발동 실패: 마나 부족!");
-                ManaBarUI.Instance?.FlashBorder(); // 마나 테두리 깜빡임 추가했다면 사용
+                ManaBarUI.Instance?.FlashBorder();
             }
         }
     }
@@ -41,10 +48,8 @@ public class AdamUltimateSkill : MonoBehaviour
     {
         isCasting = true;
 
-        // 마나 차감
         PlayerStats.Instance.ReduceMana((int)manaCost);
 
-        // 상태 설정
         adamMovement.isInvincible = true;
         adamRigidbody.velocity = Vector2.zero;
         adamAnimator.SetTrigger("Ultimate");
@@ -59,6 +64,16 @@ public class AdamUltimateSkill : MonoBehaviour
         adamMovement.isInvincible = false;
         isCasting = false;
 
+        // 쿨타임 시작
+        cooldownEndTime = Time.time + cooldownDuration;
+        // 쿨타임 시작
+        cooldownEndTime = Time.time + cooldownDuration;
+
+        if (ultimateCooldownUI != null)
+        {
+            ultimateCooldownUI.cooldownTime = cooldownDuration;
+            ultimateCooldownUI.StartCooldown();
+        }
         Debug.Log("궁극기 종료");
     }
     public void CancelUltimate()

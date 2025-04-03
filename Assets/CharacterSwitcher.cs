@@ -124,7 +124,7 @@ public class CharacterSwitcher : MonoBehaviour
     {
         var adamMovement = adamObject.GetComponent<AdamMovement>();
         var ultimateSkill = adamObject.GetComponent<AdamUltimateSkill>(); // ?? ø©±‚ √ﬂ∞°!
-
+        var JumpAttack = adamObject.GetComponent<JumpAttack>();
         if (adamMovement != null)
         {
             adamMovement.ForceStopDash();
@@ -142,7 +142,10 @@ public class CharacterSwitcher : MonoBehaviour
                 rb.angularVelocity = 0f;
             }
         }
-
+        if (JumpAttack != null)
+        {
+            JumpAttack.ResetJumpAttackState();
+        }
         if (ultimateSkill != null)
         {
             ultimateSkill.CancelUltimate(); // ?? ±√±ÿ±‚ √ ±‚»≠
