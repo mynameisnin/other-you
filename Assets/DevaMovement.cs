@@ -395,12 +395,14 @@ public class DebaraMovement : MonoBehaviour
     [Header("쿨타임 설정")]
     public float laserCooldown = 6f; // 레이저 스킬 쿨타임 시간
     private bool isLaserOnCooldown = false;
+    private float laserCooldownEndTime = 0f;
 
 
 
     public void CastLaserSkill()
     {
-        if (isLaserOnCooldown)
+        // ? 쿨타임 체크는 Time.time 기준
+        if (Time.time < laserCooldownEndTime)
         {
             Debug.Log("레이저 스킬 쿨타임 중");
             return;
@@ -420,25 +422,24 @@ public class DebaraMovement : MonoBehaviour
             return;
         }
 
-        // 마나 소모
+        // 마나 차감
         DevaStats.Instance.ReduceMana((int)laserManaCost);
 
-        // 쿨타임 시작
-        isLaserOnCooldown = true;
-        StartCoroutine(LaserCooldownRoutine());
+        // 쿨타임 시작 (시간 설정)
+        laserCooldownEndTime = Time.time + laserCooldown;
+
         if (laserCooldownUI != null)
+        {
             laserCooldownUI.cooldownTime = laserCooldown;
-        laserCooldownUI.StartCooldown();
+            laserCooldownUI.StartCooldown(); // 기존대로
+        }
 
         DebaraAnime.Play("Cast1");
         isAttacking = true;
     }
 
-    private IEnumerator LaserCooldownRoutine()
-    {
-        yield return new WaitForSeconds(laserCooldown);
-        isLaserOnCooldown = false;
-    }
+
+
 
     [SerializeField] private float offsetX = 0.5f;
     [SerializeField] private float offsetY = 0f;
