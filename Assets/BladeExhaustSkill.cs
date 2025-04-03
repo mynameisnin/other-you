@@ -72,13 +72,10 @@ public class BladeExhaustSkill : MonoBehaviour
 
         animator.Play("AdamSlash", 0, 0);
 
-        float duration = 3f;
-        while (duration > 0f && animator.GetCurrentAnimatorStateInfo(0).IsName("AdamSlash"))
-        {
-            rb.velocity = Vector2.zero;
-            duration -= Time.deltaTime;
-            yield return null;
-        }
+        rb.velocity = Vector2.zero;
+
+        // 명확한 유지 시간 설정
+        yield return new WaitForSeconds(0.7f); // ← 이 시간 동안은 무조건 슬래시 상태 유지
 
         isSlashing = false;
         movement.isInvincible = false;

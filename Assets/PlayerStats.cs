@@ -20,6 +20,9 @@ public class PlayerStats : MonoBehaviour
     public int maxEnergy = 100; // ? 최대 에너지 추가
     public int currentEnergy;   // ? 현재 에너지 추가
 
+    public int maxMana = 100;
+    public int currentMana;
+
     [Header("Level Up Effect Settings")]
     public GameObject levelUpEffectPrefab; //  레벨업 이펙트 프리팹
     public Transform levelUpEffectPosition; // 이펙트를 생성할 위치 (Inspector에서 설정 가능)
@@ -37,8 +40,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentEnergy = maxEnergy;
-
-        currentMana = maxMana; //  마나도 최대치로 초기화
+        currentMana = maxMana; // 마나도 초기화
 
         if (HurtPlayer.Instance != null)
             HurtPlayer.Instance.UpdateHealthUI();
@@ -47,36 +49,25 @@ public class PlayerStats : MonoBehaviour
             EnergyBarUI.Instance.RefreshFromPlayerStats();
 
         if (ManaBarUI.Instance != null)
-            ManaBarUI.Instance.UpdateManaBar(currentMana); //  마나 UI 초기화
+            ManaBarUI.Instance.UpdateManaBar(currentMana);
     }
 
-
-    //  체력 회복 함수 추가
     public void Heal(int amount)
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-
-
         Debug.Log($"체력 회복! 현재 체력: {currentHealth} / {maxHealth}");
     }
 
-    //  PlayerExperience에서 호출하는 레벨업 함수
-    //  레벨업 처리
     public void LevelUp()
     {
         level++;
-        statPoints += 3; // ? 스탯 포인트 지급
-
+        statPoints += 3;
         Debug.Log($"레벨 업! 현재 레벨: {level}, 남은 스탯 포인트: {statPoints}");
 
-        //  경험치 필요량 업데이트
         if (PlayerExperience.Instance != null)
-        {
             experienceToNextLevel = PlayerExperience.Instance.xpToNextLevel;
-        }
-        // 레벨업 이펙트 실행
+
         PlayLevelUpEffect();
     }
 
@@ -85,25 +76,20 @@ public class PlayerStats : MonoBehaviour
         if (levelUpEffectPrefab != null && levelUpEffectPosition != null)
         {
             GameObject effect = Instantiate(levelUpEffectPrefab, levelUpEffectPosition.position, Quaternion.identity);
-            effect.transform.SetParent(levelUpEffectPosition); // 부모 설정하여 위치를 따라가도록 함
+            effect.transform.SetParent(levelUpEffectPosition);
 
-            float fadeDuration = 1.5f; // 페이드 아웃 지속 시간
-            float moveDistance = 1f; // 위로 이동할 거리
+            float fadeDuration = 1.5f;
+            float moveDistance = 1f;
 
             Sequence levelUpEffectSequence = DOTween.Sequence();
             levelUpEffectSequence.Append(effect.transform.DOMoveY(effect.transform.position.y + moveDistance, fadeDuration));
 
-   
-                //  2. SpriteRenderer가 있는 경우 (2D 게임 오브젝트용)
-                SpriteRenderer spriteRenderer = effect.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null)
-                {
-                    levelUpEffectSequence.Join(spriteRenderer.DOFade(0, fadeDuration));
-                }
+            SpriteRenderer spriteRenderer = effect.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                levelUpEffectSequence.Join(spriteRenderer.DOFade(0, fadeDuration));
+            }
 
-            
-
-            // 애니메이션 완료 후 삭제
             levelUpEffectSequence.OnComplete(() => Destroy(effect));
 
             Debug.Log("레벨업 이펙트 실행!");
@@ -113,7 +99,6 @@ public class PlayerStats : MonoBehaviour
             Debug.LogWarning("레벨업 이펙트 프리팹 또는 위치가 설정되지 않았습니다.");
         }
     }
-
 
     public void IncreaseMaxEnergy()
     {
@@ -126,13 +111,11 @@ public class PlayerStats : MonoBehaviour
             Debug.Log($"최대 에너지 증가! 현재 에너지: {maxEnergy}, 남은 스탯 포인트: {statPoints}");
 
             if (EnergyBarUI.Instance != null)
-            {
-                EnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy); // ? UI 업데이트
-            }
+                EnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy);
         }
     }
-        // ? 스탯 증가 함수
-        public void IncreaseAttack()
+
+    public void IncreaseAttack()
     {
         if (statPoints > 0)
         {
@@ -159,16 +142,11 @@ public class PlayerStats : MonoBehaviour
             maxHealth += 10;
             currentHealth = maxHealth;
 
-            //  체력 UI만 업데이트
             if (HurtPlayer.Instance != null)
-            {
                 HurtPlayer.Instance.UpdateHealthUI();
-            }
 
             if (HealthBarUI.Instance != null)
-            {
                 HealthBarUI.Instance.UpdateMaxHealth(maxHealth);
-            }
 
             statPoints--;
             Debug.Log($"최대 체력 증가! 현재 체력: {maxHealth}, 남은 스탯 포인트: {statPoints}");
@@ -179,30 +157,22 @@ public class PlayerStats : MonoBehaviour
     {
         if (statPoints > 0)
         {
-            maxEnergy += 10; //  스탯을 찍을 때만 최대 에너지 증가
-            currentEnergy = maxEnergy; //  최대 에너지가 증가하면 현재 에너지도 회복
+            maxEnergy += 10;
+            currentEnergy = maxEnergy;
             statPoints--;
 
             Debug.Log($"최대 에너지 증가! 현재 에너지: {maxEnergy}, 남은 스탯 포인트: {statPoints}");
 
-            //  EnergyBarUI에 업데이트 요청
             if (EnergyBarUI.Instance != null)
-            {
                 EnergyBarUI.Instance.UpdateMaxEnergy(maxEnergy);
-            }
-        }
-        else
-        {
-            Debug.Log("스탯 포인트가 부족합니다!");
         }
     }
+
     public void SetCurrentEnergy(int amount)
     {
         currentEnergy = Mathf.Clamp(amount, 0, maxEnergy);
-        EnergyBarUI.Instance?.RefreshFromPlayerStats(); //  UI에 직접 값 전달하지 않고 동기화 요청만
+        EnergyBarUI.Instance?.RefreshFromPlayerStats();
     }
-    public int maxMana = 100;
-    public int currentMana;
 
     public void ReduceMana(int amount)
     {
@@ -237,8 +207,9 @@ public class PlayerStats : MonoBehaviour
             currentMana = maxMana;
             statPoints--;
 
+            Debug.Log($"최대 마나 증가! 현재 마나: {maxMana}, 남은 스탯 포인트: {statPoints}");
+
             ManaBarUI.Instance?.UpdateMaxMana(maxMana);
         }
     }
-
 }

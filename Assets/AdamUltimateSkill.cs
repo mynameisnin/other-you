@@ -6,11 +6,12 @@ public class AdamUltimateSkill : MonoBehaviour
     public float ultimateDuration = 1f;
     public float manaCost = 50f;
     public KeyCode ultimateKey = KeyCode.C;
-
+    public float cooldownDuration = 8f; // 예: 8초 쿨타임
+    private float cooldownEndTime = 0f;
     private AdamMovement adamMovement;
     private Animator adamAnimator;
     private Rigidbody2D adamRigidbody;
-
+    [SerializeField] private SkillCooldownUI ultimateCooldownUI; // 인스펙터 연결
     public bool isCasting = false;
 
     void Start()
@@ -24,14 +25,21 @@ public class AdamUltimateSkill : MonoBehaviour
     {
         if (Input.GetKeyDown(ultimateKey) && !isCasting)
         {
-            if (PlayerStats.Instance.currentEnergy >= manaCost)
+            // 쿨타임 체크
+            if (Time.time < cooldownEndTime)
+            {
+                Debug.Log("궁극기 쿨타임 중");
+                return;
+            }
+
+            if (PlayerStats.Instance.HasEnoughMana((int)manaCost))
             {
                 StartCoroutine(CastUltimate());
             }
             else
             {
                 Debug.Log("궁극기 발동 실패: 마나 부족!");
-                EnergyBarUI.Instance.FlashBorder();
+                ManaBarUI.Instance?.FlashBorder();
             }
         }
     }
@@ -40,27 +48,45 @@ public class AdamUltimateSkill : MonoBehaviour
     {
         isCasting = true;
 
-        // 마나 차감
-   
+        PlayerStats.Instance.ReduceMana((int)manaCost);
 
-        // 상태 설정
         adamMovement.isInvincible = true;
         adamRigidbody.velocity = Vector2.zero;
         adamAnimator.SetTrigger("Ultimate");
-        
-        // 이동, 대쉬, 공격 강제 중단
+
         adamMovement.ForceStopDash();
         adamMovement.StopMovement();
 
         Debug.Log("궁극기 발동!");
 
-        // 연출 타임 (애니메이션, 이펙트, 타격 처리 등은 여기서)
         yield return new WaitForSeconds(ultimateDuration);
 
-        // 상태 복원
         adamMovement.isInvincible = false;
         isCasting = false;
 
+        // 쿨타임 시작
+        cooldownEndTime = Time.time + cooldownDuration;
+        // 쿨타임 시작
+        cooldownEndTime = Time.time + cooldownDuration;
+
+        if (ultimateCooldownUI != null)
+        {
+            ultimateCooldownUI.cooldownTime = cooldownDuration;
+            ultimateCooldownUI.StartCooldown();
+        }
         Debug.Log("궁극기 종료");
+    }
+    public void CancelUltimate()
+    {
+        if (!isCasting) return;
+
+        Debug.Log("궁극기 강제 종료됨 (캐릭터 스위치)");
+
+        StopAllCoroutines(); // 궁극기 코루틴 종료
+        isCasting = false;
+        adamMovement.isInvincible = false;
+        adamMovement.ForceStopDash();
+        adamMovement.StopMovement();
+        adamAnimator.ResetTrigger("Ultimate");
     }
 }

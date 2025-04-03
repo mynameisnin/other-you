@@ -37,6 +37,9 @@ public class CharacterGUIController : MonoBehaviour
     {
         adamOriginalPos = adamGUI.anchoredPosition;
         debaOriginalPos = debaGUI.anchoredPosition;
+
+        // 처음에는 Adam UI 활성화 기준으로 설정
+        SwitchToAdam(); // 또는 SwitchToDeba() 캐릭터에 따라
     }
     private void SetUIColor(List<Image> uiImages, Color targetColor)
     {
@@ -44,7 +47,8 @@ public class CharacterGUIController : MonoBehaviour
         {
             if (img != null)
             {
-                img.DOColor(targetColor, switchDuration);
+                img.color = targetColor; // ← 바로 설정
+                img.DOColor(targetColor, switchDuration); // ← 부드러운 전환은 여전히 적용
             }
         }
     }

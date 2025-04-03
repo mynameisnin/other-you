@@ -61,6 +61,17 @@ public class AdamMovement : MonoBehaviour
             StopMovement();
             return;
         }
+        if (bladeSkill != null)
+        {
+            Debug.Log($"[AdamMovement] isSlashing: {bladeSkill.isSlashing}");
+        }
+
+        if (bladeSkill != null && bladeSkill.isSlashing)
+        {
+            Debug.Log("[AdamMovement] 블레이드 슬래시 중이라 이동 차단됨");
+            StopMovement();
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (bladeSkill != null)
@@ -215,13 +226,16 @@ public class AdamMovement : MonoBehaviour
     private IEnumerator DashAttack()
     {
         isDashAttacking = true;
-        AdamAnime.SetTrigger("DashAttack"); // 대쉬 공격 애니메이션 실행
+        isInvincible = true;
 
-        // 대시 방향을 `flipX`를 기반으로 설정 (왼쪽을 보고 있으면 -1, 오른쪽을 보고 있으면 1)
+        AdamAnime.SetTrigger("DashAttack");
+
         float dashDirection = AdamSprite.flipX ? -1f : 1f;
 
-        float elapsed = 0f;
+        if (dashTrail != null)
+            dashTrail.emitting = true;
 
+        float elapsed = 0f;
         while (elapsed < dashAttackDuration)
         {
             AdamRigidebody.velocity = new Vector2(dashDirection * dashingPower, 0f);
@@ -229,7 +243,7 @@ public class AdamMovement : MonoBehaviour
             yield return null;
         }
 
-        // 이동 속도를 서서히 줄이는 방식
+        // 감속
         float decelerationTime = 0.2f;
         while (decelerationTime > 0)
         {
@@ -238,8 +252,18 @@ public class AdamMovement : MonoBehaviour
             yield return null;
         }
 
-        AdamRigidebody.velocity = Vector2.zero;
+        //  여기서 isDashAttacking 먼저 해제 (이제 이동 가능)
         isDashAttacking = false;
+
+        if (dashTrail != null)
+            dashTrail.emitting = false;
+
+        AdamRigidebody.velocity = Vector2.zero;
+
+        //  무적은 0.3초 더 유지 (이동은 가능하게)
+        yield return new WaitForSeconds(0.3f);
+
+        isInvincible = false;
     }
 
     private IEnumerator LeaveAfterImage()

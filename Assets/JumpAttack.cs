@@ -17,16 +17,29 @@ public class JumpAttack : MonoBehaviour
         rd = GetComponent<Rigidbody2D>();
     }
 
+    private bool wasGrounded = false; // 이전 프레임의 착지 상태 저장
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M) && !IsGrounded()) // 공중에서 공격 가능
+        bool isGrounded = IsGrounded();
+
+        // 착지 시 점프 어택 상태 초기화
+        if (!wasGrounded && isGrounded && isJumpAttacking)
+        {
+            isJumpAttacking = false;
+            AdamAnime.ResetTrigger("JumpAttack"); // 혹시 모르니 트리거도 초기화
+            Debug.Log("착지로 인해 점프 어택 초기화됨");
+        }
+
+        wasGrounded = isGrounded;
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !isGrounded)
         {
             PerformJumpAttack();
         }
-        AdamAnime.SetBool("IsGrounded", IsGrounded());
+
+        AdamAnime.SetBool("IsGrounded", isGrounded);
         AdamAnime.SetFloat("VerticalSpeed", rd.velocity.y);
-
-
     }
 
     private void PerformJumpAttack()
@@ -49,5 +62,21 @@ public class JumpAttack : MonoBehaviour
     private bool IsGrounded()
     {
         return Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) < 0.1f;
+    }
+    public void ResetJumpAttackState()
+    {
+        isJumpAttacking = false;
+
+        // 점프 어택 트리거 초기화
+        if (AdamAnime != null && gameObject.activeInHierarchy)
+        {
+            AdamAnime.ResetTrigger("JumpAttack");
+            AdamAnime.SetBool("IsGrounded", true); // 안전하게 처리
+        }
+
+        // 실행 중인 코루틴이 있다면 정지 (여기선 StopAllCoroutines 사용)
+        StopAllCoroutines();
+
+        Debug.Log("JumpAttack 상태 초기화됨 (캐릭터 전환 등)");
     }
 }
