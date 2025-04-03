@@ -7,41 +7,39 @@ public class ResolutionManager : MonoBehaviour
     public TMP_Text resolutionText;  // TMP 텍스트 사용
     public Button prevButton;
     public Button nextButton;
+    public Button applyButton; // 적용 버튼 추가
     public Toggle fullscreenToggle;  // 체크박스 (전체화면 토글)
 
     private Resolution[] resolutions;
     private int currentIndex = 0;
+    private bool isFullscreen;
 
     void Start()
     {
         resolutions = Screen.resolutions;
         currentIndex = GetCurrentResolutionIndex();
+        isFullscreen = Screen.fullScreen;
+
         UpdateResolutionText();
 
         prevButton.onClick.AddListener(() => ChangeResolution(-1));
         nextButton.onClick.AddListener(() => ChangeResolution(1));
-        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);  // 체크박스 이벤트 추가
+        applyButton.onClick.AddListener(ApplyResolution);
+        fullscreenToggle.onValueChanged.AddListener(value => isFullscreen = value);
 
-        // 현재 전체화면 상태 반영
-        fullscreenToggle.isOn = Screen.fullScreen;
+        fullscreenToggle.isOn = isFullscreen;
     }
 
     void ChangeResolution(int direction)
     {
         currentIndex = Mathf.Clamp(currentIndex + direction, 0, resolutions.Length - 1);
-        ApplyResolution();
+        UpdateResolutionText();
     }
 
     void ApplyResolution()
     {
         Resolution res = resolutions[currentIndex];
-        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
-        UpdateResolutionText();
-    }
-
-    void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
+        Screen.SetResolution(res.width, res.height, isFullscreen);
     }
 
     void UpdateResolutionText()
