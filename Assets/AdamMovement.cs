@@ -61,6 +61,17 @@ public class AdamMovement : MonoBehaviour
             StopMovement();
             return;
         }
+        if (bladeSkill != null)
+        {
+            Debug.Log($"[AdamMovement] isSlashing: {bladeSkill.isSlashing}");
+        }
+
+        if (bladeSkill != null && bladeSkill.isSlashing)
+        {
+            Debug.Log("[AdamMovement] 블레이드 슬래시 중이라 이동 차단됨");
+            StopMovement();
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (bladeSkill != null)
