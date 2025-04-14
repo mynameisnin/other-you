@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760b8a1a76973ba4ba30a948be77d65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 30
+  damageAmount: 1
   targetTag: Enemy
   fromAdam: 1
   fromDeba: 0
@@ -886,15 +886,12 @@ MonoBehaviour:
   healthText: {fileID: 3020215681620996231}
   energyBarFill: {fileID: 4265316165289344683}
   energyText: {fileID: 4604379652932319298}
-  manaBarFill: {fileID: 0}
-  manaText: {fileID: 0}
   expText: {fileID: 2970012438537130962}
   expFill: {fileID: 576526899766750532}
   attackButton: {fileID: 3280352827814695276}
   defenseButton: {fileID: 4025102832051090511}
   healthButton: {fileID: 3188986332133451676}
   energyButton: {fileID: 549535706149110887}
-  manaButton: {fileID: 0}
 --- !u!1 &806556265778496874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,7 +1273,6 @@ Transform:
   - {fileID: 5989154052245082997}
   - {fileID: 2609683721282894092}
   - {fileID: 2405694976554402860}
-  - {fileID: 1375610777877541287}
   - {fileID: 2054776908986559922}
   - {fileID: 6242219098694572649}
   - {fileID: 6295065346870055428}
@@ -3897,15 +3893,12 @@ MonoBehaviour:
   healthText: {fileID: 2073608641438742230}
   energyBarFill: {fileID: 5400772241891816302}
   energyText: {fileID: 7752603801237964819}
-  manaBarFill: {fileID: 0}
-  manaText: {fileID: 0}
   expText: {fileID: 235338332051411503}
   expFill: {fileID: 4296449828749158974}
   attackButton: {fileID: 2509445798338479685}
   defenseButton: {fileID: 1320124320542665162}
   healthButton: {fileID: 7342253345674212835}
   energyButton: {fileID: 3097961551261041446}
-  manaButton: {fileID: 0}
 --- !u!1 &2816390876132895783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4369,7 +4362,7 @@ MonoBehaviour:
   - {x: 0.088362895, y: -0.017408647, z: -0.000000039876966}
   m_ShapePathHash: -696285490
   m_Mesh: {fileID: 0}
-  m_InstanceId: -178650
+  m_InstanceId: -1484
   m_LocalBounds:
     m_Center: {x: 0.006473869, y: -0.018493794, z: 0}
     m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
@@ -4473,11 +4466,11 @@ MonoBehaviour:
   currentHealth: 0
   maxEnergy: 120
   currentEnergy: 0
-  maxMana: 80
-  currentMana: 0
   levelUpEffectPrefab: {fileID: 947812836641092627, guid: ea72882135454c340a277c8647299a51, type: 3}
   levelUpEffectPosition: {fileID: 1143723768478303351}
   effectDuration: 0.8
+  maxMana: 80
+  currentMana: 0
 --- !u!114 &6954137268506853961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5523,88 +5516,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1111092037276907636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3700087237428395444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1375610777877541287}
-  - component: {fileID: 3277439901211511743}
-  m_Layer: 0
-  m_Name: Light 2D (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1375610777877541287
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3700087237428395444}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.008080351, w: 0.9999674}
-  m_LocalPosition: {x: 0.452, y: 0.567, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1111092037276907636}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3277439901211511743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3700087237428395444}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_LightType: 3
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.67501646, b: 0.4764151, a: 1}
-  m_Intensity: 4.07
-  m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000bdbb5e141129c2f2
-  m_LightCookieSprite: {fileID: 0}
-  m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
-  m_NormalMapDistance: 3
-  m_NormalMapQuality: 2
-  m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
-  m_ShadowIntensity: 0.75
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
-  m_LocalBounds:
-    m_Center: {x: 0, y: -0.00000011920929, z: 0}
-    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 2.5
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
 --- !u!1 &3738357632459508277
 GameObject:
   m_ObjectHideFlags: 0
