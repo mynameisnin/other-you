@@ -12,6 +12,6 @@ public class MoveStartMenu : MonoBehaviour
 
     void DelayedSceneLoad()
     {
-        SceneManager.LoadScene("Startmunescenes"); // ¾À º¯°æ
+        SceneManager.LoadScene("Stroyscenes"); // ¾À º¯°æ
     }
 }
