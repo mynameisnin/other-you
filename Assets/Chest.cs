@@ -5,34 +5,32 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     public Animator chestAnim;
-    public BoxCollider2D chestCollider;
+    public Collider2D chestCollider;
 
-    private bool opne;
+    private bool isPlayerNear = false;
+    private bool open = false;
+    private bool alreadyOpened = false;
 
-    void Start()
-    {
-        opne = false;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (chestAnim != null && opne == true)
+        if (chestAnim != null && open && !alreadyOpened)
         {
             chestAnim.SetTrigger("Open");
+            alreadyOpened = true;
+        }
+
+
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            open = true;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("PlayerAttack"))
+        if (other.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                opne = true;
-            }
-            
+            isPlayerNear = true;
         }
     }
-
-
 }
