@@ -20,7 +20,7 @@ public class StoryManager : MonoBehaviour
         skipButton.interactable = false;
 
         // 2. 클릭 가능하게 만드는 함수 호출 예약 (5초 후)
-        Invoke(nameof(EnableSkipButton), 5f);
+        Invoke(nameof(EnableSkipButton), 4f);
 
         // 3. 버튼 클릭 이벤트 연결
         skipButton.onClick.AddListener(SkipStory);

@@ -532,8 +532,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.064, y: 0}
-  m_SizeDelta: {x: 373.1942, y: 83.1474}
+  m_AnchoredPosition: {x: 0.000013828, y: -0.000028133}
+  m_SizeDelta: {x: 410, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6621455327076847610
 CanvasRenderer:
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ca7d3d8d015f2294784278baf987f575, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0175d640a0f110f42bfae371a485a0ed, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2021143509899277242, guid: 2676e7a1f44f0d0429701fa0cbd6c6c3, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -708,10 +708,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1040883790306321033}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BTNSFX, Assembly-CSharp
+        m_MethodName: ClickSound1
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1035,9 +1035,21 @@ MonoBehaviour:
           m_StringArgument: startscenes
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2021143509899277242, guid: 2676e7a1f44f0d0429701fa0cbd6c6c3, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ResumeGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BTNSFX, Assembly-CSharp
+        m_MethodName: ClickSound2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1138,8 +1150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.5155, y: 3.8302}
-  m_SizeDelta: {x: 373.1942, y: 83.1474}
+  m_AnchoredPosition: {x: 0.0000029206, y: -0.00000023842}
+  m_SizeDelta: {x: 410, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1265466694629797933
 CanvasRenderer:
@@ -1169,7 +1181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ca7d3d8d015f2294784278baf987f575, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0175d640a0f110f42bfae371a485a0ed, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
