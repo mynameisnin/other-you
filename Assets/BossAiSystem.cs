@@ -27,6 +27,7 @@ public class BossAiSystem : MonoBehaviour
     [Header("공격 설정")]
     [Tooltip("플레이어가 이 거리 안에 들어오면 공격을 시작합니다.")]
     [SerializeField] private float attackRange = 4f;
+    [SerializeField] private Transform attackRangePosition;
     [Tooltip("공격 후 다음 공격까지의 대기 시간 (초)")]
     [SerializeField] private float attackCooldown = 2f;
     [Tooltip("공격 애니메이션 시작 후 실제 데미지 판정까지의 시간 (초). 애니메이션과 정확히 동기화 필요.")]
@@ -112,7 +113,10 @@ public class BossAiSystem : MonoBehaviour
 
         // 플레이어와의 거리 계산
         float distance = Vector2.Distance(transform.position, player.position);
-
+        if (attackRangePosition != null)
+        {
+            attackRangePosition.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }
         // 공격 중이 아닐 때만 이동 또는 공격 결정
         if (!isAttacking)
         {
@@ -347,7 +351,7 @@ public class BossAiSystem : MonoBehaviour
     {
         // 공격 가능 범위 (빨간색 원)
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(attackRangePosition.position, attackRange);
 
 
     }
