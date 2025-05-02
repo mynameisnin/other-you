@@ -1,0 +1,724 @@
+fileFormatVersion: 2
+guid: ae6455edd2dbcb2428c569de60def3a2
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: AngryGod SlashAttack_Frame_13
+    originalName: 
+    pivot: {x: 0.369863, y: 0.29}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 146
+      height: 100
+    spriteID: 000cd262ef0c2d24f84a82b04beb48d0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: AngryGod SlashAttack_Frame_14
+    originalName: 
+    pivot: {x: 0.35064936, y: 0.3152174}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 158
+      y: 4
+      width: 154
+      height: 92
+    spriteID: 4d8ca53441abe3240aa6962ad805d875
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 158, y: 4}
+  - name: AngryGod SlashAttack_Frame_15
+    originalName: 
+    pivot: {x: 0.3802817, y: 0.36708862}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 320
+      y: 4
+      width: 142
+      height: 79
+    spriteID: f3c00b40ab71252449b9b957cdde31d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 320, y: 4}
+  - name: AngryGod SlashAttack_Frame_16
+    originalName: 
+    pivot: {x: 0.4, y: 0.48333332}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 128
+      y: 227
+      width: 135
+      height: 60
+    spriteID: 3e06dbdbec5e86f4996d18bdc5798d64
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 128, y: 227}
+  - name: AngryGod SlashAttack_Frame_17
+    originalName: 
+    pivot: {x: 0.5, y: 0.48333332}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 379
+      y: 112
+      width: 108
+      height: 60
+    spriteID: e9bd18b18f9822547ad09dd30a50a506
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 379, y: 112}
+  - name: AngryGod SlashAttack_Frame_0
+    originalName: 
+    pivot: {x: 0.74603176, y: 0.4925373}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 345
+      width: 63
+      height: 67
+    spriteID: 71a41396df77b0f4cb860c655646d870
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 345}
+  - name: AngryGod SlashAttack_Frame_1
+    originalName: 
+    pivot: {x: 0.74603176, y: 0.484375}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 146
+      y: 345
+      width: 63
+      height: 64
+    spriteID: cfcbab3ec1444b24b9ce7b84526cb1d5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 146, y: 345}
+  - name: AngryGod SlashAttack_Frame_2
+    originalName: 
+    pivot: {x: 0.7377049, y: 0.49180326}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 288
+      y: 345
+      width: 61
+      height: 61
+    spriteID: 01cc596b26c64df42ad5b9bcb3877cbd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 288, y: 345}
+  - name: AngryGod SlashAttack_Frame_18
+    originalName: 
+    pivot: {x: 0.7605634, y: 0.46774194}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 372
+      y: 227
+      width: 71
+      height: 62
+    spriteID: 99fbdb80af908e249a93674f1de1fbff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 372, y: 227}
+  - name: AngryGod SlashAttack_Frame_19
+    originalName: 
+    pivot: {x: 0.73015875, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 217
+      y: 345
+      width: 63
+      height: 64
+    spriteID: 8e09e0b10f4ab174d9b6e40f60bbf709
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 217, y: 345}
+  - name: AngryGod SlashAttack_Frame_20
+    originalName: 
+    pivot: {x: 0.73015875, y: 0.47761193}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 75
+      y: 345
+      width: 63
+      height: 67
+    spriteID: e61b8029894eea349888a6f608a933dc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 75, y: 345}
+  - name: AngryGod SlashAttack_Frame_3
+    originalName: 
+    pivot: {x: 0.19827586, y: 0.39999998}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 227
+      width: 116
+      height: 110
+    spriteID: 501f7a67024cacf45ad8eb6ccaf9629a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 227}
+  - name: AngryGod SlashAttack_Frame_4
+    originalName: 
+    pivot: {x: 0.18548387, y: 0.41121495}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 112
+      width: 124
+      height: 107
+    spriteID: 5981c5c9669083f45ba16a7839a90c91
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 112}
+  - name: AngryGod SlashAttack_Frame_5
+    originalName: 
+    pivot: {x: 0.2, y: 0.43564355}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 136
+      y: 112
+      width: 115
+      height: 101
+    spriteID: f18837db1468468469e9890996fbb036
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 136, y: 112}
+  - name: AngryGod SlashAttack_Frame_6
+    originalName: 
+    pivot: {x: 0.20535715, y: 0.5714286}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 259
+      y: 112
+      width: 112
+      height: 77
+    spriteID: bee7c307ba109b94f98f584d6e6897ac
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 259, y: 112}
+  - name: AngryGod SlashAttack_Frame_7
+    originalName: 
+    pivot: {x: 0.24731183, y: 0.64705884}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 271
+      y: 227
+      width: 93
+      height: 68
+    spriteID: 9d6bc0a95e16e6a4f9bdd2e8f34faa8b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 271, y: 227}
+  - name: AngryGod SlashAttack_Frame_8
+    originalName: 
+    pivot: {x: 0.5897436, y: 0.6376812}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 51
+      y: 420
+      width: 39
+      height: 69
+    spriteID: d80bb85783cc6da4cb91f6686c852604
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 51, y: 420}
+  - name: AngryGod SlashAttack_Frame_9
+    originalName: 
+    pivot: {x: 0.5897436, y: 0.60273975}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 420
+      width: 39
+      height: 73
+    spriteID: d357f256e01a06641ac910c0b3edffc6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 420}
+  - name: AngryGod SlashAttack_Frame_10
+    originalName: 
+    pivot: {x: 0.6964286, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 451
+      y: 227
+      width: 56
+      height: 64
+    spriteID: e9cb4eab5d5acb44992f9c13fd2a6bd7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 451, y: 227}
+  - name: AngryGod SlashAttack_Frame_11
+    originalName: 
+    pivot: {x: 0.6964286, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 357
+      y: 345
+      width: 56
+      height: 64
+    spriteID: 8d3043d54ba75f54d9367a9c89bd2830
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 357, y: 345}
+  - name: AngryGod SlashAttack_Frame_12
+    originalName: 
+    pivot: {x: 0.6964286, y: 0.4761905}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 421
+      y: 345
+      width: 56
+      height: 63
+    spriteID: 39aa80e9abbadaf4e805ea5cfb1de7ce
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 421, y: 345}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1659830838
+    name: AngryGod SlashAttack
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: AngryGod SlashAttack_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 43
+        y: 68
+        width: 146
+        height: 100
+      spriteId: 000cd262ef0c2d24f84a82b04beb48d0
+    - name: AngryGod SlashAttack_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 43
+        y: 68
+        width: 154
+        height: 92
+      spriteId: 4d8ca53441abe3240aa6962ad805d875
+    - name: AngryGod SlashAttack_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 43
+        y: 68
+        width: 142
+        height: 79
+      spriteId: f3c00b40ab71252449b9b957cdde31d9
+    - name: AngryGod SlashAttack_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 43
+        y: 68
+        width: 135
+        height: 60
+      spriteId: 3e06dbdbec5e86f4996d18bdc5798d64
+    - name: AngryGod SlashAttack_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 43
+        y: 68
+        width: 108
+        height: 60
+      spriteId: e9bd18b18f9822547ad09dd30a50a506
+    - name: AngryGod SlashAttack_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 51
+        y: 65
+        width: 63
+        height: 67
+      spriteId: 71a41396df77b0f4cb860c655646d870
+    - name: AngryGod SlashAttack_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 51
+        y: 67
+        width: 63
+        height: 64
+      spriteId: cfcbab3ec1444b24b9ce7b84526cb1d5
+    - name: AngryGod SlashAttack_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 53
+        y: 68
+        width: 61
+        height: 61
+      spriteId: 01cc596b26c64df42ad5b9bcb3877cbd
+    - name: AngryGod SlashAttack_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 43
+        y: 68
+        width: 71
+        height: 62
+      spriteId: 99fbdb80af908e249a93674f1de1fbff
+    - name: AngryGod SlashAttack_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 51
+        y: 67
+        width: 63
+        height: 64
+      spriteId: 8e09e0b10f4ab174d9b6e40f60bbf709
+    - name: AngryGod SlashAttack_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 51
+        y: 65
+        width: 63
+        height: 67
+      spriteId: e61b8029894eea349888a6f608a933dc
+    - name: AngryGod SlashAttack_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 76
+        y: 54
+        width: 116
+        height: 110
+      spriteId: 501f7a67024cacf45ad8eb6ccaf9629a
+    - name: AngryGod SlashAttack_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 76
+        y: 54
+        width: 124
+        height: 107
+      spriteId: 5981c5c9669083f45ba16a7839a90c91
+    - name: AngryGod SlashAttack_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 76
+        y: 54
+        width: 115
+        height: 101
+      spriteId: f18837db1468468469e9890996fbb036
+    - name: AngryGod SlashAttack_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 76
+        y: 54
+        width: 112
+        height: 77
+      spriteId: bee7c307ba109b94f98f584d6e6897ac
+    - name: AngryGod SlashAttack_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 76
+        y: 54
+        width: 93
+        height: 68
+      spriteId: 9d6bc0a95e16e6a4f9bdd2e8f34faa8b
+    - name: AngryGod SlashAttack_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 76
+        y: 54
+        width: 39
+        height: 69
+      spriteId: d80bb85783cc6da4cb91f6686c852604
+    - name: AngryGod SlashAttack_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 76
+        y: 54
+        width: 39
+        height: 73
+      spriteId: d357f256e01a06641ac910c0b3edffc6
+    - name: AngryGod SlashAttack_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 60
+        y: 67
+        width: 56
+        height: 64
+      spriteId: e9cb4eab5d5acb44992f9c13fd2a6bd7
+    - name: AngryGod SlashAttack_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 60
+        y: 67
+        width: 56
+        height: 64
+      spriteId: 8d3043d54ba75f54d9367a9c89bd2830
+    - name: AngryGod SlashAttack_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 60
+        y: 67
+        width: 56
+        height: 63
+      spriteId: 39aa80e9abbadaf4e805ea5cfb1de7ce
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 200, y: 200}
