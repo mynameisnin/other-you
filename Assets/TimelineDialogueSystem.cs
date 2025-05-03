@@ -24,7 +24,12 @@ public class TimelineDialogueSystem : MonoBehaviour
     private int index = 0;
     private bool isTyping = false;
     public float typingSpeed = 0.05f;
-    public bool isDialogueActive = false;  // 변수 추가
+    public bool isDialogueActive = false;
+
+    [Header("사운드 설정")]
+    public AudioSource bgmAudioSource;
+    public AudioClip specialBgmClip;
+
     private void Start()
     {
         dialoguePanel.SetActive(false);
@@ -87,6 +92,13 @@ public class TimelineDialogueSystem : MonoBehaviour
         if (index < dialogues.Length - 1)
         {
             index++;
+
+            // 3번째 대사에서 사운드 재생
+            if (index == 2)
+            {
+                PlaySoundAtThirdDialogue();
+            }
+
             StartCoroutine(Typing());
         }
         else
@@ -101,9 +113,18 @@ public class TimelineDialogueSystem : MonoBehaviour
         index = 0;
         isDialogueActive = false;
 
-        // 현재 타임라인 위치를 유지하면서 다시 실행
+        // 타임라인 재개
         timeline.time = timeline.time;
         timeline.Play();
     }
 
+    private void PlaySoundAtThirdDialogue()
+    {
+        if (bgmAudioSource != null && specialBgmClip != null)
+        {
+            bgmAudioSource.clip = specialBgmClip;
+            bgmAudioSource.Play();
+            Debug.Log("3번째 대사에서 음악 재생됨");
+        }
+    }
 }
