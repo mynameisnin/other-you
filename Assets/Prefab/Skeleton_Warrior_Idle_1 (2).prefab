@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1611a51e1ef01cc4ab10d64bd5702eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryEffectPrefab: {fileID: 0}
-  parryParticlePrefab: {fileID: 0}
+  parryEffectPrefab: {fileID: 8884749432783807084, guid: 9fcb36115d812cf4f9988c868aeee5ee, type: 3}
+  parryParticlePrefab: {fileID: 4933350944383644194, guid: bf5cc332c9f99714e935f0637d709395, type: 3}
 --- !u!1 &5676320687428500420
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +350,7 @@ MonoBehaviour:
   - {fileID: 4698163755516257917, guid: 3db203f6ad819eb44baad9c4f311343d, type: 3}
   - {fileID: 2249573650083905365, guid: 79293c1378c58cc42861d748264a7653, type: 3}
   - {fileID: 4309611419653307369, guid: da90dd40db267074bb2dd68a27c1593d, type: 3}
-  parringEffects: {fileID: 0}
+  parringEffects: {fileID: 8884749432783807084, guid: 9fcb36115d812cf4f9988c868aeee5ee, type: 3}
   bloodEffectParticle: {fileID: 8799732428172655049, guid: e74f27fcd794341459051ba4e22e3e0c, type: 3}
   MaxHealth: 50
   currentHealth: 0
@@ -630,5 +630,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1611a51e1ef01cc4ab10d64bd5702eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryEffectPrefab: {fileID: 0}
-  parryParticlePrefab: {fileID: 0}
+  parryEffectPrefab: {fileID: 8884749432783807084, guid: 9fcb36115d812cf4f9988c868aeee5ee, type: 3}
+  parryParticlePrefab: {fileID: 4933350944383644194, guid: bf5cc332c9f99714e935f0637d709395, type: 3}
