@@ -8,6 +8,7 @@ using System.Collections.Generic; // Gizmos 디버깅용
 /// 공격 중 추격 대쉬, 대쉬/백대쉬(상승 포함) 및 방향 전환 애니메이션 제어를 담당합니다.
 /// 백대쉬 이동은 애니메이션 이벤트로 시작됩니다. Flip 시 공격 콜라이더 Offset도 반전됩니다.
 /// </summary>
+ [RequireComponent(typeof(AngryGodActiveSkill1))] // 액티브 스킬 스크립트 필수
 public class AngryGodAiCore : MonoBehaviour
 {
     #region 변수 선언
@@ -16,6 +17,7 @@ public class AngryGodAiCore : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private AngryGodActiveSkill1 activeSkill1; // ★ 추가: 액티브 스킬 스크립트 참조
 
     // --- 플레이어 관련 ---
     [Header("플레이어 참조")]
@@ -32,6 +34,8 @@ public class AngryGodAiCore : MonoBehaviour
     public float backdashRange = 1.5f;
     [Tooltip("공격 중 플레이어가 이 거리보다 멀어지면 추격 대쉬 시작")]
     public float chaseDashTriggerRange = 3.0f;
+    [Tooltip("액티브 스킬 1을 사용할 조건을 만족하는 거리 (예시)")] // ★ 추가
+    public float activeSkill1TriggerRange = 8f; // 예시: 탐지 범위 내 특정 거리
 
     // --- 이동 설정 ---
     [Header("이동 설정")]
@@ -77,6 +81,10 @@ public class AngryGodAiCore : MonoBehaviour
     private bool isDashing = false;
     private bool isChaseDashing = false;
     private Coroutine stopAttackMovementCoroutine = null; // ★ 추가: 공격 전진 멈춤 코루틴 참조
+    [Header("AI 행동 확률")] // ★ 추가: 확률 관련 변수 그룹
+    [Tooltip("백대쉬 범위 내에서 백대쉬를 시도할 확률 (0.0 ~ 1.0)")]
+    [Range(0f, 1f)]
+    [SerializeField] private float backdashProbability = 0.6f; // 예: 60% 확률로 백대쉬
     #endregion
 
     #region 유니티 생명주기 메서드
@@ -86,6 +94,15 @@ public class AngryGodAiCore : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        activeSkill1 = GetComponent<AngryGodActiveSkill1>(); // ★ 추가: 액티브 스킬 참조 가져오기
+
+
+        // 필수 컴포넌트 확인
+        if (animator == null || rb == null || spriteRenderer == null || activeSkill1 == null) // ★ 수정: activeSkill1 추가
+        {
+         
+            this.enabled = false; return;
+        }
 
         if (animator == null || rb == null || spriteRenderer == null) { Debug.LogError("필수 컴포넌트 없음!", this); this.enabled = false; return; }
         if (dashTrail != null) dashTrail.emitting = false; else Debug.LogWarning("Dash Trail 없음", this);
@@ -104,36 +121,87 @@ public class AngryGodAiCore : MonoBehaviour
 
     void Update()
     {
-        if (isActing || isChaseDashing) return; // 현재 행동 중이면 중단
+        // 현재 다른 행동 중이면 중단
+        if (isActing || isChaseDashing || (activeSkill1 != null && activeSkill1.IsSkillActive)) // ★ 수정: 액티브 스킬 상태 확인 주석 해제
+        {
+            // Debug.Log($"[AI Core] Update Skipped. isActing: {isActing}, isChaseDashing: {isChaseDashing}, isSkillActive: {activeSkill1?.IsSkillActive ?? false}");
+            return;
+        }
 
-        FindClosestTarget(); // 타겟 찾기
-        if (target == null) return; // 타겟 없으면 중단
+        FindClosestTarget();
+        if (target == null) { /* Debug.Log("[AI Core] Target is null."); */ return; }
 
-        FlipTowardsTarget(); // 타겟 방향 보기 (Collider Offset 반전 포함)
-        float distance = Vector2.Distance(transform.position, target.position); // 거리 계산
+        FlipTowardsTarget();
+        float distance = Vector2.Distance(transform.position, target.position);
+   
 
         // --- 행동 결정 로직 ---
-        // 1. 백대쉬 조건 확인 및 애니메이션 시작
-        if (distance < backdashRange && IsPlayerFacingBoss() && CanPredictPlayerAttack())
+        bool decidedAction = false;
+
+        // 0순위: 액티브 스킬 시도 (주석 처리됨)
+        // ...
+
+        if (!decidedAction && distance < backdashRange) // 백대쉬 범위 안에 있을 때
         {
-            isActing = true;
-            rb.velocity = Vector2.zero;
-            FlipTowardsTarget(true); // 방향 고정
-            animator.SetTrigger("Backdash"); // 애니메이션 시작 (이동은 이벤트로)
+            // 랜덤 값 생성 (0.0 ~ 1.0)
+            float randomValue = Random.value;
+            // 예측 조건 확인
+            bool isFacing = IsPlayerFacingBoss();
+            bool canPredict = CanPredictPlayerAttack();
+
+
+            // ★★★ 수정: 백대쉬 확률이 1이면 다른 조건 무시 ★★★
+            bool forceBackdash = (backdashProbability >= 1.0f); // 확률이 1 이상이면 강제 백대쉬
+            bool shouldBackdash = forceBackdash || (randomValue < backdashProbability);
+
+
+
+
+            if (shouldBackdash) // 백대쉬 조건 만족 시
+            {
+        
+                PrepareBackdash();
+                decidedAction = true;
+            }
+            else // 백대쉬 조건 불만족 시 -> 공격 시도
+            {
+       
+                StartCoroutine(AttackRoutine());
+                decidedAction = true;
+            }
         }
-        // 2. 공격 조건
-        else if (distance < attackRange)
+
+
+        // 2. 일반 공격 시도 (백대쉬/근접공격 안 했고, 공격 범위 안)
+        // ★ 디버그: 일반 공격 조건 확인
+        bool inAttackRange = !decidedAction && distance < attackRange; // 자동으로 distance >= backdashRange
+        
+
+        if (inAttackRange)
         {
-            if (distance >= backdashRange) StartCoroutine(AttackRoutine()); // 적정 거리면 공격
-            // else: 매우 가깝지만 백대쉬 조건 안 맞으면 대기
+            
+            StartCoroutine(AttackRoutine());
+            decidedAction = true;
         }
-        // 3. 접근 대쉬 조건
-        else if (distance < detectRange)
+
+        // 3. 접근 대쉬 시도 (위 행동들 안 했고, 탐지 범위 안)
+        // ★ 디버그: 접근 대쉬 조건 확인
+        bool inDetectRange = !decidedAction && distance < detectRange; // 자동으로 distance >= attackRange
+       
+
+        if (inDetectRange)
         {
-            StartCoroutine(DashRoutine(1)); // 전방 대쉬 (즉시 이동)
+           
+            StartCoroutine(DashRoutine(1));
+            decidedAction = true;
         }
-        // 4. 범위 밖
-        // else { /* Idle 상태 처리 */ }
+
+        // 4. 아무 행동도 결정되지 않음
+        if (!decidedAction)
+        {
+            Debug.Log("[AI Core]   => DECISION: No action decided (Idle or out of range).");
+        }
+        Debug.Log("[AI Core] ----- Frame End -----");
     }
 
     #endregion
@@ -239,6 +307,15 @@ public class AngryGodAiCore : MonoBehaviour
         yield break;
     }
 
+    // 백대쉬 준비 함수 (애니메이션만 트리거)
+    private void PrepareBackdash()
+    {
+        if (isActing || isChaseDashing) return; // 중복 방지 중요
+        isActing = true;
+        rb.velocity = Vector2.zero;
+        FlipTowardsTarget(true);
+        animator.SetTrigger("Backdash");
+    }
 
     /// <summary>
     /// 애니메이션 이벤트에서 호출될 함수. 실제 백대쉬 이동을 시작합니다.
@@ -283,7 +360,21 @@ public class AngryGodAiCore : MonoBehaviour
         // bool startedSummoning = false;
         // if (direction == -1 && summoner != null) { startedSummoning = summoner.TryStartSummon(); }
         // if (!startedSummoning) { ... }
+        if (direction == -1 && activeSkill1 != null && !activeSkill1.IsSkillActive)
+        {
+            float currentTime = Time.time;
+            float lastTime = activeSkill1.GetLastSkillUseTime(); // 아래에 이 함수 추가
 
+            if (currentTime >= lastTime + 8f) // 쿨타임 검증 추가!
+            {
+                Debug.Log("[AI Core] 백대쉬 완료 후 스킬 시도 (쿨타임 충족).");
+                StartCoroutine(activeSkill1.TryStartSkillAfterBackdash());
+            }
+            else
+            {
+                Debug.Log("[AI Core] 쿨타임 미충족 - 스킬 사용 안함");
+            }
+        }
         yield return new WaitForSeconds(0.3f); // 행동 후 딜레이
         isActing = false; // ★ 중요: 모든 행동 종료
         yield break;
@@ -364,7 +455,7 @@ public class AngryGodAiCore : MonoBehaviour
     // 플레이어 공격 예측 (현재는 항상 true)
     bool CanPredictPlayerAttack() { return true; }
     // 플레이어 참조 유효성 확인
-    bool IsPlayerValid() { return target != null && target.gameObject.activeInHierarchy && targetSpriteRenderer != null; }
+   public bool IsPlayerValid() { return target != null && target.gameObject.activeInHierarchy && targetSpriteRenderer != null; }
     // 사용 안 함
     void ValidateAttackBoxes() { }
     #endregion
@@ -444,24 +535,50 @@ public class AngryGodAiCore : MonoBehaviour
         Gizmos.color = Color.yellow; Gizmos.DrawWireSphere(transform.position, backdashRange);
         Gizmos.color = Color.Lerp(Color.red, Color.yellow, 0.5f); Gizmos.DrawWireSphere(transform.position, chaseDashTriggerRange);
         Gizmos.color = Color.cyan; Gizmos.DrawWireSphere(transform.position, detectRange);
+        Gizmos.color = Color.blue; Gizmos.DrawWireSphere(transform.position, activeSkill1TriggerRange); // ★ 추가: 스킬 발동 범위
 
-        // 공격 박스 시각화 (BoxCollider2D 기준)
-        if (attackCollider != null)
-        {
-            Gizmos.color = Color.magenta;
-            // BoxCollider2D의 월드 좌표 바운드 사용
-            Bounds bounds = attackCollider.bounds;
-            Gizmos.DrawWireCube(bounds.center, bounds.size);
-        }
+        // 공격 박스 시각화
+        if (attackCollider != null) { Gizmos.color = Color.magenta; Bounds bounds = attackCollider.bounds; Gizmos.DrawWireCube(bounds.center, bounds.size); }
 
         // 상태 시각화 (게임 실행 중)
         if (Application.isPlaying)
         {
             if (target != null) { Gizmos.color = Color.white; Gizmos.DrawLine(transform.position, target.position); Gizmos.color = IsPlayerFacingBoss() ? Color.green : Color.gray; Gizmos.DrawCube(transform.position + Vector3.up * 1.5f, Vector3.one * 0.2f); }
-            // bool isSummoningNow = (summoner != null && summoner.IsSummoning); // 소환 기능 사용 시
-            if (isActing /*|| isSummoningNow*/) { if (isChaseDashing) Gizmos.color = Color.magenta; else if (isDashing) Gizmos.color = Color.blue; /* else if(isSummoningNow) Gizmos.color = Color.white; */ else Gizmos.color = Color.Lerp(Color.red, Color.black, 0.5f); } else { Gizmos.color = Color.green; }
+
+            bool isSkill1Active = (activeSkill1 != null && activeSkill1.IsSkillActive); // 스킬 활성 상태 확인
+
+            if (isActing || isSkill1Active) // isActing 또는 스킬 활성 상태일 때
+            {
+                if (isChaseDashing) Gizmos.color = Color.magenta;
+                else if (isDashing) Gizmos.color = Color.blue;
+                else if (isSkill1Active) Gizmos.color = Color.white; // 스킬 사용 중: 흰색 (예시)
+                else Gizmos.color = Color.Lerp(Color.red, Color.black, 0.5f); // 공격 중
+            }
+            else { Gizmos.color = Color.green; } // 대기 중
             Gizmos.DrawSphere(transform.position + Vector3.down * 0.5f, 0.15f);
         }
     }
+    #endregion
+
+    #region 외부 상호작용 함수 (ActiveSkill1 및 필요시 다른 스크립트용)
+
+    /// <summary> 외부 스크립트가 AI의 행동 시작을 알릴 때 호출. isActing = true 설정. </summary>
+    public void NotifyActionStart() { this.isActing = true; }
+    /// <summary> 외부 스크립트가 AI의 행동 종료를 알릴 때 호출. isActing = false 설정. </summary>
+    public void NotifyActionEnd() { this.isActing = false; }
+    /// <summary> 외부 스크립트가 AI의 이동을 멈추도록 요청. </summary>
+    public void StopMovement() { if (rb != null) rb.velocity = Vector2.zero; }
+    /// <summary> 외부 스크립트가 AI의 방향 전환을 강제. </summary>
+    public void ForceFlipTowardsTarget() { FlipTowardsTarget(true); }
+    /// <summary> 현재 AI가 '주 행동'(공격, 일반/백 대쉬, 스킬) 또는 '추격 대쉬' 중인지 확인. </summary>
+    public bool IsCurrentlyActing() { return isActing || isChaseDashing; }
+    /// <summary> 외부 스크립트(예: ActiveSkill1)가 백대쉬 시작을 요청할 때 호출합니다. </summary>
+    public void InitiateBackdash()
+    {
+        // 이미 행동 중이 아니어야 함
+        if (!isActing && !isChaseDashing) { PrepareBackdash(); }
+        else { Debug.LogWarning("다른 행동 중이라 백대쉬 시작 불가."); }
+    }
+
     #endregion
 }
