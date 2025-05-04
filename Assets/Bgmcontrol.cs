@@ -9,7 +9,10 @@ public class Bgmcontrol : MonoBehaviour
     public AudioSource bgmAudioSource; // 메인 BGM AudioSource
     public AudioSource subAudioSource; // 마을 BGM용 서브 AudioSource
     public AudioSource TutorialAudioSource; // 튜토리얼 BGM용 서브 AudioSource
+    public AudioSource fightAudioSource; // 챕터1-3 BGM용 서브 AudioSource
+    public AudioSource fireAudioSource; // 챕터1-3 불타는소리용 서브 AudioSource
     public AudioClip townBGM;          // 마을 씬에서 재생할 BGM
+    public AudioClip fightBGM;          // 챕터1-3 씬에서 재생할 BGM
 
     private const string BGMVolumeKey = "BGMVolume"; // 볼륨 저장 키
 
@@ -30,6 +33,8 @@ public class Bgmcontrol : MonoBehaviour
         if (bgmAudioSource != null) bgmAudioSource.volume = savedVolume;
         if (subAudioSource != null) subAudioSource.volume = savedVolume;
         if (TutorialAudioSource != null) TutorialAudioSource.volume = savedVolume;
+        if (fightAudioSource != null) fightAudioSource.volume = savedVolume;
+        if (fireAudioSource != null) fireAudioSource.volume = savedVolume;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -82,6 +87,22 @@ public class Bgmcontrol : MonoBehaviour
                 TutorialAudioSource.Play();
             }
         }
+        // 챕터1-3 씬
+        else if (sceneName == "Chapter1-3" || sceneName == "Chapter1-3 1" || sceneName == "Chapter1-3 2" || sceneName == "Chapter1-3 3")
+        {
+            if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
+            if (subAudioSource.isPlaying) subAudioSource.Stop();
+            if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+
+            if (!fightAudioSource.isPlaying)
+            {
+                fightAudioSource.Play();
+            }
+            else if (!fireAudioSource.isPlaying)
+            {
+                fireAudioSource.Play();
+            }
+        }
     }
     public AudioSource GetCurrentBgm()
     {
@@ -93,6 +114,12 @@ public class Bgmcontrol : MonoBehaviour
 
         if (bgmAudioSource != null && bgmAudioSource.isPlaying)
             return bgmAudioSource;
+
+        if (fightAudioSource != null && fightAudioSource.isPlaying)
+            return fightAudioSource;
+
+        if (fireAudioSource != null && fireAudioSource.isPlaying)
+            return fireAudioSource;
 
         return null;
     }
