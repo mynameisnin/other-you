@@ -56,6 +56,10 @@ public class Bgmcontrol : MonoBehaviour
                 subAudioSource.Play();
             }
         }
+        else if (sceneName == "map_village3" || sceneName == "map_village3-1")
+        {
+            if (subAudioSource.isPlaying) subAudioSource.Stop();
+        }
         // 메인 화면 / 스토리 씬
         else if (sceneName == "Startscenes" || sceneName == "Storyscenes")
         {
@@ -92,5 +96,4 @@ public class Bgmcontrol : MonoBehaviour
 
         return null;
     }
-
 }

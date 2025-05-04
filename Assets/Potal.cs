@@ -62,7 +62,6 @@ public class Potal : MonoBehaviour
             }
         }
     }
-
     void CheckAllNpcTalked()
     {
         foreach (Collider2D npc in npcColliders)
