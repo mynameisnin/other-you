@@ -11,8 +11,11 @@ public class Bgmcontrol : MonoBehaviour
     public AudioSource TutorialAudioSource; // 튜토리얼 BGM용 서브 AudioSource
     public AudioSource fightAudioSource; // 챕터1-3 BGM용 서브 AudioSource
     public AudioSource fireAudioSource; // 챕터1-3 불타는소리용 서브 AudioSource
+    public AudioSource DungeonAudioSource; // 던전 BGM용 서브 AudioSource
     public AudioClip townBGM;          // 마을 씬에서 재생할 BGM
     public AudioClip fightBGM;          // 챕터1-3 씬에서 재생할 BGM
+    public AudioClip DungeonBGM;          // 던전 씬에서 재생할 BGM
+
 
     private const string BGMVolumeKey = "BGMVolume"; // 볼륨 저장 키
 
@@ -35,6 +38,7 @@ public class Bgmcontrol : MonoBehaviour
         if (TutorialAudioSource != null) TutorialAudioSource.volume = savedVolume;
         if (fightAudioSource != null) fightAudioSource.volume = savedVolume;
         if (fireAudioSource != null) fireAudioSource.volume = savedVolume;
+        if (DungeonAudioSource != null) DungeonAudioSource.volume = savedVolume;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -103,6 +107,20 @@ public class Bgmcontrol : MonoBehaviour
                 fireAudioSource.Play();
             }
         }
+        // 던전 씬
+        else if (sceneName == "Chapter2" || sceneName == "Chapter2-1")
+        {
+            if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
+            if (subAudioSource.isPlaying) subAudioSource.Stop();
+            if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fightAudioSource.isPlaying) fightAudioSource.Stop();
+            if (fireAudioSource.isPlaying) fireAudioSource.Stop();
+
+            if (!DungeonAudioSource.isPlaying)
+            {
+                DungeonAudioSource.Play();
+            }
+        }
     }
     public AudioSource GetCurrentBgm()
     {
@@ -120,6 +138,9 @@ public class Bgmcontrol : MonoBehaviour
 
         if (fireAudioSource != null && fireAudioSource.isPlaying)
             return fireAudioSource;
+
+        if (DungeonAudioSource != null && DungeonAudioSource.isPlaying)
+            return DungeonAudioSource;
 
         return null;
     }
