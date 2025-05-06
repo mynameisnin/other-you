@@ -36,7 +36,9 @@ public class AngryGodAiCore : MonoBehaviour
     public float chaseDashTriggerRange = 3.0f;
     [Tooltip("액티브 스킬 1을 사용할 조건을 만족하는 거리 (예시)")] // ★ 추가
     public float activeSkill1TriggerRange = 8f; // 예시: 탐지 범위 내 특정 거리
-
+    private BossSummoner bossSummoner;
+    private float globalActionCooldownTime = -99f; // 공용 쿨타임 시작
+    [SerializeField] private float minIntervalBetweenSkills = 5f; // 예: 5초 간격
     // --- 이동 설정 ---
     [Header("이동 설정")]
     [Tooltip("플레이어 추적 시 기본 이동 속도")]
@@ -95,7 +97,7 @@ public class AngryGodAiCore : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         activeSkill1 = GetComponent<AngryGodActiveSkill1>(); // ★ 추가: 액티브 스킬 참조 가져오기
-
+        bossSummoner = GetComponent<BossSummoner>();
 
         // 필수 컴포넌트 확인
         if (animator == null || rb == null || spriteRenderer == null || activeSkill1 == null) // ★ 수정: activeSkill1 추가
@@ -122,7 +124,7 @@ public class AngryGodAiCore : MonoBehaviour
     void Update()
     {
         // 현재 다른 행동 중이면 중단
-        if (isActing || isChaseDashing || (activeSkill1 != null && activeSkill1.IsSkillActive)) // ★ 수정: 액티브 스킬 상태 확인 주석 해제
+        if (isActing || isChaseDashing || (activeSkill1 != null && activeSkill1.IsSkillActive) || (bossSummoner != null && bossSummoner.IsSummoning)) // ★ 수정: 액티브 스킬 상태 확인 주석 해제
         {
             // Debug.Log($"[AI Core] Update Skipped. isActing: {isActing}, isChaseDashing: {isChaseDashing}, isSkillActive: {activeSkill1?.IsSkillActive ?? false}");
             return;
@@ -375,6 +377,11 @@ public class AngryGodAiCore : MonoBehaviour
                 Debug.Log("[AI Core] 쿨타임 미충족 - 스킬 사용 안함");
             }
         }
+        // 백대쉬 종료 후 소환 시도
+        if (direction == -1 && bossSummoner != null && bossSummoner.IsSummoning == false)
+        {
+            StartCoroutine(bossSummoner.TryStartSummonAfterBackdash());
+        }
         yield return new WaitForSeconds(0.3f); // 행동 후 딜레이
         isActing = false; // ★ 중요: 모든 행동 종료
         yield break;
@@ -525,6 +532,10 @@ public class AngryGodAiCore : MonoBehaviour
 
         isDashing = false;
     }
+    public Transform GetPlayer()
+    {
+        return target;
+    }
 
     #region Gizmos
     // 씬 뷰에서 AI 범위 및 상태 시각화
@@ -579,6 +590,9 @@ public class AngryGodAiCore : MonoBehaviour
         if (!isActing && !isChaseDashing) { PrepareBackdash(); }
         else { Debug.LogWarning("다른 행동 중이라 백대쉬 시작 불가."); }
     }
+    public float GetGlobalCooldownTime() => globalActionCooldownTime;
+    public void SetGlobalCooldownTime(float nextTime) => globalActionCooldownTime = nextTime;
+    public bool IsFacingRight => facingRight;
 
     #endregion
 }
