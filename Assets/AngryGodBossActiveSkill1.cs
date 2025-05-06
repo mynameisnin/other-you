@@ -134,8 +134,8 @@ public class AngryGodActiveSkill1 : MonoBehaviour
         {
             float offset = i * meteorSpacing * 2.5f;               //  더 넓게 퍼짐
             float randomY = Random.Range(-1f, 1f);                  //  Y도 더 흔들리게
-            Vector2 offsetDir = Quaternion.Euler(0, 0, Random.Range(-5f, 5f)) * playerDir;
-            meteorTargets[i] = basePos + offsetDir * (offset + 2f) + Vector2.up * randomY;
+            Vector2 offsetDir = (playerDir + new Vector2(Random.Range(-0.3f, 0.3f), Random.Range(-0.2f, 0.2f))).normalized;
+            meteorTargets[i] = basePos + offsetDir * (offset * 0.7f) + Vector2.up * randomY;
 
         }
 
@@ -151,9 +151,8 @@ public class AngryGodActiveSkill1 : MonoBehaviour
         {
             Vector2 targetPos = meteorTargets[i];
             // 더 사선으로 떨어지게: 더 멀리서, 덜 위에서
-            Vector2 spawnOffset = (Vector2.left * 12f + Vector2.up * 18f);
-            if (playerDir.x > 0)
-                spawnOffset = (Vector2.right * 12f + Vector2.up * 18f);
+            Vector2 horizontalDir = playerDir.x >= 0 ? Vector2.right : Vector2.left;
+            Vector2 spawnOffset = horizontalDir * 14f + Vector2.up * 10f;
 
             Vector2 spawnPos = targetPos + spawnOffset;
 

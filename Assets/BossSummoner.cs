@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AngryGodAiCore))]
@@ -9,7 +10,6 @@ public class BossSummoner : MonoBehaviour
     [SerializeField] private GameObject monsterPrefab;
     [SerializeField] private Transform[] leftSummonPoints;
     [SerializeField] private Transform[] rightSummonPoints;
-    [SerializeField] private float summonTiming = 1.0f;
     [SerializeField] private float summonCooldown = 15f;
     [SerializeField] private int monstersPerSummon = 3;
     [SerializeField] private GameObject exclamationPrefab; // 느낌표 프리팹
@@ -78,45 +78,41 @@ public class BossSummoner : MonoBehaviour
     {
         Debug.Log("AnimEvent_PerformSummon 호출됨");
 
-        float exclamationDuration = 2.1f; // 느낌표 애니메이션 시간에 맞춰 설정
+        float exclamationDuration = 2f;
 
-        // 소환 지점 방향 선택
-        bool isFacingRight = transform.localScale.x > 0f;
+        bool isFacingRight = aiCore != null && aiCore.IsFacingRight;
         Transform[] selectedPoints = isFacingRight ? rightSummonPoints : leftSummonPoints;
+        string direction = isFacingRight ? "오른쪽" : "왼쪽";
 
-        // 각 지점 위에 느낌표 생성
         foreach (Transform spawnPoint in selectedPoints)
         {
             if (spawnPoint != null && exclamationPrefab != null)
             {
-                Vector3 iconPos = spawnPoint.position + new Vector3(0, 0.8f, 0); // 아래 위치
+                Vector3 iconPos = spawnPoint.position + new Vector3(0, 0.8f, 0);
                 GameObject icon = Instantiate(exclamationPrefab, iconPos, Quaternion.identity);
 
-                
+                // 방향 반전
                 Vector3 scale = icon.transform.localScale;
-                scale.x *= isFacingRight ? 1 : -1; // 오른쪽이면 그대로, 왼쪽이면 반전
+                scale.x *= isFacingRight ? 1 : -1;
                 icon.transform.localScale = scale;
 
-                Destroy(icon, exclamationDuration);
+                Destroy(icon, exclamationDuration); //  정확히 2초 후 사라짐
             }
         }
 
-        // 애니메이션 끝날 때까지 대기 후 소환 시작
+        //  느낌표가 사라지는 그 순간, 몬스터 소환 시작
         StartCoroutine(DelayedSummonRoutine(exclamationDuration));
     }
 
+
     private IEnumerator DelayedSummonRoutine(float delay)
     {
-        yield return new WaitForSeconds(delay);
-        StartCoroutine(SummonMonstersRoutine());
-    }
-
-    private IEnumerator SummonMonstersRoutine()
-    {
-        yield return new WaitForSeconds(summonTiming);
-        SpawnMonsters();
+        yield return new WaitForSeconds(delay); //  exclamationDuration과 동일하게 기다림
+        SpawnMonsters();                        //  즉시 소환
         Debug.Log("소환 완료");
     }
+
+
 
     public void AnimEvent_SummonEnd()
     {
@@ -132,19 +128,39 @@ public class BossSummoner : MonoBehaviour
 
     private void SpawnMonsters()
     {
-        // ← AngryGodAiCore로부터 방향을 가져와 정확하게 판별
+        // 보스의 방향을 기반으로 소환 지점 선택
+        // 보스의 방향을 기반으로 소환 지점 선택
         bool isFacingRight = aiCore != null && aiCore.IsFacingRight;
+        string direction = isFacingRight ? "오른쪽" : "왼쪽";
         Transform[] selectedPoints = isFacingRight ? rightSummonPoints : leftSummonPoints;
 
-        for (int i = 0; i < monstersPerSummon; i++)
-        {
-            if (selectedPoints.Length == 0) return;
+        Debug.Log($"[몬스터 소환] 소환 방향: {direction}");
 
-            Transform spawnPoint = selectedPoints[Random.Range(0, selectedPoints.Length)];
+        if (selectedPoints.Length == 0) return;
+
+        // 소환 포인트를 리스트로 변환 후 셔플
+        List<Transform> spawnList = new List<Transform>(selectedPoints);
+        Shuffle(spawnList); // 랜덤화
+
+        // 중복 없이 소환 (최대 monstersPerSummon 수 만큼)
+        for (int i = 0; i < monstersPerSummon && i < spawnList.Count; i++)
+        {
+            Transform spawnPoint = spawnList[i];
             if (spawnPoint != null)
             {
                 Instantiate(monsterPrefab, spawnPoint.position, spawnPoint.rotation);
+                Debug.Log($"[몬스터 소환] 위치: {spawnPoint.position} / 방향: {direction}");
             }
+        }
+    }
+
+    // Fisher-Yates 셔플 알고리즘
+    private void Shuffle(List<Transform> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
         }
     }
 

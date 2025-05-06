@@ -38,7 +38,6 @@ public class AngryGodAiCore : MonoBehaviour
     public float activeSkill1TriggerRange = 8f; // 예시: 탐지 범위 내 특정 거리
     private BossSummoner bossSummoner;
     private float globalActionCooldownTime = -99f; // 공용 쿨타임 시작
-    [SerializeField] private float minIntervalBetweenSkills = 5f; // 예: 5초 간격
     // --- 이동 설정 ---
     [Header("이동 설정")]
     [Tooltip("플레이어 추적 시 기본 이동 속도")]
@@ -82,7 +81,6 @@ public class AngryGodAiCore : MonoBehaviour
     private bool facingRight = true;
     private bool isDashing = false;
     private bool isChaseDashing = false;
-    private Coroutine stopAttackMovementCoroutine = null; // ★ 추가: 공격 전진 멈춤 코루틴 참조
     [Header("AI 행동 확률")] // ★ 추가: 확률 관련 변수 그룹
     [Tooltip("백대쉬 범위 내에서 백대쉬를 시도할 확률 (0.0 ~ 1.0)")]
     [Range(0f, 1f)]
@@ -592,7 +590,7 @@ public class AngryGodAiCore : MonoBehaviour
     }
     public float GetGlobalCooldownTime() => globalActionCooldownTime;
     public void SetGlobalCooldownTime(float nextTime) => globalActionCooldownTime = nextTime;
-    public bool IsFacingRight => facingRight;
+    public bool IsFacingRight => transform.localScale.x > 0f;
 
     #endregion
 }
