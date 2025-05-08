@@ -5,8 +5,9 @@ using UnityEngine;
 public class MeteorImpactHandler : MonoBehaviour
 {
     [SerializeField] private GameObject explosionEffectPrefab;
-    [SerializeField] private string[] targetTags = { "Player", "DevaPlayer", "Ground" };
+    [SerializeField] private string[] targetTags = {  "Ground" };
 
+    [SerializeField] private GameObject fireEffectPrefab; // 불 애니메이션 프리팹
     private void OnTriggerEnter2D(Collider2D collision)
     {
         foreach (string tag in targetTags)
@@ -21,11 +22,12 @@ public class MeteorImpactHandler : MonoBehaviour
 
     private void TriggerExplosion()
     {
+        // 1. 기존 폭발 이펙트
         if (explosionEffectPrefab != null)
         {
             GameObject effect = Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
 
-            float duration = 1f; // 기본값 (예비)
+            float duration = 1f;
             Animator anim = effect.GetComponent<Animator>();
             if (anim != null && anim.runtimeAnimatorController != null)
             {
@@ -34,9 +36,19 @@ public class MeteorImpactHandler : MonoBehaviour
                     duration = clips[0].length;
             }
 
-            Destroy(effect, duration); // 애니메이션 종료 후 파괴
+            Destroy(effect, duration);
         }
 
-        Destroy(gameObject); // 메테오 바로 제거
+        // 2. 불 애니메이션 추가
+        if (fireEffectPrefab != null)
+        {
+            GameObject fire = Instantiate(fireEffectPrefab, transform.position, Quaternion.identity);
+           
+            Destroy(fire, 10f);
+        }
+
+        // 3. 메테오 파괴
+        Destroy(gameObject);
     }
+
 }
