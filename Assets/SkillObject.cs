@@ -11,14 +11,18 @@ public class SkillObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(targetTag))
+        enemyTest enemy = other.GetComponent<enemyTest>();
+        if (enemy != null)
         {
-            enemyTest enemy = other.GetComponent<enemyTest>();
-            if (enemy != null)
-            {
-                // 적에게 데미지 전달만! 나머지는 enemyTest 내부에서 처리됨
-                enemy.TakeDamage(damage, fromAdam, fromDeba);
-            }
+            enemy.TakeDamage(damage, fromAdam, fromDeba, transform.root);
+            return;
+        }
+
+        BossHurt boss = other.GetComponent<BossHurt>();
+        if (boss != null)
+        {
+            boss.TakeDamage(damage, fromAdam, fromDeba); // 3개 인자
+            return;
         }
     }
 

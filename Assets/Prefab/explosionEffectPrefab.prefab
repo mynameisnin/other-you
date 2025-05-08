@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1500404158193047975}
   - component: {fileID: 1651233133195861870}
   - component: {fileID: 4152827282617612379}
+  - component: {fileID: 4021871245128247626}
   m_Layer: 0
   m_Name: explosionEffectPrefab
   m_TagString: EnemyAttack
@@ -180,3 +181,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4021871245128247626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4435459211626024829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d6b1eb2b035a43b42fc67f18e845d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  fromAdam: 0
+  fromDeba: 0
