@@ -3,6 +3,11 @@ using System.Collections;
 
 public class BossHurt : MonoBehaviour
 {
+    [Header("Phase Object")]
+    public GameObject phase2Object; // 보스 2페이즈 오브젝트
+    public GameObject phase2ObjectAnime;
+    private bool phase2Triggered = false; // 중복 방지용
+
     private Rigidbody2D rb;
     private Collider2D col;
 
@@ -112,6 +117,23 @@ public class BossHurt : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
+        // 50% 이하 트리거 처리
+        if (!phase2Triggered && currentHealth <= MaxHealth / 2)
+        {
+            phase2Triggered = true;
+
+            if (phase2Object != null)
+            {
+                Debug.Log("▶ Phase 2 개시! 오브젝트 활성화됨");
+                phase2Object.SetActive(true);
+                phase2ObjectAnime.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("Phase2Object가 비어 있습니다!");
+            }
+        }
+
         if (currentHealth <= 0)
         {
             StartCoroutine(Die(fromAdam, fromDeba));
@@ -122,6 +144,8 @@ public class BossHurt : MonoBehaviour
             cameraShake?.StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
         }
     }
+
+
 
     private IEnumerator Die(bool fromAdam, bool fromDeba)
     {
