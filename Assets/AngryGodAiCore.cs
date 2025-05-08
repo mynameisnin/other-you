@@ -85,6 +85,7 @@ public class AngryGodAiCore : MonoBehaviour
     [Tooltip("백대쉬 범위 내에서 백대쉬를 시도할 확률 (0.0 ~ 1.0)")]
     [Range(0f, 1f)]
     [SerializeField] private float backdashProbability = 0.6f; // 예: 60% 확률로 백대쉬
+    private AngryGodFlameSkill flameSkill;
     #endregion
 
     #region 유니티 생명주기 메서드
@@ -96,7 +97,7 @@ public class AngryGodAiCore : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         activeSkill1 = GetComponent<AngryGodActiveSkill1>(); // ★ 추가: 액티브 스킬 참조 가져오기
         bossSummoner = GetComponent<BossSummoner>();
-
+        flameSkill = GetComponent<AngryGodFlameSkill>();
         // 필수 컴포넌트 확인
         if (animator == null || rb == null || spriteRenderer == null || activeSkill1 == null) // ★ 수정: activeSkill1 추가
         {
@@ -121,19 +122,24 @@ public class AngryGodAiCore : MonoBehaviour
 
     void Update()
     {
+
         // 현재 다른 행동 중이면 중단
-        if (isActing || isChaseDashing || (activeSkill1 != null && activeSkill1.IsSkillActive) || (bossSummoner != null && bossSummoner.IsSummoning)) // ★ 수정: 액티브 스킬 상태 확인 주석 해제
+        if (isActing || isChaseDashing ||
+            (activeSkill1 != null && activeSkill1.IsSkillActive) ||
+            (bossSummoner != null && bossSummoner.IsSummoning) ||
+            (GetComponent<AngryGodFlameSkill>()?.IsFlaming ?? false))
         {
-            // Debug.Log($"[AI Core] Update Skipped. isActing: {isActing}, isChaseDashing: {isChaseDashing}, isSkillActive: {activeSkill1?.IsSkillActive ?? false}");
             return;
         }
+
 
         FindClosestTarget();
         if (target == null) { /* Debug.Log("[AI Core] Target is null."); */ return; }
 
         FlipTowardsTarget();
         float distance = Vector2.Distance(transform.position, target.position);
-   
+        // AngryGodAiCore.cs 내부 Update 함수 상단에 추가
+
 
         // --- 행동 결정 로직 ---
         bool decidedAction = false;
@@ -143,33 +149,31 @@ public class AngryGodAiCore : MonoBehaviour
 
         if (!decidedAction && distance < backdashRange) // 백대쉬 범위 안에 있을 때
         {
-            // 랜덤 값 생성 (0.0 ~ 1.0)
             float randomValue = Random.value;
-            // 예측 조건 확인
             bool isFacing = IsPlayerFacingBoss();
             bool canPredict = CanPredictPlayerAttack();
 
-
-            // ★★★ 수정: 백대쉬 확률이 1이면 다른 조건 무시 ★★★
-            bool forceBackdash = (backdashProbability >= 1.0f); // 확률이 1 이상이면 강제 백대쉬
+            bool forceBackdash = (backdashProbability >= 1.0f);
             bool shouldBackdash = forceBackdash || (randomValue < backdashProbability);
 
-
-
-
-            if (shouldBackdash) // 백대쉬 조건 만족 시
+            // 먼저 FlameSkill 발동 가능 여부 확인
+            if (flameSkill != null && Time.time >= flameSkill.GetLastFlameTime() + 15f)
             {
-        
+                StartCoroutine(flameSkill.TryUseFlame());
+                decidedAction = true;
+            }
+            else if (shouldBackdash)
+            {
                 PrepareBackdash();
                 decidedAction = true;
             }
-            else // 백대쉬 조건 불만족 시 -> 공격 시도
+            else
             {
-       
                 StartCoroutine(AttackRoutine());
                 decidedAction = true;
             }
         }
+
 
 
         // 2. 일반 공격 시도 (백대쉬/근접공격 안 했고, 공격 범위 안)
