@@ -121,13 +121,13 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: AngryGod
     originalName: 
-    pivot: {x: 0.54347825, y: 0}
+    pivot: {x: 0.7173913, y: 0.46875}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 148
       width: 46
       height: 64
     spriteID: 9a83a779ef2f3be40a5ec8ebf4279b5c
@@ -138,7 +138,87 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
+    uvTransform: {x: -3, y: 148}
+  - name: AngryGod_Frame_1
+    originalName: 
+    pivot: {x: 0.7173913, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 4
+      width: 46
+      height: 64
+    spriteID: 3a1908610860a7644bb3c45e682d8030
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 4}
+  - name: AngryGod_Frame_2
+    originalName: 
+    pivot: {x: 0.7111111, y: 0.4761905}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 76
+      width: 45
+      height: 63
+    spriteID: 8b40e6db06b4fd84dbfce69793c9100f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 76}
+  - name: AngryGod_Frame_3
+    originalName: 
+    pivot: {x: 0.7234042, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 47
+      height: 64
+    spriteID: 88fe4020959bb424290abca882fed611
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: AngryGod_Frame_4
+    originalName: 
+    pivot: {x: 0.7234042, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 76
+      width: 47
+      height: 64
+    spriteID: 6f28d5eafabe8b64ead433be6f0d3877
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 76}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -148,14 +228,46 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: AngryGod
+    - name: AngryGod_Frame_0
       frameIndex: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      spriteId: 9a83a779ef2f3be40a5ec8ebf4279b5c
+    - name: AngryGod_Frame_1
+      frameIndex: 1
       cellRect:
         x: 7
         y: 0
         width: 46
         height: 64
-      spriteId: 9a83a779ef2f3be40a5ec8ebf4279b5c
+      spriteId: 3a1908610860a7644bb3c45e682d8030
+    - name: AngryGod_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 8
+        y: 0
+        width: 45
+        height: 63
+      spriteId: 8b40e6db06b4fd84dbfce69793c9100f
+    - name: AngryGod_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 6
+        y: 0
+        width: 47
+        height: 64
+      spriteId: 88fe4020959bb424290abca882fed611
+    - name: AngryGod_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 6
+        y: 0
+        width: 47
+        height: 64
+      spriteId: 6f28d5eafabe8b64ead433be6f0d3877
     linkedCells: []
     parentIndex: -1
   platformSettings: []

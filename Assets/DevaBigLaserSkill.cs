@@ -107,11 +107,22 @@ public class DevaBigLaserSkill : MonoBehaviour
     {
         if (laserCollider == null || !laserCollider.enabled) return;
 
+        // 일반 적
         enemyTest enemy = other.GetComponent<enemyTest>();
         if (enemy != null)
         {
-            Debug.Log(" Deva 레이저 명중!");
+            Debug.Log("Deva 레이저 명중! (적)");
             enemy.TakeDamage(damage, fromAdam, fromDeba, transform.root);
+            return;
+        }
+
+        // 보스
+        BossHurt boss = other.GetComponent<BossHurt>();
+        if (boss != null)
+        {
+            Debug.Log("Deva 레이저 명중! (보스)");
+            boss.TakeDamage(damage, fromAdam, fromDeba); // 3개 인자
+            return;
         }
     }
 

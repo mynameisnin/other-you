@@ -29,11 +29,22 @@ public class UltimateHitbox : MonoBehaviour
     {
         if (other.CompareTag(targetTag))
         {
+            // 일반 적
             enemyTest enemy = other.GetComponent<enemyTest>();
             if (enemy != null)
             {
                 Debug.Log("Hit enemy with Ultimate Skill!");
-                enemy.TakeDamage(damageAmount, fromAdam, fromDeba, attackerTransform); // ? 바뀐 부분
+                enemy.TakeDamage(damageAmount, fromAdam, fromDeba, attackerTransform);
+                return;
+            }
+
+            // 보스
+            BossHurt boss = other.GetComponent<BossHurt>();
+            if (boss != null)
+            {
+                Debug.Log("Hit boss with Ultimate Skill!");
+                boss.TakeDamage(damageAmount, fromAdam, fromDeba); // <- 3개 인자
+                return;
             }
         }
     }

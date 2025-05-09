@@ -29,11 +29,22 @@ public class BladeExhaustSkill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // 일반 적
         enemyTest enemy = other.GetComponent<enemyTest>();
         if (enemy != null)
         {
             Debug.Log("Hit enemy with Blade Slash!");
             enemy.TakeDamage(damage, fromAdam, fromDeba, transform.root);
+            return;
+        }
+
+        // 보스
+        BossHurt boss = other.GetComponent<BossHurt>();
+        if (boss != null)
+        {
+            Debug.Log("Hit boss with Blade Slash!");
+            boss.TakeDamage(damage, fromAdam, fromDeba);
+            return;
         }
     }
 
