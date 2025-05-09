@@ -134,6 +134,8 @@ public class HurtPlayer : MonoBehaviour
         EnemyMovement enemy = other.GetComponentInParent<EnemyMovement>();
         // 원거리 공격(화살)인지 검사
         Arrow enemyArrow = other.GetComponent<Arrow>();
+        // 가시인지 검사
+        Thron thron = other.GetComponent<Thron>();
 
         // 공격이 "EnemyAttack" 또는 "damageAmount" 태그를 가진 경우 실행
         if (other.CompareTag("EnemyAttack") || other.CompareTag("damageAmount"))
@@ -165,6 +167,12 @@ public class HurtPlayer : MonoBehaviour
             else if (enemyArrow != null)
             {
                 damage = enemyArrow.damage; // 화살이 가진 대미지 적용
+            }
+            //  가시인지 확인 후 대미지 적용
+            else if (thron != null)
+            {
+                damage = thron.damage; // 가시 대미지 적용
+                Debug.Log("가시");
             }
 
             // 대미지 적용 (피격 처리)
