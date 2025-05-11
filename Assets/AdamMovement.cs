@@ -49,7 +49,7 @@ public class AdamMovement : MonoBehaviour
         AdamAnime = GetComponent<Animator>();
         AdamSprite = GetComponent<SpriteRenderer>();
         characterAttack = GetComponent<CharacterAttack>();
-       
+
     }
 
     void Update()
@@ -82,7 +82,7 @@ public class AdamMovement : MonoBehaviour
         AnimatorStateInfo currentState = AdamAnime.GetCurrentAnimatorStateInfo(0);
 
         // 공격 애니메이션 실행 중인지 확인
-        bool isInAttackAnimation =  currentState.IsName("Stance") || currentState.IsName("Attack1") || currentState.IsName("Attack2")  || currentState.IsName("DashAttack") || currentState.IsName("Attack2Attack1");
+        bool isInAttackAnimation = currentState.IsName("Stance") || currentState.IsName("Attack1") || currentState.IsName("Attack2") || currentState.IsName("DashAttack") || currentState.IsName("Attack2Attack1");
 
         // 공격 중 또는 대쉬 공격 중이면 행동 차단
         if (isInAttackAnimation || isDashAttacking)
@@ -90,7 +90,7 @@ public class AdamMovement : MonoBehaviour
             StopMovement(); // 이동 차단
             return; // 다른 동작 차단
         }
-        
+
         HandleAttack();
 
         if (!isDashing && !attackInputRecently)
@@ -119,7 +119,7 @@ public class AdamMovement : MonoBehaviour
     {
         float hor = Input.GetAxisRaw("Horizontal");
 
-        if ( isDashAttacking) //  공격 중일 때 강제 정지
+        if (isDashAttacking) //  공격 중일 때 강제 정지
         {
             currentSpeed = 0f;
             return;
@@ -140,7 +140,7 @@ public class AdamMovement : MonoBehaviour
 
     void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl)&&isGround) // 공격 키 입력
+        if (Input.GetKeyDown(KeyCode.LeftControl) && isGround) // 공격 키 입력
         {
             attackInputRecently = true; // 공격 입력 감지
             StartCoroutine(ResetAttackInputCooldown());
@@ -317,7 +317,7 @@ public class AdamMovement : MonoBehaviour
         attackInputRecently = false; // 공격 입력 상태 초기화
     }
 
-    public void  StopMovement()
+    public void StopMovement()
     {
         AdamRigidebody.velocity = Vector2.zero; // 이동 차단
         currentSpeed = 0f; //  남아있는 이동 속도 제거
@@ -360,10 +360,10 @@ public class AdamMovement : MonoBehaviour
 
     void HandleFall()
     {
-        
+
         if (!isGround && AdamRigidebody.velocity.y < 0)
         {
-            AdamAnime.SetBool("Fall",true); // Fall 애니메이션 실행
+            AdamAnime.SetBool("Fall", true); // Fall 애니메이션 실행
         }
         else
         {
@@ -411,8 +411,29 @@ public class AdamMovement : MonoBehaviour
     public void PerformSlashTeleport()
     {
         float direction = AdamSprite.flipX ? -1f : 1f;
-        Vector2 newPosition = new Vector2(transform.position.x + slashTeleportDistance * direction, transform.position.y);
-        transform.position = newPosition;
+        Vector2 origin = (Vector2)transform.position + new Vector2(0, 0.5f) + new Vector2(direction * 0.3f, 0); // 약간 앞쪽에서 쏨
+        float maxDistance = slashTeleportDistance;
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * direction, maxDistance, islayer);
+
+        Vector2 targetPosition;
+
+        if (hit.collider != null)
+        {
+            float safeDistance = Mathf.Max(0f, hit.distance - 0.05f); // 벽 전까지
+            targetPosition = (Vector2)transform.position + new Vector2(direction * safeDistance, 0);
+            Debug.Log($"[슬래시텔레포트] 벽 감지됨 → 안전 거리만큼 이동: {safeDistance:F2}");
+        }
+        else
+        {
+            targetPosition = (Vector2)transform.position + new Vector2(direction * maxDistance, 0);
+            Debug.Log($"[슬래시텔레포트] 벽 없음 → 최대 거리 이동: {maxDistance:F2}");
+        }
+
+        transform.position = targetPosition;
+
+        // 디버그용 레이 그리기
+        Debug.DrawRay(origin, Vector2.right * direction * maxDistance, Color.yellow, 1f);
     }
 
     [Header("스킬 먼지 이펙트")]

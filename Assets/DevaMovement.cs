@@ -179,7 +179,6 @@ public class DebaraMovement : MonoBehaviour
 
     private IEnumerator Teleport()
     {
-        // ? 에너지 차감
         if (DevaEnergyBarUI != null)
         {
             DevaEnergyBarUI.ReduceEnergy(teleportEnergyCost);
@@ -189,14 +188,39 @@ public class DebaraMovement : MonoBehaviour
         isTeleporting = true;
         isInvincible = true;
 
-        
-
         if (teleportTrail != null)
             teleportTrail.emitting = true;
 
         float teleportDirection = DebaraSprite.flipX ? -1f : 1f;
-        Vector2 targetPosition = new Vector2(transform.position.x + (teleportDistance * teleportDirection), transform.position.y);
+        Vector2 direction = new Vector2(teleportDirection, 0);
+        float distance = teleportDistance;
+
+        // Ray 시작 위치: 캐릭터 중심에서 위로 + 앞으로 살짝 이동
+        Vector2 origin = (Vector2)transform.position + new Vector2(0, 0.5f) + direction * 0.3f;
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, isLayer);
+
+        // 디버그 선 표시
+        Debug.DrawRay(origin, direction * distance, Color.red, 1f);
+
+        // 디버그 시각화
+
+
+        Vector2 targetPosition;
+
+        if (hit.collider != null)
+        {
+            float safeDistance = Mathf.Max(0f, hit.distance - 0.05f);
+            targetPosition = (Vector2)transform.position + direction * safeDistance;
+            Debug.Log($"[텔포] 벽 감지됨: {hit.collider.name} | 거리: {hit.distance:F2} → 이동거리: {safeDistance:F2}");
+        }
+        else
+        {
+            targetPosition = (Vector2)transform.position + direction * distance;
+            Debug.Log($"[텔포] 벽 없음 → 전체 거리 이동: {distance:F2}");
+        }
+
         pendingTeleportTarget = targetPosition;
+
         // 출발 이펙트
         if (teleportStartEffectPrefab != null && teleportStartEffectPosition != null)
         {
@@ -208,6 +232,7 @@ public class DebaraMovement : MonoBehaviour
 
         transform.position = targetPosition;
         pendingTeleportTarget = null;
+
         // 도착 이펙트
         if (teleportEndEffectPrefab != null && teleportEndEffectPosition != null)
         {
@@ -223,10 +248,8 @@ public class DebaraMovement : MonoBehaviour
 
         yield return new WaitForSeconds(teleportCooldown);
         canTeleport = true;
-        
-       
-
     }
+
 
 
     private IEnumerator ResetAttackInputCooldown()
@@ -479,7 +502,7 @@ public class DebaraMovement : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
 
-        
+
         StartCoroutine(ResetAttackInputCooldown());
     }
     public void FireLaser()
