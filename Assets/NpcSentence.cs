@@ -10,14 +10,25 @@ public class NpcSentence : MonoBehaviour
 
     void Start()
     {
-        Invoke("TalkNpc", 5f);
+        StartCoroutine(TalkNpcCoroutine());
     }
 
-    // Update is called once per frame
-    public void TalkNpc()
+    IEnumerator TalkNpcCoroutine()
     {
-        GameObject go = Instantiate(chatBoxPrefab);
-        go.GetComponent<ChatSyetem>().Ondialogue(sentences,chatTr);
-        Invoke("TalkNpc", 5f);
+        while (true)
+        {
+            // 채팅창 생성
+            GameObject go = Instantiate(chatBoxPrefab);
+            ChatSyetem chat = go.GetComponent<ChatSyetem>();
+
+            // 모든 문장 출력 (2초 간격)
+            foreach (string sentence in sentences)
+            {
+                chat.Ondialogue(new string[] { sentence }, chatTr);
+                yield return new WaitForSeconds(2f); // 각 문장 사이 대기
+            }
+
+            yield return new WaitForSeconds(2f); // 마지막 문장 후 약간 대기
+        }
     }
 }
