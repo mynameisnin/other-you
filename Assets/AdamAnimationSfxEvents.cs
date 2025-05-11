@@ -18,4 +18,16 @@ public class AdamAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.FootStep);
     }
+    public void PlayeBuffSkillSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.BuffSkill);
+    }
+    public void PlayBladeSkillSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.BladeSkill);
+    }
+    public void PlayAdamJumpSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.AdamJump);
+    }
 }

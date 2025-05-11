@@ -14,6 +14,9 @@ public enum SFXType
     NomalAttackSFX,
     DevaskillAttacSFX,
     SkillBigerLaser,
+    BuffSkill,
+    BladeSkill,
+    AdamJump,
 }
 
 [System.Serializable]
