@@ -54,6 +54,9 @@ public class Bgmcontrol : MonoBehaviour
         {
             if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
             if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fightAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fireAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (DungeonAudioSource.isPlaying) TutorialAudioSource.Stop();
 
             if (subAudioSource.clip != townBGM)
             {
@@ -70,10 +73,13 @@ public class Bgmcontrol : MonoBehaviour
             if (subAudioSource.isPlaying) subAudioSource.Stop();
         }
         // 메인 화면 / 스토리 씬
-        else if (sceneName == "Startscenes" || sceneName == "Storyscenes")
+        else if (sceneName == "startscenes" || sceneName == "Storyscenes")
         {
             if (subAudioSource.isPlaying) subAudioSource.Stop();
             if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fightAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fireAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (DungeonAudioSource.isPlaying) TutorialAudioSource.Stop();
 
             if (!bgmAudioSource.isPlaying)
             {
@@ -85,6 +91,9 @@ public class Bgmcontrol : MonoBehaviour
         {
             if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
             if (subAudioSource.isPlaying) subAudioSource.Stop();
+            if (fightAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fireAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (DungeonAudioSource.isPlaying) TutorialAudioSource.Stop();
 
             if (!TutorialAudioSource.isPlaying)
             {
@@ -97,6 +106,7 @@ public class Bgmcontrol : MonoBehaviour
             if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
             if (subAudioSource.isPlaying) subAudioSource.Stop();
             if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (DungeonAudioSource.isPlaying) TutorialAudioSource.Stop();
 
             if (!fightAudioSource.isPlaying)
             {
