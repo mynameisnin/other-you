@@ -9,5 +9,17 @@ public class DevaAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.Teleport);
     }
+    public void DevaNomalAttackSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.NomalAttackSFX);
+    }
+    public void DevaSkillAttackSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.DevaskillAttacSFX);
 
+    }
+    public void DevaSkillBigLaser()
+    {
+        SFXManager.Instance?.Play(SFXType.SkillBigerLaser);
+    }
 }

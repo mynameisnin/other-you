@@ -11,6 +11,9 @@ public enum SFXType
     FootStep,
     Explosion,
     Teleport,
+    NomalAttackSFX,
+    DevaskillAttacSFX,
+    SkillBigerLaser,
 }
 
 [System.Serializable]
