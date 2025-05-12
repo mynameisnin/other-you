@@ -23,7 +23,7 @@ public enum SFXType
 public class SFXEntry
 {
     public SFXType type;
-    public AudioClip clip;
+    public AudioSource Source; // AudioClip이 아닌 AudioSource
 }
 
 public class SFXManager : MonoBehaviour
@@ -31,10 +31,10 @@ public class SFXManager : MonoBehaviour
     public static SFXManager Instance { get; private set; }
 
     [SerializeField] private List<SFXEntry> sfxEntries;
-    [SerializeField] private int poolSize = 5; // AudioSource 개수
+    [SerializeField] private int poolSize = 5;
     [SerializeField] private float volume = 1f;
 
-    private Dictionary<SFXType, AudioClip> sfxDict;
+    private Dictionary<SFXType, AudioSource> sfxDict;
     private AudioSource[] audioPool;
     private int currentIndex = 0;
 
@@ -55,11 +55,11 @@ public class SFXManager : MonoBehaviour
 
     private void InitSFXDict()
     {
-        sfxDict = new Dictionary<SFXType, AudioClip>();
+        sfxDict = new Dictionary<SFXType, AudioSource>();
         foreach (var entry in sfxEntries)
         {
             if (!sfxDict.ContainsKey(entry.type))
-                sfxDict[entry.type] = entry.clip;
+                sfxDict[entry.type] = entry.Source;
         }
     }
 
@@ -79,11 +79,25 @@ public class SFXManager : MonoBehaviour
 
     public void Play(SFXType type)
     {
-        if (sfxDict.TryGetValue(type, out AudioClip clip))
+        if (sfxDict.TryGetValue(type, out AudioSource sourceClip))
         {
-            AudioSource source = audioPool[currentIndex];
-            source.PlayOneShot(clip);
+            if (sourceClip.clip == null)
+            {
+                Debug.LogWarning($"SFXType {type} has no assigned AudioClip.");
+                return;
+            }
+
+            AudioSource pooledSource = audioPool[currentIndex];
+            pooledSource.clip = sourceClip.clip;
+            pooledSource.volume = sourceClip.volume;
+            pooledSource.pitch = sourceClip.pitch;
+            pooledSource.Play();
+
             currentIndex = (currentIndex + 1) % poolSize;
+        }
+        else
+        {
+            Debug.LogWarning($"SFXType {type} not found in SFXManager.");
         }
     }
 }
