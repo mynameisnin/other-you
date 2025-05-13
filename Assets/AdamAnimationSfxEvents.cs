@@ -30,4 +30,20 @@ public class AdamAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.AdamJump);
     }
+    public void PlayParrySFX()
+    {
+        SFXManager.Instance?.Play(SFXType.Parry);
+    }
+    public void PlaySwichSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.Swich);
+    }
+    public void PlayhitSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.hit);
+    }
+    public void Playhit1SFX()
+    {
+        SFXManager.Instance?.Play(SFXType.hit1);
+    }
 }

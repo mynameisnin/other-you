@@ -17,8 +17,15 @@ public enum SFXType
     BuffSkill,
     BladeSkill,
     AdamJump,
+    Parry,
+    Swich,
+    hit,
+    hit1,
+    SkeletonIdle,
+    SkeletonAttack,
+    SkeletonAttack2,
 }
-
+//
 [System.Serializable]
 public class SFXEntry
 {
@@ -52,6 +59,19 @@ public class SFXManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+#if UNITY_EDITOR
+    [ContextMenu("자동으로 SFX 항목 채우기")]
+    private void AutoFillSFXEntries()
+    {
+        foreach (SFXType type in System.Enum.GetValues(typeof(SFXType)))
+        {
+            if (!sfxEntries.Exists(e => e.type == type))
+            {
+                sfxEntries.Add(new SFXEntry { type = type });
+            }
+        }
+    }
+#endif
 
     private void InitSFXDict()
     {
