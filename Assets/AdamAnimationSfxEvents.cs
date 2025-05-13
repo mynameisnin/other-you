@@ -46,4 +46,8 @@ public class AdamAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.hit1);
     }
+    public void PlayDashSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.Dash);
+    }
 }

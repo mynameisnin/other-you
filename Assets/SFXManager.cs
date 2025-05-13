@@ -24,8 +24,16 @@ public enum SFXType
     SkeletonIdle,
     SkeletonAttack,
     SkeletonAttack2,
+    AngryGodAttack,
+    AngryGodFrame,
+    AngryGodmMteor,
+    AngryGodMeteorFalling,
+    AngryGodActive,
+    AngryGodDash,
+    AngryGodEvasion,
+    AngryGodSpawnSkill,
 }
-//
+
 [System.Serializable]
 public class SFXEntry
 {

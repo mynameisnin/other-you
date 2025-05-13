@@ -22,4 +22,8 @@ public class DevaAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.SkillBigerLaser);
     }
+    public void DevaFootStep()
+    {
+        SFXManager.Instance?.Play(SFXType.FootStep);
+    }
 }

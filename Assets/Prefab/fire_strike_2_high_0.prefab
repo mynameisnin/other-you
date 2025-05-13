@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2884135117732137728}
   - component: {fileID: 2902874820676510386}
   - component: {fileID: 5337539622782423693}
+  - component: {fileID: -5494574783440371780}
   m_Layer: 0
   m_Name: fire_strike_2_high_0
   m_TagString: EnemyAttack
@@ -205,3 +206,15 @@ MonoBehaviour:
   damage: 10
   fromAdam: 0
   fromDeba: 0
+--- !u!114 &-5494574783440371780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091065701154157606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e691881b2baca409cfdad30fde4cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
