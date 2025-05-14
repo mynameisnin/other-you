@@ -256,7 +256,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.205, y: -0.383, z: 0}
-  m_LocalScale: {x: 0.7418186, y: 0.7418186, z: 0.7418186}
+  m_LocalScale: {x: 1.0385461, y: 0.7418186, z: 0.7418186}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4685478714207243079}
@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 5114088651347849766}
   - component: {fileID: 202918103994303415}
   - component: {fileID: 6079458665642016540}
+  - component: {fileID: 753906007530452824}
   m_Layer: 11
   m_Name: AngryGod_Frame_1
   m_TagString: Enemy
@@ -876,7 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f97ca7ae8b0754288e18112b6c5ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 5676320687428500420, guid: e759caf247ad94d48aeb1b54a6dd63cd, type: 3}
+  monsterPrefab: {fileID: 5676320687428500420, guid: 9e0e3a0bb6e572a429305653d0c3d8af, type: 3}
   leftSummonPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -954,3 +955,15 @@ MonoBehaviour:
   currentHealth: 0
   xpReward: 2000000
   pos: {fileID: 3829817060612201191}
+--- !u!114 &753906007530452824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057310487108874888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e691881b2baca409cfdad30fde4cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

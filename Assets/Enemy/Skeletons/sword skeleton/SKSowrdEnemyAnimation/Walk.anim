@@ -40,6 +40,26 @@ AnimationClip:
       value: {fileID: 21300000, guid: 8b770e2d50f1704468d82910a95dc402, type: 3}
     - time: 0.75
       value: {fileID: 21300000, guid: ccaeff1a6ffef064799cecc23be9d60f, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: ed165530353711d4fbb07adb7caa38b9, type: 3}
+    - time: 0.9166667
+      value: {fileID: 21300000, guid: c0f360ff50bae1f4ab143cdc9d55e0c4, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: 7f6e93ae8f3852f4b99c05757d7b74b8, type: 3}
+    - time: 1.0833334
+      value: {fileID: 21300000, guid: a4e63f2b88f8d4249b1bd2dd2ff85640, type: 3}
+    - time: 1.1666666
+      value: {fileID: 21300000, guid: dfafb4ba72cb1d3479b0bd723b4bdf8f, type: 3}
+    - time: 1.25
+      value: {fileID: 21300000, guid: 6e0cd0bb0da214642a8503d444bfcaad, type: 3}
+    - time: 1.3333334
+      value: {fileID: 21300000, guid: d3eb381233a870644a4b664e82507f0f, type: 3}
+    - time: 1.4166666
+      value: {fileID: 21300000, guid: f7f3594534e46c14d9b1688840c6f80a, type: 3}
+    - time: 1.5
+      value: {fileID: 21300000, guid: 8b770e2d50f1704468d82910a95dc402, type: 3}
+    - time: 1.5833334
+      value: {fileID: 21300000, guid: ccaeff1a6ffef064799cecc23be9d60f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -72,12 +92,22 @@ AnimationClip:
     - {fileID: 21300000, guid: f7f3594534e46c14d9b1688840c6f80a, type: 3}
     - {fileID: 21300000, guid: 8b770e2d50f1704468d82910a95dc402, type: 3}
     - {fileID: 21300000, guid: ccaeff1a6ffef064799cecc23be9d60f, type: 3}
+    - {fileID: 21300000, guid: ed165530353711d4fbb07adb7caa38b9, type: 3}
+    - {fileID: 21300000, guid: c0f360ff50bae1f4ab143cdc9d55e0c4, type: 3}
+    - {fileID: 21300000, guid: 7f6e93ae8f3852f4b99c05757d7b74b8, type: 3}
+    - {fileID: 21300000, guid: a4e63f2b88f8d4249b1bd2dd2ff85640, type: 3}
+    - {fileID: 21300000, guid: dfafb4ba72cb1d3479b0bd723b4bdf8f, type: 3}
+    - {fileID: 21300000, guid: 6e0cd0bb0da214642a8503d444bfcaad, type: 3}
+    - {fileID: 21300000, guid: d3eb381233a870644a4b664e82507f0f, type: 3}
+    - {fileID: 21300000, guid: f7f3594534e46c14d9b1688840c6f80a, type: 3}
+    - {fileID: 21300000, guid: 8b770e2d50f1704468d82910a95dc402, type: 3}
+    - {fileID: 21300000, guid: ccaeff1a6ffef064799cecc23be9d60f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.8333333
+    m_StopTime: 1.6666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -96,4 +126,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: SkeletonIdleSFX
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
