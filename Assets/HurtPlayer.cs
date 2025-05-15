@@ -31,6 +31,7 @@ public class HurtPlayer : MonoBehaviour
     [Header("Death Effect Elements")]
     public SpriteRenderer deathBackground; //  배경을 어둡게 할 오브젝트 (SpriteRenderer)
     public static HurtPlayer Instance; // 싱글톤 인스턴스 추가
+    public GameObject deathPanelUI; // DeathPanel UI 연결
     void Start()
     {
         TestAnime = GetComponent<Animator>();
@@ -291,8 +292,9 @@ public class HurtPlayer : MonoBehaviour
             ChangeLayerOnDeath();
         }
 
+         deathPanelUI.SetActive(true);
         //  3초 후 캐릭터 비활성화
-        StartCoroutine(DisableAfterDeath());
+
     }
 
     private void DisablePlayerControls()
