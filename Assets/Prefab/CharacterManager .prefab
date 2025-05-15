@@ -886,12 +886,15 @@ MonoBehaviour:
   healthText: {fileID: 3020215681620996231}
   energyBarFill: {fileID: 4265316165289344683}
   energyText: {fileID: 4604379652932319298}
+  manaBarFill: {fileID: 0}
+  manaText: {fileID: 0}
   expText: {fileID: 2970012438537130962}
   expFill: {fileID: 576526899766750532}
   attackButton: {fileID: 3280352827814695276}
   defenseButton: {fileID: 4025102832051090511}
   healthButton: {fileID: 3188986332133451676}
   energyButton: {fileID: 549535706149110887}
+  manaButton: {fileID: 0}
 --- !u!1 &806556265778496874
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +982,7 @@ GameObject:
   - component: {fileID: 8202514319628405305}
   - component: {fileID: 9015670015962732984}
   - component: {fileID: 1256012213096595490}
+  - component: {fileID: 7071294152044602039}
   m_Layer: 9
   m_Name: DevaSkillShot
   m_TagString: DevaSkill
@@ -1091,6 +1095,33 @@ MonoBehaviour:
   leftSize: {x: 4.389704, y: 0.5766172}
   leftRotation: 0
   leftPosition: {x: 1.07, y: 0.05, z: 0}
+--- !u!50 &7071294152044602039
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865114992469154003}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &956734276441616967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1133,7 @@ GameObject:
   - component: {fileID: 4442365878958184784}
   - component: {fileID: 4965797663884980346}
   - component: {fileID: 6367413872546684844}
+  - component: {fileID: 9129994432399541773}
   m_Layer: 0
   m_Name: AdamBuff_Frame_0
   m_TagString: Untagged
@@ -1197,6 +1229,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9129994432399541773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956734276441616967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62eb7c948239df746820c0eb0de6dc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1044807228695525965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1291,7 @@ GameObject:
   - component: {fileID: 8370123876579199375}
   - component: {fileID: 5521635356381781949}
   - component: {fileID: 5693065845704620867}
+  - component: {fileID: 926881280996816409}
   m_Layer: 6
   m_Name: Deva
   m_TagString: DevaPlayer
@@ -1263,7 +1308,7 @@ Transform:
   m_GameObject: {fileID: 1108226513617345351}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -69.37, y: -5.64, z: -5.5937}
+  m_LocalPosition: {x: -96.15, y: -1.3599992, z: -5.5937}
   m_LocalScale: {x: 3.3657532, y: 3.3491054, z: 3.1411605}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1580,6 +1625,18 @@ MonoBehaviour:
   skillAnimTrigger: Trigger_SkillLoop
   endAnimTrigger: Trigger_SkillEnd
   cooldownUI: {fileID: 5968090347202216092}
+--- !u!114 &926881280996816409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108226513617345351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70d42f5665bc154bb5985629237c9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1132160048040227603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2083,6 +2140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5747681e5504b24db8133df13bb14e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenesToDestroyIn:
+  - MainMenu
+  - TitleScene
 --- !u!114 &6115057250673175962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3893,12 +3953,15 @@ MonoBehaviour:
   healthText: {fileID: 2073608641438742230}
   energyBarFill: {fileID: 5400772241891816302}
   energyText: {fileID: 7752603801237964819}
+  manaBarFill: {fileID: 0}
+  manaText: {fileID: 0}
   expText: {fileID: 235338332051411503}
   expFill: {fileID: 4296449828749158974}
   attackButton: {fileID: 2509445798338479685}
   defenseButton: {fileID: 1320124320542665162}
   healthButton: {fileID: 7342253345674212835}
   energyButton: {fileID: 3097961551261041446}
+  manaButton: {fileID: 0}
 --- !u!1 &2816390876132895783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4092,6 +4155,7 @@ GameObject:
   - component: {fileID: 6954137268506853961}
   - component: {fileID: 3609437519103408271}
   - component: {fileID: 379275810846310415}
+  - component: {fileID: 7950075487217215217}
   m_Layer: 6
   m_Name: Adam
   m_TagString: Player
@@ -4108,7 +4172,7 @@ Transform:
   m_GameObject: {fileID: 3123506464074187378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -65.22, y: -5.58, z: -5.522468}
+  m_LocalPosition: {x: -92, y: -1.3, z: -5.522468}
   m_LocalScale: {x: 3.7355273, y: 3.7355273, z: 3.7355273}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4362,7 +4426,7 @@ MonoBehaviour:
   - {x: 0.088362895, y: -0.017408647, z: -0.000000039876966}
   m_ShapePathHash: -696285490
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1484
+  m_InstanceId: -150204
   m_LocalBounds:
     m_Center: {x: 0.006473869, y: -0.018493794, z: 0}
     m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
@@ -4466,11 +4530,11 @@ MonoBehaviour:
   currentHealth: 0
   maxEnergy: 120
   currentEnergy: 0
+  maxMana: 80
+  currentMana: 0
   levelUpEffectPrefab: {fileID: 947812836641092627, guid: ea72882135454c340a277c8647299a51, type: 3}
   levelUpEffectPosition: {fileID: 1143723768478303351}
   effectDuration: 0.8
-  maxMana: 80
-  currentMana: 0
 --- !u!114 &6954137268506853961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4519,6 +4583,18 @@ MonoBehaviour:
   cooldownDuration: 20
   ultimateCooldownUI: {fileID: 6513443240998585203}
   isCasting: 0
+--- !u!114 &7950075487217215217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123506464074187378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62eb7c948239df746820c0eb0de6dc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3186284800295941479
 GameObject:
   m_ObjectHideFlags: 0
@@ -5262,6 +5338,7 @@ GameObject:
   - component: {fileID: 794492328309019991}
   - component: {fileID: 7565185398878105627}
   - component: {fileID: 8607541700176136518}
+  - component: {fileID: 5123564013296614837}
   m_Layer: 0
   m_Name: 'CharacterSwitchFX '
   m_TagString: Untagged
@@ -5278,7 +5355,7 @@ Transform:
   m_GameObject: {fileID: 3485408784133087301}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -73.24, y: -6.12, z: 0.15753175}
+  m_LocalPosition: {x: -100.02, y: -1.8399992, z: 0.15753175}
   m_LocalScale: {x: 3.4760213, y: 3.4760213, z: 3.4760213}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5357,6 +5434,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5123564013296614837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485408784133087301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62eb7c948239df746820c0eb0de6dc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3643285578439464829
 GameObject:
   m_ObjectHideFlags: 0
@@ -5692,8 +5781,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3902435148107899916}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.703, y: -1.077, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.023651397, w: 0.9997203}
+  m_LocalPosition: {x: -1.17, y: 0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5715,7 +5804,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.2960527, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2.16
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -5738,7 +5827,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 9.59
+  m_PointLightOuterRadius: 14.759716
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -11952,6 +12041,8 @@ GameObject:
   - component: {fileID: 7399546457280241860}
   - component: {fileID: 8374985072019092486}
   - component: {fileID: 969051613566252132}
+  - component: {fileID: 671378765144178339}
+  - component: {fileID: 8520265406851595156}
   m_Layer: 9
   m_Name: Effect 9_0
   m_TagString: DevaSkill
@@ -12156,6 +12247,45 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!50 &671378765144178339
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851230758860440639}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &8520265406851595156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851230758860440639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70d42f5665bc154bb5985629237c9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8988148105579278723
 GameObject:
   m_ObjectHideFlags: 0
