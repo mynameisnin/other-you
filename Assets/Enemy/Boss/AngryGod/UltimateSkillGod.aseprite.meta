@@ -1,0 +1,808 @@
+fileFormatVersion: 2
+guid: fd7d2adbfbfe9da45b284dbf4ab931bf
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: UltimateSkillGod_Frame_0
+    originalName: 
+    pivot: {x: 0.2519084, y: 0.375}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 389
+      width: 131
+      height: 80
+    spriteID: abee4daf9d25db84195da03765cd214d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 2, y: 389}
+  - name: UltimateSkillGod_Frame_1
+    originalName: 
+    pivot: {x: 0.2047244, y: 0.375}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 143
+      y: 389
+      width: 127
+      height: 80
+    spriteID: e6504397484ce4445979ba163e0c6c7f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 143, y: 389}
+  - name: UltimateSkillGod_Frame_3
+    originalName: 
+    pivot: {x: 0.20472442, y: 0.36585367}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 477
+      width: 127
+      height: 82
+    spriteID: 867a164cbdf7e1642be4f53c8bb07ca3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 477}
+  - name: UltimateSkillGod_Frame_4
+    originalName: 
+    pivot: {x: 0.21311475, y: 0.37974682}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 411
+      y: 389
+      width: 122
+      height: 79
+    spriteID: ec83656fe356580458e677f4d06eb4ab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 411, y: 389}
+  - name: UltimateSkillGod_Frame_5
+    originalName: 
+    pivot: {x: 0.208, y: 0.37037036}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 139
+      y: 477
+      width: 125
+      height: 81
+    spriteID: f93c865b70f2cc74bb9373cff094beda
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 139, y: 477}
+  - name: UltimateSkillGod_Frame_6
+    originalName: 
+    pivot: {x: 0.22222222, y: 0.4}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 669
+      y: 389
+      width: 117
+      height: 75
+    spriteID: 3eb455dc5e54c8d4c911b2605423c1de
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 669, y: 389}
+  - name: UltimateSkillGod_Frame_7
+    originalName: 
+    pivot: {x: 0.21666667, y: 0.3846154}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 541
+      y: 389
+      width: 120
+      height: 78
+    spriteID: 84076d7c9c63f2643b26db02a0601183
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 541, y: 389}
+  - name: UltimateSkillGod_Frame_8
+    originalName: 
+    pivot: {x: 0.2300885, y: 0.41095892}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 794
+      y: 389
+      width: 113
+      height: 73
+    spriteID: d863f171ecc9a9b4dacdb9f860d0a334
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 794, y: 389}
+  - name: UltimateSkillGod_Frame_9
+    originalName: 
+    pivot: {x: 0.23636363, y: 0.41095892}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 272
+      y: 477
+      width: 110
+      height: 73
+    spriteID: 3364f6bdd2e2d6d418b5463dedfa8353
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 272, y: 477}
+  - name: UltimateSkillGod_Frame_10
+    originalName: 
+    pivot: {x: 0.26804122, y: 0.46875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 915
+      y: 389
+      width: 97
+      height: 64
+    spriteID: e5882934f2b575046a54a8c2b5a3d79b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 915, y: 389}
+  - name: UltimateSkillGod_Frame_11
+    originalName: 
+    pivot: {x: 0.24528302, y: 0.36144578}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 567
+      width: 106
+      height: 83
+    spriteID: 3f8310787ebc89b41bf0634bcd33512d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 567}
+  - name: UltimateSkillGod_Frame_12
+    originalName: 
+    pivot: {x: 0.11981567, y: 0.3448276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 739
+      y: 103
+      width: 217
+      height: 87
+    spriteID: 2771bee217c6faf4a81d46f5a28b1dd6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 739, y: 103}
+  - name: UltimateSkillGod_Frame_13
+    originalName: 
+    pivot: {x: 0.07878788, y: 0.33707866}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 201
+      width: 330
+      height: 89
+    spriteID: 691a8c25869843448ae604815e2e3249
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 201}
+  - name: UltimateSkillGod_Frame_14
+    originalName: 
+    pivot: {x: 0.0726257, y: 0.33333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 103
+      width: 358
+      height: 90
+    spriteID: 417e20b7c6ef2674f87db1f009260c64
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 103}
+  - name: UltimateSkillGod_Frame_15
+    originalName: 
+    pivot: {x: 0.0724234, y: 0.32967034}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 372
+      y: 4
+      width: 359
+      height: 91
+    spriteID: aaa7a656d2e35d3439bc78f93e23bfab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 372, y: 4}
+  - name: UltimateSkillGod_Frame_16
+    originalName: 
+    pivot: {x: 0.072222225, y: 0.32967034}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 360
+      height: 91
+    spriteID: c2973e2836a58454e8b0b6baf5c305ea
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: UltimateSkillGod_Frame_17
+    originalName: 
+    pivot: {x: 0.07202216, y: 0.3409091}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 370
+      y: 103
+      width: 361
+      height: 88
+    spriteID: 5fa98b34a84ff60429fd4ef93d3ee5fc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 370, y: 103}
+  - name: UltimateSkillGod_Frame_18
+    originalName: 
+    pivot: {x: 0.078078076, y: 0.35714287}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 342
+      y: 201
+      width: 333
+      height: 84
+    spriteID: 759cc15d0bcfe8d4abc6b1c5ecd31849
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 342, y: 201}
+  - name: UltimateSkillGod_Frame_19
+    originalName: 
+    pivot: {x: 0.078078076, y: 0.36144578}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 683
+      y: 201
+      width: 333
+      height: 83
+    spriteID: e7d26d341c3aad44290246c989ccff3e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 683, y: 201}
+  - name: UltimateSkillGod_Frame_20
+    originalName: 
+    pivot: {x: 0.079027355, y: 0.36144578}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 298
+      width: 329
+      height: 83
+    spriteID: 62368545dc264514bb0219552316b8ab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 298}
+  - name: UltimateSkillGod_Frame_21
+    originalName: 
+    pivot: {x: 0.07926829, y: 0.3846154}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 341
+      y: 298
+      width: 328
+      height: 78
+    spriteID: 2bba7fb030e36e647bb25bcf08d8c939
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 341, y: 298}
+  - name: UltimateSkillGod_Frame_22
+    originalName: 
+    pivot: {x: 0.07926829, y: 0.4054054}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 677
+      y: 298
+      width: 328
+      height: 74
+    spriteID: 4a86a268e83ed024e89eec93ab030fa1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 677, y: 298}
+  - name: UltimateSkillGod_Frame_23
+    originalName: 
+    pivot: {x: 0.101960786, y: 0.44117647}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 739
+      y: 4
+      width: 255
+      height: 68
+    spriteID: 5dad8d20b3ad1e649926a7ba0fed990f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 739, y: 4}
+  - name: UltimateSkillGod_Frame_2
+    originalName: 
+    pivot: {x: 0.208, y: 0.375}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 278
+      y: 389
+      width: 125
+      height: 80
+    spriteID: 8f01beb0dae29fd4cb0481e5386aed90
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 278, y: 389}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1482069716
+    name: UltimateSkillGod
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: UltimateSkillGod_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 68
+        y: 68
+        width: 133
+        height: 80
+      spriteId: abee4daf9d25db84195da03765cd214d
+    - name: UltimateSkillGod_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 77
+        y: 68
+        width: 127
+        height: 80
+      spriteId: e6504397484ce4445979ba163e0c6c7f
+    - name: UltimateSkillGod_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 77
+        y: 68
+        width: 127
+        height: 82
+      spriteId: 867a164cbdf7e1642be4f53c8bb07ca3
+    - name: UltimateSkillGod_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 78
+        y: 68
+        width: 122
+        height: 79
+      spriteId: ec83656fe356580458e677f4d06eb4ab
+    - name: UltimateSkillGod_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 78
+        y: 68
+        width: 125
+        height: 81
+      spriteId: f93c865b70f2cc74bb9373cff094beda
+    - name: UltimateSkillGod_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 78
+        y: 68
+        width: 117
+        height: 75
+      spriteId: 3eb455dc5e54c8d4c911b2605423c1de
+    - name: UltimateSkillGod_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 78
+        y: 68
+        width: 120
+        height: 78
+      spriteId: 84076d7c9c63f2643b26db02a0601183
+    - name: UltimateSkillGod_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 78
+        y: 68
+        width: 113
+        height: 73
+      spriteId: d863f171ecc9a9b4dacdb9f860d0a334
+    - name: UltimateSkillGod_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 78
+        y: 68
+        width: 110
+        height: 73
+      spriteId: 3364f6bdd2e2d6d418b5463dedfa8353
+    - name: UltimateSkillGod_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 78
+        y: 68
+        width: 97
+        height: 64
+      spriteId: e5882934f2b575046a54a8c2b5a3d79b
+    - name: UltimateSkillGod_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 78
+        y: 68
+        width: 106
+        height: 83
+      spriteId: 3f8310787ebc89b41bf0634bcd33512d
+    - name: UltimateSkillGod_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 78
+        y: 68
+        width: 217
+        height: 87
+      spriteId: 2771bee217c6faf4a81d46f5a28b1dd6
+    - name: UltimateSkillGod_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 78
+        y: 68
+        width: 330
+        height: 89
+      spriteId: 691a8c25869843448ae604815e2e3249
+    - name: UltimateSkillGod_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 78
+        y: 68
+        width: 358
+        height: 90
+      spriteId: 417e20b7c6ef2674f87db1f009260c64
+    - name: UltimateSkillGod_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 78
+        y: 68
+        width: 359
+        height: 91
+      spriteId: aaa7a656d2e35d3439bc78f93e23bfab
+    - name: UltimateSkillGod_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 78
+        y: 68
+        width: 360
+        height: 91
+      spriteId: c2973e2836a58454e8b0b6baf5c305ea
+    - name: UltimateSkillGod_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 78
+        y: 68
+        width: 361
+        height: 88
+      spriteId: 5fa98b34a84ff60429fd4ef93d3ee5fc
+    - name: UltimateSkillGod_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 78
+        y: 68
+        width: 333
+        height: 84
+      spriteId: 759cc15d0bcfe8d4abc6b1c5ecd31849
+    - name: UltimateSkillGod_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 78
+        y: 68
+        width: 333
+        height: 83
+      spriteId: e7d26d341c3aad44290246c989ccff3e
+    - name: UltimateSkillGod_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 78
+        y: 68
+        width: 329
+        height: 83
+      spriteId: 62368545dc264514bb0219552316b8ab
+    - name: UltimateSkillGod_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 78
+        y: 68
+        width: 328
+        height: 78
+      spriteId: 2bba7fb030e36e647bb25bcf08d8c939
+    - name: UltimateSkillGod_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 78
+        y: 68
+        width: 328
+        height: 74
+      spriteId: 4a86a268e83ed024e89eec93ab030fa1
+    - name: UltimateSkillGod_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 78
+        y: 68
+        width: 255
+        height: 68
+      spriteId: 5dad8d20b3ad1e649926a7ba0fed990f
+    - name: UltimateSkillGod_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 77
+        y: 68
+        width: 125
+        height: 80
+      spriteId: 8f01beb0dae29fd4cb0481e5386aed90
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 1000, y: 200}
