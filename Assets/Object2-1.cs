@@ -6,11 +6,13 @@ public class Object2_1 : MonoBehaviour
 {
     public bool check1 = false;
     private Object2_2 oj2_2;
+    public bool opne = false;
+    public GameObject otherObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        oj2_2 = GetComponent<Object2_2>();
+        oj2_2 = otherObject.GetComponent<Object2_2>();
     }
 
     // Update is called once per frame
@@ -20,15 +22,16 @@ public class Object2_1 : MonoBehaviour
         {
             //여기에 길 열림 구현 ---------------------------------------
 
-
+            opne = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 태그 설정 ----------------------------------------------------------
+        if (other.CompareTag("PlayerAttack"))
         {
             check1 = true;
+            Debug.Log("크리스탈 1 타격");
             StartCoroutine(Check1Delay());
         }
     }

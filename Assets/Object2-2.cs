@@ -20,9 +20,10 @@ public class Object2_2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) // 태그 설정
+        if (other.CompareTag("PlayerAttack"))
         {
             check2 = true;
+            Debug.Log("크리스탈 2 타격");
             StartCoroutine(Check1Delay());
         }
     }
