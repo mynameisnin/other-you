@@ -66,6 +66,7 @@ public class DialogueSystem : MonoBehaviour
 
     void Update()
     {
+        AutoAssignPlayers();
         UpdateIconPosition(); // 아이콘 위치 업데이트
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && playerIsClose)
@@ -304,6 +305,23 @@ public class DialogueSystem : MonoBehaviour
         {
             playerIsClose = false;
             UpdateIcon(); // 아이콘 숨김
+        }
+    }
+    private void AutoAssignPlayers()
+    {
+        if (player == null)
+        {
+            GameObject foundAdam = GameObject.FindWithTag("Player");
+
+
+            // Adam 우선 할당
+            if (foundAdam != null)
+            {
+                player = foundAdam;
+                adamMovement = player.GetComponent<AdamMovement>();
+                villageMovement = null;
+            }
+
         }
     }
 }
