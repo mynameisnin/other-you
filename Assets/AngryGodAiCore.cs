@@ -129,43 +129,50 @@ public class AngryGodAiCore : MonoBehaviour
 
     void Update()
     {
+        // ★★★ 디버깅 로그 (필요시 유지) ★★★
+        // Debug.Log($"[AI Update Check] Time: {Time.time}, isActing: {isActing}, isChaseDashing: {isChaseDashing}, isAwakening: {isAwakening}, activeSkill1 Active: {(activeSkill1 != null && activeSkill1.IsSkillActive)}, ultimateSkill Active: {(ultimateSkill != null && ultimateSkill.IsUltimateActive)}, awakeningRequested: {awakeningRequested}");
 
-        // 현재 다른 행동 중이면 중단
-        if (isActing || isChaseDashing ||
-            (activeSkill1 != null && activeSkill1.IsSkillActive) ||
-            (bossSummoner != null && bossSummoner.IsSummoning) ||
-            (GetComponent<AngryGodFlameSkill>()?.IsFlaming ?? false)
-            || (ultimateSkill != null && ultimateSkill.IsUltimateActive)) // ★★★ 추가 ★★★
-
+        // --- 1. 각성 요청이 있다면, 다른 모든 로직보다 우선 처리 ---
+        if (awakeningRequested)
         {
+            if (!IsCurrentlyActingOrSkillActive()) // 현재 다른 '중요한' 행동을 하고 있지 않을 때만
+            {
+                Debug.Log("[AI Update Check] Awakening requested and idle. Preparing awakening backdash NOW.");
+                PrepareAndExecuteAwakeningBackdash(); // 각성 백대쉬 준비
+            }
+            // else: 현재 다른 중요한 행동 중이라면, 해당 행동이 끝난 후 다음 Update에서 다시 이 조건을 체크.
+            //       (IsCurrentlyActingOrSkillActive()가 false가 될 때까지)
+
+            return; // ★★★ 각성 요청이 있는 동안에는 아래의 일반 AI 로직을 실행하지 않음 ★★★
+        }
+
+        // --- 2. 각성 요청이 없을 때, 현재 다른 '중요한' 행동(스킬, 각성, isActing 등) 중이면 Update 종료 ---
+        // 이 조건은 isActing, isAwakening, 각 스킬들의 IsActive 상태를 모두 포함해야 합니다.
+        // IsCurrentlyActingOrSkillActive() 함수가 이 역할을 합니다.
+        if (IsCurrentlyActingOrSkillActive())
+        {
+            // Debug.Log("[AI Update Check] Currently acting or skill active. Returning from Update.");
             return;
         }
 
+        // --- 3. 일반 AI 행동 결정 로직 (각성 요청도 없고, 다른 중요 행동도 없을 때만 여기까지 도달) ---
+        // 이 시점에서는 isActing = false, isAwakening = false, 모든 스킬 IsActive = false 상태여야 합니다.
 
         FindClosestTarget();
         if (target == null) { /* Debug.Log("[AI Core] Target is null."); */ return; }
 
         FlipTowardsTarget();
         float distance = Vector2.Distance(transform.position, target.position);
-        // AngryGodAiCore.cs 내부 Update 함수 상단에 추가
 
-
-        // --- 행동 결정 로직 ---
         bool decidedAction = false;
 
-        // 0순위: 액티브 스킬 시도 (주석 처리됨)
-        // ...
-
-        if (!decidedAction && distance < backdashRange) // 백대쉬 범위 안에 있을 때
+        // 일반 백대쉬 결정 (awakeningRequested가 false일 때만 고려됨)
+        if (!decidedAction && distance < backdashRange)
         {
             float randomValue = Random.value;
-            bool isFacing = IsPlayerFacingBoss();
-            bool canPredict = CanPredictPlayerAttack();
-
             bool forceBackdash = (backdashProbability >= 1.0f);
             bool shouldBackdash = forceBackdash || (randomValue < backdashProbability);
 
-            // 먼저 FlameSkill 발동 가능 여부 확인
             if (flameSkill != null && Time.time >= flameSkill.GetLastFlameTime() + 15f)
             {
                 StartCoroutine(flameSkill.TryUseFlame());
@@ -173,7 +180,7 @@ public class AngryGodAiCore : MonoBehaviour
             }
             else if (shouldBackdash)
             {
-                PrepareBackdash();
+                PrepareBackdash(); // 일반 백대쉬 (각성 백대쉬와 다름)
                 decidedAction = true;
             }
             else
@@ -183,49 +190,27 @@ public class AngryGodAiCore : MonoBehaviour
             }
         }
 
-
-
-        // 2. 일반 공격 시도 (백대쉬/근접공격 안 했고, 공격 범위 안)
-        // ★ 디버그: 일반 공격 조건 확인
-        bool inAttackRange = !decidedAction && distance < attackRange; // 자동으로 distance >= backdashRange
-        
-
+        // 일반 공격
+        bool inAttackRange = !decidedAction && distance < attackRange;
         if (inAttackRange)
         {
-            
             StartCoroutine(AttackRoutine());
             decidedAction = true;
         }
 
-        // 3. 접근 대쉬 시도 (위 행동들 안 했고, 탐지 범위 안)
-        // ★ 디버그: 접근 대쉬 조건 확인
-        bool inDetectRange = !decidedAction && distance < detectRange; // 자동으로 distance >= attackRange
-       
-
+        // 접근 대쉬
+        bool inDetectRange = !decidedAction && distance < detectRange;
         if (inDetectRange)
         {
-           
-            StartCoroutine(DashRoutine(1));
+            StartCoroutine(DashRoutine(1)); // 일반 전방 대쉬
             decidedAction = true;
         }
-        // 각성 요청이 있고, 현재 다른 중요한 행동을 하고 있지 않다면 각성 백대쉬 시도
-        if (awakeningRequested && !IsCurrentlyActingOrSkillActive())
-        {
-            PrepareAndExecuteAwakeningBackdash();
-            // awakeningRequested는 ExecuteDashMovement에서 각성 애니메이션 시작 시 false로 변경
-        }
 
-        // 현재 다른 행동 중이면 중단 (isAwakening 포함)
-        if (IsCurrentlyActingOrSkillActive())
-        {
-            return;
-        }
-        // 4. 아무 행동도 결정되지 않음
         if (!decidedAction)
         {
-            Debug.Log("[AI Core]   => DECISION: No action decided (Idle or out of range).");
+            // Debug.Log("[AI Core]   => DECISION: No action decided (Idle or out of range).");
         }
-        Debug.Log("[AI Core] ----- Frame End -----");
+        // Debug.Log("[AI Core] ----- Frame End -----");
     }
 
     #endregion
