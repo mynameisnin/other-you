@@ -1,0 +1,640 @@
+fileFormatVersion: 2
+guid: ec79436552a71234db8ed7379cdca94d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: AngryGodPassiveSkill2_Frame_0
+    originalName: 
+    pivot: {x: 0.5862069, y: 0.5405406}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 371
+      y: 252
+      width: 87
+      height: 74
+    spriteID: b0cfacfc5ae3b314eb92fd894cd2efb9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 371, y: 252}
+  - name: AngryGodPassiveSkill2_Frame_1
+    originalName: 
+    pivot: {x: 0.58426964, y: 0.5405406}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 371
+      y: 170
+      width: 89
+      height: 74
+    spriteID: f528fd57607d28a4eb678fd414cda4fd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 371, y: 170}
+  - name: AngryGodPassiveSkill2_Frame_2
+    originalName: 
+    pivot: {x: 0.58426964, y: 0.5466667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 253
+      y: 917
+      width: 89
+      height: 75
+    spriteID: fd2a16f8236bd9243aa059d6067cbd31
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 253, y: 917}
+  - name: AngryGodPassiveSkill2_Frame_3
+    originalName: 
+    pivot: {x: 0.58426964, y: 0.5466667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 371
+      y: 4
+      width: 89
+      height: 75
+    spriteID: 5bc51e575a254be42875fa610a336bf9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 371, y: 4}
+  - name: AngryGodPassiveSkill2_Frame_4
+    originalName: 
+    pivot: {x: 0.58426964, y: 0.5466667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 371
+      y: 87
+      width: 89
+      height: 75
+    spriteID: d652a6f4ad53c894695c91e813084f1d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 371, y: 87}
+  - name: AngryGodPassiveSkill2_Frame_5
+    originalName: 
+    pivot: {x: 0.58426964, y: 0.5584416}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 253
+      y: 832
+      width: 89
+      height: 77
+    spriteID: 668a6a1b268b3454d9defb15340c87ac
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 253, y: 832}
+  - name: AngryGodPassiveSkill2_Frame_6
+    originalName: 
+    pivot: {x: 0.5869565, y: 0.5584416}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 253
+      y: 747
+      width: 92
+      height: 77
+    spriteID: e0494705d67051646aff174ce3db9ac1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 253, y: 747}
+  - name: AngryGodPassiveSkill2_Frame_7
+    originalName: 
+    pivot: {x: 0.5869565, y: 0.18534483}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 784
+      width: 92
+      height: 232
+    spriteID: 9d1c105afdacaab4e825fb31e99c62f9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 784}
+  - name: AngryGodPassiveSkill2_Frame_8
+    originalName: 
+    pivot: {x: 0.58426964, y: 0.18061674}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 253
+      y: 512
+      width: 89
+      height: 227
+    spriteID: a5474d03b45947b44aebf9f6ec7c0a66
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 253, y: 512}
+  - name: AngryGodPassiveSkill2_Frame_9
+    originalName: 
+    pivot: {x: 0.56363636, y: 0.18367346}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 253
+      y: 4
+      width: 110
+      height: 245
+    spriteID: 895bbbd658ea50d4297e42e8b7d67839
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 253, y: 4}
+  - name: AngryGodPassiveSkill2_Frame_11
+    originalName: 
+    pivot: {x: 0.6178862, y: 0.17063493}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 265
+      width: 123
+      height: 252
+    spriteID: b6cefc4c7cdcf944c960f3d90a72bb16
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 265}
+  - name: AngryGodPassiveSkill2_Frame_12
+    originalName: 
+    pivot: {x: 0.6269842, y: 0.16996048}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 126
+      height: 253
+    spriteID: 88012e30eb7870d47b28f815be0480ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: AngryGodPassiveSkill2_Frame_13
+    originalName: 
+    pivot: {x: 0.5607476, y: 0.16796875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 138
+      y: 4
+      width: 107
+      height: 256
+    spriteID: caf3e0025b59ed148a33c6193b5a482d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 138, y: 4}
+  - name: AngryGodPassiveSkill2_Frame_14
+    originalName: 
+    pivot: {x: 0.5825243, y: 0.1496063}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 138
+      y: 268
+      width: 103
+      height: 254
+    spriteID: 456f2ae3e79601a45bd43a582faa5864
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 138, y: 268}
+  - name: AngryGodPassiveSkill2_Frame_15
+    originalName: 
+    pivot: {x: 0.57843137, y: 0.121457495}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 253
+      y: 257
+      width: 102
+      height: 247
+    spriteID: e985166e01e0aa640b32300657a88f26
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 253, y: 257}
+  - name: AngryGodPassiveSkill2_Frame_16
+    originalName: 
+    pivot: {x: 0.57843137, y: 0.12048193}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 138
+      y: 530
+      width: 102
+      height: 249
+    spriteID: 2589b34479ca1cf4c88711b3b637b61b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 138, y: 530}
+  - name: AngryGodPassiveSkill2_Frame_17
+    originalName: 
+    pivot: {x: 0.57843137, y: 0.12875536}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 138
+      y: 787
+      width: 102
+      height: 233
+    spriteID: 12699d3c8a387804b949bf135276e650
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 138, y: 787}
+  - name: AngryGodPassiveSkill2_Frame_10
+    originalName: 
+    pivot: {x: 0.6052632, y: 0.17928287}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 525
+      width: 114
+      height: 251
+    spriteID: 7f1906599095a384eb7ded0ae46e6220
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 525}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -248408149
+    name: AngryGodPassiveSkill2
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: AngryGodPassiveSkill2_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 193
+        y: 25
+        width: 87
+        height: 74
+      spriteId: b0cfacfc5ae3b314eb92fd894cd2efb9
+    - name: AngryGodPassiveSkill2_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 192
+        y: 25
+        width: 89
+        height: 74
+      spriteId: f528fd57607d28a4eb678fd414cda4fd
+    - name: AngryGodPassiveSkill2_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 192
+        y: 24
+        width: 89
+        height: 75
+      spriteId: fd2a16f8236bd9243aa059d6067cbd31
+    - name: AngryGodPassiveSkill2_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 192
+        y: 24
+        width: 89
+        height: 75
+      spriteId: 5bc51e575a254be42875fa610a336bf9
+    - name: AngryGodPassiveSkill2_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 192
+        y: 24
+        width: 89
+        height: 75
+      spriteId: d652a6f4ad53c894695c91e813084f1d
+    - name: AngryGodPassiveSkill2_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 192
+        y: 22
+        width: 89
+        height: 77
+      spriteId: 668a6a1b268b3454d9defb15340c87ac
+    - name: AngryGodPassiveSkill2_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 190
+        y: 22
+        width: 92
+        height: 77
+      spriteId: e0494705d67051646aff174ce3db9ac1
+    - name: AngryGodPassiveSkill2_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 190
+        y: 22
+        width: 92
+        height: 232
+      spriteId: 9d1c105afdacaab4e825fb31e99c62f9
+    - name: AngryGodPassiveSkill2_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 192
+        y: 24
+        width: 89
+        height: 227
+      spriteId: a5474d03b45947b44aebf9f6ec7c0a66
+    - name: AngryGodPassiveSkill2_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 182
+        y: 20
+        width: 110
+        height: 245
+      spriteId: 895bbbd658ea50d4297e42e8b7d67839
+    - name: AngryGodPassiveSkill2_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 169
+        y: 22
+        width: 123
+        height: 252
+      spriteId: b6cefc4c7cdcf944c960f3d90a72bb16
+    - name: AngryGodPassiveSkill2_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 166
+        y: 22
+        width: 126
+        height: 253
+      spriteId: 88012e30eb7870d47b28f815be0480ba
+    - name: AngryGodPassiveSkill2_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 185
+        y: 22
+        width: 107
+        height: 256
+      spriteId: caf3e0025b59ed148a33c6193b5a482d
+    - name: AngryGodPassiveSkill2_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 185
+        y: 27
+        width: 103
+        height: 254
+      spriteId: 456f2ae3e79601a45bd43a582faa5864
+    - name: AngryGodPassiveSkill2_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 186
+        y: 35
+        width: 102
+        height: 247
+      spriteId: e985166e01e0aa640b32300657a88f26
+    - name: AngryGodPassiveSkill2_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 186
+        y: 35
+        width: 102
+        height: 249
+      spriteId: 2589b34479ca1cf4c88711b3b637b61b
+    - name: AngryGodPassiveSkill2_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 186
+        y: 35
+        width: 102
+        height: 233
+      spriteId: 12699d3c8a387804b949bf135276e650
+    - name: AngryGodPassiveSkill2_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 175
+        y: 20
+        width: 114
+        height: 251
+      spriteId: 7f1906599095a384eb7ded0ae46e6220
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 500, y: 500}

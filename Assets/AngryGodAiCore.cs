@@ -9,6 +9,7 @@ using System.Collections.Generic; // Gizmos 디버깅용
 /// 백대쉬 이동은 애니메이션 이벤트로 시작됩니다. Flip 시 공격 콜라이더 Offset도 반전됩니다.
 /// </summary>
  [RequireComponent(typeof(AngryGodActiveSkill1))] // 액티브 스킬 스크립트 필수
+[RequireComponent(typeof(AngryGodUltimateSkill))]
 public class AngryGodAiCore : MonoBehaviour
 {
     #region 변수 선언
@@ -38,6 +39,9 @@ public class AngryGodAiCore : MonoBehaviour
     public float activeSkill1TriggerRange = 8f; // 예시: 탐지 범위 내 특정 거리
     private BossSummoner bossSummoner;
     private float globalActionCooldownTime = -99f; // 공용 쿨타임 시작
+    private bool isAwakening = false; // 각성 애니메이션 중인지 여부
+    private bool awakeningRequested = false; // BossHurt로부터 각성 요청을 받았는지 여부
+    public float awakeningAnimationDuration = 3.0f; // 각성 애니메이션의 예상 길이 (인스펙터에서 조절 가능하게 public으로)
     // --- 이동 설정 ---
     [Header("이동 설정")]
     [Tooltip("플레이어 추적 시 기본 이동 속도")]
@@ -76,6 +80,7 @@ public class AngryGodAiCore : MonoBehaviour
     [SerializeField] private Transform attackBoxObject; // 공격 박스 오브젝트 참조
     private BoxCollider2D attackCollider; // 공격 박스 콜라이더 참조
 
+
     // --- 내부 상태 변수 ---
     private bool isActing = false;
     private bool facingRight = true;
@@ -86,6 +91,7 @@ public class AngryGodAiCore : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float backdashProbability = 0.6f; // 예: 60% 확률로 백대쉬
     private AngryGodFlameSkill flameSkill;
+    private AngryGodUltimateSkill ultimateSkill;
     #endregion
 
     #region 유니티 생명주기 메서드
@@ -98,6 +104,7 @@ public class AngryGodAiCore : MonoBehaviour
         activeSkill1 = GetComponent<AngryGodActiveSkill1>(); // ★ 추가: 액티브 스킬 참조 가져오기
         bossSummoner = GetComponent<BossSummoner>();
         flameSkill = GetComponent<AngryGodFlameSkill>();
+        ultimateSkill = GetComponent<AngryGodUltimateSkill>();
         // 필수 컴포넌트 확인
         if (animator == null || rb == null || spriteRenderer == null || activeSkill1 == null) // ★ 수정: activeSkill1 추가
         {
@@ -122,41 +129,50 @@ public class AngryGodAiCore : MonoBehaviour
 
     void Update()
     {
+        // ★★★ 디버깅 로그 (필요시 유지) ★★★
+        // Debug.Log($"[AI Update Check] Time: {Time.time}, isActing: {isActing}, isChaseDashing: {isChaseDashing}, isAwakening: {isAwakening}, activeSkill1 Active: {(activeSkill1 != null && activeSkill1.IsSkillActive)}, ultimateSkill Active: {(ultimateSkill != null && ultimateSkill.IsUltimateActive)}, awakeningRequested: {awakeningRequested}");
 
-        // 현재 다른 행동 중이면 중단
-        if (isActing || isChaseDashing ||
-            (activeSkill1 != null && activeSkill1.IsSkillActive) ||
-            (bossSummoner != null && bossSummoner.IsSummoning) ||
-            (GetComponent<AngryGodFlameSkill>()?.IsFlaming ?? false))
+        // --- 1. 각성 요청이 있다면, 다른 모든 로직보다 우선 처리 ---
+        if (awakeningRequested)
         {
+            if (!IsCurrentlyActingOrSkillActive()) // 현재 다른 '중요한' 행동을 하고 있지 않을 때만
+            {
+                Debug.Log("[AI Update Check] Awakening requested and idle. Preparing awakening backdash NOW.");
+                PrepareAndExecuteAwakeningBackdash(); // 각성 백대쉬 준비
+            }
+            // else: 현재 다른 중요한 행동 중이라면, 해당 행동이 끝난 후 다음 Update에서 다시 이 조건을 체크.
+            //       (IsCurrentlyActingOrSkillActive()가 false가 될 때까지)
+
+            return; // ★★★ 각성 요청이 있는 동안에는 아래의 일반 AI 로직을 실행하지 않음 ★★★
+        }
+
+        // --- 2. 각성 요청이 없을 때, 현재 다른 '중요한' 행동(스킬, 각성, isActing 등) 중이면 Update 종료 ---
+        // 이 조건은 isActing, isAwakening, 각 스킬들의 IsActive 상태를 모두 포함해야 합니다.
+        // IsCurrentlyActingOrSkillActive() 함수가 이 역할을 합니다.
+        if (IsCurrentlyActingOrSkillActive())
+        {
+            // Debug.Log("[AI Update Check] Currently acting or skill active. Returning from Update.");
             return;
         }
 
+        // --- 3. 일반 AI 행동 결정 로직 (각성 요청도 없고, 다른 중요 행동도 없을 때만 여기까지 도달) ---
+        // 이 시점에서는 isActing = false, isAwakening = false, 모든 스킬 IsActive = false 상태여야 합니다.
 
         FindClosestTarget();
         if (target == null) { /* Debug.Log("[AI Core] Target is null."); */ return; }
 
         FlipTowardsTarget();
         float distance = Vector2.Distance(transform.position, target.position);
-        // AngryGodAiCore.cs 내부 Update 함수 상단에 추가
 
-
-        // --- 행동 결정 로직 ---
         bool decidedAction = false;
 
-        // 0순위: 액티브 스킬 시도 (주석 처리됨)
-        // ...
-
-        if (!decidedAction && distance < backdashRange) // 백대쉬 범위 안에 있을 때
+        // 일반 백대쉬 결정 (awakeningRequested가 false일 때만 고려됨)
+        if (!decidedAction && distance < backdashRange)
         {
             float randomValue = Random.value;
-            bool isFacing = IsPlayerFacingBoss();
-            bool canPredict = CanPredictPlayerAttack();
-
             bool forceBackdash = (backdashProbability >= 1.0f);
             bool shouldBackdash = forceBackdash || (randomValue < backdashProbability);
 
-            // 먼저 FlameSkill 발동 가능 여부 확인
             if (flameSkill != null && Time.time >= flameSkill.GetLastFlameTime() + 15f)
             {
                 StartCoroutine(flameSkill.TryUseFlame());
@@ -164,7 +180,7 @@ public class AngryGodAiCore : MonoBehaviour
             }
             else if (shouldBackdash)
             {
-                PrepareBackdash();
+                PrepareBackdash(); // 일반 백대쉬 (각성 백대쉬와 다름)
                 decidedAction = true;
             }
             else
@@ -174,38 +190,27 @@ public class AngryGodAiCore : MonoBehaviour
             }
         }
 
-
-
-        // 2. 일반 공격 시도 (백대쉬/근접공격 안 했고, 공격 범위 안)
-        // ★ 디버그: 일반 공격 조건 확인
-        bool inAttackRange = !decidedAction && distance < attackRange; // 자동으로 distance >= backdashRange
-        
-
+        // 일반 공격
+        bool inAttackRange = !decidedAction && distance < attackRange;
         if (inAttackRange)
         {
-            
             StartCoroutine(AttackRoutine());
             decidedAction = true;
         }
 
-        // 3. 접근 대쉬 시도 (위 행동들 안 했고, 탐지 범위 안)
-        // ★ 디버그: 접근 대쉬 조건 확인
-        bool inDetectRange = !decidedAction && distance < detectRange; // 자동으로 distance >= attackRange
-       
-
+        // 접근 대쉬
+        bool inDetectRange = !decidedAction && distance < detectRange;
         if (inDetectRange)
         {
-           
-            StartCoroutine(DashRoutine(1));
+            StartCoroutine(DashRoutine(1)); // 일반 전방 대쉬
             decidedAction = true;
         }
 
-        // 4. 아무 행동도 결정되지 않음
         if (!decidedAction)
         {
-            Debug.Log("[AI Core]   => DECISION: No action decided (Idle or out of range).");
+            // Debug.Log("[AI Core]   => DECISION: No action decided (Idle or out of range).");
         }
-        Debug.Log("[AI Core] ----- Frame End -----");
+        // Debug.Log("[AI Core] ----- Frame End -----");
     }
 
     #endregion
@@ -349,8 +354,14 @@ public class AngryGodAiCore : MonoBehaviour
             Vector2 upwardDir = Vector2.up * backdashUpwardFactor;
             dashDir = (backwardDir + upwardDir).normalized;
         }
-        else { yield break; } // 이 함수는 백대쉬 전용으로 가정
-
+        else
+        {
+            Debug.LogWarning($"[AI Core] ExecuteDashMovement 호출되었으나 direction이 -1이 아님: {direction}");
+            isDashing = false;
+            if (dashTrail != null) dashTrail.emitting = false;
+            // isActing = false; // 여기서 isActing을 false로 해야 할 수도 있음 (PrepareBackdash에서 true로 했다면)
+            yield break;
+        }
 
         float currentDashSpeed = (dashDuration > 0.01f) ? distanceToMove / dashDuration : 0;
         rb.velocity = dashDir * currentDashSpeed;
@@ -360,35 +371,98 @@ public class AngryGodAiCore : MonoBehaviour
 
         if (dashTrail != null) dashTrail.emitting = false;
 
-        // TODO: 백대쉬 후 소환 로직 필요 시 여기에 추가 (BossSummoner 사용 시)
-        // bool startedSummoning = false;
-        // if (direction == -1 && summoner != null) { startedSummoning = summoner.TryStartSummon(); }
-        // if (!startedSummoning) { ... }
-        if (direction == -1 && activeSkill1 != null && !activeSkill1.IsSkillActive)
+        // --- 백대쉬 후 행동 결정 ---
+        // 가장 먼저 각성 요청이 있었는지 확인하고 처리 (최우선 순위)
+        if (awakeningRequested && direction == -1)
         {
-            float currentTime = Time.time;
-            float lastTime = activeSkill1.GetLastSkillUseTime(); // 아래에 이 함수 추가
+            awakeningRequested = false;
+            isAwakening = true;
+            // isActing은 이미 true 상태일 것임 (PrepareBackdash 등에서)
 
-            if (currentTime >= lastTime + 8f) // 쿨타임 검증 추가!
+            Debug.Log("[AI Core] 백대쉬 후 각성 애니메이션 트리거 호출!");
+            animator.SetTrigger("Awakening"); // ★★★ 각성 애니메이션 트리거 호출 ★★★
+                                              // "Awakening"은 Animator Controller에 정의된 Trigger 이름이어야 합니다.
+
+            // BossHurt의 phase2ObjectAnime은 이제 다른 용도(예: 각성 시 특별 이펙트만 담당)거나
+            // 사용하지 않을 수 있습니다. 또는 각성 애니메이션 자체에 이펙트가 포함될 수도 있습니다.
+            // 만약 phase2ObjectAnime이 순수하게 이펙트용이라면 여기서 활성화할 수 있습니다.
+            BossHurt bossHurt = GetComponent<BossHurt>();
+            if (bossHurt != null && bossHurt.phase2ObjectAnime != null)
             {
-                Debug.Log("[AI Core] 백대쉬 완료 후 스킬 시도 (쿨타임 충족).");
-                StartCoroutine(activeSkill1.TryStartSkillAfterBackdash());
+                // 만약 phase2ObjectAnime이 각성 '이펙트' 전용 오브젝트라면 여기서 활성화
+                // bossHurt.phase2ObjectAnime.SetActive(true);
+                // 이 부분은 각성 애니메이션과 phase2ObjectAnime의 역할에 따라 결정됩니다.
+                // 지금은 애니메이션 트리거로 각성 동작을 제어하므로, 주석 처리하거나 역할을 명확히 합니다.
             }
-            else
+
+            yield return new WaitForSeconds(awakeningAnimationDuration); // 각성 애니메이션 지속 시간만큼 대기
+
+            Debug.Log("[AI Core] 각성 애니메이션 종료.");
+            isAwakening = false;
+
+            if (bossHurt != null && bossHurt.phase2Object != null && !bossHurt.phase2Object.activeSelf)
             {
-                Debug.Log("[AI Core] 쿨타임 미충족 - 스킬 사용 안함");
+                Debug.Log("[AI Core] 각성 후 Phase 2 오브젝트 활성화.");
+                bossHurt.phase2Object.SetActive(true);
             }
         }
-        // 백대쉬 종료 후 소환 시도
-        if (direction == -1 && bossSummoner != null && bossSummoner.IsSummoning == false)
+        else if (direction == -1) // 각성 요청이 없었고, 백대쉬 상황일 때의 다른 행동들
         {
-            StartCoroutine(bossSummoner.TryStartSummonAfterBackdash());
+            // 액티브 스킬 1 시도 (각성하지 않았을 경우에만)
+            if (activeSkill1 != null && !activeSkill1.IsSkillActive)
+            {
+                if (Time.time >= activeSkill1.GetLastSkillUseTime() + 8f) // 8f은 예시 쿨타임
+                {
+                    Debug.Log("[AI Core] 백대쉬 완료 후 액티브 스킬 1 시도 (쿨타임 충족).");
+                    yield return StartCoroutine(activeSkill1.TryStartSkillAfterBackdash()); // activeSkill1이 끝날 때까지 대기 (선택적)
+                }
+                else
+                {
+                    Debug.Log("[AI Core] 액티브 스킬 1 쿨타임 미충족 - 사용 안함");
+                }
+            }
+
+            // 소환 시도 (각성하지 않았고, 액티브 스킬 1도 사용하지 않았거나 끝났을 경우 - 순서 조정 가능)
+            if (bossSummoner != null && !bossSummoner.IsSummoning)
+            {
+                // bossSummoner에 쿨타임이 있다면 여기서 체크
+                Debug.Log("[AI Core] 백대쉬 완료 후 소환 시도.");
+                yield return StartCoroutine(bossSummoner.TryStartSummonAfterBackdash()); // 소환이 끝날 때까지 대기 (선택적)
+            }
+
+            // 궁극기 시도 (각성하지 않았고, 위 스킬들도 사용하지 않았거나 끝났을 경우 - 순서 조정 가능)
+            if (ultimateSkill != null && !ultimateSkill.IsUltimateActive)
+            {
+                if (Time.time >= ultimateSkill.GetLastUseTime() + ultimateSkill.cooldown)
+                {
+                    Debug.Log("[AI Core] 백대쉬 후 궁극기 발동 시도.");
+                    yield return StartCoroutine(ultimateSkill.TryStartUltimate()); // 궁극기가 끝날 때까지 대기
+                    Debug.Log("[AI Core] 이번 백대쉬 후 궁극기를 사용했습니다 (시도함).");
+                }
+                else
+                {
+                    Debug.Log("[AI Core] 궁극기 쿨타임입니다 (백대쉬 후 체크).");
+                    Debug.Log("[AI Core] 이번 백대쉬 후 궁극기를 사용하지 않았습니다 (쿨타임).");
+                }
+            }
+            else if (ultimateSkill != null && ultimateSkill.IsUltimateActive)
+            {
+                Debug.Log("[AI Core] 궁극기를 시도할 수 없음: 이미 궁극기가 활성 상태입니다.");
+                Debug.Log("[AI Core] 이번 백대쉬 후 궁극기를 사용하지 않았습니다 (이미 활성).");
+            }
+            else if (ultimateSkill == null)
+            {
+                Debug.LogWarning("[AI Core] 궁극기를 시도할 수 없음: ultimateSkill 참조가 null입니다.");
+                Debug.Log("[AI Core] 이번 백대쉬 후 궁극기를 사용하지 않았습니다 (참조 없음).");
+            }
         }
-        yield return new WaitForSeconds(0.3f); // 행동 후 딜레이
-        isActing = false; // ★ 중요: 모든 행동 종료
+
+        // 모든 백대쉬 후속 행동(각성 포함)이 완료된 후 약간의 딜레이
+        yield return new WaitForSeconds(0.1f); // 이 딜레이는 각성 애니메이션 후에도 적용됨
+
+        isActing = false; // 이 코루틴(백대쉬 및 연계 행동)의 최종 종료
         yield break;
     }
-
     /// <summary>
     /// 기본 공격 코루틴 (추격 대쉬 포함).
     /// </summary>
@@ -572,7 +646,15 @@ public class AngryGodAiCore : MonoBehaviour
         }
     }
     #endregion
-
+    public bool IsCurrentlyActingOrSkillActive()
+    {
+        return isActing || isChaseDashing ||
+               (activeSkill1 != null && activeSkill1.IsSkillActive) ||
+               (ultimateSkill != null && ultimateSkill.IsUltimateActive) ||
+               (bossSummoner != null && bossSummoner.IsSummoning) ||
+               (flameSkill != null && flameSkill.IsFlaming) || // IsFlaming은 flameSkill에 있어야 함
+               isAwakening;
+    }
     #region 외부 상호작용 함수 (ActiveSkill1 및 필요시 다른 스크립트용)
 
     /// <summary> 외부 스크립트가 AI의 행동 시작을 알릴 때 호출. isActing = true 설정. </summary>
@@ -592,6 +674,41 @@ public class AngryGodAiCore : MonoBehaviour
         if (!isActing && !isChaseDashing) { PrepareBackdash(); }
         else { Debug.LogWarning("다른 행동 중이라 백대쉬 시작 불가."); }
     }
+    /// </summary>
+    public void RequestAwakeningSequence()
+    {
+        if (!isAwakening && !awakeningRequested) // 중복 요청 방지
+        {
+            Debug.Log("[AI Core] 각성 시퀀스 요청 받음.");
+            awakeningRequested = true;
+            // 현재 행동을 즉시 중단하고 백대쉬를 시도할 수도 있고,
+            // 또는 다음 행동 결정 시 우선적으로 백대쉬를 하도록 할 수도 있습니다.
+            // 여기서는 즉시 백대쉬를 준비하도록 합니다.
+            if (!IsCurrentlyActingOrSkillActive()) // 다른 중요한 행동 중이 아닐 때만 즉시 실행
+            {
+                PrepareAndExecuteAwakeningBackdash();
+            }
+            // 만약 IsCurrentlyActingOrSkillActive()가 true라면, Update()에서 awakeningRequested를 체크하여
+            // 현재 행동이 끝난 후 백대쉬를 하도록 유도할 수 있습니다. (더 복잡한 로직 필요)
+            // 현재는 즉시 시도하는 것으로 단순화합니다.
+        }
+    }
+
+    /// <summary>
+    /// 각성을 위한 백대쉬를 준비하고 실행합니다.
+    /// </summary>
+    private void PrepareAndExecuteAwakeningBackdash()
+    {
+        if (isActing || isChaseDashing || isAwakening) return; // 이미 다른 행동 중이거나 각성 중이면 중복 방지
+
+        Debug.Log("[AI Core] 각성 백대쉬 준비.");
+        isActing = true; // 백대쉬도 하나의 행동
+        rb.velocity = Vector2.zero;
+        FlipTowardsTarget(true); // 플레이어가 어느 쪽에 있든 반대 방향으로 백대쉬하기 위함
+        animator.SetTrigger("Backdash"); // 백대쉬 애니메이션 시작 (이후 AnimEvent로 ExecuteDashMovement 호출)
+                                         // ExecuteDashMovement에서는 awakeningRequested를 확인하여 각성 애니메이션으로 연결
+    }
+
     public float GetGlobalCooldownTime() => globalActionCooldownTime;
     public void SetGlobalCooldownTime(float nextTime) => globalActionCooldownTime = nextTime;
     public bool IsFacingRight => transform.localScale.x > 0f;
