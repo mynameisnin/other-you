@@ -42,6 +42,7 @@ public class AngryGodAiCore : MonoBehaviour
     private bool isAwakening = false; // 각성 애니메이션 중인지 여부
     private bool awakeningRequested = false; // BossHurt로부터 각성 요청을 받았는지 여부
     public float awakeningAnimationDuration = 3.0f; // 각성 애니메이션의 예상 길이 (인스펙터에서 조절 가능하게 public으로)
+    private BossHurt bossHurt;
     // --- 이동 설정 ---
     [Header("이동 설정")]
     [Tooltip("플레이어 추적 시 기본 이동 속도")]
@@ -69,6 +70,10 @@ public class AngryGodAiCore : MonoBehaviour
     [SerializeField] private float afterImageInterval = 0.05f;
     [Tooltip("잔상이 사라지기까지 걸리는 시간 (초)")]
     [SerializeField] private float afterImageLifetime = 0.5f;
+
+    [Header("궁극기 공격 박스")]
+    [SerializeField] private Transform ultimateAttackBoxObject; // 궁극기 콜라이더가 붙은 오브젝트
+    private BoxCollider2D ultimateAttackCollider; // 궁극기용 콜라이더
 
     // --- 공격 설정 ---
     [Header("공격 설정")]
@@ -105,6 +110,7 @@ public class AngryGodAiCore : MonoBehaviour
         bossSummoner = GetComponent<BossSummoner>();
         flameSkill = GetComponent<AngryGodFlameSkill>();
         ultimateSkill = GetComponent<AngryGodUltimateSkill>();
+        bossHurt = GetComponent<BossHurt>();
         // 필수 컴포넌트 확인
         if (animator == null || rb == null || spriteRenderer == null || activeSkill1 == null) // ★ 수정: activeSkill1 추가
         {
@@ -125,6 +131,12 @@ public class AngryGodAiCore : MonoBehaviour
 
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         // facingRight = !spriteRenderer.flipX; // 초기 방향 설정
+        if (ultimateAttackBoxObject != null)
+        {
+            ultimateAttackCollider = ultimateAttackBoxObject.GetComponent<BoxCollider2D>();
+            if (ultimateAttackCollider == null)
+                Debug.LogError("Ultimate Attack Box Object에 BoxCollider2D가 없습니다!", ultimateAttackBoxObject);
+        }
     }
 
     void Update()
@@ -248,6 +260,13 @@ public class AngryGodAiCore : MonoBehaviour
                 offset.x = Mathf.Abs(offset.x) * (facingRight ? 1 : -1); // 절대값에 방향 곱하기
                 attackCollider.offset = offset;
             }
+            if (ultimateAttackCollider != null)
+            {
+                Vector2 offset = ultimateAttackCollider.offset;
+                offset.x = Mathf.Abs(offset.x) * (facingRight ? 1 : -1);
+                ultimateAttackCollider.offset = offset;
+            }
+
         }
     }
     #endregion
@@ -430,14 +449,21 @@ public class AngryGodAiCore : MonoBehaviour
                 yield return StartCoroutine(bossSummoner.TryStartSummonAfterBackdash()); // 소환이 끝날 때까지 대기 (선택적)
             }
 
-            // 궁극기 시도 (각성하지 않았고, 위 스킬들도 사용하지 않았거나 끝났을 경우 - 순서 조정 가능)
             if (ultimateSkill != null && !ultimateSkill.IsUltimateActive)
             {
                 if (Time.time >= ultimateSkill.GetLastUseTime() + ultimateSkill.cooldown)
                 {
-                    Debug.Log("[AI Core] 백대쉬 후 궁극기 발동 시도.");
-                    yield return StartCoroutine(ultimateSkill.TryStartUltimate()); // 궁극기가 끝날 때까지 대기
-                    Debug.Log("[AI Core] 이번 백대쉬 후 궁극기를 사용했습니다 (시도함).");
+                    // 체력 조건 추가
+                    if (bossHurt != null && bossHurt.currentHealth <= bossHurt.MaxHealth * 0.5f)
+                    {
+                        Debug.Log("[AI Core] 체력 50% 이하 조건 충족 → 궁극기 발동 시도.");
+                        yield return StartCoroutine(ultimateSkill.TryStartUltimate()); // 궁극기 실행
+                        Debug.Log("[AI Core] 이번 백대쉬 후 궁극기를 사용했습니다 (시도함).");
+                    }
+                    else
+                    {
+                        Debug.Log("[AI Core] 체력 50% 초과 → 궁극기 발동 조건 불충족.");
+                    }
                 }
                 else
                 {
