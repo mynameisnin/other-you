@@ -32,6 +32,8 @@ public enum SFXType
     AngryGodDash,
     AngryGodEvasion,
     AngryGodSpawnSkill,
+    AngryGodAngryGodPase2,
+    AngryGodAngryGodUltimateSkill,
 }
 
 [System.Serializable]

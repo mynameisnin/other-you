@@ -346,6 +346,127 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40aff2b537397ac4f8809561e1bf62c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5813424494227266744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8053922619216437743}
+  - component: {fileID: 7278291623711793903}
+  - component: {fileID: 3906249953219733714}
+  - component: {fileID: 691583741518244345}
+  m_Layer: 0
+  m_Name: UltimateAttackHitbox
+  m_TagString: EnemyAttack
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8053922619216437743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813424494227266744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4685478714207243079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &7278291623711793903
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813424494227266744}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 2.0949244, y: 0.20852771}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.342786, y: 0.5829446}
+  m_EdgeRadius: 0
+--- !u!50 &3906249953219733714
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813424494227266744}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &691583741518244345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813424494227266744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d6b1eb2b035a43b42fc67f18e845d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  fromAdam: 0
+  fromDeba: 0
 --- !u!1 &6749868804012400827
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +783,7 @@ GameObject:
   - component: {fileID: 202918103994303415}
   - component: {fileID: 6079458665642016540}
   - component: {fileID: 753906007530452824}
+  - component: {fileID: 7415023658690490038}
   m_Layer: 11
   m_Name: AngryGod_Frame_1
   m_TagString: Enemy
@@ -684,6 +806,7 @@ Transform:
   m_Children:
   - {fileID: 2303946032931604728}
   - {fileID: 3636261375066213256}
+  - {fileID: 8053922619216437743}
   - {fileID: 6388668610657193930}
   - {fileID: 1930949734963942099}
   - {fileID: 3829817060612201191}
@@ -852,6 +975,7 @@ MonoBehaviour:
   backdashRange: 3.59
   chaseDashTriggerRange: 5.61
   activeSkill1TriggerRange: 8.63
+  awakeningAnimationDuration: 3
   moveSpeed: 2
   dashDistance: 8
   dashDuration: 0.3
@@ -861,6 +985,7 @@ MonoBehaviour:
   dashTrail: {fileID: 8454236485174193891}
   afterImageInterval: 0.05
   afterImageLifetime: 0.5
+  ultimateAttackBoxObject: {fileID: 8053922619216437743}
   attackCooldown: 0.8
   attackHitTiming: 0.5
   attackBoxObject: {fileID: 3636261375066213256}
@@ -967,3 +1092,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e691881b2baca409cfdad30fde4cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7415023658690490038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057310487108874888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883b6fb5d66e6d5479771ac0bb751a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 20
+  totalAnimationTime: 4

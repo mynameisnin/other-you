@@ -37,4 +37,13 @@ public class AnggryGodSFX : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.AngryGodSpawnSkill);
     }
+    public void AngryGodPase2SFX()
+    {
+        SFXManager.Instance?.Play(SFXType.AngryGodAngryGodPase2);
+    }
+    
+    public void AngryGodAngryGodUltimateSkillSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.AngryGodAngryGodUltimateSkill);
+    }
 }
