@@ -33,4 +33,12 @@ public class SceneUIManager : MonoBehaviour
             Debug.LogError("SceneUIManager에 DeathPanelUI가 할당되지 않았지만 활성화 시도가 있었습니다!");
         }
     }
+    public void OnClick_Respawn()
+    {
+        if (HurtPlayer.Instance != null)
+        {
+            HurtPlayer.Instance.RespawnPlayer();
+            
+        }
+    }
 }
