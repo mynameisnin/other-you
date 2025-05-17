@@ -31,6 +31,7 @@ public class HurtPlayer : MonoBehaviour
     [Header("Death Effect Elements")]
     public SpriteRenderer deathBackground; //  배경을 어둡게 할 오브젝트 (SpriteRenderer)
     public static HurtPlayer Instance; // 싱글톤 인스턴스 추가
+    private int originalSortingOrder; // 처음 레이어 저장
     void Start()
     {
         TestAnime = GetComponent<Animator>();
@@ -58,7 +59,7 @@ public class HurtPlayer : MonoBehaviour
         }
         FindCameraShake();
         FindDeathBackground(); //  씬 시작 시 deathBackground 찾기
-
+        originalSortingOrder = spriteRenderer != null ? spriteRenderer.sortingOrder : 0;
     }
 
     void Update()
@@ -377,6 +378,10 @@ public class HurtPlayer : MonoBehaviour
             color.a = 0f;
             deathBackground.color = color;
         }
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingOrder = originalSortingOrder; // 원래대로 복원
+        }
 
         Debug.Log("[HurtPlayer] 플레이어 부활 완료!");
     }
@@ -393,6 +398,6 @@ public class HurtPlayer : MonoBehaviour
     private IEnumerator DisableAfterDeath()
     {
         yield return new WaitForSeconds(5f);
-      
+
     }
 }
