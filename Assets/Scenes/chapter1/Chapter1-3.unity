@@ -6749,7 +6749,7 @@ Tilemap:
       - {fileID: -1562688694, guid: b4d8aa0afc8cd0448891869d235c9cb7, type: 3}
       - {fileID: 577528641, guid: b4d8aa0afc8cd0448891869d235c9cb7, type: 3}
       - {fileID: -2130393541, guid: b4d8aa0afc8cd0448891869d235c9cb7, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -26161,6 +26161,171 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed80c5853fe84f341807cfdb13a92721, type: 3}
+--- !u!43 &289917763
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 11
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 42
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 16
+    localAABB:
+      m_Center: {x: 0.006473873, y: -0.018493794, z: 0}
+      m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 00000100020003000100000004000100030005000100040006000100050001000600070002000800000000000900030001000a00020007000b00010003000c00040004000d00050005000e00060006000f000700
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 16
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 704
+    _typelessdata: 4491b53d68b48ebc0000000096a51ebdd3ce7fbf0000000000000080ed2ab63d3bcc8ebc9bf7b43d949c8ebcc822d43b1f9897bc00000000164b55bc72fa7f3f000000800000008094a69bbd0364a0bced2ab63d3bcc8ebced2ab63d3bcc8ebc00000000164b55bc72fa7f3f0000008000000080ed2ab63d3bcc8ebced2ab63d3bcc8ebc9bf7b43d949c8ebc000000003bac1ebdcece7fbf00000000000000809bf7b43d949c8ebc9bf7b43d949c8ebcf02dce3b0eb896bc00000000098e453c3cfb7fbf00000080000000809bf7b43d949c8ebcdd319bbd89d39ebcdd319bbd89d39ebc00000000218e453c3cfb7fbf0000008000000080dd319bbd89d39ebcdd319bbd89d39ebc386c9bbdc69b9fbc0000000036ae263f8a4d42bf0000008000000080dd319bbd89d39ebc94a69bbd0364a0bc94a69bbd0364a0bc0000000090ac263ff34e42bf000000800000008094a69bbd0364a0bc94a69bbd0364a0bced2ab63d3bcc8ebc0000000096a51ebdd3ce7fbf0000000000000080ed2ab63d3bcc8ebced2ab63d3bcc8ebc4491b53d68b48ebc000000003bac1ebdcece7fbf0000000000000080ed2ab63d3bcc8ebc9bf7b43d949c8ebcc822d43b1f9897bc00000000164b55bc72fa7f3f000000800000008094a69bbd0364a0bced2ab63d3bcc8ebc94a69bbd0364a0bc00000000164b55bc72fa7f3f000000800000008094a69bbd0364a0bc94a69bbd0364a0bc9bf7b43d949c8ebc00000000098e453c3cfb7fbf00000080000000809bf7b43d949c8ebc9bf7b43d949c8ebcf02dce3b0eb896bc00000000218e453c3cfb7fbf00000080000000809bf7b43d949c8ebcdd319bbd89d39ebcdd319bbd89d39ebc0000000036ae263f8a4d42bf0000008000000080dd319bbd89d39ebcdd319bbd89d39ebc386c9bbdc69b9fbc0000000090ac263ff34e42bf0000008000000080dd319bbd89d39ebc94a69bbd0364a0bc
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0.006473873, y: -0.018493794, z: 0}
+    m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
+  m_MeshUsageFlags: 0
+  m_CookingOptions: 30
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &291938331
 GameObject:
   m_ObjectHideFlags: 0
@@ -62917,7 +63082,7 @@ Tilemap:
       - {fileID: 1307957130, guid: 4cdb8db356cb73447aa71d1d7f73da9a, type: 3}
       - {fileID: 290118437, guid: 4cdb8db356cb73447aa71d1d7f73da9a, type: 3}
       - {fileID: -1945132968, guid: 4cdb8db356cb73447aa71d1d7f73da9a, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: -3, z: 0}
@@ -63645,7 +63810,7 @@ Tilemap:
       - {fileID: 1307957130, guid: 4cdb8db356cb73447aa71d1d7f73da9a, type: 3}
       - {fileID: 290118437, guid: 4cdb8db356cb73447aa71d1d7f73da9a, type: 3}
       - {fileID: -1945132968, guid: 4cdb8db356cb73447aa71d1d7f73da9a, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 85, y: -3, z: 0}
@@ -100483,171 +100648,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!43 &981315668
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 11
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 42
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 16
-    localAABB:
-      m_Center: {x: 0.006473873, y: -0.018493794, z: 0}
-      m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 00000100020003000100000004000100030005000100040006000100050001000600070002000800000000000900030001000a00020007000b00010003000c00040004000d00050005000e00060006000f000700
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 16
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 704
-    _typelessdata: 4491b53d68b48ebc0000000096a51ebdd3ce7fbf0000000000000080ed2ab63d3bcc8ebc9bf7b43d949c8ebcc822d43b1f9897bc00000000164b55bc72fa7f3f000000800000008094a69bbd0364a0bced2ab63d3bcc8ebced2ab63d3bcc8ebc00000000164b55bc72fa7f3f0000008000000080ed2ab63d3bcc8ebced2ab63d3bcc8ebc9bf7b43d949c8ebc000000003bac1ebdcece7fbf00000000000000809bf7b43d949c8ebc9bf7b43d949c8ebcf02dce3b0eb896bc00000000098e453c3cfb7fbf00000080000000809bf7b43d949c8ebcdd319bbd89d39ebcdd319bbd89d39ebc00000000218e453c3cfb7fbf0000008000000080dd319bbd89d39ebcdd319bbd89d39ebc386c9bbdc69b9fbc0000000036ae263f8a4d42bf0000008000000080dd319bbd89d39ebc94a69bbd0364a0bc94a69bbd0364a0bc0000000090ac263ff34e42bf000000800000008094a69bbd0364a0bc94a69bbd0364a0bced2ab63d3bcc8ebc0000000096a51ebdd3ce7fbf0000000000000080ed2ab63d3bcc8ebced2ab63d3bcc8ebc4491b53d68b48ebc000000003bac1ebdcece7fbf0000000000000080ed2ab63d3bcc8ebc9bf7b43d949c8ebcc822d43b1f9897bc00000000164b55bc72fa7f3f000000800000008094a69bbd0364a0bced2ab63d3bcc8ebc94a69bbd0364a0bc00000000164b55bc72fa7f3f000000800000008094a69bbd0364a0bc94a69bbd0364a0bc9bf7b43d949c8ebc00000000098e453c3cfb7fbf00000080000000809bf7b43d949c8ebc9bf7b43d949c8ebcf02dce3b0eb896bc00000000218e453c3cfb7fbf00000080000000809bf7b43d949c8ebcdd319bbd89d39ebcdd319bbd89d39ebc0000000036ae263f8a4d42bf0000008000000080dd319bbd89d39ebcdd319bbd89d39ebc386c9bbdc69b9fbc0000000090ac263ff34e42bf0000008000000080dd319bbd89d39ebc94a69bbd0364a0bc
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0.006473873, y: -0.018493794, z: 0}
-    m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
-  m_MeshUsageFlags: 0
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &986857172
 GameObject:
   m_ObjectHideFlags: 0
@@ -128535,9 +128535,44 @@ MonoBehaviour:
   characterImage: {fileID: 1351969625}
   characterNameText: {fileID: 2135987269}
   dialog:
+  - dialogueText: "\uC5B4\uBA38\uB2C8\u2026 \uC65C\u2026 \uC65C \uC774\uB7F0 \uB370\uC11C
+      \uD63C\uC790\u2026"
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\uC870\uAE08\uB9CC\u2026 \uC870\uAE08\uB9CC \uB354 \uBE68\uB9AC
+      \uC654\uB354\uB77C\uBA74\u2026 \uB0B4\uAC00, \uB0B4\uAC00 \uC9C0\uCF30\uC744
+      \uD150\uB370\u2026"
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
   - dialogueText: fdsafsafasdfasd
-    characterImage: {fileID: 0}
-    characterName: 
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\uBBF8\uC548\uD574\uC694\u2026 \uC5B4\uBA38\uB2C8\u2026 \uC800,
+      \uB108\uBB34 \uB2A6\uC5C8\uC5B4\uC694\u2026\r\n........."
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\u2026\uC774\uB807\uAC8C \uB9CC\uB4E0 \uB188\uB4E4\u2026 \uBC18\uB4DC\uC2DC
+      \uCC3E\uC544\uB0B4\uC11C\u2026 \uB2E4 \uB05D\uB0B4\uACE0 \uB9D0 \uAC70\uC57C."
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\u2026\uC774\uC81C, \uBA48\uCD9C \uC218 \uC5C6\uC5B4."
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\uBAA8\uB4E0 \uC2DC\uC791\uC740\u2026 \uC800 \uC131\uC5D0\uC11C\uBD80\uD130\uC600\uC5B4."
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\uB05D\uB0B4\uB7EC \uAC00\uC694, \uC5B4\uBA38\uB2C8. \r\n\uC774
+      \uACE0\uD1B5\uB3C4\u2026 \uC8FD\uC74C\uB3C4\u2026 \uB354 \uC774\uC0C1\uC740
+      \uBC18\uBCF5\uB418\uC9C0 \uC54A\uAC8C."
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: "\uC800 \uC548\uC5D0 \uC788\uB294 \uC790\uB4E4\u2026  \r\n\uB0B4\uAC00
+      \uC9C1\uC811 \uC2EC\uD310\uD558\uB7EC \uAC04\uB2E4."
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
+  - dialogueText: fdsafsafasdfasd
+    characterImage: {fileID: 21300000, guid: 6d9de67969f26ae429c9d58bca2713dc, type: 3}
+    characterName: "\uC544\uB2F4"
   continueButton: {fileID: 0}
   wordSpeed: 1
   playerIsClose: 0
@@ -134549,7 +134584,7 @@ Tilemap:
       - {fileID: 1438410458, guid: 6176915b4ef1bcc42931dfcf4c4f6afe, type: 3}
       - {fileID: 1254100671, guid: 6176915b4ef1bcc42931dfcf4c4f6afe, type: 3}
       - {fileID: -946830121, guid: 6176915b4ef1bcc42931dfcf4c4f6afe, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 22, y: -2, z: 0}
@@ -137265,7 +137300,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.0207921, y: -0.83320534}
+  m_Offset: {x: -1.0207921, y: -0.11919129}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.52631575, y: 0}
@@ -137276,7 +137311,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3536737, y: 1.5159342}
+  m_Size: {x: 2.3536737, y: 2.9439623}
   m_EdgeRadius: 0
 --- !u!114 &1728483798
 MonoBehaviour:
@@ -147608,7 +147643,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: -3, z: 0}
@@ -147764,7 +147799,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 11, y: -3, z: 0}
@@ -148726,7 +148761,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 85, y: -3, z: 0}
@@ -148869,7 +148904,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 96, y: -3, z: 0}
@@ -149220,7 +149255,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 123, y: -3, z: 0}
@@ -149233,7 +149268,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 124, y: -3, z: 0}
@@ -149441,7 +149476,7 @@ Tilemap:
       - {fileID: 1118467367, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 2040758508, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
       - {fileID: 1362833163, guid: 9572c81a1d8be7e47939d6619a4cee90, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 140, y: -3, z: 0}
@@ -150069,7 +150104,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.019886255}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -150080,7 +150115,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2.9687285}
   m_EdgeRadius: 0
 --- !u!114 &2024002718
 MonoBehaviour:
@@ -150099,9 +150134,30 @@ MonoBehaviour:
   characterImage: {fileID: 1351969625}
   characterNameText: {fileID: 2135987269}
   dialog:
-  - dialogueText: fdsafsafasdfasd
-    characterImage: {fileID: 0}
-    characterName: 
+  - dialogueText: "\uC5D8\uB9AC\uC2A4, \uBBF8\uC548\uD558\uC624. \uB098\uB294 \uC774
+      \uB054\uCC0D\uD55C \uAD11\uACBD\uC744 \uBAA8\uB450 \uC9C0\uCF1C\uBCF4\uACE0
+      \uC788\uC5C8\uC18C.\v\uC80A\uC740 \uBCD1\uC0AC\uB4E4\uC740 \uC800\uB4E4 \uC190\uC5D0
+      \uC7A1\uD600\uAC00\uAC70\uB098 \uBB34\uCC38\uD788 \uD559\uC0B4\uB2F9\uD588\uC18C.\v\uB098\uB294
+      \uADF8\uB4E4\uC744 \uAD6C\uD558\uAE30 \uC704\uD574 \uC544\uBB34\uAC83\uB3C4
+      \uD560 \uC218 \uC5C6\uC5C8\uC18C."
+    characterImage: {fileID: 6977146397095036854, guid: fcec6a1f884057c45b859ef246936be0, type: 3}
+    characterName: "\uC804\uC7A5\uC758 \uB9C8\uC9C0\uB9C9 \uAC00\uB85D"
+  - dialogueText: "\uD480\uC232\uC5D0 \uC228\uC5B4 \uC9C0\uCF1C\uBCF4\uB358 \uB098\uB294\u2026
+      \uB098\uC758 \uC544\uC774\uC640 \uB3D9\uB8CC\uB4E4\uC774 \uB04C\uB824\uAC00\uB294
+      \uBAA8\uC2B5\uC744 \uBAA9\uACA9\uD588\uC18C.\v\uADF8 \uC21C\uAC04, \uB098\uB294
+      \uCC28\uB9C8 \uC228\uC870\uCC28 \uC274 \uC218 \uC5C6\uC5C8\uC18C. "
+    characterImage: {fileID: 6977146397095036854, guid: fcec6a1f884057c45b859ef246936be0, type: 3}
+    characterName: "\uC804\uC7A5\uC758 \uB9C8\uC9C0\uB9C9 \uAC00\uB85D"
+  - dialogueText: "\uBAA8\uB4E0 \uAD11\uACBD\uC774 \uB098\uB97C \uC9D1\uC5B4\uC0BC\uD0A4\uB4EF
+      \uB2E4\uAC00\uC654\uC18C.\r\n\uD558\uC9C0\uB9CC\u2026 \uB0B4\uAC00 \uD560 \uC218
+      \uC788\uB294 \uC77C\uC774\uB77C\uACE0\uB294 \uADF8\uC800 \uC800\uB4E4\uC5D0\uAC8C
+      \uC7A1\uD788\uC9C0 \uC54A\uB294 \uAC83\uBFD0\uC774\uC5C8\uC18C. "
+    characterImage: {fileID: 6977146397095036854, guid: fcec6a1f884057c45b859ef246936be0, type: 3}
+    characterName: "\uC804\uC7A5\uC758 \uB9C8\uC9C0\uB9C9 \uAC00\uB85D"
+  - dialogueText: "\uB9CC\uC57D \uB2F9\uC2E0\uC774 \uC0B4\uC544 \uC788\uB2E4\uBA74
+      \uC800\uC2B9\uC5D0\uC11C \uBA3C\uC800 \uAE30\uB2E4\uB9AC\uACA0\uC18C."
+    characterImage: {fileID: 6977146397095036854, guid: fcec6a1f884057c45b859ef246936be0, type: 3}
+    characterName: "\uC804\uC7A5\uC758 \uB9C8\uC9C0\uB9C9 \uAC00\uB85D"
   continueButton: {fileID: 0}
   wordSpeed: 1
   playerIsClose: 0
