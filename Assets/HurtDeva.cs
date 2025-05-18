@@ -27,6 +27,7 @@ public class HurtDeva : MonoBehaviour
     public SpriteRenderer deathBackground;
 
     public static HurtDeva Instance;
+    private int originalSortingOrder;
 
     void Awake()
     {
@@ -39,7 +40,7 @@ public class HurtDeva : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        originalSortingOrder = spriteRenderer != null ? spriteRenderer.sortingOrder : 0;
         FindCameraShake();
         FindDeathBackground();
 
@@ -53,6 +54,7 @@ public class HurtDeva : MonoBehaviour
             startColor.a = 0f;
             deathBackground.color = startColor;
         }
+
     }
 
     void Update()
@@ -190,16 +192,99 @@ public class HurtDeva : MonoBehaviour
             {
                 animator.SetTrigger("Die");
                 ChangeLayerOnDeath();
+
+                //  UI 표시 추가
+                ShowDeathPanelUI();
             });
         }
         else
         {
             animator.SetTrigger("Die");
             ChangeLayerOnDeath();
+
+            //  UI 표시 추가
+            ShowDeathPanelUI();
         }
 
-        StartCoroutine(DisableAfterDeath());
+   
     }
+    public void RespawnDeva()
+    {
+        if (!isDead) return;
+
+        isDead = false;
+        gameObject.SetActive(true);
+        if (animator != null)
+        {
+            animator.ResetTrigger("Die"); // 죽음 트리거 리셋
+            animator.Play("DevaIdle");        // 기본 상태로 복귀
+        }
+        // Rigidbody 초기화
+        if (rb != null)
+        {
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.simulated = true;
+            rb.velocity = Vector2.zero;
+        }
+
+        // 체력 초기화
+        if (DevaStats.Instance != null)
+        {
+            DevaStats.Instance.currentHealth = DevaStats.Instance.maxHealth;
+            DevaStats.Instance.SetCurrentEnergy(DevaStats.Instance.maxEnergy);
+            DevaStats.Instance.SetCurrentMana(DevaStats.Instance.maxMana);
+        }
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.currentHealth = PlayerStats.Instance.maxHealth;
+            PlayerStats.Instance.SetCurrentEnergy(PlayerStats.Instance.maxEnergy);
+            PlayerStats.Instance.SetCurrentMana(PlayerStats.Instance.maxMana);
+            if (HurtPlayer.Instance != null)
+                HurtPlayer.Instance.UpdateHealthUI();
+        }
+
+        // UI 초기화
+        UpdateHealthUI();
+
+        // 애니메이션 초기화
+        if (animator != null)
+        {
+            animator.ResetTrigger("Die");
+            animator.Play("Idle");
+        }
+
+        // 컨트롤러 재활성화
+        DebaraMovement movement = GetComponent<DebaraMovement>();
+        if (movement != null) movement.enabled = true;
+
+        MagicAttack magic = GetComponent<MagicAttack>();
+        if (magic != null) magic.enabled = true;
+
+        // 레이어 초기화
+        if (spriteRenderer != null)
+            spriteRenderer.sortingOrder = 0;
+
+        // 검은 배경 투명화
+        if (deathBackground != null)
+        {
+            Color color = deathBackground.color;
+            color.a = 0f;
+            deathBackground.color = color;
+        }
+
+        // 리스폰 위치 이동
+        if (SpawnManager.Instance != null)
+        {
+            transform.position = SpawnManager.Instance.spawnPosition;
+        }
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sortingOrder = originalSortingOrder; //  복원
+        }
+
+        Debug.Log("[HurtDeva] 데바 부활 완료!");
+    }
+
 
     private void DisableControls()
     {
@@ -225,5 +310,23 @@ public class HurtDeva : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         gameObject.SetActive(false);
+    }
+    public bool IsDead()
+    {
+        return isDead;
+    }
+    private void ShowDeathPanelUI()
+    {
+        SceneUIManager sceneUIManager = FindObjectOfType<SceneUIManager>();
+
+        if (sceneUIManager != null)
+        {
+            sceneUIManager.ShowManagedDeathPanel();
+            Debug.Log("[HurtDeva] DeathPanel 호출 완료!");
+        }
+        else
+        {
+            Debug.LogError("[HurtDeva] SceneUIManager가 존재하지 않아 DeathPanel을 표시할 수 없습니다.");
+        }
     }
 }

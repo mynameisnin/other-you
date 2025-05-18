@@ -84,6 +84,25 @@ public class StatueInteraction : MonoBehaviour
         StartShockwaveEffect(); // 충격파 효과 실행
         StartLightEffect(); // Light2D Inner 값 증가
         ShowStatPanel(); // 스탯 패널 표시
+
+        //  리스폰 위치 갱신
+        if (SpawnManager.Instance != null)
+            SpawnManager.Instance.spawnPosition = transform.position;
+
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.Heal(PlayerStats.Instance.maxHealth);
+            PlayerStats.Instance.SetCurrentEnergy(PlayerStats.Instance.maxEnergy);
+            PlayerStats.Instance.SetCurrentMana(PlayerStats.Instance.maxMana);
+        }
+
+        //  데바 전체 회복
+        if (DevaStats.Instance != null)
+        {
+            DevaStats.Instance.Heal(DevaStats.Instance.maxHealth);
+            DevaStats.Instance.SetCurrentEnergy(DevaStats.Instance.maxEnergy);
+            DevaStats.Instance.SetCurrentMana(DevaStats.Instance.maxMana);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

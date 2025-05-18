@@ -35,10 +35,16 @@ public class SceneUIManager : MonoBehaviour
     }
     public void OnClick_Respawn()
     {
+        Time.timeScale = 1f;
+
         if (HurtPlayer.Instance != null)
         {
             HurtPlayer.Instance.RespawnPlayer();
-            
+        }
+
+        if (HurtDeva.Instance != null)
+        {
+            HurtDeva.Instance.RespawnDeva();
         }
     }
 }

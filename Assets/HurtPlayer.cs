@@ -350,8 +350,18 @@ public class HurtPlayer : MonoBehaviour
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.currentHealth = PlayerStats.Instance.maxHealth;
+            PlayerStats.Instance.SetCurrentEnergy(PlayerStats.Instance.maxEnergy);
+            PlayerStats.Instance.SetCurrentMana(PlayerStats.Instance.maxMana); //  이거 꼭 필요!
         }
+        if (DevaStats.Instance != null)
+        {
+            DevaStats.Instance.currentHealth = DevaStats.Instance.maxHealth;
+            DevaStats.Instance.SetCurrentEnergy(DevaStats.Instance.maxEnergy);
+            DevaStats.Instance.SetCurrentMana(DevaStats.Instance.maxMana);
 
+            if (HurtDeva.Instance != null)
+                HurtDeva.Instance.UpdateHealthUI(); // 데바 체력 UI도 갱신
+        }
         // UI 초기화
         UpdateHealthUI();
 
@@ -394,6 +404,10 @@ public class HurtPlayer : MonoBehaviour
         if (attack != null) attack.enabled = true;
 
         Debug.Log("모든 컨트롤러 재활성화됨");
+    }
+    public bool IsDead()
+    {
+        return isDead;
     }
     private IEnumerator DisableAfterDeath()
     {

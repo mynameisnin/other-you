@@ -27,7 +27,10 @@ public class CharacterSwitcher : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && canSwitch)
+        bool isAdamDead = HurtPlayer.Instance != null && HurtPlayer.Instance.IsDead();
+        bool isDebaDead = HurtDeva.Instance != null && HurtDeva.Instance.IsDead();
+
+        if (Input.GetKeyDown(KeyCode.Tab) && canSwitch && !isAdamDead && !isDebaDead)
         {
             StartCoroutine(PlaySwitchSequence());
         }

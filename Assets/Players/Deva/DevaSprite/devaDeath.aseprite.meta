@@ -1,0 +1,584 @@
+fileFormatVersion: 2
+guid: 1d787375e3091934ab5673d93311dbd3
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: devaDeath_Frame_0
+    originalName: 
+    pivot: {x: 0.4615385, y: -0.016949153}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 65
+      width: 26
+      height: 59
+    spriteID: 5defafbb1c4b4de41a350aa9f4e311bc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: -15, y: 62}
+  - name: devaDeath_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 139
+      y: 160
+      width: 28
+      height: 59
+    spriteID: 3f586d20a03f84d49bb912d639d68a0b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 139, y: 160}
+  - name: devaDeath_Frame_2
+    originalName: 
+    pivot: {x: 0.4814815, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 211
+      y: 192
+      width: 27
+      height: 58
+    spriteID: 73b56e279ce55dc499010610dbc0d8be
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 211, y: 192}
+  - name: devaDeath_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 175
+      y: 192
+      width: 28
+      height: 56
+    spriteID: 3ce02faaccff4a64493de40cc1c1eb63
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 175, y: 192}
+  - name: devaDeath_Frame_4
+    originalName: 
+    pivot: {x: 0.10204081, y: -0.018867925}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 49
+      height: 53
+    spriteID: 468335f5ec468144fb83fbcecbab4e1e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: devaDeath_Frame_5
+    originalName: 
+    pivot: {x: 0.045454547, y: 0.041666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 175
+      y: 160
+      width: 66
+      height: 24
+    spriteID: 27145eec89a644e47b88c0cbeab74745
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 175, y: 160}
+  - name: devaDeath_Frame_6
+    originalName: 
+    pivot: {x: 0.05882353, y: 0.033333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 61
+      y: 163
+      width: 68
+      height: 30
+    spriteID: fe1574c8ff827d54e97717babd1af17c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 61, y: 163}
+  - name: devaDeath_Frame_7
+    originalName: 
+    pivot: {x: 0.057142857, y: 0.033333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 61
+      y: 4
+      width: 70
+      height: 30
+    spriteID: 344cf40d1c1519644a8c194c789cf532
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 61, y: 4}
+  - name: devaDeath_Frame_8
+    originalName: 
+    pivot: {x: 0.029850746, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 61
+      y: 124
+      width: 67
+      height: 31
+    spriteID: c364b900a53c57846b2886309bca6a48
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 61, y: 124}
+  - name: devaDeath_Frame_9
+    originalName: 
+    pivot: {x: 0, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 61
+      y: 201
+      width: 63
+      height: 31
+    spriteID: e3f486d38816da04980ec486ed15407b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 61, y: 201}
+  - name: devaDeath_Frame_10
+    originalName: 
+    pivot: {x: 0, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 139
+      y: 4
+      width: 63
+      height: 31
+    spriteID: 323fbf7ae5424684cb6d2e697c022d5f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 139, y: 4}
+  - name: devaDeath_Frame_11
+    originalName: 
+    pivot: {x: 0, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 139
+      y: 43
+      width: 63
+      height: 31
+    spriteID: d6e21e7ed863b2346b1fea204c008a8d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 139, y: 43}
+  - name: devaDeath_Frame_12
+    originalName: 
+    pivot: {x: 0, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 139
+      y: 82
+      width: 63
+      height: 31
+    spriteID: fff6005eabf622e419cd886478b57d88
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 139, y: 82}
+  - name: devaDeath_Frame_13
+    originalName: 
+    pivot: {x: 0, y: 0.032258064}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 139
+      y: 121
+      width: 63
+      height: 31
+    spriteID: 2b95beac4ad7d574ab818b9ed9efceb6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 139, y: 121}
+  - name: devaDeath_Frame_14
+    originalName: 
+    pivot: {x: 0, y: 0.030303031}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 61
+      y: 42
+      width: 63
+      height: 33
+    spriteID: ec71c97411588dd41963fb9f64ae0aed
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 61, y: 42}
+  - name: devaDeath_Frame_15
+    originalName: 
+    pivot: {x: 0, y: 0.060606062}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 61
+      y: 83
+      width: 63
+      height: 33
+    spriteID: 323500c973b72a94c9cb49660a4b9dd0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 61, y: 83}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 395904226
+    name: devaDeath
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: devaDeath_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 68
+        y: 68
+        width: 64
+        height: 64
+      spriteId: 5defafbb1c4b4de41a350aa9f4e311bc
+    - name: devaDeath_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 86
+        y: 72
+        width: 28
+        height: 59
+      spriteId: 3f586d20a03f84d49bb912d639d68a0b
+    - name: devaDeath_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 85
+        y: 72
+        width: 27
+        height: 58
+      spriteId: 73b56e279ce55dc499010610dbc0d8be
+    - name: devaDeath_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 84
+        y: 72
+        width: 28
+        height: 56
+      spriteId: 3ce02faaccff4a64493de40cc1c1eb63
+    - name: devaDeath_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 88
+        y: 72
+        width: 49
+        height: 53
+      spriteId: 468335f5ec468144fb83fbcecbab4e1e
+    - name: devaDeath_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 84
+        y: 71
+        width: 66
+        height: 24
+      spriteId: 27145eec89a644e47b88c0cbeab74745
+    - name: devaDeath_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 83
+        y: 71
+        width: 68
+        height: 30
+      spriteId: fe1574c8ff827d54e97717babd1af17c
+    - name: devaDeath_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 83
+        y: 71
+        width: 70
+        height: 30
+      spriteId: 344cf40d1c1519644a8c194c789cf532
+    - name: devaDeath_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 85
+        y: 71
+        width: 67
+        height: 31
+      spriteId: c364b900a53c57846b2886309bca6a48
+    - name: devaDeath_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 31
+      spriteId: e3f486d38816da04980ec486ed15407b
+    - name: devaDeath_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 31
+      spriteId: 323fbf7ae5424684cb6d2e697c022d5f
+    - name: devaDeath_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 31
+      spriteId: d6e21e7ed863b2346b1fea204c008a8d
+    - name: devaDeath_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 31
+      spriteId: fff6005eabf622e419cd886478b57d88
+    - name: devaDeath_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 31
+      spriteId: 2b95beac4ad7d574ab818b9ed9efceb6
+    - name: devaDeath_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 33
+      spriteId: ec71c97411588dd41963fb9f64ae0aed
+    - name: devaDeath_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 87
+        y: 71
+        width: 63
+        height: 33
+      spriteId: 323500c973b72a94c9cb49660a4b9dd0
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 200, y: 200}

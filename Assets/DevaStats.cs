@@ -213,9 +213,11 @@ public class DevaStats : MonoBehaviour
             currentMana = maxMana;
             statPoints--;
 
-            if (DevaManaBarUI.Instance != null)
+            if (DevaStats.Instance != null)
             {
-                DevaManaBarUI.Instance.UpdateMaxMana(maxMana);
+                DevaStats.Instance.currentHealth = DevaStats.Instance.maxHealth;
+                DevaStats.Instance.SetCurrentEnergy(DevaStats.Instance.maxEnergy);
+                DevaStats.Instance.SetCurrentMana(DevaStats.Instance.maxMana); //  Ãß°¡
             }
         }
     }
