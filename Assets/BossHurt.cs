@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.Playables;
 public class BossHurt : MonoBehaviour
 {
     [Header("Phase Object")]
@@ -16,7 +16,8 @@ public class BossHurt : MonoBehaviour
     public ParticleSystem bloodEffectParticle;
 
     private CameraShakeSystem cameraShake;
-
+    [Header("애니메이터")]
+    public Animator bossAnimator; // 보스 애니메이터 추가
     [Header("Stats")]
     public int MaxHealth = 100;
     public int currentHealth;
@@ -27,8 +28,12 @@ public class BossHurt : MonoBehaviour
 
     [Header("Hit Effect Position")]
     public Transform pos;
-
+    [Header("Timelines")]
+    public PlayableDirector characterMoveTimeline;
     private AngryGodAiCore aiCore; // AI Core 참조
+    public GameObject adamCharacter; // 인스펙터에서 아담 캐릭터 할당
+    public GameObject devaCharacter; // 인스펙터에서 데바 캐릭터 할당 (데바는 씬에 미리 비활성화 상태로 두거나, 프리팹일 경우엔 아래 Instantiate 방식 사용)
+    public float devaSpawnOffsetDistance = 1.0f;
     private void Awake() // Awake로 변경하여 Start보다 먼저 참조 설정
     {
         rb = GetComponent<Rigidbody2D>();
@@ -166,30 +171,62 @@ public class BossHurt : MonoBehaviour
 
     private IEnumerator Die(bool fromAdam, bool fromDeba)
     {
-        if (isDying) yield break;
-        isDying = true;
+        // ... (기존 isDying, 보스 처리, 경험치 지급 등) ...
 
-        ShowBloodEffect();
-
-        if (fromAdam && PlayerExperience.Instance != null)
+        // 아담 이동 타임라인 재생
+        if (characterMoveTimeline != null)
         {
-            PlayerExperience.Instance.GainXP(xpReward);
-        }
-        else if (fromDeba && DevaExperience.Instance != null)
-        {
-            DevaExperience.Instance.GainXP(xpReward);
+            Debug.Log("아담 이동 타임라인 재생!");
+            characterMoveTimeline.Play();
+            // 만약 아담 타임라인이 끝난 후에 데바가 나오게 하려면, 여기서 타임라인 끝날 때까지 기다려야 함.
+            // yield return new WaitForSeconds((float)characterMoveTimeline.duration);
         }
 
-        if (rb != null)
+        // ★★★ 데바를 아담의 현재 위치에 나타나게 하기 ★★★
+        if (devaCharacter != null && adamCharacter != null)
         {
-            rb.velocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.simulated = false;
+            // 1. 데바 위치 설정
+            //    정확히 아담 위치, 또는 아담 옆에 살짝 떨어져서.
+            Vector3 spawnPosition = adamCharacter.transform.position;
+
+            // 아담의 오른쪽 옆에 나오게 하려면 (옵션)
+            spawnPosition += adamCharacter.transform.right * devaSpawnOffsetDistance;
+            // 또는 아담의 앞쪽에 나오게 하려면 (옵션)
+            // spawnPosition += adamCharacter.transform.forward * devaSpawnOffsetDistance;
+
+            devaCharacter.transform.position = spawnPosition;
+
+            // (선택사항) 데바가 아담을 바라보게 하려면
+            // devaCharacter.transform.LookAt(adamCharacter.transform);
+            // 또는 그냥 아담과 같은 방향을 보게 하려면
+            devaCharacter.transform.rotation = adamCharacter.transform.rotation;
+
+
+            // 2. 데바 활성화 (만약 비활성화 상태였다면)
+            devaCharacter.SetActive(true);
+            Debug.Log("데바가 아담 위치(" + spawnPosition + ")에 나타남!");
+
+            // 3. (선택사항) 데바 등장 애니메이션/이펙트 재생
+            Animator devaAnimator = devaCharacter.GetComponent<Animator>();
+            if (devaAnimator != null)
+            {
+                // devaAnimator.SetTrigger("AppearTrigger"); // 예시: 등장 애니메이션 트리거
+            }
+            // 파티클 이펙트 같은 것도 여기서 Instantiate 가능
+        }
+        else
+        {
+            if (devaCharacter == null) Debug.LogWarning("데바 캐릭터가 할당되지 않았습니다!");
+            if (adamCharacter == null) Debug.LogWarning("아담 캐릭터가 할당되지 않았습니다!");
         }
 
-        if (col != null) col.enabled = false;
+        if (bossAnimator != null)
+        {
+            bossAnimator.SetTrigger("Die");
+            Debug.Log("[BossHurt] 보스 죽는 애니메이션 실행됨.");
+        }
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1f); // 애니메이션 대기 시간
         Destroy(gameObject);
     }
 }
