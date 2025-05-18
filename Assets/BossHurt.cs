@@ -1,21 +1,24 @@
 using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement; // 맨 위에 추가 필요
 public class BossHurt : MonoBehaviour
 {
     [Header("Phase Object")]
-    public GameObject phase2Object; // 보스 2페이즈 오브젝트
+    public GameObject phase2Object;
     public GameObject phase2ObjectAnime;
-    private bool phase2Triggered = false; // 중복 방지용
+    private bool phase2Triggered = false;
 
     private Rigidbody2D rb;
     private Collider2D col;
 
     public GameObject[] bloodEffectPrefabs;
-    public GameObject parringEffects; // 사용하지 않지만 유지해도 무방
+    public GameObject parringEffects;
     public ParticleSystem bloodEffectParticle;
 
     private CameraShakeSystem cameraShake;
+
+    [Header("애니메이터")]
+    public Animator bossAnimator;
 
     [Header("Stats")]
     public int MaxHealth = 100;
@@ -28,19 +31,23 @@ public class BossHurt : MonoBehaviour
     [Header("Hit Effect Position")]
     public Transform pos;
 
-    private AngryGodAiCore aiCore; // AI Core 참조
-    private void Awake() // Awake로 변경하여 Start보다 먼저 참조 설정
+    private AngryGodAiCore aiCore;
+
+    public GameObject adamCharacter;
+    public GameObject devaCharacter;
+    public float devaSpawnOffsetDistance = 1.0f;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         cameraShake = Camera.main != null ? Camera.main.GetComponent<CameraShakeSystem>() : null;
-        aiCore = GetComponent<AngryGodAiCore>(); // AI Core 참조 가져오기
+        aiCore = GetComponent<AngryGodAiCore>();
 
         if (aiCore == null) Debug.LogError("AngryGodAiCore component missing on " + gameObject.name);
 
         currentHealth = MaxHealth;
     }
-
 
     public void ShowBloodEffect()
     {
@@ -117,34 +124,26 @@ public class BossHurt : MonoBehaviour
 
     public void TakeDamage(int damage, bool fromAdam, bool fromDeba)
     {
-        if (isDying || (aiCore != null && aiCore.IsCurrentlyActingOrSkillActive())) // ★★★ 보스가 중요한 행동 중일 때는 데미지 처리 후 각성 요청을 잠시 보류할 수 있음 (선택적)
+        if (isDying || (aiCore != null && aiCore.IsCurrentlyActingOrSkillActive()))
         {
-            // 또는 데미지는 받되, 각성 요청 조건 검사를 아래 if문으로만 한정
-            // 현재는 isDying만 체크하도록 유지
         }
         if (isDying) return;
-
 
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, MaxHealth);
 
-        // 50% 이하 각성 트리거 처리 (단 한 번만)
-        // phase2Triggered는 BossHurt 레벨에서 "각성 요청을 보냈는가"를 추적
         if (!phase2Triggered && currentHealth <= MaxHealth / 2)
         {
-            phase2Triggered = true; // 각성 요청을 보낼 것임을 표시 (중복 방지)
+            phase2Triggered = true;
             Debug.Log("▶ HP 50% 이하! 각성 시퀀스 요청 준비.");
 
             if (aiCore != null)
             {
-                aiCore.RequestAwakeningSequence(); // AI Core에 각성 시퀀스 시작 요청
-                                                   // phase2Object 및 phase2ObjectAnime의 활성화는 AI Core의 각성 시퀀스 내에서 처리
+                aiCore.RequestAwakeningSequence();
             }
             else
             {
                 Debug.LogWarning("AI Core 참조가 없어 각성 시퀀스를 요청할 수 없습니다!");
-                // AI Core가 없다면 기존처럼 여기서 직접 phase2Object 등을 활성화할 수 있지만,
-                // "무조건 백대쉬 후" 라는 조건은 AI Core가 담당해야 함.
                 if (phase2Object != null) phase2Object.SetActive(true);
                 if (phase2ObjectAnime != null) phase2ObjectAnime.SetActive(true);
             }
@@ -157,39 +156,34 @@ public class BossHurt : MonoBehaviour
         else
         {
             ShowBloodEffect();
-            if (cameraShake != null) // null 체크 추가
+            if (cameraShake != null)
                 cameraShake.StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
         }
     }
-
-
 
     private IEnumerator Die(bool fromAdam, bool fromDeba)
     {
         if (isDying) yield break;
         isDying = true;
 
-        ShowBloodEffect();
+        Time.timeScale = 0.2f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
-        if (fromAdam && PlayerExperience.Instance != null)
-        {
-            PlayerExperience.Instance.GainXP(xpReward);
-        }
-        else if (fromDeba && DevaExperience.Instance != null)
-        {
-            DevaExperience.Instance.GainXP(xpReward);
-        }
+        Debug.Log("▶ 슬로우 모션 시작");
 
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.simulated = false;
-        }
+        yield return new WaitForSecondsRealtime(1.5f);
 
-        if (col != null) col.enabled = false;
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
 
-        yield return new WaitForSeconds(0.6f);
-        Destroy(gameObject);
+        Debug.Log("▶ 슬로우 모션 복구");
+
+
+
+ 
+
+        yield return new WaitForSeconds(1f);
+        Debug.Log("▶ 씬 이동 중...");
+        SceneManager.LoadScene("end"); // 여기에 전환할 씬 이름을 넣으세요
     }
 }

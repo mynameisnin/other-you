@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 5674984596192262652}
   - component: {fileID: 8500230292571003567}
   - component: {fileID: 8932158745408103446}
+  - component: {fileID: 2958073011818504712}
   m_Layer: 11
   m_Name: Skeleton_Archer_Idle_1
   m_TagString: Enemy
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   firePoint: {fileID: 7979811264993032068}
-  arrowPrefab: {fileID: 0}
+  arrowPrefab: {fileID: 1374624128745032545, guid: 46241ea797d250c46b7ab49114dca9f7, type: 3}
   detectRange: 37.9
   straightShotRange: 18.3
   attackCooldown: 2
@@ -358,13 +359,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodEffectPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  parringEffects: {fileID: 0}
-  bloodEffectParticle: {fileID: 0}
+  - {fileID: 4698163755516257917, guid: 3db203f6ad819eb44baad9c4f311343d, type: 3}
+  - {fileID: 2249573650083905365, guid: 79293c1378c58cc42861d748264a7653, type: 3}
+  - {fileID: 4309611419653307369, guid: da90dd40db267074bb2dd68a27c1593d, type: 3}
+  parringEffects: {fileID: 8884749432783807084, guid: 9fcb36115d812cf4f9988c868aeee5ee, type: 3}
+  bloodEffectParticle: {fileID: 8799732428172655049, guid: e74f27fcd794341459051ba4e22e3e0c, type: 3}
   MaxHealth: 50
   currentHealth: 0
   knockbackForce: 1.5
-  pos: {fileID: 2934298022345594821}
   xpReward: 50
+  pos: {fileID: 2934298022345594821}
+--- !u!114 &2958073011818504712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7881397670703099233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04efdc200e9d1a46b4e7425f1199f3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
