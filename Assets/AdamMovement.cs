@@ -43,6 +43,8 @@ public class AdamMovement : MonoBehaviour
 
 
     public BladeExhaustSkill bladeSkill;
+
+    private DownJump currentPlatform;
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -63,7 +65,7 @@ public class AdamMovement : MonoBehaviour
         }
         if (bladeSkill != null)
         {
-            Debug.Log($"[AdamMovement] isSlashing: {bladeSkill.isSlashing}");
+            // Debug.Log($"[AdamMovement] isSlashing: {bladeSkill.isSlashing}");
         }
 
         if (bladeSkill != null && bladeSkill.isSlashing)
@@ -348,6 +350,16 @@ public class AdamMovement : MonoBehaviour
             return;
         }
 
+        if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Space))
+        {
+            if (currentPlatform != null)
+            {
+                Debug.Log("플레이어가 밟은 발판 작동!");
+                isGround = false;
+                currentPlatform.TriggerDownJump();  // 발판에서 실행할 함수 호출
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && isGround && !isJumping)
         {
             Debug.Log("Jumping...");
@@ -356,6 +368,22 @@ public class AdamMovement : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            Debug.Log("발판감지:" + collision.gameObject);
+            currentPlatform = collision.gameObject.GetComponent<DownJump>();
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            currentPlatform = null;
+        }
+    }
 
 
     void HandleFall()
