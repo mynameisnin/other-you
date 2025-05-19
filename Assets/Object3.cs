@@ -6,6 +6,8 @@ public class Object3 : MonoBehaviour
 {
     private bool playerIsClose = false;
 
+    public GameObject oj3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class Object3 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && playerIsClose)
         {
             //여기에 보스 입구 구현 -------------------------------------------------------------------
+            oj3.SetActive(false);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

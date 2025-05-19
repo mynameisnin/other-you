@@ -8,6 +8,7 @@ public class Object2_1 : MonoBehaviour
     private Object2_2 oj2_2;
     public bool opne = false;
     public GameObject otherObject;
+    public GameObject oj2;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class Object2_1 : MonoBehaviour
         if (check1 && oj2_2.check2)
         {
             //여기에 길 열림 구현 ---------------------------------------
-
+            oj2.SetActive(false);
             opne = true;
         }
     }
