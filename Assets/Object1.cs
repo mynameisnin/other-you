@@ -8,9 +8,6 @@ public class Object1 : MonoBehaviour
     private Animator anim;
     public GameObject oj1;
 
-  
-    public GameObject oj1;
-
     // Start is called before the first frame update
     void Start()
     {
