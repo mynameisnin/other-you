@@ -26,4 +26,8 @@ public class DevaAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.FootStep);
     }
+    public void DevaDeathSfx()
+    {
+        SFXManager.Instance?.Play(SFXType.Death);
+    }
 }

@@ -50,4 +50,8 @@ public class AdamAnimationSfxEvents : MonoBehaviour
     {
         SFXManager.Instance?.Play(SFXType.Dash);
     }
+    public void PlayDeathSFX()
+    {
+        SFXManager.Instance?.Play(SFXType.Death);
+    }
 }

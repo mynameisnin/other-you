@@ -34,6 +34,7 @@ public enum SFXType
     AngryGodSpawnSkill,
     AngryGodAngryGodPase2,
     AngryGodAngryGodUltimateSkill,
+    Death
 }
 
 [System.Serializable]
@@ -117,6 +118,12 @@ public class SFXManager : MonoBehaviour
                 return;
             }
 
+            // Death 사운드가 재생될 경우 모든 BGM 정지
+            if (type == SFXType.Death)
+            {
+                StopAllBGMs();
+            }
+
             AudioSource pooledSource = audioPool[currentIndex];
             pooledSource.clip = sourceClip.clip;
             pooledSource.volume = sourceClip.volume;
@@ -130,4 +137,29 @@ public class SFXManager : MonoBehaviour
             Debug.LogWarning($"SFXType {type} not found in SFXManager.");
         }
     }
+
+    // Death SFX 시 모든 BGM 정지용 함수
+    private void StopAllBGMs()
+    {
+        if (Bgmcontrol.Instance == null) return;
+
+        AudioSource[] allBGMs = new AudioSource[]
+        {
+        Bgmcontrol.Instance.bgmAudioSource,
+        Bgmcontrol.Instance.subAudioSource,
+        Bgmcontrol.Instance.TutorialAudioSource,
+        Bgmcontrol.Instance.fightAudioSource,
+        Bgmcontrol.Instance.fireAudioSource,
+        Bgmcontrol.Instance.DungeonAudioSource
+        };
+
+        foreach (AudioSource bgm in allBGMs)
+        {
+            if (bgm != null && bgm.isPlaying)
+            {
+                bgm.Stop(); // 또는 .Pause()로 일시정지도 가능
+            }
+        }
+    }
+
 }
