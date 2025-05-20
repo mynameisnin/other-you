@@ -7,6 +7,9 @@ public class Object1 : MonoBehaviour
     private bool playerIsClose = false;
     private Animator anim;
 
+  
+    public GameObject oj1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,10 @@ public class Object1 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && playerIsClose)
         {
             anim.SetTrigger("Trigger");
-            //여기에 발판 구현 ----------------------------------------------------------------------------
+
+            // 여기에 발판 구현 ----------------------------------------------------------------------------
+            oj1.SetActive(true);
+
             Debug.Log("애니메이션 작동");
         }
     }

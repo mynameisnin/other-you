@@ -8,20 +8,18 @@ public class Object2_1 : MonoBehaviour
     private Object2_2 oj2_2;
     public bool opne = false;
     public GameObject otherObject;
+    public GameObject oj2; // 길을 막는 오브젝트
 
-    // Start is called before the first frame update
     void Start()
     {
         oj2_2 = otherObject.GetComponent<Object2_2>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (check1 && oj2_2.check2)
         {
-            //여기에 길 열림 구현 ---------------------------------------
-
+            oj2.SetActive(false); // 길 열기 - 오브젝트 비활성화
             opne = true;
         }
     }
