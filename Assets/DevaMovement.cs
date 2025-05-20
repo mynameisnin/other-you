@@ -336,6 +336,7 @@ public class DebaraMovement : MonoBehaviour
     {
         if (currentPlatformPosition != null)
         {
+            Debug.Log("추적중" + (currentPlatformPosition.position - lastPlatformPos));
             Vector3 platformDelta = currentPlatformPosition.position - lastPlatformPos;
             transform.position += platformDelta; // 발판이 움직인 만큼 따라감
             lastPlatformPos = currentPlatformPosition.position;
