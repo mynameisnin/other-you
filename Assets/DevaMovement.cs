@@ -39,7 +39,10 @@ public class DebaraMovement : MonoBehaviour
     [SerializeField] private LayerMask jumpAttackBlockLayer; // ������ ���̾�
     private Vector2? pendingTeleportTarget = null;
     public bool isControllable = true;
-    private DownJump currentPlatform;
+
+    private DownJump currentPlatformComponent;
+    private Transform currentPlatformPosition;
+    private Vector3 lastPlatformPos;
     void Start()
     {
         DebaraRigidbody = GetComponent<Rigidbody2D>();
@@ -78,6 +81,7 @@ public class DebaraMovement : MonoBehaviour
         DebaraAnimation();
         HandleFlip();
         HandleFall();
+        FollowPlatform();
         if (Input.GetKeyDown(KeyCode.X) && !isAttacking)
         {
             CastLaserSkill();
@@ -314,11 +318,11 @@ public class DebaraMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentPlatform != null)
+            if (currentPlatformComponent != null)
             {
-                Debug.Log("�÷��̾ ���� ���� �۵�!");
+                Debug.Log("플레이어가 밟은 발판 작동!");
                 isGround = false;
-                currentPlatform.TriggerDownJump();  // ���ǿ��� ������ �Լ� ȣ��
+                currentPlatformComponent.TriggerDownJump();  // 발판에서 실행할 함수 호출
             }
         }
 
@@ -328,13 +332,24 @@ public class DebaraMovement : MonoBehaviour
             DebaraRigidbody.velocity = new Vector2(DebaraRigidbody.velocity.x, JumpPower);
         }
     }
+    void FollowPlatform()
+    {
+        if (currentPlatformPosition != null)
+        {
+            Vector3 platformDelta = currentPlatformPosition.position - lastPlatformPos;
+            transform.position += platformDelta; // 발판이 움직인 만큼 따라감
+            lastPlatformPos = currentPlatformPosition.position;
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            Debug.Log("���ǰ���:" + collision.gameObject);
-            currentPlatform = collision.gameObject.GetComponent<DownJump>();
+            Debug.Log("발판감지:" + collision.gameObject);
+            currentPlatformComponent = collision.gameObject.GetComponent<DownJump>();
+            currentPlatformPosition = collision.transform;
+            lastPlatformPos = currentPlatformPosition.position;
         }
     }
 
@@ -342,10 +357,10 @@ public class DebaraMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            currentPlatform = null;
+            currentPlatformComponent = null;
+            currentPlatformPosition = null;
         }
     }
-
 
     void HandleFall()
     {
