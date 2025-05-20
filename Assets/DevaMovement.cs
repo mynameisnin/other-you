@@ -38,6 +38,7 @@ public class DebaraMovement : MonoBehaviour
     [SerializeField] private float jumpAttackRayLength = 1.5f; // 레이 길이
     [SerializeField] private LayerMask jumpAttackBlockLayer; // 감지할 레이어
     private Vector2? pendingTeleportTarget = null;
+    public bool isControllable = true;
     void Start()
     {
         DebaraRigidbody = GetComponent<Rigidbody2D>();
@@ -49,6 +50,7 @@ public class DebaraMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isControllable) return;
         AnimatorStateInfo currentState = DebaraAnime.GetCurrentAnimatorStateInfo(0);
 
         bool isInAttackAnimation = currentState.IsName("Cast1") || currentState.IsName("Cast2");

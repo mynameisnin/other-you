@@ -1,15 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class JumpAttack : MonoBehaviour
 {
-   
     private Animator AdamAnime;
-    private bool isJumpAttacking = false; // 점프 공격 여부
+    private bool isJumpAttacking = false;
     private Rigidbody2D rd;
+
     [Header("공격 설정")]
-    public float jumpAttackCooldown = 0.5f; // 인스펙터에서 조절 가능
+    public float jumpAttackCooldown = 0.5f;
+
+    [Header("에너지 소모 설정")]
+    public float jumpAttackEnergyCost = 15f;
+    private bool energyConsumed = false;
 
     void Start()
     {
@@ -17,17 +20,16 @@ public class JumpAttack : MonoBehaviour
         rd = GetComponent<Rigidbody2D>();
     }
 
-    private bool wasGrounded = false; // 이전 프레임의 착지 상태 저장
+    private bool wasGrounded = false;
 
     void Update()
     {
         bool isGrounded = IsGrounded();
 
-        // 착지 시 점프 어택 상태 초기화
         if (!wasGrounded && isGrounded && isJumpAttacking)
         {
             isJumpAttacking = false;
-            AdamAnime.ResetTrigger("JumpAttack"); // 혹시 모르니 트리거도 초기화
+            AdamAnime.ResetTrigger("JumpAttack");
             Debug.Log("착지로 인해 점프 어택 초기화됨");
         }
 
@@ -44,39 +46,62 @@ public class JumpAttack : MonoBehaviour
 
     private void PerformJumpAttack()
     {
-        if (isJumpAttacking) return; // 이미 점프 공격 중이면 실행 안 함
+        if (isJumpAttacking) return;
+
+        float currentEnergy = PlayerStats.Instance.currentEnergy;
+
+        if (currentEnergy <= 0)
+        {
+            Debug.Log("점프 공격 불가: ENERGY 부족!");
+            EnergyBarUI.Instance?.FlashBorder();
+            return;
+        }
 
         isJumpAttacking = true;
-        AdamAnime.SetTrigger("JumpAttack"); // 점프 공격 애니메이션 실행
+        energyConsumed = false;
+        AdamAnime.SetTrigger("JumpAttack");
 
-        // 일정 시간 후 공격 가능 상태로 변경
         StartCoroutine(ResetJumpAttack());
+        StartCoroutine(ConsumeEnergyAfterAnimation());
     }
 
     private IEnumerator ResetJumpAttack()
     {
-        yield return new WaitForSeconds(jumpAttackCooldown); // 공격 지속 시간 조절 가능
-        isJumpAttacking = false; // 공격 종료 후 다시 공격 가능
+        yield return new WaitForSeconds(jumpAttackCooldown);
+        isJumpAttacking = false;
+    }
+
+    private IEnumerator ConsumeEnergyAfterAnimation()
+    {
+        yield return new WaitUntil(() =>
+            AdamAnime.GetCurrentAnimatorStateInfo(0).IsName("JumpAttack"));
+
+        if (!energyConsumed)
+        {
+            float currentEnergy = PlayerStats.Instance.currentEnergy;
+            float energyToConsume = Mathf.Min(jumpAttackEnergyCost, currentEnergy);
+
+            EnergyBarUI.Instance?.ReduceEnergy(energyToConsume);
+            energyConsumed = true;
+        }
     }
 
     private bool IsGrounded()
     {
         return Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) < 0.1f;
     }
+
     public void ResetJumpAttackState()
     {
         isJumpAttacking = false;
 
-        // 점프 어택 트리거 초기화
         if (AdamAnime != null && gameObject.activeInHierarchy)
         {
             AdamAnime.ResetTrigger("JumpAttack");
-            AdamAnime.SetBool("IsGrounded", true); // 안전하게 처리
+            AdamAnime.SetBool("IsGrounded", true);
         }
 
-        // 실행 중인 코루틴이 있다면 정지 (여기선 StopAllCoroutines 사용)
         StopAllCoroutines();
-
         Debug.Log("JumpAttack 상태 초기화됨 (캐릭터 전환 등)");
     }
 }

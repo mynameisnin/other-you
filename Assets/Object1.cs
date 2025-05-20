@@ -30,6 +30,8 @@ public class Object1 : MonoBehaviour
             playerIsClose = true;
 
         }
+        if (other.CompareTag("DevaPlayer"))
+        { playerIsClose = true; }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -38,5 +40,11 @@ public class Object1 : MonoBehaviour
         {
             playerIsClose = false;
         }
+        if (other.CompareTag("DevaPlayer"))
+        { playerIsClose = false; }
+            
+           
+        
+
     }
 }

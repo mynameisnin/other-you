@@ -32,6 +32,7 @@ public class DialogueSystem : MonoBehaviour
     public GameObject player;
     public AdamMovement adamMovement;
     public VillageMovement villageMovement;
+    public DebaraMovement debaraMovement; // 데바 캐릭터의 이동 스크립트
 
     // NPC 머리 위에 표시될 아이콘
     public GameObject exclamationIcon;
@@ -67,7 +68,7 @@ public class DialogueSystem : MonoBehaviour
     void Update()
     {
         AutoAssignPlayers();
-        UpdateIconPosition(); // 아이콘 위치 업데이트
+        UpdateIconPosition();
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && playerIsClose)
         {
@@ -84,9 +85,27 @@ public class DialogueSystem : MonoBehaviour
             }
             else
             {
+                //  여기서 줌 타겟을 DevaCamPosition으로 설정
+                if (CameraZoom != null)
+                {
+                    if (player.CompareTag("DevaPlayer"))
+                    {
+                        GameObject camPos = GameObject.FindWithTag("DevaCamPosition");
+                        if (camPos != null)
+                            CameraZoom.target = camPos.transform;
+                    }
+                    else if (player.CompareTag("Player"))
+                    {
+                        GameObject camPos = GameObject.FindWithTag("AdamCamPosition");
+                        if (camPos != null)
+                            CameraZoom.target = camPos.transform;
+                    }
+
+                    CameraZoom.ZoomIn();
+                }
+
                 DialogPanel.SetActive(true);
-                CameraZoom.ZoomIn();
-                hasTalked = true; // 대화가 시작되었음을 표시
+                hasTalked = true;
                 UpdateIcon();
                 StartCoroutine(Typing());
                 DisablePlayerMovement();
@@ -106,10 +125,17 @@ public class DialogueSystem : MonoBehaviour
             villageMovement.enabled = false;
         }
 
+        if (debaraMovement != null)
+        {
+            debaraMovement.isControllable = false;
+            
+            
+        }
+
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = Vector2.zero; // 모든 이동 정지
+            rb.velocity = Vector2.zero;
         }
 
         Animator animator = player.GetComponent<Animator>();
@@ -121,17 +147,23 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-
     void EnablePlayerMovement()
     {
-        if (adamMovement != null) // villageMovement와 상관없이 adamMovement를 활성화해야 함
+        if (adamMovement != null)
         {
             adamMovement.enabled = true;
         }
 
-        if (villageMovement != null) // villageMovement도 존재하면 활성화
+        if (villageMovement != null)
         {
             villageMovement.enabled = true;
+        }
+
+        if (debaraMovement != null)
+        {
+
+
+            debaraMovement.isControllable = true;
         }
     }
 
@@ -292,7 +324,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("DevaPlayer"))
         {
             playerIsClose = true;
             UpdateIcon(); // 아이콘 표시
@@ -301,27 +333,35 @@ public class DialogueSystem : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("DevaPlayer"))
         {
             playerIsClose = false;
             UpdateIcon(); // 아이콘 숨김
         }
     }
+
     private void AutoAssignPlayers()
     {
-        if (player == null)
+        // 아담 우선
+        GameObject foundAdam = GameObject.FindWithTag("Player");
+        if (foundAdam != null)
         {
-            GameObject foundAdam = GameObject.FindWithTag("Player");
+            player = foundAdam;
+            adamMovement = player.GetComponent<AdamMovement>();
+            villageMovement = player.GetComponent<VillageMovement>(); 
+            debaraMovement = null;
+        }
 
-
-            // Adam 우선 할당
-            if (foundAdam != null)
-            {
-                player = foundAdam;
-                adamMovement = player.GetComponent<AdamMovement>();
-                villageMovement = null;
-            }
-
+        GameObject foundDeva = GameObject.FindWithTag("DevaPlayer");
+        if (foundDeva != null)
+        {
+            player = foundDeva;
+            debaraMovement = player.GetComponent<DebaraMovement>();
+            adamMovement = null;
+            villageMovement = null;
         }
     }
+
+
+
 }
