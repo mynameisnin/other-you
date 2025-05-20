@@ -81,6 +81,9 @@ public class DebaraMovement : MonoBehaviour
         {
             CastLaserSkill();
         }
+        DebaraAnime.SetBool("isGrounded", isGround);
+
+        
     }
 
     float currentSpeed = 0f;
