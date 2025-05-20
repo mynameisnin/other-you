@@ -96,7 +96,14 @@ public class Object2Dialogue : MonoBehaviour
 
             alreadyOpen = true;
         }
+
+        //  여기에 추가
+        if (DialogPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            zeroText(); // 대사 강제 종료 및 이동 가능 상태 복원
+        }
     }
+
 
     private void AutoAssignPlayers()
     {
