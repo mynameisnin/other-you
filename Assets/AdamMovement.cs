@@ -44,7 +44,9 @@ public class AdamMovement : MonoBehaviour
 
     public BladeExhaustSkill bladeSkill;
 
-    private DownJump currentPlatform;
+    private DownJump currentPlatformComponent;
+    private Transform currentPlatformPosition;
+    private Vector3 lastPlatformPos;
     void Start()
     {
         AdamRigidebody = GetComponent<Rigidbody2D>();
@@ -110,6 +112,7 @@ public class AdamMovement : MonoBehaviour
         AdamAnimation();
         HandleFlip();
         HandleFall();
+        FollowPlatform();
     }
 
     float currentSpeed = 0f;
@@ -352,11 +355,11 @@ public class AdamMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.DownArrow) && Input.GetKeyDown(KeyCode.Space))
         {
-            if (currentPlatform != null)
+            if (currentPlatformComponent != null)
             {
                 Debug.Log("플레이어가 밟은 발판 작동!");
                 isGround = false;
-                currentPlatform.TriggerDownJump();  // 발판에서 실행할 함수 호출
+                currentPlatformComponent.TriggerDownJump();  // 발판에서 실행할 함수 호출
             }
         }
 
@@ -368,12 +371,24 @@ public class AdamMovement : MonoBehaviour
         }
     }
 
+    void FollowPlatform()
+    {
+        if (currentPlatformPosition != null) 
+        {
+            Vector3 platformDelta = currentPlatformPosition.position - lastPlatformPos;
+            transform.position += platformDelta; // 발판이 움직인 만큼 따라감
+            lastPlatformPos = currentPlatformPosition.position;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
             Debug.Log("발판감지:" + collision.gameObject);
-            currentPlatform = collision.gameObject.GetComponent<DownJump>();
+            currentPlatformComponent = collision.gameObject.GetComponent<DownJump>();
+            currentPlatformPosition = collision.transform;
+            lastPlatformPos = currentPlatformPosition.position;
         }
     }
 
@@ -381,7 +396,8 @@ public class AdamMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            currentPlatform = null;
+            currentPlatformComponent = null;
+            currentPlatformPosition = null;
         }
     }
 
