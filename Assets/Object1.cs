@@ -6,6 +6,7 @@ public class Object1 : MonoBehaviour
 {
     private bool playerIsClose = false;
     private Animator anim;
+    public GameObject oj1;
 
   
     public GameObject oj1;
@@ -23,10 +24,10 @@ public class Object1 : MonoBehaviour
         {
             anim.SetTrigger("Trigger");
 
-            // ¿©±â¿¡ ¹ßÆÇ ±¸Çö ----------------------------------------------------------------------------
+            // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ----------------------------------------------------------------------------
             oj1.SetActive(true);
 
-            Debug.Log("¾Ö´Ï¸ÞÀÌ¼Ç ÀÛµ¿");
+            Debug.Log("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½Ûµï¿½");
         }
     }
     private void OnTriggerEnter2D(Collider2D other)

@@ -8,7 +8,7 @@ public class Object2_1 : MonoBehaviour
     private Object2_2 oj2_2;
     public bool opne = false;
     public GameObject otherObject;
-    public GameObject oj2; // ±æÀ» ¸·´Â ¿ÀºêÁ§Æ®
+    public GameObject oj2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
     void Start()
     {
@@ -19,7 +19,8 @@ public class Object2_1 : MonoBehaviour
     {
         if (check1 && oj2_2.check2)
         {
-            oj2.SetActive(false); // ±æ ¿­±â - ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
+            //ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ---------------------------------------
+            oj2.SetActive(false);
             opne = true;
         }
     }
@@ -29,14 +30,14 @@ public class Object2_1 : MonoBehaviour
         if (other.CompareTag("PlayerAttack"))
         {
             check1 = true;
-            Debug.Log("Å©¸®½ºÅ» 1 Å¸°Ý");
+            Debug.Log("Å©ï¿½ï¿½ï¿½ï¿½Å» 1 Å¸ï¿½ï¿½");
             StartCoroutine(Check1Delay());
         }
     }
 
     private IEnumerator Check1Delay()
     {
-        yield return new WaitForSeconds(0.5f); // 0.5ÃÊ ´ë±â
+        yield return new WaitForSeconds(0.5f); // 0.5ï¿½ï¿½ ï¿½ï¿½ï¿½
         check1 = false;
     }
 }
