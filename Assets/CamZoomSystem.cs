@@ -30,15 +30,22 @@ public class CamZoomSystem : MonoBehaviour
     void FindTarget()
     {
         GameObject playerObj = GameObject.FindGameObjectWithTag("AdamCamPosition");
+
+        if (playerObj == null)
+        {
+            playerObj = GameObject.FindGameObjectWithTag("DevaCamPosition"); // 데바도 찾아봄
+        }
+
         if (playerObj != null)
         {
             target = playerObj.transform;
         }
         else
         {
-            Debug.LogWarning("플레이어를 찾을 수 없음! 씬에서 'Player' 태그가 있는 오브젝트를 확인하세요.");
+            Debug.LogWarning("카메라 타겟을 찾을 수 없음! 'AdamCamPosition' 또는 'DevaCamPosition' 태그가 있는 오브젝트를 확인하세요.");
         }
     }
+
     public void ZoomIn()
     {
         if (isZooming) return;  // 이미 줌 실행 중이면 중복 실행 방지
