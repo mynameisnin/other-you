@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal; // Light2D 사용
 using DG.Tweening; // DOTween 사용
-
+using TMPro;
 public class StatueInteraction : MonoBehaviour
 {
     private Light2D statueLight;
@@ -27,6 +27,13 @@ public class StatueInteraction : MonoBehaviour
     [Header("Light Settings")]
     public float lightInnerMax = 7f; // Inner 최대 값
     public float lightInnerDuration = 1.2f; // Inner 값이 변화하는 시간
+
+    [Header("Respawn Message")]
+    public CanvasGroup respawnMessageGroup;
+    public TMP_Text respawnMessageText;
+    public float messageFadeDuration = 0.5f;
+    public float messageDisplayDuration = 1.5f;
+
 
     void Start()
     {
@@ -103,6 +110,7 @@ public class StatueInteraction : MonoBehaviour
             DevaStats.Instance.SetCurrentEnergy(DevaStats.Instance.maxEnergy);
             DevaStats.Instance.SetCurrentMana(DevaStats.Instance.maxMana);
         }
+        ShowRespawnMessage("리스폰 위치가 현위치로 변경되었습니다");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -155,7 +163,24 @@ public class StatueInteraction : MonoBehaviour
     }
 
     private bool isFirstActivation = true; // 첫 활성화 여부 확인
+    private void ShowRespawnMessage(string message)
+    {
+        if (respawnMessageGroup == null || respawnMessageText == null)
+            return;
 
+        respawnMessageText.text = message;
+        respawnMessageGroup.alpha = 0f;
+        respawnMessageGroup.gameObject.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(respawnMessageGroup.DOFade(1f, messageFadeDuration)) // 페이드 인
+           .AppendInterval(messageDisplayDuration)                      // 일정 시간 유지
+           .Append(respawnMessageGroup.DOFade(0f, messageFadeDuration)) // 페이드 아웃
+           .OnComplete(() =>
+           {
+               respawnMessageGroup.gameObject.SetActive(false); // 다 사라지면 비활성화
+           });
+    }
     private void ShowStatPanel()
     {
         if (statPanel == null) return;
