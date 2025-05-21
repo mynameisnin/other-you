@@ -1076,10 +1076,14 @@ MonoBehaviour:
   - {fileID: 4309611419653307369, guid: da90dd40db267074bb2dd68a27c1593d, type: 3}
   parringEffects: {fileID: 0}
   bloodEffectParticle: {fileID: 8799732428172655049, guid: e74f27fcd794341459051ba4e22e3e0c, type: 3}
-  MaxHealth: 100
+  bossAnimator: {fileID: 0}
+  MaxHealth: 1000
   currentHealth: 0
   xpReward: 2000000
   pos: {fileID: 3829817060612201191}
+  adamCharacter: {fileID: 0}
+  devaCharacter: {fileID: 0}
+  devaSpawnOffsetDistance: 1
 --- !u!114 &753906007530452824
 MonoBehaviour:
   m_ObjectHideFlags: 0
