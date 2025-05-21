@@ -110,27 +110,35 @@ public class EnemyMovement : MonoBehaviour // 적의 이동 및 행동을 제어하는 스크�
 
     void ChasePlayer()
     {
-        if (player == null || isBlocked) return; // 타겟 없음 또는 이동 차단 시 중단
+        if (player == null || isBlocked) return;
 
-        float distance = Vector2.Distance(transform.position, player.position); // 플레이어와 거리 측정
+        float distance = Vector2.Distance(transform.position, player.position);
 
         if (distance <= attackRange)
         {
-            StartCoroutine(Attack()); // 공격 시작
+            StartCoroutine(Attack());
+            return;
         }
-        else
-        {
-            enemyAnimator.SetBool("isWalking", true); // 걷기 애니메이션 실행
-            Vector2 targetPosition = new Vector2(player.position.x, transform.position.y); // 수평 위치만 이동
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime); // 이동
 
-            if ((player.position.x > transform.position.x && !isFacingRight) ||
-                (player.position.x < transform.position.x && isFacingRight))
-            {
-                StartCoroutine(FlipAndTurn()); // 방향 전환 필요 시 실행
-            }
+        
+        if (!GroundAhead())
+        {
+            enemyAnimator.SetBool("isWalking", false);
+            return;
+        }
+
+        enemyAnimator.SetBool("isWalking", true);
+
+        Vector2 targetPosition = new Vector2(player.position.x, transform.position.y);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+        if ((player.position.x > transform.position.x && !isFacingRight) ||
+            (player.position.x < transform.position.x && isFacingRight))
+        {
+            StartCoroutine(FlipAndTurn());
         }
     }
+
 
     IEnumerator Attack()
     {
