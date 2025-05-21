@@ -1,21 +1,32 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void LoadMainMenu()
+    public void RebootGame()
     {
-        //  PlayerManager가 존재하면 삭제
-        if (PlayerManager.Instance != null)
+#if UNITY_STANDALONE
+        string[] executableEndings = new string[] { "exe", "x86", "x86_64", "app" };
+        string executablePath = Application.dataPath + "/../";
+
+        // 빌드된 실행 파일 찾기
+        foreach (string file in System.IO.Directory.GetFiles(executablePath))
         {
-            Destroy(PlayerManager.Instance.gameObject);
-            PlayerManager.Instance = null; // 싱글톤 인스턴스도 초기화
+            foreach (string ending in executableEndings)
+            {
+                if (file.ToLower().EndsWith("." + ending))
+                {
+                    Debug.Log("[Reboot] 재실행 시도: " + file);
+                    System.Diagnostics.Process.Start(file); // 새 인스턴스 실행
+                    Application.Quit(); // 현재 종료
+                    return;
+                }
+            }
         }
 
-        //  메인 메뉴 씬으로 이동
-        SceneManager.LoadScene("startscenes"); //  메인 메뉴 씬 이름에 맞게 수정
+        Debug.LogError("[Reboot] 실행 파일을 찾을 수 없습니다.");
+#else
+        Debug.LogWarning("RebootGame()은 Standalone 빌드에서만 작동합니다.");
+#endif
     }
-
 }

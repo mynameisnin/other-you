@@ -3589,29 +3589,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6680590686695958289, guid: 9b519a139aea3714e97f1b457e935fab, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6680590686695958289, guid: 9b519a139aea3714e97f1b457e935fab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 837679990}
-    - target: {fileID: 6680590686695958289, guid: 9b519a139aea3714e97f1b457e935fab, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResumeGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 8008448501726483045, guid: 9b519a139aea3714e97f1b457e935fab, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8008448501726483045, guid: 9b519a139aea3714e97f1b457e935fab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 837679990}
-    - target: {fileID: 8008448501726483045, guid: 9b519a139aea3714e97f1b457e935fab, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ResumeGame
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42526,10 +42510,6 @@ PrefabInstance:
     - target: {fileID: 3061126558613560929, guid: 55004370e12499f4a8fc4ae8d6437802, type: 3}
       propertyPath: m_Name
       value: 'DeathPanel '
-      objectReference: {fileID: 0}
-    - target: {fileID: 3061126558613560929, guid: 55004370e12499f4a8fc4ae8d6437802, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6910826846567194985, guid: 55004370e12499f4a8fc4ae8d6437802, type: 3}
       propertyPath: m_Pivot.x
