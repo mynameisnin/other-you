@@ -21,7 +21,6 @@ public enum SFXType
     Swich,
     hit,
     hit1,
-    SkeletonIdle,
     SkeletonAttack,
     SkeletonAttack2,
     AngryGodAttack,

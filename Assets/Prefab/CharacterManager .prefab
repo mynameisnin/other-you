@@ -1596,16 +1596,16 @@ MonoBehaviour:
   experience: 0
   experienceToNextLevel: 100
   statPoints: 0
-  attackPower: 8
+  attackPower: 10
   defense: 4
-  maxHealth: 85
+  maxHealth: 500
   currentHealth: 0
-  maxEnergy: 75
+  maxEnergy: 100
   currentEnergy: 0
   levelUpEffectPrefab: {fileID: 947812836641092627, guid: ea72882135454c340a277c8647299a51, type: 3}
   levelUpEffectPosition: {fileID: 6242219098694572649}
   effectDuration: 2
-  maxMana: 110
+  maxMana: 150
   currentMana: 0
 --- !u!114 &5693065845704620867
 MonoBehaviour:
@@ -4508,7 +4508,7 @@ MonoBehaviour:
   - {x: 0.088362895, y: -0.017408647, z: -0.000000039876966}
   m_ShapePathHash: -696285490
   m_Mesh: {fileID: 0}
-  m_InstanceId: 61976
+  m_InstanceId: 294662
   m_LocalBounds:
     m_Center: {x: 0.006473869, y: -0.018493794, z: 0}
     m_Extent: {x: 0.082475185, y: 0.0010851463, z: 0}
@@ -4608,11 +4608,11 @@ MonoBehaviour:
   statPoints: 0
   attackPower: 10
   defense: 5
-  maxHealth: 100
+  maxHealth: 500
   currentHealth: 0
-  maxEnergy: 120
+  maxEnergy: 200
   currentEnergy: 0
-  maxMana: 80
+  maxMana: 150
   currentMana: 0
   levelUpEffectPrefab: {fileID: 947812836641092627, guid: ea72882135454c340a277c8647299a51, type: 3}
   levelUpEffectPosition: {fileID: 1143723768478303351}

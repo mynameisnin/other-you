@@ -30,7 +30,7 @@ public class SpawnManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // 특정 씬 이름일 때만 자기 자신 제거
-        if (scene.name == "startscenes")
+        if (scene.name == "startscenes"|| scene.name == "FinalChapter")
         {
             Destroy(gameObject);
         }
