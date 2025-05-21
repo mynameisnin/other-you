@@ -8,7 +8,9 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance;
 
     [SerializeField]
-    private List<string> scenesToDestroyIn = new List<string> { "Chapter2 TimeLine" };
+    private List<string> scenesToDestroyIn = new List<string> { "Chapter2 TimeLine", "end" };
+
+    private bool markedForDestruction = false;
 
     private void Awake()
     {
@@ -16,22 +18,40 @@ public class PlayerManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            // 씬이 로드될 때마다 체크
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
-            Destroy(gameObject); // 중복 생성 방지
+            Destroy(gameObject);
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // 이미 파괴 예약이 된 경우 아무것도 하지 않음
+        if (markedForDestruction) return;
+
         if (scenesToDestroyIn.Contains(scene.name))
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded; // 이벤트 제거
-            Destroy(gameObject); // 해당 씬에서 삭제
+            markedForDestruction = true;
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            StartCoroutine(DestroyNextFrameSafely());
         }
+    }
+
+    private IEnumerator DestroyNextFrameSafely()
+    {
+        yield return null; // 한 프레임 대기 (SceneManager 이벤트 완전히 끝난 후)
+        if (Instance == this)
+        {
+            Instance = null;
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // 혹시라도 씬 전환 중에 강제로 파괴될 경우 이벤트 해제
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
