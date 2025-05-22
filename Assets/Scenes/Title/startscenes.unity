@@ -5859,7 +5859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: End
+  m_text: Boss
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ae8cd89b6a545d49af8e9132fdf5f10, type: 2}
   m_sharedMaterial: {fileID: -972417340869637455, guid: 0ae8cd89b6a545d49af8e9132fdf5f10, type: 2}
@@ -15509,7 +15509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00024414062, y: -999.0001}
+  m_AnchoredPosition: {x: 0.00024414062, y: -1090}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1456406405
@@ -15767,7 +15767,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: -45, z: 0}
+  endValueV3: {x: 0, y: -136, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -19276,6 +19276,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1781681605}
   m_CullTransparentMesh: 1
+--- !u!1 &1790679892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1790679894}
+  - component: {fileID: 1790679893}
+  m_Layer: 0
+  m_Name: TimeLineStarter3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1790679893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790679892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8857fe81ba44a6d47b70b53b92be6880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeline: {fileID: 2028445068}
+  back: {fileID: 1278405090}
+  loadingPanel: {fileID: 515318439}
+  fakeLoadingTime: 8
+  nextSceneName: BossAdamMeetTimeLine
+--- !u!4 &1790679894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790679892}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.114954144, y: -0.3222848, z: 90.621895}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1800382966 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 1861955334358673814, guid: fc729569ec2d2e441a7970aee5990fda, type: 3}
@@ -21844,10 +21893,9 @@ GameObject:
   - component: {fileID: 2143819932}
   - component: {fileID: 2143819931}
   - component: {fileID: 2143819930}
-  - component: {fileID: 2143819934}
   - component: {fileID: 2143819935}
   m_Layer: 5
-  m_Name: end btn
+  m_Name: Boss btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21871,7 +21919,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00024414051, y: -1090.0001}
+  m_AnchoredPosition: {x: 0.00024414051, y: -999.0001}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143819930
@@ -21963,9 +22011,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2143819934}
-        m_TargetAssemblyTypeName: gameend, Assembly-CSharp
-        m_MethodName: Exit
+      - m_Target: {fileID: 1445234372}
+        m_TargetAssemblyTypeName: BTNSFX, Assembly-CSharp
+        m_MethodName: ClickSound1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21975,9 +22023,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1445234372}
-        m_TargetAssemblyTypeName: BTNSFX, Assembly-CSharp
-        m_MethodName: ClickSound2
+      - m_Target: {fileID: 1790679893}
+        m_TargetAssemblyTypeName: TimelineStarter, Assembly-CSharp
+        m_MethodName: PlayTimeline
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22025,18 +22073,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143819928}
   m_CullTransparentMesh: 1
---- !u!114 &2143819934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143819928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4664cdc47888b74ead0c0df1c6a45df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2143819935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22126,7 +22162,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: -136, z: 0}
+  endValueV3: {x: 0, y: -45, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -22294,6 +22330,7 @@ SceneRoots:
   - {fileID: 66588028}
   - {fileID: 1296786123}
   - {fileID: 1688328666}
+  - {fileID: 1790679894}
   - {fileID: 1131706781}
   - {fileID: 1445234373}
   - {fileID: 1480661740}
