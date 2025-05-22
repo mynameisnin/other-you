@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public enum SFXType
@@ -40,7 +40,7 @@ public enum SFXType
 public class SFXEntry
 {
     public SFXType type;
-    public AudioSource Source; // AudioClipÀÌ ¾Æ´Ñ AudioSource
+    public AudioSource Source; // AudioClipì´ ì•„ë‹Œ AudioSource
 }
 
 public class SFXManager : MonoBehaviour
@@ -50,6 +50,8 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private List<SFXEntry> sfxEntries;
     [SerializeField] private int poolSize = 5;
     [SerializeField] private float volume = 1f;
+
+    [SerializeField] private UnityEngine.Audio.AudioMixerGroup sfxMixerGroup; // âœ… ì˜¤ë””ì˜¤ ë¯¹ì„œ ê·¸ë£¹
 
     private Dictionary<SFXType, AudioSource> sfxDict;
     private AudioSource[] audioPool;
@@ -69,8 +71,9 @@ public class SFXManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 #if UNITY_EDITOR
-    [ContextMenu("ÀÚµ¿À¸·Î SFX Ç×¸ñ Ã¤¿ì±â")]
+    [ContextMenu("ìë™ìœ¼ë¡œ SFX í•­ëª© ì±„ìš°ê¸°")]
     private void AutoFillSFXEntries()
     {
         foreach (SFXType type in System.Enum.GetValues(typeof(SFXType)))
@@ -103,6 +106,10 @@ public class SFXManager : MonoBehaviour
             AudioSource source = sourceObj.AddComponent<AudioSource>();
             source.playOnAwake = false;
             source.volume = volume;
+
+            // âœ… ì˜¤ë””ì˜¤ ë¯¹ì„œ ê·¸ë£¹ ì—°ê²°
+            source.outputAudioMixerGroup = sfxMixerGroup;
+
             audioPool[i] = source;
         }
     }
@@ -117,7 +124,7 @@ public class SFXManager : MonoBehaviour
                 return;
             }
 
-            // Death »ç¿îµå°¡ Àç»ıµÉ °æ¿ì ¸ğµç BGM Á¤Áö
+            // Death ì‚¬ìš´ë“œê°€ ì¬ìƒë  ê²½ìš° ëª¨ë“  BGM ì •ì§€
             if (type == SFXType.Death)
             {
                 StopAllBGMs();
@@ -127,6 +134,7 @@ public class SFXManager : MonoBehaviour
             pooledSource.clip = sourceClip.clip;
             pooledSource.volume = sourceClip.volume;
             pooledSource.pitch = sourceClip.pitch;
+            pooledSource.loop = false; // SFXëŠ” ê¸°ë³¸ì ìœ¼ë¡œ ë°˜ë³µí•˜ì§€ ì•ŠìŒ
             pooledSource.Play();
 
             currentIndex = (currentIndex + 1) % poolSize;
@@ -137,28 +145,28 @@ public class SFXManager : MonoBehaviour
         }
     }
 
-    // Death SFX ½Ã ¸ğµç BGM Á¤Áö¿ë ÇÔ¼ö
+    // Death SFX ì‹œ ëª¨ë“  BGM ì •ì§€ìš© í•¨ìˆ˜
     private void StopAllBGMs()
     {
         if (Bgmcontrol.Instance == null) return;
 
         AudioSource[] allBGMs = new AudioSource[]
         {
-        Bgmcontrol.Instance.bgmAudioSource,
-        Bgmcontrol.Instance.subAudioSource,
-        Bgmcontrol.Instance.TutorialAudioSource,
-        Bgmcontrol.Instance.fightAudioSource,
-        Bgmcontrol.Instance.fireAudioSource,
-        Bgmcontrol.Instance.DungeonAudioSource
+            Bgmcontrol.Instance.bgmAudioSource,
+            Bgmcontrol.Instance.subAudioSource,
+            Bgmcontrol.Instance.TutorialAudioSource,
+            Bgmcontrol.Instance.fightAudioSource,
+            Bgmcontrol.Instance.fireAudioSource,
+            Bgmcontrol.Instance.DungeonAudioSource,
+            Bgmcontrol.Instance.BossAudioSource
         };
 
         foreach (AudioSource bgm in allBGMs)
         {
             if (bgm != null && bgm.isPlaying)
             {
-                bgm.Stop(); // ¶Ç´Â .Pause()·Î ÀÏ½ÃÁ¤Áöµµ °¡´É
+                bgm.Stop(); // ë˜ëŠ” .Pause()ë¡œ ì¼ì‹œì •ì§€ë„ ê°€ëŠ¥
             }
         }
     }
-
 }

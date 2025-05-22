@@ -140,7 +140,7 @@ public class Bgmcontrol : MonoBehaviour
             }
         }
         // º¸½º ÀüÅõ¾À
-        else if (sceneName == "Final Chapter")
+        else if (sceneName == "FinalChapter")
         {
             if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
             if (subAudioSource.isPlaying) subAudioSource.Stop();
@@ -151,8 +151,19 @@ public class Bgmcontrol : MonoBehaviour
 
             if (!BossAudioSource.isPlaying)
             {
+                BossAudioSource.clip = BossBgm;
                 BossAudioSource.Play();
             }
+        }
+        else if (sceneName == "BossAdamMeetTimeLine" || sceneName == "end")
+        {
+            if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
+            if (subAudioSource.isPlaying) subAudioSource.Stop();
+            if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+            if (fightAudioSource.isPlaying) fightAudioSource.Stop();
+            if (fireAudioSource.isPlaying) fireAudioSource.Stop();
+            if (DungeonAudioSource.isPlaying) DungeonAudioSource.Stop();
+            if (BossAudioSource.isPlaying) BossAudioSource.Stop();
         }
     }
     public AudioSource GetCurrentBgm()
