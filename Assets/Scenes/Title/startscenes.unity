@@ -7246,7 +7246,7 @@ Tilemap:
       - {fileID: -807663011, guid: 0ff7ffbf1a370f8489c0e2ad957b711a, type: 3}
       - {fileID: -2004769113, guid: 0ff7ffbf1a370f8489c0e2ad957b711a, type: 3}
       - {fileID: 1952590758, guid: 0ff7ffbf1a370f8489c0e2ad957b711a, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   m_TileAssetArray:
@@ -14574,7 +14574,7 @@ MonoBehaviour:
   back: {fileID: 1278405090}
   loadingPanel: {fileID: 515318439}
   fakeLoadingTime: 2
-  nextSceneName: Storyscenes
+  nextSceneName: map_village
 --- !u!4 &1296786123
 Transform:
   m_ObjectHideFlags: 0
@@ -15505,7 +15505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00024414062, y: -1090}
+  m_AnchoredPosition: {x: 0.00024414062, y: -999.0001}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1456406405
@@ -15763,7 +15763,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: -136, z: 0}
+  endValueV3: {x: 0, y: -45, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -16195,7 +16195,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00024414062, y: -909.0001}
+  m_AnchoredPosition: {x: 0.00024414062, y: -1090}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1516510731
@@ -16438,7 +16438,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: 45, z: 0}
+  endValueV3: {x: 0, y: -136, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 
@@ -21910,7 +21910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00024414051, y: -999.0001}
+  m_AnchoredPosition: {x: 0.00024414051, y: -909.0001}
   m_SizeDelta: {x: 485.76465, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143819930
@@ -22153,7 +22153,7 @@ MonoBehaviour:
   autoPlay: 1
   useTargetAsV3: 0
   endValueFloat: 0
-  endValueV3: {x: 0, y: -45, z: 0}
+  endValueV3: {x: 0, y: 45, z: 0}
   endValueV2: {x: 0, y: 0}
   endValueColor: {r: 1, g: 1, b: 1, a: 1}
   endValueString: 

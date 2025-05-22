@@ -25,61 +25,66 @@ public class ChestDialogueSystem : MonoBehaviour
     public AdamMovement adamMovement;
     public VillageMovement villageMovement;
 
-    // NPC 머리 위에 표시될 아이콘
     public GameObject exclamationIcon;
     public GameObject talkingIcon;
-    public Transform iconPosition; // 아이콘 위치 (NPC 머리 위)
-
-    // 플레이어 머리 위에 표시될 아이콘
+    public Transform iconPosition;
     public GameObject playerIcon;
 
     public Collider2D dialogueCollider;
 
     void Start()
     {
-        Debug.Log("[DialogueSystem] villageMovement 연결 상태: " + (villageMovement != null));
-        UpdateIcon();
-        if (playerIcon != null)
+        // 자동 할당
+        if (player == null)
         {
-            playerIcon.SetActive(false);
+            player = GameObject.FindWithTag("Player");
+            Debug.Log("[DialogueSystem] player 자동 할당됨: " + (player != null));
         }
 
-        // 아이콘이 처음부터 NPC 머리 위에 표시되도록 초기화
-        if (exclamationIcon != null)
+        if (adamMovement == null && player != null)
         {
-            exclamationIcon.SetActive(true);
+            adamMovement = player.GetComponent<AdamMovement>();
+            Debug.Log("[DialogueSystem] adamMovement 자동 할당됨: " + (adamMovement != null));
         }
+
+        if (villageMovement == null && player != null)
+        {
+            villageMovement = player.GetComponent<VillageMovement>();
+            Debug.Log("[DialogueSystem] villageMovement 자동 할당됨: " + (villageMovement != null));
+        }
+
+        UpdateIcon();
+
+        if (playerIcon != null)
+            playerIcon.SetActive(false);
+
+        if (exclamationIcon != null)
+            exclamationIcon.SetActive(true);
 
         if (talkingIcon != null)
-        {
             talkingIcon.SetActive(false);
-        }
 
         RandomTest();
     }
 
     void Update()
     {
-        UpdateIconPosition(); // 아이콘 위치 업데이트
+        UpdateIconPosition();
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && playerIsClose)
         {
             if (DialogPanel.activeInHierarchy)
             {
                 if (isTyping)
-                {
                     CompleteTyping();
-                }
                 else
-                {
                     NextLine();
-                }
             }
             else
             {
                 DialogPanel.SetActive(true);
                 CameraZoom.ZoomIn();
-                hasTalked = true; // 대화가 시작되었음을 표시
+                hasTalked = true;
                 UpdateIcon();
                 RandomDialogue();
                 StartCoroutine(Typing());
@@ -90,86 +95,49 @@ public class ChestDialogueSystem : MonoBehaviour
 
     void DisablePlayerMovement()
     {
-        if (adamMovement != null)
-        {
-            adamMovement.enabled = false;
-        }
+        if (adamMovement != null) adamMovement.enabled = false;
+        if (villageMovement != null) villageMovement.enabled = false;
 
-        if (villageMovement != null)
+        if (player != null)
         {
-            villageMovement.enabled = false;
-        }
+            Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.velocity = Vector2.zero;
 
-        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero; // 모든 이동 정지
-        }
-
-        Animator animator = player.GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.SetBool("run", false);
-            animator.ResetTrigger("Jump");
-            animator.SetBool("Fall", false);
+            Animator animator = player.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetBool("run", false);
+                animator.ResetTrigger("Jump");
+                animator.SetBool("Fall", false);
+            }
         }
     }
 
-
     void EnablePlayerMovement()
     {
-        if (adamMovement != null) // villageMovement와 상관없이 adamMovement를 활성화해야 함
-        {
-            adamMovement.enabled = true;
-        }
-
-        if (villageMovement != null) // villageMovement도 존재하면 활성화
-        {
-            villageMovement.enabled = true;
-        }
+        if (adamMovement != null) adamMovement.enabled = true;
+        if (villageMovement != null) villageMovement.enabled = true;
     }
 
     void UpdateIcon()
     {
-        // 플레이어 머리 위 아이콘 설정
         if (playerIcon != null)
-        {
-            playerIcon.SetActive(playerIsClose && !hasTalked); // 대화를 끝낸 후에는 아이콘 표시 안 함
-        }
+            playerIcon.SetActive(playerIsClose && !hasTalked);
 
-        // NPC 머리 위 아이콘 설정
         if (!hasTalked && !isTyping)
         {
-            if (exclamationIcon != null)
-            {
-                exclamationIcon.SetActive(true);
-            }
-            if (talkingIcon != null)
-            {
-                talkingIcon.SetActive(false);
-            }
+            if (exclamationIcon != null) exclamationIcon.SetActive(true);
+            if (talkingIcon != null) talkingIcon.SetActive(false);
         }
         else if (isTyping)
         {
-            if (exclamationIcon != null)
-            {
-                exclamationIcon.SetActive(false);
-            }
-            if (talkingIcon != null)
-            {
-                talkingIcon.SetActive(true);
-            }
+            if (exclamationIcon != null) exclamationIcon.SetActive(false);
+            if (talkingIcon != null) talkingIcon.SetActive(true);
         }
         else
         {
-            if (exclamationIcon != null)
-            {
-                exclamationIcon.SetActive(false);
-            }
-            if (talkingIcon != null)
-            {
-                talkingIcon.SetActive(false);
-            }
+            if (exclamationIcon != null) exclamationIcon.SetActive(false);
+            if (talkingIcon != null) talkingIcon.SetActive(false);
         }
     }
 
@@ -193,40 +161,29 @@ public class ChestDialogueSystem : MonoBehaviour
         DialogPanel.SetActive(false);
 
         if (CameraZoom != null)
-        {
             CameraZoom.ZoomOut();
-        }
 
         EnablePlayerMovement();
 
-        // 다이얼로그가 끝나면 콜라이더 비활성화 및 아이콘 숨기기
         if (dialogueCollider != null)
-        {
             dialogueCollider.enabled = false;
-        }
 
-        UpdateIcon(); // 다이얼로그 종료 시 아이콘 업데이트
+        UpdateIcon();
     }
 
     private IEnumerator Typing()
     {
         if (index < 0 || index >= dialog.Length)
-        {
             yield break;
-        }
 
         isTyping = true;
         dialogText.text = "";
 
         if (dialog[index].characterImage != null)
-        {
             characterImage.sprite = dialog[index].characterImage;
-        }
 
         if (!string.IsNullOrEmpty(dialog[index].characterName))
-        {
             characterNameText.text = dialog[index].characterName;
-        }
 
         UpdateIcon();
 
@@ -238,9 +195,7 @@ public class ChestDialogueSystem : MonoBehaviour
 
         isTyping = false;
         if (continueButton != null)
-        {
             continueButton.SetActive(true);
-        }
 
         UpdateIcon();
     }
@@ -250,16 +205,12 @@ public class ChestDialogueSystem : MonoBehaviour
         StopAllCoroutines();
 
         if (index >= 0 && index < dialog.Length)
-        {
             dialogText.text = dialog[index].dialogueText;
-        }
 
         isTyping = false;
 
         if (continueButton != null)
-        {
             continueButton.SetActive(true);
-        }
 
         UpdateIcon();
     }
@@ -267,9 +218,8 @@ public class ChestDialogueSystem : MonoBehaviour
     public void NextLine()
     {
         if (continueButton != null)
-        {
             continueButton.SetActive(false);
-        }
+
         zeroText();
     }
 
@@ -278,7 +228,7 @@ public class ChestDialogueSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = true;
-            UpdateIcon(); // 아이콘 표시
+            UpdateIcon();
         }
     }
 
@@ -287,26 +237,23 @@ public class ChestDialogueSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsClose = false;
-            UpdateIcon(); // 아이콘 숨김
+            UpdateIcon();
         }
     }
 
+    /// <summary>
+    /// 확률 분포: 빨간티켓 60%, 파란티켓 30%, 노란티켓 10%
+    /// </summary>
     private void RandomDialogue()
     {
-        int i = Random.Range(0, 9999);
+        float r = Random.Range(0f, 1f);
 
-        if (i < 1000)
-        {
-            index = 0;
-        }
-        else if (i < 4000)
-        {
-            index = 1;
-        }
+        if (r < 0.6f)
+            index = 0; // 빨간티켓
+        else if (r < 0.9f)
+            index = 1; // 파란티켓
         else
-        {
-            index = 2;
-        }
+            index = 2; // 노란티켓
     }
 
     private void RandomTest()
@@ -315,19 +262,10 @@ public class ChestDialogueSystem : MonoBehaviour
         for (int i = 0; i < 100000; i++)
         {
             RandomDialogue();
-            if (index == 0)
-            {
-                num1++;
-            }
-            if (index == 1)
-            {
-                num2++;
-            }
-            if (index == 2)
-            {
-                num3++;
-            }
+            if (index == 0) num1++;
+            if (index == 1) num2++;
+            if (index == 2) num3++;
         }
-        Debug.Log("빨간티켓 :" + num1 + "파란티켓 :" + num2 + "노란티켓 :" + num3);
+        Debug.Log("빨간티켓 :" + num1 + " 파란티켓 :" + num2 + " 노란티켓 :" + num3);
     }
 }

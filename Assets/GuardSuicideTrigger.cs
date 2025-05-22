@@ -6,72 +6,63 @@ using DG.Tweening;
 
 public class GuardSuicideTrigger : MonoBehaviour
 {
-    public PlayableDirector timeline;           // 타임라인
-    public Collider2D triggerCollider;          // 플레이어가 진입할 트리거 콜라이더
-    public Transform fallingObject;             // 위에서 떨어질 오브젝트
-    public float fallDistance = 5f;             // 떨어지는 거리
-    public float fallDuration = 1.5f;           // 떨어지는 시간
+    [Header("타임라인 연관 요소")]
+    public PlayableDirector timeline;            // (옵션) 타임라인
+    public Collider2D triggerCollider;           // 플레이어가 진입할 트리거 콜라이더
+    public Transform fallingObject;              // 위에서 떨어질 오브젝트
+    public float fallDistance = 5f;              // 떨어지는 거리
+    public float fallDuration = 1.5f;            // 떨어지는 시간
 
-    private bool timelineStarted = false;       // 타임라인이 실행되었는지 체크
-    private bool hasTriggered = false;          // 트리거가 한 번만 작동하도록 플래그
+    [Header("몬스터 리스트")]
+    public List<GameObject> fieldMonsters = new List<GameObject>();
+
+    private bool triggerReady = false;           // 트리거를 사용할 수 있는 상태인지
+    private bool hasTriggered = false;           // 트리거 한 번만 실행
 
     void Start()
     {
-        // 트리거 비활성화 (초기 상태)
         if (triggerCollider != null)
-        {
             triggerCollider.enabled = false;
-        }
+
+        // 초기 몬스터 리스트 정리 (죽은 오브젝트 제거)
+        fieldMonsters.RemoveAll(m => m == null);
     }
 
     void Update()
     {
-        // 타임라인 상태 로그 출력
-        if (timeline != null)
-        {
-            Debug.Log($"타임라인 상태: {timeline.state}");
-        }
+        // 몬스터 리스트에서 죽은 몬스터 제거
+        fieldMonsters.RemoveAll(m => m == null);
 
-        // 타임라인이 실행 중인지 확인 후 트리거 활성화
-        if (timeline != null && timeline.state == PlayState.Playing && !timelineStarted)
+        // 몬스터가 모두 죽었고, 아직 트리거를 준비하지 않았다면
+        if (fieldMonsters.Count == 0 && !triggerReady)
         {
-            timelineStarted = true; // 한 번만 실행되도록 체크
+            triggerReady = true;
+            Debug.Log("[GuardSuicideTrigger] 모든 몬스터가 제거됨, 트리거 활성화");
+
             if (triggerCollider != null)
-            {
-                triggerCollider.enabled = true; // 트리거 활성화
-                Debug.Log("트리거 활성화됨.");
-            }
+                triggerCollider.enabled = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 이미 트리거가 실행되었으면 무시
-        if (hasTriggered) return;
+        if (!triggerReady || hasTriggered) return;
 
-        Debug.Log($"트리거 진입: {other.gameObject.name}");
-
-        if (other.CompareTag("Player")) // 플레이어가 트리거에 닿으면 실행
+        if (other.CompareTag("Player"))
         {
-            hasTriggered = true; // 트리거 중복 실행 방지
-
-            Debug.Log("플레이어가 트리거에 진입함! 오브젝트가 바로 아래로 떨어집니다.");
+            hasTriggered = true;
+            Debug.Log("[GuardSuicideTrigger] 플레이어가 트리거에 진입함, 오브젝트 낙하 시작");
 
             if (fallingObject != null)
             {
-                Debug.Log("떨어질 오브젝트 확인됨.");
-
-                // 아래로 떨어질 목표 위치 설정 (현재 위치에서 -fallDistance 만큼 아래)
                 float targetY = fallingObject.position.y - fallDistance;
-
-                // DOTween 애니메이션 적용 (즉시 떨어지게)
                 fallingObject.DOMoveY(targetY, fallDuration)
-                    .SetEase(Ease.InQuad) // 부드럽게 떨어지는 효과
-                    .OnComplete(() => Debug.Log("오브젝트 낙하 완료"));
+                    .SetEase(Ease.InQuad)
+                    .OnComplete(() => Debug.Log("[GuardSuicideTrigger] 오브젝트 낙하 완료"));
             }
             else
             {
-                Debug.LogError("떨어질 오브젝트가 존재하지 않습니다!");
+                Debug.LogError("[GuardSuicideTrigger] 낙하 오브젝트가 없습니다.");
             }
         }
     }
