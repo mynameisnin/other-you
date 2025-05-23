@@ -3273,10 +3273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2875bdb7aea3b1444ba128a3315b6a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: BossAdamMeetTimeLine
+  nextSceneName: BossPractice
   blackPanel: {fileID: 1406270098}
   transitionDuration: 0.3
-  spawnPosition: {x: -3, y: -4}
+  spawnPosition: {x: -10, y: -4}
 --- !u!114 &411435371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3290,7 +3290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcColliders: []
-  targetScene: Chapter2
+  targetScene: BossPractice
   warningPanel: {fileID: 0}
 --- !u!61 &411435372
 BoxCollider2D:
