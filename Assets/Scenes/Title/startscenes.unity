@@ -5859,7 +5859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Boss
+  m_text: Hard Mode
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ae8cd89b6a545d49af8e9132fdf5f10, type: 2}
   m_sharedMaterial: {fileID: -972417340869637455, guid: 0ae8cd89b6a545d49af8e9132fdf5f10, type: 2}
@@ -12010,7 +12010,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start
+  m_text: Story Mode
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ae8cd89b6a545d49af8e9132fdf5f10, type: 2}
   m_sharedMaterial: {fileID: -972417340869637455, guid: 0ae8cd89b6a545d49af8e9132fdf5f10, type: 2}
@@ -19300,7 +19300,7 @@ MonoBehaviour:
   back: {fileID: 1278405090}
   loadingPanel: {fileID: 515318439}
   fakeLoadingTime: 2
-  nextSceneName: BossPractice
+  nextSceneName: BossPracticeHard
 --- !u!4 &1790679894
 Transform:
   m_ObjectHideFlags: 0
