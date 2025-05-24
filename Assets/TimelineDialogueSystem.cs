@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -20,13 +20,13 @@ public class TimelineDialogueSystem : MonoBehaviour
     public TMP_Text characterNameText;
     public TimelineDialogue[] dialogues;
 
-    public PlayableDirector timeline; // Å¸ÀÓ¶óÀÎ ÄÁÆ®·Ñ
+    public PlayableDirector timeline; // íƒ€ì„ë¼ì¸ ì»¨íŠ¸ë¡¤
     private int index = 0;
     private bool isTyping = false;
     public float typingSpeed = 0.05f;
     public bool isDialogueActive = false;
 
-    [Header("»ç¿îµå ¼³Á¤")]
+    [Header("ì‚¬ìš´ë“œ ì„¤ì •")]
     public AudioSource bgmAudioSource;
     public AudioClip specialBgmClip;
 
@@ -41,7 +41,7 @@ public class TimelineDialogueSystem : MonoBehaviour
 
         index = 0;
         dialoguePanel.SetActive(true);
-        timeline.Pause(); // Å¸ÀÓ¶óÀÎ ÀÏ½Ã Á¤Áö
+        timeline.Pause(); // íƒ€ì„ë¼ì¸ ì¼ì‹œ ì •ì§€
         StartCoroutine(Typing());
     }
 
@@ -93,7 +93,7 @@ public class TimelineDialogueSystem : MonoBehaviour
         {
             index++;
 
-            // 3¹øÂ° ´ë»ç¿¡¼­ »ç¿îµå Àç»ı
+            // 3ë²ˆì§¸ ëŒ€ì‚¬ì—ì„œ ì‚¬ìš´ë“œ ì¬ìƒ
             if (index == 2)
             {
                 PlaySoundAtThirdDialogue();
@@ -113,7 +113,7 @@ public class TimelineDialogueSystem : MonoBehaviour
         index = 0;
         isDialogueActive = false;
 
-        // Å¸ÀÓ¶óÀÎ Àç°³
+        // íƒ€ì„ë¼ì¸ ì¬ê°œ
         timeline.time = timeline.time;
         timeline.Play();
     }
@@ -124,7 +124,7 @@ public class TimelineDialogueSystem : MonoBehaviour
         {
             bgmAudioSource.clip = specialBgmClip;
             bgmAudioSource.Play();
-            Debug.Log("3¹øÂ° ´ë»ç¿¡¼­ À½¾Ç Àç»ıµÊ");
+            Debug.Log("3ë²ˆì§¸ ëŒ€ì‚¬ì—ì„œ ìŒì•… ì¬ìƒë¨");
         }
     }
 }
