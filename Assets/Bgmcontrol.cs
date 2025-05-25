@@ -125,7 +125,7 @@ public class Bgmcontrol : MonoBehaviour
             }
         }
         // 던전 씬
-        else if (sceneName == "Chapter2" || sceneName == "Chapter2-1" || sceneName == "Chapter 2 Time Line") 
+        else if (sceneName == "Chapter2" || sceneName == "Chapter2-1" || sceneName == "Chapter 2 Time Line")
         {
             if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
             if (subAudioSource.isPlaying) subAudioSource.Stop();
@@ -140,7 +140,7 @@ public class Bgmcontrol : MonoBehaviour
             }
         }
         // 보스 전투씬
-        else if (sceneName == "FinalChapter")
+        else if (sceneName == "FinalChapter" || sceneName =="FinalChapterHard")
         {
             if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
             if (subAudioSource.isPlaying) subAudioSource.Stop();
@@ -154,16 +154,17 @@ public class Bgmcontrol : MonoBehaviour
                 BossAudioSource.clip = BossBgm;
                 BossAudioSource.Play();
             }
-        }
-        else if (sceneName == "BossAdamMeetTimeLine" || sceneName == "end")
-        {
-            if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
-            if (subAudioSource.isPlaying) subAudioSource.Stop();
-            if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
-            if (fightAudioSource.isPlaying) fightAudioSource.Stop();
-            if (fireAudioSource.isPlaying) fireAudioSource.Stop();
-            if (DungeonAudioSource.isPlaying) DungeonAudioSource.Stop();
-            if (BossAudioSource.isPlaying) BossAudioSource.Stop();
+            //보스연습방 브금 삭제
+            else if (sceneName == "BossAdamMeetTimeLine" || sceneName == "end" || sceneName == "BossPractice" || sceneName == "BossPracticeHard")
+            {
+                if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
+                if (subAudioSource.isPlaying) subAudioSource.Stop();
+                if (TutorialAudioSource.isPlaying) TutorialAudioSource.Stop();
+                if (fightAudioSource.isPlaying) fightAudioSource.Stop();
+                if (fireAudioSource.isPlaying) fireAudioSource.Stop();
+                if (DungeonAudioSource.isPlaying) DungeonAudioSource.Stop();
+                if (BossAudioSource.isPlaying) BossAudioSource.Stop();
+            }
         }
     }
     public AudioSource GetCurrentBgm()
