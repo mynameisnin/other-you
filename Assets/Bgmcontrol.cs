@@ -155,7 +155,7 @@ public class Bgmcontrol : MonoBehaviour
                 BossAudioSource.Play();
             }
             //보스연습방 브금 삭제
-            else if (sceneName == "BossAdamMeetTimeLine" || sceneName == "end" || sceneName == "BossPractice" || sceneName == "BossPracticeHard")
+            else if (sceneName == "BossAdamMeetTimeLine" || sceneName == "end" || sceneName == "BossPractice" || sceneName == "BossPracticeHard"|| sceneName == "BossAdamMeetTimeLineHard")
             {
                 if (bgmAudioSource.isPlaying) bgmAudioSource.Pause();
                 if (subAudioSource.isPlaying) subAudioSource.Stop();

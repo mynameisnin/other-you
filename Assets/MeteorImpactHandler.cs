@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeteorImpactHandler : MonoBehaviour
 {
     [SerializeField] private GameObject explosionEffectPrefab;
-    [SerializeField] private string[] targetTags = { "Ground" };
+    [SerializeField] private string[] targetTags = { "exGround" };
 
     [SerializeField] private GameObject fireEffectPrefab; // 불 애니메이션 프리팹
 
